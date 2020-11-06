@@ -4,7 +4,7 @@
 // p1_x, p1_y, p2_x, p2_y
 (
 ~oscMsg = [200, 200, 400, 400];
-~sendToProcessing.sendMsg('/test', *~oscMsg);
+~sendToProcessing.sendMsg('/test', *~oscMsg); //Mir dem Sternchen löst man den Array auf.
 )
 
 // mehrere Linien
