@@ -12,8 +12,8 @@ void setup() {
     Es werden ausschließlich neue Linien gezeichnet wenn eine neue Osc Message kommt,
     daher noLoop
   */
-  noLoop(); 
-  oscP5 = new OscP5(this, oscPort);
+  noLoop(); //Das schaltet die draw-loop aus.
+  oscP5 = new OscP5(this, oscPort); 
 }
 
 void draw() { 
@@ -37,13 +37,12 @@ void oscEvent(OscMessage m) {
   // die neu empfangenen Linien hinzufuegen
   for(int i = 0; i < numLines; i++) {    
     lines.add(new Line(
-      m.get(0 + i).intValue(), 
-      m.get(1 + i).intValue(), 
-      m.get(2 + i).intValue(), 
-      m.get(3 + i).intValue()
+      m.get(0 + i).intValue(),   //gets coordinate x of p1
+      m.get(1 + i).intValue(),   //gets coordinate y of p1
+      m.get(2 + i).intValue(),   //gets coordinate x of p2
+      m.get(3 + i).intValue()    //gets coordinate y of p2
     ));
   };
-  
   redraw();
 }
 
