@@ -64,3 +64,7 @@ class Line
     line(p1_x, p1_y, p2_x, p2_y);
   }
 }
+
+// Wenn man 100 Linien hat und eine neue dazu kommt, soll die Älteste verschwinden. 
+// Dazu brauchen wir einen Array mit 100 Linien darin. Wenn eine neue Linie hinzukommt, wird die Älteste gelöscht. Danach werden auf dem Screen alle Linien gelöscht (bzw. der Hintergrund erneuert) und die Linien im Array alle gezeichnet. 
+// Hinweis Vincent: Häufig wird nicht nur eine Linie gesendet. Das heißt man muss damit rechnen auch mal bspw. 4 Linien zu ersetzen. 
