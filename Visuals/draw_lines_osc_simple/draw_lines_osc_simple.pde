@@ -1,6 +1,7 @@
 // die library oscP5 muss installiert sein
 import oscP5.*;
 int oscPort = 12000; // auf diesem Port werden osc messages empfangen
+int number_lines = 5; //number of actual lines
 OscP5 oscP5;
 
 ArrayList<Line> lines;
@@ -12,19 +13,24 @@ void setup() {
     Es werden ausschließlich neue Linien gezeichnet wenn eine neue Osc Message kommt,
     daher noLoop
   */
-  noLoop(); //Das schaltet die draw-loop aus.
+  //noLoop(); //Das schaltet die draw-loop aus. //Das ist jetzt an! 
   oscP5 = new OscP5(this, oscPort); 
 }
 
 void draw() { 
   // die Array Liste mit den Linien durchgehen und alle Linien zeichnen
+  background(209);
   for (int i = 0; i <= lines.size() - 1; i++) { 
     Line line = lines.get(i);
+    //println("lines:", lines);
+    if (lines.size() > number_lines) {
+      lines.remove(0);  
+    };
     line.display();  
   }  
 }
 
-// wenn eine beliebige Osc Message empfangen wird wird diese Funktion gerufen
+// Wenn eine beliebige Osc Message empfangen wird, wird diese Funktion gerufen. 
 void oscEvent(OscMessage m) {
   // herausfinden, wieviele Linien bei dieser osc msg gesendet werden
   // eine Linie brauch vier Daten (zwei Punkte mit je x und y), daher die Laenge durch 4 teilen
@@ -32,7 +38,7 @@ void oscEvent(OscMessage m) {
   println("number of lines: ", numLines);
   
   // alte Linien aus dem Array entfernen
-  lines.clear();
+  //lines.clear(); //Funktioniert komischerweise auch ohne!
   
   // die neu empfangenen Linien hinzufuegen
   for(int i = 0; i < numLines; i++) { 
@@ -44,7 +50,7 @@ void oscEvent(OscMessage m) {
       m.get(3 + j).intValue()    //gets coordinate y of p2
     ));
   };
-  redraw(); //redraw benutzt draw()
+  //redraw(); //funktioniert komischerweise auch ohne!
 }
 
 class Line 
@@ -62,11 +68,7 @@ class Line
   }
  
   void display() {
-    println(p1_x, p1_y, p2_x, p2_y);
+    //println(p1_x, p1_y, p2_x, p2_y);
     line(p1_x, p1_y, p2_x, p2_y);
   }
 }
-
-// Wenn man 100 Linien hat und eine neue dazu kommt, soll die Älteste verschwinden. 
-// Dazu brauchen wir einen Array mit 100 Linien darin. Wenn eine neue Linie hinzukommt, wird die Älteste gelöscht. Danach werden auf dem Screen alle Linien gelöscht (bzw. der Hintergrund erneuert) und die Linien im Array alle gezeichnet. 
-// Hinweis Vincent: Häufig wird nicht nur eine Linie gesendet. Das heißt man muss damit rechnen auch mal bspw. 4 Linien zu ersetzen. 
