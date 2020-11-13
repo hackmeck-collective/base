@@ -31,20 +31,20 @@ void oscEvent(OscMessage m) {
   int numLines = m.typetag().length() / 4; 
   println("number of lines: ", numLines);
   
-  // alte Linien entfernen
+  // alte Linien aus dem Array entfernen
   lines.clear();
   
   // die neu empfangenen Linien hinzufuegen
   for(int i = 0; i < numLines; i++) { 
-    i = i * 4; 
+    int j = i * 4; 
     lines.add(new Line(
-      m.get(0 + i).intValue(),   //gets coordinate x of p1
-      m.get(1 + i).intValue(),   //gets coordinate y of p1
-      m.get(2 + i).intValue(),   //gets coordinate x of p2
-      m.get(3 + i).intValue()    //gets coordinate y of p2
+      m.get(0 + j).intValue(),   //gets coordinate x of p1
+      m.get(1 + j).intValue(),   //gets coordinate y of p1
+      m.get(2 + j).intValue(),   //gets coordinate x of p2
+      m.get(3 + j).intValue()    //gets coordinate y of p2
     ));
   };
-  redraw();
+  redraw(); //redraw benutzt draw()
 }
 
 class Line 
