@@ -13,7 +13,7 @@
 (
 ~oscMsg = [
 	[10, 20, 300, 90],
-	[10, 20, 300, 90]
+	[20, 40, 300, 90]
 ];
 ~sendToProcessing.sendMsg('/test', *~oscMsg.flat.postln); // osc msg darf kein array im array haben, daher .flat
 )

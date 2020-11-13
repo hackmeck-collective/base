@@ -1,7 +1,7 @@
 // die library oscP5 muss installiert sein
 import oscP5.*;
 int oscPort = 12000; // auf diesem Port werden osc messages empfangen
-int number_lines = 5; //number of actual lines
+int number_lines = 4; //number of actual lines
 OscP5 oscP5;
 
 ArrayList<Line> lines;
@@ -9,23 +9,22 @@ ArrayList<Line> lines;
 void setup() {
   size(640,640);
   lines = new ArrayList<Line>();
+  oscP5 = new OscP5(this, oscPort); 
   /*
     Es werden ausschließlich neue Linien gezeichnet wenn eine neue Osc Message kommt,
     daher noLoop
   */
-  //noLoop(); //Das schaltet die draw-loop aus. //Das ist jetzt an! 
-  oscP5 = new OscP5(this, oscPort); 
+  noLoop(); //Das schaltet die draw-loop aus. 
 }
 
 void draw() { 
   // die Array Liste mit den Linien durchgehen und alle Linien zeichnen
-  background(209);
+  background(209); //default grey
+
   for (int i = 0; i <= lines.size() - 1; i++) { 
     Line line = lines.get(i);
     //println("lines:", lines);
-    if (lines.size() > number_lines) {
-      lines.remove(0);  
-    };
+
     line.display();  
   }  
 }
@@ -50,7 +49,11 @@ void oscEvent(OscMessage m) {
       m.get(3 + j).intValue()    //gets coordinate y of p2
     ));
   };
-  //redraw(); //funktioniert komischerweise auch ohne!
+  
+  while (lines.size() > number_lines) {
+      lines.remove(0);  
+  };
+  redraw(); 
 }
 
 class Line 
