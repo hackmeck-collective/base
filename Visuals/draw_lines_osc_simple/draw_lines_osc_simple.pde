@@ -35,7 +35,8 @@ void oscEvent(OscMessage m) {
   lines.clear();
   
   // die neu empfangenen Linien hinzufuegen
-  for(int i = 0; i < numLines; i++) {    
+  for(int i = 0; i < numLines; i++) { 
+    i = i * 4; 
     lines.add(new Line(
       m.get(0 + i).intValue(),   //gets coordinate x of p1
       m.get(1 + i).intValue(),   //gets coordinate y of p1
@@ -61,6 +62,7 @@ class Line
   }
  
   void display() {
+    println(p1_x, p1_y, p2_x, p2_y);
     line(p1_x, p1_y, p2_x, p2_y);
   }
 }
