@@ -3,7 +3,7 @@
 // Eine einzelne Linie
 // p1_x, p1_y, p2_x, p2_y
 (
-~oscMsg = Array.fill(4, {arg i; 640.rand});
+~oscMsg = Array.fill(4, {arg i; 999.rand});
 ~sendToProcessing.sendMsg('/test', *~oscMsg.postln); //Mir dem Sternchen löst man den Array auf.
 )
 
@@ -21,9 +21,9 @@
 //mehrere Linien randomisiert
 (
 ~oscMsg = [
-	Array.fill(4, {arg i; 640.rand}),
-	Array.fill(4, {arg i; 640.rand}),
-	Array.fill(4, {arg i; 640.rand})
+	Array.fill(4, {arg i; 999.rand}),
+	Array.fill(4, {arg i; 999.rand}),
+	Array.fill(4, {arg i; 999.rand})
 ];
 ~sendToProcessing.sendMsg('/test', *~oscMsg.flat.postln); // osc msg darf kein array im array haben, daher .flat
 )

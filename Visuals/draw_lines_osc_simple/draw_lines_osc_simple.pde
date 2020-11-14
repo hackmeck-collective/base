@@ -7,7 +7,7 @@ OscP5 oscP5;
 ArrayList<Line> lines;
 
 void setup() {
-  size(640,640);
+  size(999,999);
   lines = new ArrayList<Line>();
   oscP5 = new OscP5(this, oscPort); 
   /*
