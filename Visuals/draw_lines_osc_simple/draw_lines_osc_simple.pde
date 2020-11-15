@@ -1,25 +1,30 @@
-// die library oscP5 muss installiert sein
+// library oscP5 is required
 import oscP5.*;
-int oscPort = 12000; // auf diesem Port werden osc messages empfangen
-int number_lines = 4; //number of actual lines
+int oscPort = 12000; // port to listen for osc messages
+int linesMax = 20; //number of lines that will be drawn
+float scaleFactor = 1; // scaling of drawing
+int offSetX = 0; // x and y offset of drawing
+int offSetY = 0;
 OscP5 oscP5;
 
 ArrayList<Line> lines;
 
 void setup() {
-  size(640,640);
+  size(1000,1000);
   lines = new ArrayList<Line>();
   oscP5 = new OscP5(this, oscPort); 
   /*
-    Es werden ausschließlich neue Linien gezeichnet wenn eine neue Osc Message kommt,
-    daher noLoop
+    lines only need to be drawn when a new osc message arrives, so we use noLoop
   */
-  noLoop(); //Das schaltet die draw-loop aus. 
+  noLoop(); //draw-loop deactivated
+  stroke(255); // white stroke
 }
 
 void draw() { 
-  // die Array Liste mit den Linien durchgehen und alle Linien zeichnen
-  background(209); //default grey
+  background(0); //black 
+  
+  scale(scaleFactor);
+  translate(offSetX / scaleFactor, offSetY / scaleFactor);
 
   for (int i = 0; i <= lines.size() - 1; i++) { 
     Line line = lines.get(i);
@@ -29,17 +34,40 @@ void draw() {
   }  
 }
 
-// Wenn eine beliebige Osc Message empfangen wird, wird diese Funktion gerufen. 
+// this function is called whenever an osc message arrives
 void oscEvent(OscMessage m) {
-  // herausfinden, wieviele Linien bei dieser osc msg gesendet werden
-  // eine Linie brauch vier Daten (zwei Punkte mit je x und y), daher die Laenge durch 4 teilen
+  // check the addresse and do the according action
+  if(m.checkAddrPattern("/lines")==true) {
+    // call function which will draw the lines
+    oscToLine(m); 
+  } else if(m.checkAddrPattern("/linesMax")==true){
+    // change the number of lines which will be drawn
+    linesMax = m.get(0).intValue();
+    println("new number of lines: ", linesMax);
+  } else if(m.checkAddrPattern("/scale")==true){
+    // change the scaling of the drawing
+    scaleFactor = m.get(0).floatValue();
+    println("new scale factor: ", scaleFactor);
+  } else if(m.checkAddrPattern("/offsetX")==true){
+    // translate drawing by an offset
+    offSetX = m.get(0).intValue();
+    println("new offset X: ", offSetX);
+  } else if(m.checkAddrPattern("/offsetY")==true){
+    offSetY = m.get(0).intValue();
+    println("new offset Y: ", offSetY);
+  } else if(m.checkAddrPattern("/offsetXY")==true){
+    offSetX = m.get(0).intValue();
+    offSetY = m.get(1).intValue();
+  }
+}
+
+void oscToLine(OscMessage m) {
+  // find out how many lines are sent 
+  // one line requires four numbers (two points with x and y), so to calculate how many are sent we divide by four
   int numLines = m.typetag().length() / 4; 
-  println("number of lines: ", numLines);
+  //println("number of lines: ", numLines);  
   
-  // alte Linien aus dem Array entfernen
-  //lines.clear(); //Funktioniert komischerweise auch ohne!
-  
-  // die neu empfangenen Linien hinzufuegen
+  // add new lines to list
   for(int i = 0; i < numLines; i++) { 
     int j = i * 4; 
     lines.add(new Line(
@@ -50,7 +78,8 @@ void oscEvent(OscMessage m) {
     ));
   };
   
-  while (lines.size() > number_lines) {
+  // remove old lines whenever the arrayList gets bigger than linesMax
+  while (lines.size() > linesMax) {
       lines.remove(0);  
   };
   redraw(); 
