@@ -1,17 +1,27 @@
 // startup
 (
-~connectVirmidi.();
-"funcs_modular.scd".loadRelative;
-"gui_modular.scd".loadRelative;
+
+// ~connectVirmidi.();
+// "funcs_modular.scd".loadRelative;
+"funcs_draw_only.scd".loadRelative;
+// "gui_modular.scd".loadRelative;
 ~sendToProcessing = NetAddr("localhost", 12000);
 )
 
-~sendToProcessing.sendMsg('/numLines', 200);
-~sendToProcessing.sendMsg('/scale', (1.5).asFloat);
+
+(
+~lsys = RedLSystem("F-G", ( $F: "FG[FF-GGGFF++++F]F", $G: "GGF" ));
+4.0.do { ~lsys.next };
+~lsysPattern = ~makeStream.(~lsys); // "conversion" to pattern
+)
+
+// play once
+(Pdef(\sp1) <> Pbind(\stream, Pfunc { ~lsysPattern })).play;
+
+
+//////////////////////////////////////////
 
 // simple usage
-
-
 //////////// DIESEN TEIL EVTL AUF ZWEITEN SCLANG AUSLAGERN, DAMIT MIDI ABSPIELEN NICHT HAKT
 //create lsys (string) via gui or via these lines:
 (
@@ -19,16 +29,6 @@
 
 4.0.do { ~lsys.next };
 )
-
-~lsys = RedLSystem("F-G", ( $F: "FG[FF-GGGFF++++F]F", $G: "GGF" ));
-3.0.do { ~lsys.next };
-
-
-//use the lsys string for sound and visualization
-~lsysPattern = ~makeStream.(~lsys); // "conversion" to pattern
-
-// play once
-(Pdef(\sp1) <> Pbind(\stream, Pfunc { ~lsysPattern })).play;
 
 ~info.(~lsysPattern);
 // print INFO
@@ -42,3 +42,7 @@ duration of last playing element: %
 		lsysPat.stream.last.times.last * Pbindef(\ctl).source.at(\baseTempo).source
 	)
 }
+
+~sendToProcessing.sendMsg('/linesMax', 1000);
+~sendToProcessing.sendMsg('/scale', (.5).asFloat);
+~sendToProcessing.sendMsg('/scale', (2).asFloat);

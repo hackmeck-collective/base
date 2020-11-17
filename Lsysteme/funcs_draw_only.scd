@@ -203,12 +203,7 @@ Pdef(\sp1,
 					sp.wait(startTime * evIn[\baseTempo]);
 				};
 				sp.par(
-					Pbind(\type, \midi,
-						\midiout, ~mOut,
-						\cleanupFunc, {~mOut.clear},
-						// \chan, evIn[\chanFunc].(chanOffset, myKey, maxKey), // damit immer erst die tiefen channels bedient werden
-						\chan, myMidiChan,
-						\rhyFactors, Pseq(newRhy),
+					Pbind(\rhyFactors, Pseq(newRhy),
 						\dur, (Pkey(\baseTempo) * Pkey(\rhyFactors)),
 						\scale, Pkey(\scale), // in dieser Form nutzlos
 						\clipVol, Pfunc { |ev| ev.vols.clipAt(myKey) },
@@ -228,11 +223,7 @@ Pdef(\sp1,
 						\degree, Pkey(\noteOffset) +
 						(Pseq(newNote) * Pkey(\stepInterval)) +
 						(myKey * Pkey(\branchInterval)),
-						\amp, Pkey(\amp) * Pkey(\clipVol) * Pfunc { |ev| ev.rhyFactors.lincurve(1,10, 0.5, 1, -2) } * 9, // je laenger die note desto lauter
-						\finish, { |ev|
-							ev.midinote = ev.midinote.wrap(ev.wrapLo, ev.wrapHi); // koennte individuell per key gestaltet werden
-							ev
-						}
+						\amp, 0
 					)
 				);
 			};
@@ -276,5 +267,5 @@ Pdef(\sp1,
 			}.fork(AppClock);*/
 			0
 	})
-	],inf)//  <> PtimeClutch(Pbindef(\ctl))
+	],inf) <> Pbindef(\ctl)//  <> PtimeClutch(Pbindef(\ctl))
 );
