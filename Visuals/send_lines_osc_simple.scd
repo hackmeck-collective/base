@@ -1,6 +1,6 @@
 (
 ~sendToProcessing = NetAddr("localhost", 12000);
-~sizeOfBoard = 640;
+~sizeOfBoard = 1000;
 ~oscPath = "/lines";
 )
 
