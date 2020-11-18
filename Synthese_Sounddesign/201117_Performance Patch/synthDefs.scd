@@ -25,7 +25,7 @@ SynthDef.new(\fm_1,
 		pitch_env_time = 0.0 + (0.5 * macro_2),
 		amp_a = macro_2.lincurve(0,1,1,0.1,-3),
 		amp_r = 2 - (1 * macro_2),
-		noise_amt = macro_2.lincurve(0,1,0,1900,-2),
+		noise_amt = macro_2.lincurve(0,1,0,1000,-2),
 		drift_amt = macro_2.lincurve(0,1,0,0.0075,-2);
 
 		var macro_3 = \macro_3.kr(0, 0.1);
@@ -34,10 +34,6 @@ SynthDef.new(\fm_1,
 		vol = fader.lincurve(0,1,0,2!2,3);
 
 		var carrier_f, pitch_env, vibrato, mod1_f, modulator1, drift, noise, carrier, filter, overdrive, adsr;
-
-		//vib_w.poll;
-		//macro_1.poll;
-		//noise.poll;
 
 		vib_w = vib_w - macro_2.lincurve(0.5,1,0,0.0075);
 
