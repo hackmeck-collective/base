@@ -136,3 +136,5 @@ MIDIdef.cc(('fader-4' ++ dict.name).asSymbol,{
 	dict[\setSynthArgsAndUpdateDictionary].(val.lincurve(0,127,0,1,2), \fader);
 },80).permanent_(true);
 )
+
+"launchcontrol midifeds loaded".postln;

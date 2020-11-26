@@ -12,6 +12,7 @@ s.waitForBoot {
 	};
 	"synthDefs.scd".loadRelative;
 	"functions.scd".loadRelative;
+	"midi_defs_launchcontrol-xl.scd".loadRelative;
 	"ready".postln
 }
 )
