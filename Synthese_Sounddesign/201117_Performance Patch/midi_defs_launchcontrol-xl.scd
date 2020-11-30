@@ -1,140 +1,183 @@
-// ZZZZZZZZZZZZZZZZZZZZZZZZZZZ Row 1
-{
-	var dict = ~createSynthDictionary.(
-		name: \fm_1,
-		chan: 0,
-		synthArgs: (
-			note: 60,
-			macro_1: 0,
-			macro_2: 0,
-			macro_3: 0,
-		)
-	);
-	dict.postln;
-	MIDIdef.cc(('knob-1a' ++ dict.name).asSymbol,{
-		arg val, nr, src;
-		dict[\setSynthArgsAndUpdateDictionary].(val.linexp(1,127,0.001,1), \macro_1);
-	},13).permanent_(true);
+(
+var row_1_bus = ~bd_808_1_controlbus,
+row_2_bus = ~clicks_1_controlbus,
+row_3_bus = ~fm_1_controlbus,
+row_4_bus = ~spreadsynth_1_controlbus,
+row_5_bus = ~fm_1_controlbus,
+row_6_bus = ~fm_1_controlbus,
+row_7_bus = ~fm_1_controlbus,
+row_8_bus = ~fm_1_controlbus,
+knob_a_start = 13,
+knob_b_start = 29,
+knob_c_start = 49,
+fader_start = 77;
 
-	MIDIdef.cc(('knob-1b' ++ dict.name).asSymbol,{
-		arg val, nr, src;
-		dict[\setSynthArgsAndUpdateDictionary].(val.linexp(1,127,0.001,1), \macro_2);
-	},29).permanent_(true);
+MIDIdef.cc('knob-1a',{
+	arg val, nr, src;
+	row_1_bus.setAt(0, val.linexp(1,127,0.001,1));
+},knob_a_start).permanent_(true);
 
-	MIDIdef.cc(('knob-1c' ++ dict.name).asSymbol,{
-		arg val, nr, src;
-		dict[\setSynthArgsAndUpdateDictionary].(val.linexp(1,127,0.001,1), \macro_3);
-	},49).permanent_(true);
+MIDIdef.cc('knob-2a',{
+	arg val, nr, src;
+	row_2_bus.setAt(0, val.linexp(1,127,0.001,1));
+},knob_a_start + 1).permanent_(true);
 
-	MIDIdef.cc(('fader-1' ++ dict.name).asSymbol,{
-		arg val, nr, src;
-		dict[\setSynthArgsAndUpdateDictionary].(val.linexp(1,127,0.001,0.2!2), \fader);
-	},77).permanent_(true);
-}.value;
+MIDIdef.cc('knob-3a',{
+	arg val, nr, src;
+	row_3_bus.setAt(0, val.linexp(1,127,0.001,1));
+},knob_a_start + 2).permanent_(true);
 
-// ZZZZZZZZZZZZZZZZZZZZZZZZZZZ Row 2
+MIDIdef.cc('knob-4a',{
+	arg val, nr, src;
+	row_4_bus.setAt(0, val.linexp(1,127,0.001,1));
+},knob_a_start + 3).permanent_(true);
 
-{
-	var dict = ~createSynthDictionary.(
-		name: \BD_808_1,
-		chan: 1,
-		synthArgs: (
-			note: 60,
-			macro_1: 0,
-			macro_2: 0,
-			macro_3: 0,
-		)
-	);
-	dict.postln;
-	MIDIdef.cc(('knob-2a' ++ dict.name).asSymbol,{
-		arg val, nr, src;
-		dict[\setSynthArgsAndUpdateDictionary].(val.linexp(1,127,0.001,1), \macro_1);
-	},14).permanent_(true);
+MIDIdef.cc('knob-5a',{
+	arg val, nr, src;
+	row_5_bus.setAt(0, val.linexp(1,127,0.001,1));
+},knob_a_start + 4).permanent_(true);
 
-	MIDIdef.cc(('knob-2b' ++ dict.name).asSymbol,{
-		arg val, nr, src;
-		dict[\setSynthArgsAndUpdateDictionary].(val.linexp(1,127,0.001,1), \macro_2);
-	},30).permanent_(true);
+MIDIdef.cc('knob-6a',{
+	arg val, nr, src;
+	row_6_bus.setAt(0, val.linexp(1,127,0.001,1));
+},knob_a_start + 5).permanent_(true);
 
-	MIDIdef.cc(('knob-2c' ++ dict.name).asSymbol,{
-		arg val, nr, src;
-		dict[\setSynthArgsAndUpdateDictionary].(val.linexp(1,127,0.001,1), \macro_3);
-	},50).permanent_(true);
+MIDIdef.cc('knob-7a',{
+	arg val, nr, src;
+	row_7_bus.setAt(0, val.linexp(1,127,0.001,1));
+},knob_a_start + 6).permanent_(true);
 
-	MIDIdef.cc(('fader-2' ++ dict.name).asSymbol,{
-		arg val, nr, src;
-		dict[\setSynthArgsAndUpdateDictionary].(val.linexp(1,127,0.001,0.2!2), \fader);
-	},78).permanent_(true);
-}.value;
+MIDIdef.cc('knob-8a',{
+	arg val, nr, src;
+	row_8_bus.setAt(0, val.linexp(1,127,0.001,1));
+},knob_a_start + 7).permanent_(true);
 
-// ZZZZZZZZZZZZZZZZZZZZZZZZZZZ Row 3
+//b knobs
 
-{
-	var dict = ~createSynthDictionary.(
-		name: \Clicks_1,
-		chan: 2,
-		synthArgs: (
-			note: 60,
-			macro_1: 0,
-			macro_2: 0,
-			macro_3: 0,
-		)
-	);
-	dict.postln;
-	MIDIdef.cc(('knob-3a' ++ dict.name).asSymbol,{
-		arg val, nr, src;
-		dict[\setSynthArgsAndUpdateDictionary].(val.linexp(1,127,0.001,1), \macro_1);
-	},15).permanent_(true);
+MIDIdef.cc('knob-1b',{
+	arg val, nr, src;
+	row_1_bus.setAt(1, val.linexp(1,127,0.001,1));
+},knob_b_start).permanent_(true);
 
-	MIDIdef.cc(('knob-3b' ++ dict.name).asSymbol,{
-		arg val, nr, src;
-		dict[\setSynthArgsAndUpdateDictionary].(val.linexp(1,127,0.001,1), \macro_2);
-	},31).permanent_(true);
+MIDIdef.cc('knob-2b',{
+	arg val, nr, src;
+	row_2_bus.setAt(1, val.linexp(1,127,0.001,1));
+},knob_b_start + 1).permanent_(true);
 
-	MIDIdef.cc(('knob-3c' ++ dict.name).asSymbol,{
-		arg val, nr, src;
-		dict[\setSynthArgsAndUpdateDictionary].(val.linexp(1,127,0.001,1), \macro_3);
-	},51).permanent_(true);
+MIDIdef.cc('knob-3b',{
+	arg val, nr, src;
+	row_3_bus.setAt(1, val.linexp(1,127,0.001,1));
+},knob_b_start + 2).permanent_(true);
 
-	MIDIdef.cc(('fader-3' ++ dict.name).asSymbol,{
-		arg val, nr, src;
-		dict[\setSynthArgsAndUpdateDictionary].(val.linexp(1,127,0.001,0.2!2), \fader);
-	},79).permanent_(true);
-}.value;
+MIDIdef.cc('knob-4b',{
+	arg val, nr, src;
+	row_4_bus.setAt(1, val.linexp(1,127,0.001,1));
+},knob_b_start + 3).permanent_(true);
 
-// ZZZZZZZZZZZZZZZZZZZZZZZZZZZ Row 3
+MIDIdef.cc('knob-5b',{
+	arg val, nr, src;
+	row_5_bus.setAt(1, val.linexp(1,127,0.001,1));
+},knob_b_start + 4).permanent_(true);
 
-{
-	var dict = ~createSynthDictionary.(
-		name: \Spreadsynth_1,
-		chan: 3,
-		synthArgs: (
-			note: 60,
-			macro_1: 0,
-			macro_2: 0,
-			macro_3: 0,
-		)
-	);
-	dict.postln;
-	MIDIdef.cc(('knob-4a' ++ dict.name).asSymbol,{
-		arg val, nr, src;
-		dict[\setSynthArgsAndUpdateDictionary].(val.linlin(0,127,0,1), \macro_1);
-	},16).permanent_(true);
+MIDIdef.cc('knob-6b',{
+	arg val, nr, src;
+	row_6_bus.setAt(1, val.linexp(1,127,0.001,1));
+},knob_b_start + 5).permanent_(true);
 
-	MIDIdef.cc(('knob-4b' ++ dict.name).asSymbol,{
-		arg val, nr, src;
-		dict[\setSynthArgsAndUpdateDictionary].(val.linlin(0,127,0,1), \macro_2);
-	},32).permanent_(true);
+MIDIdef.cc('knob-7b',{
+	arg val, nr, src;
+	row_7_bus.setAt(1, val.linexp(1,127,0.001,1));
+},knob_b_start + 6).permanent_(true);
 
-	MIDIdef.cc(('knob-4c' ++ dict.name).asSymbol,{
-		arg val, nr, src;
-		dict[\setSynthArgsAndUpdateDictionary].(val.linlin(0,127,0,1), \macro_3);
-	},52).permanent_(true);
+MIDIdef.cc('knob-8b',{
+	arg val, nr, src;
+	row_8_bus.setAt(1, val.linexp(1,127,0.001,1));
+},knob_b_start + 7).permanent_(true);
 
-	MIDIdef.cc(('fader-4' ++ dict.name).asSymbol,{
-		arg val, nr, src;
-		dict[\setSynthArgsAndUpdateDictionary].(val.lincurve(0,127,0,1,2), \fader);
-	},80).permanent_(true);
-}.value;
+//c knobs
+
+MIDIdef.cc('knob-1c',{
+	arg val, nr, src;
+	row_1_bus.setAt(2, val.linexp(1,127,0.001,1));
+},knob_c_start).permanent_(true);
+
+MIDIdef.cc('knob-2c',{
+	arg val, nr, src;
+	row_2_bus.setAt(2, val.linexp(1,127,0.001,1));
+},knob_c_start + 1).permanent_(true);
+
+MIDIdef.cc('knob-3c',{
+	arg val, nr, src;
+	row_3_bus.setAt(2, val.linexp(1,127,0.001,1));
+},knob_c_start + 2).permanent_(true);
+
+MIDIdef.cc('knob-4c',{
+	arg val, nr, src;
+	row_4_bus.setAt(2, val.linexp(1,127,0.001,1));
+},knob_c_start + 3).permanent_(true);
+
+MIDIdef.cc('knob-5c',{
+	arg val, nr, src;
+	row_5_bus.setAt(2, val.linexp(1,127,0.001,1));
+},knob_c_start + 4).permanent_(true);
+
+MIDIdef.cc('knob-6c',{
+	arg val, nr, src;
+	row_6_bus.setAt(2, val.linexp(1,127,0.001,1));
+},knob_c_start + 5).permanent_(true);
+
+MIDIdef.cc('knob-7c',{
+	arg val, nr, src;
+	row_7_bus.setAt(2, val.linexp(1,127,0.001,1));
+},knob_c_start + 6).permanent_(true);
+
+MIDIdef.cc('knob-8c',{
+	arg val, nr, src;
+	row_8_bus.setAt(2, val.linexp(1,127,0.001,1));
+},knob_c_start + 7).permanent_(true);
+
+//faders
+
+MIDIdef.cc('fader-1',{
+	arg val, nr, src;
+	row_1_bus.setAt(3, val.linexp(1,127,0.001,1));
+},fader_start).permanent_(true);
+
+MIDIdef.cc('fader-2',{
+	arg val, nr, src;
+	row_2_bus.setAt(3, val.linexp(1,127,0.001,1));
+},fader_start + 1).permanent_(true);
+
+MIDIdef.cc('fader-3',{
+	arg val, nr, src;
+	row_3_bus.setAt(3, val.linexp(1,127,0.001,1));
+},fader_start + 2).permanent_(true);
+
+MIDIdef.cc('fader-4',{
+	arg val, nr, src;
+	row_4_bus.setAt(3, val.linexp(1,127,0.001,1));
+},fader_start + 3).permanent_(true);
+
+MIDIdef.cc('fader-5',{
+	arg val, nr, src;
+	row_5_bus.setAt(3, val.linexp(1,127,0.001,1));
+},fader_start + 4).permanent_(true);
+
+MIDIdef.cc('fader-6',{
+	arg val, nr, src;
+	row_6_bus.setAt(3, val.linexp(1,127,0.001,1));
+},fader_start + 5).permanent_(true);
+
+MIDIdef.cc('fader-7',{
+	arg val, nr, src;
+	row_7_bus.setAt(3, val.linexp(1,127,0.001,1));
+},fader_start + 6).permanent_(true);
+
+MIDIdef.cc('fader-8',{
+	arg val, nr, src;
+	row_8_bus.setAt(3, val.linexp(1,127,0.001,1));
+},fader_start + 7).permanent_(true);
 
 "launchcontrol midifeds loaded".postln;
+
+)
