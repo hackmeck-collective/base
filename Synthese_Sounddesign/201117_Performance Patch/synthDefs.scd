@@ -1,7 +1,3 @@
-//freq statt note
-// BD fehler finden
-// ?? einfügen
-
 (
 SynthDef.new(\fm_1,
 	{
@@ -84,14 +80,19 @@ SynthDef.new(\fm_1,
 
 }).add;
 
-/*SynthDef.new(\BD_808_1,
+SynthDef.new(\BD_808_1,
 	{
-		arg gate = 1;
+		arg gate = 1, freq;
 
 		var note = \note.kr(60,0),
 		noise = 0;
 
-		var macro_controls = In.kr(0, 4);
+		var macro_controls = Lag.kr(
+			In.kr(
+				~bd_808_1_controlbus ?? {~bd_808_1_controlbus = Bus.control(Server.default, 4)},
+				4),
+			0.1);
+
 		var macro_1 = macro_controls[0],
 		mod1_amp_range = 100,
 		mod1_amp = macro_1.lincurve(0,0.5,0,mod1_amp_range,-3),
@@ -101,7 +102,7 @@ SynthDef.new(\fm_1,
 		mod1_ratio_range = Rand(-1,1) * macro_2.lincurve(0,1,0,0.3,0),
 		mod1_ratio = 2 + mod1_ratio_range;
 
-		var macro_3 = macro_controls[2].kr(0, 0.1),
+		var macro_3 = macro_controls[2],
 		amp_r = macro_3.lincurve(0,1,0.2,5,-10),
 		amp_c = macro_3.lincurve(0,1,-1,-10,-10),
 		pitch_env_amount = macro_3.lincurve(0,1,128,8,-20),
@@ -114,7 +115,7 @@ SynthDef.new(\fm_1,
 
 		var carrier_f, pitch_env, mod1_f, modulator1, sine, fm, filter, adsr, mix;
 
-		carrier_f = note.midicps;
+		carrier_f = freq;
 
 		pitch_env =  EnvGen.kr
 		(Env.new([carrier_f * pitch_env_amount, 0], pitch_env_time, pitch_env_curve));
@@ -140,17 +141,15 @@ SynthDef.new(\fm_1,
 
 		Out.ar([0,1], adsr);
 
-}).add;*/
+}).add;
 
 SynthDef.new(\Clicks_1,
 	{
-		arg gate = 1;
-
-		var note = \note.kr(60,0);
+		arg gate = 1,freq;
 
 		var macro_controls = Lag.kr(
 			In.kr(
-				~clicks_1_controlbus = Bus.control(Server.default, 4),
+				~clicks_1_controlbus ?? {~clicks_1_controlbus = Bus.control(Server.default, 4)},
 				4),
 			0.1);
 
@@ -160,7 +159,7 @@ SynthDef.new(\Clicks_1,
 		balance = macro_2.lincurve(0, 1, 0, 1, -3);
 
 		var macro_3 = macro_controls[2],
-		amp_r = macro_3.lincurve(0,1,0.01,0.5,-10) - macro_2.lincurve(0, 1, 0, 0.25) + note.lincurve(84, 24, -0.1, 2, 2),
+		amp_r = macro_3.lincurve(0,1,0.01,0.5,-10) - macro_2.lincurve(0, 1, 0, 0.25) + freq.lincurve(1200, 120, -0.1, 2, 2),
 		amp_c = macro_3.lincurve(0,1,-1,-10,-10),
 		pitch_env_amount = macro_3.lincurve(0,1,2,4,-20),
 		pitch_env_time = macro_3.lincurve(0,1,0.01,0.25,-10),
@@ -172,7 +171,7 @@ SynthDef.new(\Clicks_1,
 
 		var note_f, sine, pitch_env, noise, filter, adsr;
 
-		note_f = note.midicps;
+		note_f = freq;
 
 		pitch_env =  EnvGen.kr
 		(Env.new([note_f * pitch_env_amount, 0], pitch_env_time, pitch_env_curve));
@@ -192,18 +191,17 @@ SynthDef.new(\Clicks_1,
 
 SynthDef.new(\Pulse_1,
 	{
-		arg gate = 1;
+		arg gate = 1, freq;
 
-		var note = \note.kr(60,0),
-		mod1_ratio = 1,
+		var mod1_ratio = 1,
 		amp_d = 0.1,
 		amp_s = 1,
 		amp_c = 2;
 
 		var macro_controls = Lag.kr(
 			In.kr(
-				~pulse_1_controlbus = Bus.control(Server.default, 4),
-				4),
+				~pulse_1_controlbus ?? {~pulse_1_controlbus = Bus.control(Server.default, 4)},
+					4),
 			0.1);
 
 		var macro_1 = macro_controls[0],
@@ -230,7 +228,7 @@ SynthDef.new(\Pulse_1,
 
 		var carrier_f, pitch_env, vibrato, mod1_f, modulator1, carrier, filter, adsr;
 
-		carrier_f = note.midicps;
+		carrier_f = freq;
 
 		pitch_env =  EnvGen.kr
 		(Env.new([carrier_f * pitch_env_amount, 0], pitch_env_time, -2));
@@ -269,13 +267,13 @@ SynthDef.new(\Pulse_1,
 
 SynthDef.new(\Spreadsynth_1,
 	{
-	arg gate = 1, amp_a = 0.001, amp_c = 2,freq;
+	arg gate = 1, amp_a = 0.001, amp_c = 2, freq;
 
 	var note_f, car_ot_num, fm_ot_num, harmnumodd, harmnumeven, harmslope_odd, harmslope_even, harmspread_odd, harmspread_even, harmvolodd, harmvoleven, oscfreq_odd, oscfreq_even, sinoscbase, sinoscodd, sinosceven, fmharmnum, fmharmvol,fmharmsprd, fmod, mix, adsr;
 
 	var macro_controls = Lag.kr(
 		In.kr(
-			~spreadsynth_1_controlbus = Bus.control(Server.default, 4),
+				~spreadsynth_1_controlbus ?? {~spreadsynth_1_controlbus = Bus.control(Server.default, 4)},
 			4),
 		0.1);
 
