@@ -1,19 +1,25 @@
 Pbind(
 	\instrument, \fm_1,
-	\dur, Pseq([1/2, 1/2, 1], inf),
+	\dur, Pseq([2, 2], inf),
 	\note, Pseq([[-1, 3, 7, 12], [0, 3, 7, 14]], inf)
 ).play
 
 Pbind(
 	\instrument, \Spreadsynth_1,
-	\dur, Pseq([1/4, 1/8, 1/8], inf),
+	\dur, Pseq([1/8, 1/8, 1/4], inf),
 	\note, Pseq([7, 12, 5, 0], inf)
 ).play
 
 Pbind(
-	\instrument, \BD_808_1,
+	\instrument, \modes_synth_1,
 	\dur, Pseq([1/4, 1/8, 1/8], inf),
-	\note, Pseq([36], inf)
+	\note, Pseq([0, 3, 7, 12], inf)
+).play
+
+Pbind(
+	\instrument, \BD_808_1,
+	\dur, Pseq([7/8, 1/8], inf),
+	\note, Pseq([-24], inf)
 ).play
 
 Pbind(
@@ -29,8 +35,3 @@ Pbind(
 	\note, Pseq([0, 3, 7, 12], inf)
 ).play
 
-Pbind(
-	\instrument, \Pulse_1,
-	\dur, Pseq([1/4, 1/8, 1/8], inf),
-	\note, Pseq([0, 3, 7, 12], inf)
-).play

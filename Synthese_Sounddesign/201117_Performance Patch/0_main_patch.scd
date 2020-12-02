@@ -12,13 +12,17 @@ s.waitForBoot {
 		MIDIClient.init;
 		MIDIIn.connectAll;
 	};
-	"synthDefs.scd".loadRelative;
+	"fm_1.scd".loadRelative;
+	"BD_808_1.scd".loadRelative;
+	"clicks_1.scd".loadRelative;
+	"spreadsynth_1.scd".loadRelative;
+	"modes_synth_1.scd".loadRelative;
 	"functions.scd".loadRelative;
 	"midi_defs_launchcontrol-xl.scd".loadRelative;
 	"ready".postln
 }
 )
-
+DD
 (
 thisProcess.openUDPPort(9000);
 OSCdef(\on, { arg msg;

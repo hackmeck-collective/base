@@ -36,7 +36,7 @@ SynthDef.new(\fm_1,
 		var macro_3 = macro_controls[2];
 
 		var fader = macro_controls[3],
-		vol = fader.lincurve(0,1,0,2!2,3);
+		vol = fader.lincurve(0,1,0,0.01,-7);
 
 		var carrier_f, pitch_env, vibrato, mod1_f, modulator1, drift, noise, carrier, filter, overdrive, adsr;
 
@@ -93,7 +93,7 @@ SynthDef.new(\BD_808_1,
 				4),
 			0.1);
 
-		var macro_1 = macro_controls[0],
+		var macro_1 = 0,//macro_controls[0],
 		mod1_amp_range = 100,
 		mod1_amp = macro_1.lincurve(0,0.5,0,mod1_amp_range,-3),
 		overdrive = macro_1.lincurve(0.5,1,1,29,1);
@@ -110,8 +110,8 @@ SynthDef.new(\BD_808_1,
 		pitch_env_curve = macro_3.lincurve(0,1,0.2,-150,-40);
 
 		var fader = macro_controls[3],
-		vol = fader.lincurve(0,1,0,2,3),
-		vol_correct = 1;
+		vol = fader.lincurve(0,1,0,0.1,-7),
+		vol_correct = 2 + macro_1.lincurve(0,1,0,-0.5,2) + macro_3.lincurve(0,1,1,0.05,-30);
 
 		var carrier_f, pitch_env, mod1_f, modulator1, sine, fm, filter, adsr, mix;
 
@@ -133,10 +133,10 @@ SynthDef.new(\BD_808_1,
 		mix = Clip.ar(
 			XFade2.ar
 			(filter * macro_1.lincurve(0,0.5,0.5,2,1),
-				(Clip.ar(sine * (7 + overdrive), -0.99, 0.99)) * macro_1.lincurve(0.5,1,0.5,0.125,0.5),
+				(Clip.ar(sine * (5 + overdrive), -0.99, 0.99)) * macro_1.lincurve(0.5,1,0.5,0.125,0.5),
 				macro_1.lincurve(0,1,-1,1,0)), -0.99, 0.99);
 
-		adsr = 7 * vol * mix * EnvGen.kr
+		adsr = 7 * vol * vol_correct * mix * EnvGen.kr
 		(Env.new([1, 0], amp_r, amp_c,), doneAction:2);
 
 		Out.ar([0,1], adsr);
@@ -166,7 +166,7 @@ SynthDef.new(\Clicks_1,
 		pitch_env_curve = macro_3.lincurve(0,1,0.2,-150,-40);
 
 		var fader = macro_controls[3],
-		vol = fader.lincurve(0,1,0,1,2),
+		vol = fader.lincurve(0,1,0,0,-7),
 		vol_correct =  macro_3.lincurve(0,1,0.7,1,2) + macro_2.lincurve(0.5, 1, 1, 0.125, -1);
 
 		var note_f, sine, pitch_env, noise, filter, adsr;
@@ -185,83 +185,7 @@ SynthDef.new(\Clicks_1,
 		adsr = 100 * vol * vol_correct * filter * EnvGen.kr
 		(Env.new([1, 0], amp_r, amp_c,), doneAction:2);
 
-		Out.ar([0,1], Clip.ar(tan(adsr), -0.99, 0.99));
-
-}).add;
-
-SynthDef.new(\Pulse_1,
-	{
-		arg gate = 1, freq;
-
-		var mod1_ratio = 1,
-		amp_d = 0.1,
-		amp_s = 1,
-		amp_c = 2;
-
-		var macro_controls = Lag.kr(
-			In.kr(
-				~pulse_1_controlbus ?? {~pulse_1_controlbus = Bus.control(Server.default, 4)},
-					4),
-			0.1);
-
-		var macro_1 = macro_controls[0],
-		vib_f = 0.2 + macro_1.linlin(0,0.3,0,7) + macro_1.linexp(0.4,1,0.001,7),
-		vib_w = 0.005 + macro_1.lincurve(0,0.3,0.0,0.06,-4) + macro_1.lincurve(0.7,1,0,1,3),
-		mod1_amp = macro_1.linlin(0,0.5,0,100),
-		filter_ratio = 0.5 + (5 * macro_1),
-		filter_f = 200 + (2000 * macro_1),
-		overdrive = macro_1.linexp(0.3,0.8,0.000001,3) + macro_1.linexp(0.6,1,0.000001,50) + macro_1.linexp(0.8,1,0.000001,100),
-		fundamental = 0.5 + (0.5 * macro_1),
-		vol_correct =  2.5 + (0.5 * macro_1);
-
-		var macro_2 = macro_controls[1],
-		pitch_env_amount =  macro_2.linlin(0,1,0,-0.5),
-		pitch_env_time = 0.0 + (0.5 * macro_2),
-		amp_a = macro_2.lincurve(0,1,1,0.1,-3),
-		amp_r = 2 - (1 * macro_2),
-		noise = macro_2.lincurve(0,1,0,2000,-2);
-
-		var macro_3 = macro_controls[2];
-
-		var fader =  macro_controls[3],
-		vol = fader;
-
-		var carrier_f, pitch_env, vibrato, mod1_f, modulator1, carrier, filter, adsr;
-
-		carrier_f = freq;
-
-		pitch_env =  EnvGen.kr
-		(Env.new([carrier_f * pitch_env_amount, 0], pitch_env_time, -2));
-
-		vibrato = SinOsc.ar(vib_f + pitch_env, mul:carrier_f*vib_w);
-
-		mod1_f = (carrier_f + vibrato + pitch_env) * mod1_ratio;
-
-		modulator1 = SinOsc.ar(mod1_f, mul:carrier_f*mod1_amp);
-
-		carrier = SinOsc.ar(carrier_f + vibrato + modulator1 + Dust2.ar(500,mul: noise) + pitch_env
-		);
-
-		filter = Clip.ar
-		(SinOsc.ar(carrier_f + vibrato, mul: fundamental * (0.8 + overdrive / 10))
-			+ BHiPass4.ar
-			(BLowPass.ar
-				(carrier, freq: filter_f + carrier_f * filter_ratio) * (0.8 + overdrive), carrier_f,
-				rq: 1.0),
-			lo: -0.9, hi: 0.9);
-
-		adsr = vol * vol_correct * filter * EnvGen.kr(
-			Env.adsr(
-				attackTime: amp_a,
-				decayTime: amp_d,
-				sustainLevel: amp_s,
-				releaseTime: amp_r,
-				curve: amp_c
-			),
-			gate: gate,
-			doneAction:2);
-
-		Out.ar([0,1],adsr);
+		Out.ar([0,1], Clip.ar(tan(adsr), -0.01, 0.01));
 
 }).add;
 
@@ -292,7 +216,7 @@ SynthDef.new(\Spreadsynth_1,
 		amp_s = macro_3.lincurve(0,0.8,0.8,0,-3);
 
 	var fader =  macro_controls[3],
-		vol = fader;
+		vol = fader.lincurve(0,1,0,0.2,-7);
 
 		note_f = freq + SinOsc.ar(Rand(0.25,3),mul: (1-macro_1) * Rand(0.5,2));
 
