@@ -17,6 +17,7 @@ s.waitForBoot {
 	"clicks_1.scd".loadRelative;
 	"spreadsynth_1.scd".loadRelative;
 	"modes_synth_1.scd".loadRelative;
+	"simple_modes_synth_1.scd".loadRelative;
 	"functions.scd".loadRelative;
 	"midi_defs_launchcontrol-xl.scd".loadRelative;
 	"ready".postln

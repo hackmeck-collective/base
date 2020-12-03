@@ -11,7 +11,7 @@ Pbind(
 ).play
 
 Pbind(
-	\instrument, \modes_synth_1,
+	\instrument, \simple_modes_synth_1,
 	\dur, Pseq([1/4, 1/8, 1/8], inf),
 	\note, Pseq([0, 3, 7, 12], inf)
 ).play
