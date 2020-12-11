@@ -34,7 +34,7 @@ SynthDef.new(\simple_modes_synth_1,
 		amp_s = macro_3.lincurve(0,0.8,0.8,0,-3);
 
 	var fader =  macro_controls[3],
-		vol = fader.lincurve(0,1,0,0.002,-7),
+		vol = fader.lincurve(0,1,0,0.02,-7),
 		vol_correct = 1;
 
 	note_f = freq + SinOsc.ar(Rand(0.25,3),mul: (1-macro_1) * Rand(0.5,2));
@@ -45,7 +45,7 @@ SynthDef.new(\simple_modes_synth_1,
 
 	base = note_f * ot;
 
-	base_sines = SinOsc.ar([base, base * d2_dimension, base * d3_dimension], 0, base_ot_vol);
+		base_sines = SinOsc.ar([base, base * d2_dimension, base * d3_dimension], 0, base_ot_vol * [1/ot, 1/ot, 1/ot]);
 
 	tan_12 = base * (1 + d2_dimension);
 
@@ -53,11 +53,11 @@ SynthDef.new(\simple_modes_synth_1,
 
 	tan_23 = base * (d2_dimension + d3_dimension);
 
-	tan_sines = SinOsc.ar([tan_12, tan_13, tan_23], 0, tan_ot_vol);
+	tan_sines = SinOsc.ar([tan_12, tan_13, tan_23], 0, tan_ot_vol *  [1/ot, 1/ot, 1/ot]);
 
 	oblique = base * (1 + d2_dimension + d3_dimension);
 
-	oblique_sines = SinOsc.ar(oblique, 0, oblique_ot_vol);
+		oblique_sines = SinOsc.ar(oblique, 0, oblique_ot_vol * [1/ot]);
 
 	mix = base_sines + tan_sines + oblique_sines;
 

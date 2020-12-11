@@ -26,6 +26,7 @@ a = Pbind(
 a.stop
 
 Pbind(
+	\instrument, \clicks_1,
 	\dur, Pseq([
 		Pwrand(
 			[Pseq([1/2]), Pseq([1/4], 2)],
