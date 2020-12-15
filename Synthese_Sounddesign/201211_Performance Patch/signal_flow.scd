@@ -1,5 +1,6 @@
 ~source_group ?? {~source_group = Group.new};
-~bus_group ?? {~bus_group = Group.after(~source_group)};
+~sc_group ?? {~sc_group = Group.after(~source_group)};
+~bus_group ?? {~bus_group = Group.after(~sc_group)};
 ~effect_group ?? {~effect_group = Group.after(~bus_group)};
 ~master_group ?? {~master_group = Group.tail};
 ~melody_bus ?? {~melody_bus = Bus.audio(s,2)};
@@ -9,22 +10,39 @@
 ~instruments_bus ?? {~instruments_bus = Bus.audio(s,2)};
 ~effect_bus ?? {~effect_bus = Bus.audio(s,2)};
 ~master ?? {~master = Bus.audio(s,2)};
+~sidechain_bus ?? {~sidechain_bus = Bus.control(Server.default, 1)};
 
 SynthDef(\melody_bus, {
-    var melody_bus_in;
+    var melody_bus_in, sidechain;
+
+	var sidechain_trigger = Lag.kr(
+		In.kr(
+			~sidechain_bus,
+			3),
+		0.1);
 
 	melody_bus_in = In.ar(~melody_bus, 2);
 
-	Out.ar(~instruments_bus, melody_bus_in);
+	sidechain = melody_bus_in * sidechain_trigger[0];
+
+	Out.ar(~instruments_bus, sidechain);
 
 }).add;
 
 SynthDef(\chords_bus, {
-    var chords_bus_in;
+    var chords_bus_in, sidechain;
+
+	var sidechain_trigger = Lag.kr(
+		In.kr(
+			~sidechain_bus,
+			3),
+		0.1);
 
 	chords_bus_in = In.ar(~chords_bus, 2);
 
-	Out.ar(~instruments_bus, chords_bus_in);
+	sidechain = chords_bus_in * 1-sidechain_trigger;
+
+	Out.ar(~instruments_bus, sidechain);
 
 }).add;
 
@@ -47,7 +65,7 @@ SynthDef(\aux_bus, {
 }).add;
 
 SynthDef(\instruments_bus, {
-    var instruments_bus_in, summing;
+    var instruments_bus_in;
 
 	instruments_bus_in = In.ar(~instruments_bus, 2);
 
@@ -56,7 +74,7 @@ SynthDef(\instruments_bus, {
 }).add;
 
 SynthDef(\effect_bus, {
-    var effect_bus_in, summing;
+    var effect_bus_in;
 
 	effect_bus_in = In.ar(~effect_bus, 2);
 
@@ -65,11 +83,17 @@ SynthDef(\effect_bus, {
 }).add;
 
 SynthDef(\Master, {
-    var master_in, summing;
+    var master_in, soft_clip, hard_clip, sig;
 
-	master_in = In.ar(~master, 2);
+	sig = In.ar(~master, 2);
 
-	Out.ar([0,1], master_in);
+	// sig = sig / (1+ sig.abs)
+	//
+	// sig = (1.5 * sig) - (0.5 * sig.cubed);
+
+	sig = tan(sig);
+
+	Out.ar([0,1], sig);
 
 }).add;
 
@@ -82,6 +106,5 @@ w = Synth.new(\melody_bus,target: ~source_group);
 v = Synth.new(\chords_bus,target: ~source_group);
 u = Synth.new(\drums_bus,target: ~source_group);
 t = Synth.new(\aux_bus,target: ~source_group);
-/*s
+/*s = Synth.new(\sc_bus,target: ~sc_group);
 r*/
-

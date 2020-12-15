@@ -1,19 +1,22 @@
 Pbind(
 	\instrument, \fm_1,
 	\dur, Pseq([2, 2], inf),
-	\note, Pseq([[-1, 3, 7, 12], [0, 3, 7, 14]], inf)
+	\note, Pseq([[-1, 3, 7, 12], [0, 3, 7, 14]], inf),
+	\group, ~source_group,
 ).play
 
 Pbind(
 	\instrument, \Spreadsynth_1,
 	\dur, Pseq([1/8, 1/8, 1/4], inf),
-	\note, Pseq([7, 12, 5, 0], inf)
+	\note, Pseq([7, 12, 5, 0], inf),
+	\group, ~source_group,
 ).play
 
 Pbind(
 	\instrument, \simple_modes_synth_1,
 	\dur, Pseq([1/4, 1/8, 1/8], inf),
-	\note, Pseq([0, 3, 7, 12], inf)
+	\note, Pseq([0, 3, 7, 12], inf),
+	\group, ~source_group,
 ).play
 
 a = Pbind(
@@ -39,7 +42,8 @@ Pbind(
 		),
 		1/2
 	],inf).trace,
-	\note, Pseq([0, 3, 7, 12], inf)
+	\note, Pseq([0, 3, 7, 12], inf),
+	\group, ~source_group,
 ).play
 
 

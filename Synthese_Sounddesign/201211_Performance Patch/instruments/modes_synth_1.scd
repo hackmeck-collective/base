@@ -135,7 +135,7 @@ SynthDef.new(\modes_synth_1,
 			gate: gate,
 			doneAction:2);
 
-		Out.ar([0,1],adsr);
+		Out.ar(~melody_bus,adsr);
 
 }).add;
 )

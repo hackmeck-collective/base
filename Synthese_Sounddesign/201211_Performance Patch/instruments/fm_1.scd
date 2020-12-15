@@ -76,7 +76,7 @@ SynthDef.new(\fm_1,
 			gate: gate,
 			doneAction:2);
 
-		Out.ar([0,1],Clip.ar(tan(adsr),-0.99, 0.99));
+		Out.ar(~chords_bus,Clip.ar(tan(adsr),-0.99, 0.99));
 
 }).add;
 )
