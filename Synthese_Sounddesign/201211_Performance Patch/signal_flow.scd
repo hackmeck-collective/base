@@ -12,6 +12,8 @@
 ~master ?? {~master = Bus.audio(s,2)};
 ~sidechain_bus ?? {~sidechain_bus = Bus.control(Server.default, 1)};
 
+
+
 SynthDef(\melody_bus, {
     var melody_bus_in, sidechain;
 
@@ -23,9 +25,9 @@ SynthDef(\melody_bus, {
 
 	melody_bus_in = In.ar(~melody_bus, 2);
 
-	sidechain = melody_bus_in * sidechain_trigger[0];
+	// sidechain = melody_bus_in * (1 - sidechain_trigger);
 
-	Out.ar(~instruments_bus, sidechain);
+	Out.ar(~instruments_bus, melody_bus_in);
 
 }).add;
 
@@ -40,9 +42,9 @@ SynthDef(\chords_bus, {
 
 	chords_bus_in = In.ar(~chords_bus, 2);
 
-	sidechain = chords_bus_in * 1-sidechain_trigger;
+	// sidechain = chords_bus_in * (1-sidechain_trigger);
 
-	Out.ar(~instruments_bus, sidechain);
+	Out.ar(~instruments_bus, chords_bus_in);
 
 }).add;
 
@@ -87,9 +89,7 @@ SynthDef(\Master, {
 
 	sig = In.ar(~master, 2);
 
-	// sig = sig / (1+ sig.abs)
-	//
-	// sig = (1.5 * sig) - (0.5 * sig.cubed);
+	sig = sig / (1 + sig.abs);
 
 	sig = tan(sig);
 

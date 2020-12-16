@@ -19,6 +19,22 @@ Pbind(
 	\group, ~source_group,
 ).play
 
+Pbind(
+	\instrument, \sine_OD_1,
+	\dur, Pseq([1, 1, 2], inf),
+	\note, Pseq([0, 3, 7, 12], inf),
+	\group, ~source_group,
+).play
+
+
+Pbind(
+	\instrument, \wavetable_1,
+	\dur, Pseq([1, 1, 2], inf),
+	\note, Pseq([0, 3, 7, 12], inf),
+	\group, ~source_group,
+).play
+
+
 a = Pbind(
 	\instrument, \BD_808_1,
 	\dur, Pseq([7/8, 1/8], inf),
@@ -41,7 +57,7 @@ Pbind(
 			,[0.75,0.25]
 		),
 		1/2
-	],inf).trace,
+	],inf),
 	\note, Pseq([0, 3, 7, 12], inf),
 	\group, ~source_group,
 ).play

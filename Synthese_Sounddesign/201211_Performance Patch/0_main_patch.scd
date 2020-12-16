@@ -15,7 +15,9 @@ s.waitForBoot {
 	"loading signal flow".postln;
 	"signal_flow.scd".loadRelative;
 	"loading instruments".postln;
+	"instruments/sine_OD_1.scd".loadRelative;
 	"instruments/fm_1.scd".loadRelative;
+	"instruments/wavetable_1.scd".loadRelative;
 	"instruments/BD_808_1.scd".loadRelative;
 	"instruments/clicks_1.scd".loadRelative;
 	"instruments/spreadsynth_1.scd".loadRelative;
