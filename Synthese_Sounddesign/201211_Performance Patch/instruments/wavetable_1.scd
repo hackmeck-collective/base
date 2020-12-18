@@ -1,36 +1,39 @@
-~wavetables_random_sig = 10.collect({
-		arg i;
-
-		var numSegs = i.linexp(0,9,4,40).round;
-
-		Env(
-			//env always begins and ends with zero
-			//inner points are random from -1.0 to 1.0
-			[0]++({1.0.rand}.dup(numSegs-1) * [1,-1]).scramble++[0],
-
-			//greater segment duration variety in higher-index wavetables
-			{exprand(1,i.lincurve(0,9,1,100,-3))}.dup(numSegs),
-
-			//low-index wavetables tend to be sinusoidal
-			//high index wavetables tend to have sharp angles and corners
-			{[\sine,0,exprand(1,20) * [1,-1].choose].wchoose([9-i,3,i].normalizeSum)}.dup(numSegs)
-		).asSignal(1024);
-	});
-
-~wavetables_random_sig.plot;
-
-	//load into 10 buffers in wavetable format
-	~wavetables_random_buf = Buffer.allocConsecutive(10, s, 2048, 1, {
-		arg buf, index;
-		buf.setnMsg(0, ~wavetables_random_sig[index].asWavetable);
-	});
-
-
 (
+var wavetables_buffer_number = 10;
+
+~wavetables_random_sig ?? {~wavetables_random_sig = wavetables_buffer_number.collect({
+	arg i;
+
+	var numSegs = i.linexp(0,wavetables_buffer_number-1,4,40).round;
+
+	Env(
+		//env always begins and ends with zero
+		//inner points are random from -1.0 to 1.0
+		[0]++({1.0.rand}.dup(numSegs-1) * [1,-1]).scramble++[0],
+
+		//greater segment duration variety in higher-index wavetables
+		{exprand(1,i.lincurve(0,wavetables_buffer_number-1,1,100,-3))}.dup(numSegs),
+
+		//low-index wavetables tend to be sinusoidal
+		//high index wavetables tend to have sharp angles and corners
+		{[\sine,0,exprand(1,20) * [1,-1].choose].wchoose([wavetables_buffer_number-1-i,3,i].normalizeSum)}.dup(numSegs)
+	).asSignal(1024);
+})
+};
+
+//~wavetables_random_sig.plot;
+
+//load into 10 buffers in wavetable format
+~wavetables_random_buf = Buffer.allocConsecutive(wavetables_buffer_number, s, 2048, 1, {
+	arg buf, index;
+	buf.setnMsg(0, ~wavetables_random_sig[index].asWavetable);
+});
+
+
 SynthDef.new(\wavetable_1,
 	{
 		arg gate = 1,
-		buffer_number = 10,
+		buffer_number = wavetables_buffer_number,
 		freq;
 
 		var note = \note.kr(60,0);
@@ -42,7 +45,7 @@ SynthDef.new(\wavetable_1,
 			0.1);
 
 		var macro_1 = macro_controls[0],
-		buffer_position = macro_1.lincurve(0,1,1,9,-12),
+		buffer_position = macro_1.lincurve(0,1,0,buffer_number - 2,-12) + ~wavetables_random_buf[0].bufnum,
 		fold_factor = macro_1.lincurve(0,1,1,2,-5);
 
 		var macro_2 = macro_controls[1],
@@ -74,7 +77,7 @@ SynthDef.new(\wavetable_1,
 			sustainLevel: 1,
 			releaseTime: amp_r,
 			peakLevel: 1.0, curve: amp_c),
-			gate: gate, doneAction:2);
+		gate: gate, doneAction:2);
 
 		Out.ar(~melody_bus, adsr);
 

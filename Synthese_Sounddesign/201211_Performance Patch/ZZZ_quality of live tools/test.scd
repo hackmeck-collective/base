@@ -19,7 +19,7 @@ Pbind(
 	\group, ~source_group,
 ).play
 
-Pbind(
+a=Pbind(
 	\instrument, \sine_OD_1,
 	\dur, Pseq([1, 1, 2], inf),
 	\note, Pseq([0, 3, 7, 12], inf),
@@ -27,8 +27,29 @@ Pbind(
 ).play
 
 
-Pbind(
+a=Pbind(
 	\instrument, \wavetable_1,
+	\dur, Pseq([1, 1, 2], inf),
+	\note, Pseq([0, 3, 7, 12], inf),
+	\group, ~source_group,
+).play
+
+a = Pbind(
+	\instrument, \synchronus_grains_1,
+	\dur, Pseq([1, 1, 2], inf),
+	\note, Pseq([0, 3, 7, 12], inf),
+	\group, ~source_group,
+).play
+
+a= Pbind(
+	\instrument, \asynchronus_grains_1,
+	\dur, Pseq([1, 1, 2], inf),
+	\note, Pseq([0, 3, 7, 12], inf),
+	\group, ~source_group,
+).play
+
+a= Pbind(
+	\instrument, \grain_sample_timestretch_1,
 	\dur, Pseq([1, 1, 2], inf),
 	\note, Pseq([0, 3, 7, 12], inf),
 	\group, ~source_group,
@@ -40,7 +61,17 @@ a = Pbind(
 	\dur, Pseq([7/8, 1/8], inf),
 	\note, Pseq([-24], inf),
 	\group, ~source_group,
-).play
+).play;
+
+b = Pbind(
+	\type, \set,
+	\id, ~routingSynths.melodyBus,
+	\dur, Pseq([7/8, 1/8], inf),
+	\args, #[\beatDurNow, \sidechain_trigger_long],
+	\beatDurNow, {TempoClock.default.beatDur},
+	\sidechain_trigger_long, 1
+).play;
+
 
 a.stop
 

@@ -1,8 +1,13 @@
-~source_group ?? {~source_group = Group.new};
-~sc_group ?? {~sc_group = Group.after(~source_group)};
-~bus_group ?? {~bus_group = Group.after(~sc_group)};
-~effect_group ?? {~effect_group = Group.after(~bus_group)};
-~master_group ?? {~master_group = Group.tail};
+~makeGroups = {
+	~source_group = Group.new;
+	~sc_group = Group.after(~source_group);
+	~bus_group = Group.after(~sc_group);
+	~effect_group = Group.after(~bus_group);
+	~master_group = Group.tail;
+};
+ServerTree.removeAll;
+ServerTree.add({ ~makeGroups.value }).run(\all);
+
 ~melody_bus ?? {~melody_bus = Bus.audio(s,2)};
 ~chords_bus ?? {~chords_bus = Bus.audio(s,2)};
 ~drums_bus ?? {~drums_bus = Bus.audio(s,2)};
@@ -11,28 +16,27 @@
 ~effect_bus ?? {~effect_bus = Bus.audio(s,2)};
 ~master ?? {~master = Bus.audio(s,2)};
 ~sidechain_bus ?? {~sidechain_bus = Bus.control(Server.default, 1)};
-
-
+~tempo_bpm = {TempoClock.default.tempo * 60};
 
 SynthDef(\melody_bus, {
-    var melody_bus_in, sidechain;
+	arg beatDurNow = 1;
 
-	var sidechain_trigger = Lag.kr(
-		In.kr(
-			~sidechain_bus,
-			3),
-		0.1);
+	var sidechain_trigger = \sidechain_trigger_long.tr(0);
+
+	var melody_bus_in, sidechain;
+
+	var duck_long = EnvGen.ar(Env([1,-9.dbamp,1],[0.001, 0.999], -2),sidechain_trigger, timeScale: beatDurNow);
 
 	melody_bus_in = In.ar(~melody_bus, 2);
 
-	// sidechain = melody_bus_in * (1 - sidechain_trigger);
+	sidechain = melody_bus_in * duck_long;
 
-	Out.ar(~instruments_bus, melody_bus_in);
+	Out.ar(~instruments_bus, sidechain);
 
 }).add;
 
 SynthDef(\chords_bus, {
-    var chords_bus_in, sidechain;
+	var chords_bus_in, sidechain;
 
 	var sidechain_trigger = Lag.kr(
 		In.kr(
@@ -49,7 +53,7 @@ SynthDef(\chords_bus, {
 }).add;
 
 SynthDef(\drums_bus, {
-    var drums_bus_in;
+	var drums_bus_in;
 
 	drums_bus_in = In.ar(~drums_bus, 2);
 
@@ -58,7 +62,7 @@ SynthDef(\drums_bus, {
 }).add;
 
 SynthDef(\aux_bus, {
-    var aux_bus_in;
+	var aux_bus_in;
 
 	aux_bus_in = In.ar(~aux_bus, 2);
 
@@ -67,7 +71,7 @@ SynthDef(\aux_bus, {
 }).add;
 
 SynthDef(\instruments_bus, {
-    var instruments_bus_in;
+	var instruments_bus_in;
 
 	instruments_bus_in = In.ar(~instruments_bus, 2);
 
@@ -76,7 +80,7 @@ SynthDef(\instruments_bus, {
 }).add;
 
 SynthDef(\effect_bus, {
-    var effect_bus_in;
+	var effect_bus_in;
 
 	effect_bus_in = In.ar(~effect_bus, 2);
 
@@ -85,7 +89,7 @@ SynthDef(\effect_bus, {
 }).add;
 
 SynthDef(\Master, {
-    var master_in, soft_clip, hard_clip, sig;
+	var master_in, soft_clip, hard_clip, sig;
 
 	sig = In.ar(~master, 2);
 
@@ -98,13 +102,17 @@ SynthDef(\Master, {
 }).add;
 
 s.sync;
+~startSynths = {
+	~routingSynths = ();
+	~routingSynths.master = Synth.new(\Master,target: ~master_group);
+	~routingSynths.effectBus = Synth.new(\effect_bus,target: ~effect_group);
+	~routingSynths.instrumentsBus = Synth.new(\instruments_bus,target: ~bus_group);
+	~routingSynths.melodyBus = Synth.new(\melody_bus,target: ~source_group);
+	~routingSynths.chordsBus = Synth.new(\chords_bus,target: ~source_group);
+	~routingSynths.drumsBus = Synth.new(\drums_bus,target: ~source_group);
+	~routingSynths.auxBus = Synth.new(\aux_bus,target: ~source_group);
+};
 
-z = Synth.new(\Master,target: ~master_group);
-y = Synth.new(\effect_bus,target: ~effect_group);
-x = Synth.new(\instruments_bus,target: ~bus_group);
-w = Synth.new(\melody_bus,target: ~source_group);
-v = Synth.new(\chords_bus,target: ~source_group);
-u = Synth.new(\drums_bus,target: ~source_group);
-t = Synth.new(\aux_bus,target: ~source_group);
+ServerTree.add({ ~startSynths.value }).run(\all);
 /*s = Synth.new(\sc_bus,target: ~sc_group);
 r*/
