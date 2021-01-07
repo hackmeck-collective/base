@@ -2,6 +2,17 @@
 ~sendToProcessing = NetAddr("localhost", 12000);
 ~sizeOfBoard = 1000;
 ~oscPath = "/lines";
+~oscMsg2centroid = { arg m; var xValues = [], yValues = []; //calculates the centroid of the Lines
+	m = m.flat;
+	m.removeAllSuchThat({arg item, i; (i+1) % 5 == 0}); //This strips off the Level/Color-Parameter, so that only Points remain.
+	m.do{ arg item, i; //split off x and y values for centroid calculation.
+		if (i%2 == 0, {xValues = xValues.add(item)}, {yValues = yValues.add(item)});
+	};
+	[
+		round(xValues.sum / xValues.size).asInteger, //x value centroid
+		round(yValues.sum / xValues.size).asInteger //y value centroid
+	]
+}
 )
 
 // Eine einzelne Linie
@@ -32,3 +43,5 @@
 ~sendToProcessing.sendMsg(~oscPath, *~oscMsg.flat.postln); // osc msg darf kein array im array haben, daher .flat
 )
 
+
+~oscMsg2centroid.value(~oscMsg); 
