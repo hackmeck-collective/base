@@ -1,7 +1,7 @@
 // library oscP5 is required
 import oscP5.*;
 int oscPort = 12000; // port to listen for osc messages
-int linesMax = 500; //number of lines that will be drawn
+int linesMax = 3; //number of lines that will be drawn
 float scaleFactor = 1; // scaling of drawing
 int offSetX = 0; // x and y offset of drawing
 int offSetY = 0;
@@ -25,7 +25,7 @@ void draw() {
   background(0); //black 
   
   scale(scaleFactor); //zoom
-  translate(offSetX / scaleFactor, offSetY / scaleFactor);
+  //translate(offSetX / scaleFactor, offSetY / scaleFactor); //Warum war das angeschaltet?
 
   for (int i = 0; i <= lines.size() - 1; i++) { 
     Line line = lines.get(i);
