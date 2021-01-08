@@ -31,8 +31,8 @@ SynthDef.new(\BD_808_1,
 		pitch_env_curve = macro_3.lincurve(0,1,0.2,-150,-40);
 
 		var fader = macro_controls[3],
-		vol = fader.lincurve(0,1,0,0.05,0),
-		vol_correct = 2 * macro_1.lincurve(0,0.5,1,0.001,0) + macro_3.lincurve(0,1,1,0.05,-30);
+		vol = fader.lincurve(0,1,0,0.05,3),
+		vol_correct = 2 /** macro_1.lincurve(0,0.5,1,0.001,0) + macro_3.lincurve(0,1,1,0.05,-30)*/;
 
 		var carrier_f, pitch_env, mod1_f, modulator1, sine, fm, filter, adsr, mix;
 
@@ -59,13 +59,15 @@ SynthDef.new(\BD_808_1,
 
 		adsr = 7 * vol * vol_correct * mix * EnvGen.kr
 		(Env.adsr(attackTime: 0.0001,
-			decayTime: 0,
+			decayTime: amp_r,
 			sustainLevel: 1,
 			releaseTime: amp_r,
 			peakLevel: 1.0, curve: amp_c),
 			gate: gate, doneAction:2);
 
 		Out.ar(~drums_bus, adsr);
+
+		"BD_808_01 ready".postln;
 
 }).add;
 )

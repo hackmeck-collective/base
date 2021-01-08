@@ -45,8 +45,8 @@ SynthDef.new(\wavetable_1,
 			0.1);
 
 		var macro_1 = macro_controls[0],
-		buffer_position = macro_1.lincurve(0,1,0,buffer_number - 2,-12) + ~wavetables_random_buf[0].bufnum,
-		fold_factor = macro_1.lincurve(0,1,1,2,-5);
+		buffer_position = macro_1.lincurve(0,1,0,buffer_number - 2,2) + ~wavetables_random_buf[0].bufnum,
+		fold_factor = macro_1.lincurve(0,1,1,2,0);
 
 		var macro_2 = macro_controls[1],
 		detune = macro_2.lincurve(0,1,0,0.2,-7);
@@ -56,8 +56,8 @@ SynthDef.new(\wavetable_1,
 		amp_c = macro_3.lincurve(0,1,-1,-10,-10);
 
 		var fader = macro_controls[3],
-		vol = fader.lincurve(0,1,0,0.05 ,-7),
-		vol_correct = 1;
+		vol = fader.lincurve(0,1,0,0.05 ,3),
+		vol_correct = 1 * macro_1.lincurve(0,1,2,0.75,-5);
 
 		var detuneCtrl, sig, adsr;
 

@@ -25,7 +25,7 @@ SynthDef(\melody_bus, {
 
 	var melody_bus_in, sidechain;
 
-	var duck_long = EnvGen.ar(Env([1,-9.dbamp,1],[0.001, 0.999], -2),sidechain_trigger, timeScale: beatDurNow);
+	var duck_long = EnvGen.ar(Env([1,-12.dbamp,1],[0.01, 0.99], -2),sidechain_trigger, timeScale: beatDurNow);
 
 	melody_bus_in = In.ar(~melody_bus, 2);
 
@@ -36,19 +36,19 @@ SynthDef(\melody_bus, {
 }).add;
 
 SynthDef(\chords_bus, {
+	arg beatDurNow = 1;
+
+	var sidechain_trigger = \sidechain_trigger_long.tr(0);
+
 	var chords_bus_in, sidechain;
 
-	var sidechain_trigger = Lag.kr(
-		In.kr(
-			~sidechain_bus,
-			3),
-		0.1);
+	var duck_long = EnvGen.ar(Env([1,-12.dbamp,1],[0.01, 0.99], -2),sidechain_trigger, timeScale: beatDurNow);
 
 	chords_bus_in = In.ar(~chords_bus, 2);
 
-	// sidechain = chords_bus_in * (1-sidechain_trigger);
+	sidechain = chords_bus_in * duck_long;
 
-	Out.ar(~instruments_bus, chords_bus_in);
+	Out.ar(~instruments_bus, sidechain);
 
 }).add;
 
@@ -114,5 +114,5 @@ s.sync;
 };
 
 ServerTree.add({ ~startSynths.value }).run(\all);
-/*s = Synth.new(\sc_bus,target: ~sc_group);
-r*/
+
+"signal flow ready".postln;

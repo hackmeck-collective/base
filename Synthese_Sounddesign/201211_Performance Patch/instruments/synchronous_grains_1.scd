@@ -1,4 +1,4 @@
-~grain_sample_timestretch_1_buffer ?? {~grain_sample_timestretch_1_buffer = Buffer.readChannel(s, thisProcess.nowExecutingPath.dirname +/+ "/samples/textural/Metall_2_5.wav", channels: [0])};
+~synchronus_grains_1_buffer ?? {~synchronus_grains_1_buffer = Buffer.readChannel(s, thisProcess.nowExecutingPath.dirname +/+ "/samples/textural/Metall_2_5.wav", channels: [0])};
 
 s.sync;
 
@@ -18,17 +18,17 @@ SynthDef.new(\synchronus_grains_1,
 			0.1);
 
 		var macro_1 = macro_controls[0],
-		grain_rate_control = macro_1.lincurve(0,1,0.25,4,-7);
+		grain_rate_control = macro_1.lincurve(0,1,-24,24,0).midiratio;
 
 		var macro_2 = macro_controls[1],
-		detune_range = macro_2.lincurve(0,1,0,12,-7).midiratio;
+		detune_range = macro_2.lincurve(0,1,0,12,0).midiratio;
 
 		var macro_3 = macro_controls[2],
 		amp_r = macro_3.lincurve(0,1,0.2,5,-10),
 		amp_c = macro_3.lincurve(0,1,-1,-10,-10);
 
 		var fader = macro_controls[3],
-		vol = fader.lincurve(0,1,0,0.5 ,-7),
+		vol = fader.lincurve(0,1,0,0.125 ,3),
 		vol_correct = 1;
 
 		var grain_trigger, grain_length, grain_rate, grain_position, granulator, summing, adsr;

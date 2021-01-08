@@ -14,7 +14,7 @@ SynthDef.new(\sine_OD_1,
 			0.1);
 
 		var macro_1 = macro_controls[0],
-		overdrive = macro_1.lincurve(0,1,1,50,-7);
+		overdrive = macro_1.lincurve(0,1,1,50,3);
 
 		var macro_2 = macro_controls[1],
 		detune = macro_2.lincurve(0,1,0,0.2,-7),
@@ -25,8 +25,8 @@ SynthDef.new(\sine_OD_1,
 		amp_c = macro_3.lincurve(0,1,-1,-10,-10);
 
 		var fader = macro_controls[3],
-		vol = fader.lincurve(0,1,0,0.05 ,-7),
-		vol_correct = 1;
+		vol = fader.lincurve(0,1,0,0.025,3),
+		vol_correct = 1 * macro_1.lincurve(0,1,1,0.175,-1);
 
 		var note_freq, detune_array, sine, sum, saturation, clipping, adsr;
 

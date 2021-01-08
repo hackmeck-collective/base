@@ -18,10 +18,9 @@ s.waitForBoot {
 	"signal_flow.scd".loadRelative;
 	"loading instruments".postln;
 	"instruments/sine_OD_1.scd".loadRelative;
-	"instruments/fm_1.scd".loadRelative;
+	"instruments/granular_1.scd".loadRelative;
 	"instruments/synchronous_grains_1.scd".loadRelative;
-	"instruments/asynchronous_grains_1.scd".loadRelative;
-	"instruments/grain_sample_timestretch_1.scd".loadRelative;
+	"instruments/fm_1.scd".loadRelative;
 	"instruments/wavetable_1.scd".loadRelative;
 	"instruments/BD_808_1.scd".loadRelative;
 	"instruments/clicks_1.scd".loadRelative;
@@ -29,7 +28,7 @@ s.waitForBoot {
 	"instruments/modes_synth_1.scd".loadRelative;
 	"instruments/simple_modes_synth_1.scd".loadRelative;
 	"loading utilities".postln;
-	"utilities/cc_monitor.scd".loadRelative;
+/*	"utilities/cc_monitor.scd".loadRelative;*/
 	"utilities/address_book.scd".loadRelative;
 	"utilities/midi_defs_launchcontrol-xl.scd".loadRelative;
 	"utilities/ip_config.scd".loadRelative;

@@ -49,7 +49,7 @@ a= Pbind(
 ).play
 
 a= Pbind(
-	\instrument, \grain_sample_timestretch_1,
+	\instrument, \granular_1,
 	\dur, Pseq([1, 1, 2], inf),
 	\note, Pseq([0, 3, 7, 12], inf),
 	\group, ~source_group,
@@ -66,6 +66,15 @@ a = Pbind(
 b = Pbind(
 	\type, \set,
 	\id, ~routingSynths.melodyBus,
+	\dur, Pseq([7/8, 1/8], inf),
+	\args, #[\beatDurNow, \sidechain_trigger_long],
+	\beatDurNow, {TempoClock.default.beatDur},
+	\sidechain_trigger_long, 1
+).play;
+
+b = Pbind(
+	\type, \set,
+	\id, ~routingSynths.chordsBus,
 	\dur, Pseq([7/8, 1/8], inf),
 	\args, #[\beatDurNow, \sidechain_trigger_long],
 	\beatDurNow, {TempoClock.default.beatDur},

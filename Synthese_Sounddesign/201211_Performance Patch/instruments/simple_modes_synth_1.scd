@@ -34,7 +34,7 @@ SynthDef.new(\simple_modes_synth_1,
 		amp_s = macro_3.lincurve(0,0.8,0.8,0,-3);
 
 		var fader =  macro_controls[3],
-		vol = fader.lincurve(0,1,0,0.02,-7),
+		vol = fader.lincurve(0,1,0,0.015,3),
 		vol_correct = 0.3;
 
 		note_f = freq + SinOsc.ar(Rand(0.25,3),mul: (1-macro_1) * Rand(0.5,2));

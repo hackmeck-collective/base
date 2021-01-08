@@ -36,7 +36,7 @@ SynthDef.new(\fm_1,
 		var macro_3 = macro_controls[2];
 
 		var fader = macro_controls[3],
-		vol = fader.lincurve(0,1,0,0.01,-7);
+		vol = fader.lincurve(0,1,0,0.01,3);
 
 		var carrier_f, pitch_env, vibrato, mod1_f, modulator1, drift, noise, carrier, filter, overdrive, adsr;
 

@@ -17,7 +17,7 @@ var row_busses = Array.newClear(8);
 
 var gradualPot = { |oldVal newVal|
 	var diff = newVal - oldVal;
-	oldVal + (diff * 0.5)
+	oldVal + (diff * diff.lincurve(0.1,0.9,1,0.5,-2));
 };
 
 ~switchRows = { arg presetName;
@@ -29,12 +29,13 @@ var gradualPot = { |oldVal newVal|
 			~modes_synth_1_controlbus,
 			~sine_OD_1_controlbus,
 			~wavetable_1_controlbus,
-			~synchronus_grains_1_controlbus
+			~synchronus_grains_1_controlbus,
 		],
+
 		pr2: [
 			~bd_808_1_controlbus,
 			~clicks_1_controlbus,
-			~asynchronus_grains_1_controlbus,
+			~granular_1_controlbus,
 			~grain_sample_timestretch_1_controlbus,
 			~bd_808_1_controlbus,
 			~clicks_1_controlbus,

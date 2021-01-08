@@ -15,14 +15,14 @@ SynthDef.new(\clicks_1,
 		balance = macro_2.lincurve(0, 1, 0, 1, -3);
 
 		var macro_3 = macro_controls[2],
-		amp_r = macro_3.lincurve(0,1,0.01,0.5,-10) - macro_2.lincurve(0, 1, 0, 0.25) + freq.lincurve(1200, 120, -0.1, 2, 2),
-		amp_c = macro_3.lincurve(0,1,-1,-10,-10),
-		pitch_env_amount = macro_3.lincurve(0,1,2,4,-20),
-		pitch_env_time = macro_3.lincurve(0,1,0.01,0.25,-10),
-		pitch_env_curve = macro_3.lincurve(0,1,0.2,-150,-40);
+		amp_r = macro_3.lincurve(0,1,0.01,0.5,-1) - macro_2.lincurve(0, 1, 0, 0.25) + freq.lincurve(1200, 120, -0.1, 2, 2),
+		amp_c = macro_3.lincurve(0,1,-1,-10,-1),
+		pitch_env_amount = macro_3.lincurve(0,1,2,4,-2),
+		pitch_env_time = macro_3.lincurve(0,1,0.01,0.25,-1),
+		pitch_env_curve = macro_3.lincurve(0,1,0.2,-150,-4);
 
 		var fader = macro_controls[3],
-		vol = fader.lincurve(0, 1, 0, 0.5, -7),
+		vol = fader.lincurve(0, 1, 0, 1, 3),
 		vol_correct =  macro_3.lincurve(0,1,1.5,0.5,-10) + macro_2.lincurve(0.5, 1, 1, 0.01, -1);
 
 		var note_f, sine, pitch_env, noise, filter, adsr;
