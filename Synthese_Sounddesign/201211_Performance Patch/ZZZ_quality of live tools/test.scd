@@ -5,12 +5,12 @@ Pbind(
 	\group, ~source_group,
 ).play
 
-Pbind(
+/*Pbind(
 	\instrument, \Spreadsynth_1,
 	\dur, Pseq([1/8, 1/8, 1/4], inf),
 	\note, Pseq([7, 12, 5, 0], inf),
 	\group, ~source_group,
-).play
+).play*/
 
 Pbind(
 	\instrument, \simple_modes_synth_1,
@@ -79,6 +79,15 @@ b = Pbind(
 	\args, #[\beatDurNow, \sidechain_trigger_long],
 	\beatDurNow, {TempoClock.default.beatDur},
 	\sidechain_trigger_long, 1
+).play;
+
+c = Pbind(
+	\type, \set,
+	\id, ~routingSynths.ef_reverb,
+	\dur, Pseq([7/8, 1/8], inf),
+	\args, #[\beatDurNow, \sidechain_trigger_verb],
+	\beatDurNow, {TempoClock.default.beatDur},
+	\sidechain_trigger_verb, 1
 ).play;
 
 

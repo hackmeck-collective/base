@@ -27,6 +27,7 @@ s.waitForBoot {
 	"instruments/spreadsynth_1.scd".loadRelative;
 	"instruments/modes_synth_1.scd".loadRelative;
 	"instruments/simple_modes_synth_1.scd".loadRelative;
+/*	"effects/Eli_Fieldsteel_reverb.scd".loadRelative;*/
 	"loading utilities".postln;
 /*	"utilities/cc_monitor.scd".loadRelative;*/
 	"utilities/address_book.scd".loadRelative;
