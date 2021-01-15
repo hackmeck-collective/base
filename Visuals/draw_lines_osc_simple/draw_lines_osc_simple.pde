@@ -5,6 +5,8 @@ int linesMax = 3; //number of lines that will be drawn
 float scaleFactor = 1; // scaling of drawing
 int offSetX = 0; // x and y offset of drawing
 int offSetY = 0;
+int centroidX = 0;
+int centroidY = 0;
 OscP5 oscP5;
 
 ArrayList<Line> lines;
@@ -25,14 +27,16 @@ void draw() {
   background(0); //black 
   
   scale(scaleFactor); //zoom
-  //translate(offSetX / scaleFactor, offSetY / scaleFactor); //Warum war das angeschaltet?
-
+  //translate(offSetX / scaleFactor, offSetY / scaleFactor); 
+  //translate(43, 127);
   for (int i = 0; i <= lines.size() - 1; i++) { 
     Line line = lines.get(i);
-    //println("lines:", lines);
+    //println("line:", line);
 
     line.display();  
-  }  
+  }
+  ellipse(centroidX, centroidY, 10, 10);
+  //Am Liebsten würde ich den Mittelpunkt einzeichenn, aber das geht nicht.
 }
 
 // this function is called whenever an osc message arrives
@@ -68,8 +72,10 @@ void oscEvent(OscMessage message) {
 
 void oscToLine(OscMessage message) {
   // find out how many lines are sent ++++
-  // one line requires four numbers (two points with x and y), so to calculate how many are sent we divide by four
+  // one line requires four numbers (two points with x and y) and has one color/level-parameter. so to calculate how many are sent we divide by five
   int numLines = message.typetag().length() / 5; 
+  centroidX = 0;
+  centroidY = 0;
   
   offSetX = (width / 2) - message.get(0).intValue();
   offSetY = (height / 2) - message.get(1).intValue();
@@ -83,7 +89,15 @@ void oscToLine(OscMessage message) {
       message.get(3 + j).intValue(),    //gets coordinate y of p2
       message.get(4 + j).floatValue()  // branch Level
     ));
+    centroidX = centroidX + message.get(0 + j).intValue() + message.get(2 + j).intValue();
+    centroidY = centroidY + message.get(1 + j).intValue() +  message.get(3 + j).intValue();
   };
+  centroidX = centroidX / numLines / 2;
+  centroidY = centroidY / numLines / 2;
+
+  println("centroid:", centroidX, centroidY);
+  
+  
   
   // remove old lines whenever the arrayList gets bigger than linesMax
   while (lines.size() > linesMax) {
