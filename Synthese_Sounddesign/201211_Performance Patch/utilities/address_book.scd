@@ -5,3 +5,8 @@
 
 "addressbook loaded";
 )
+
+~addrBook.peers
+
+~osc_data_params[\sourceGroup] = ~source_group.nodeID
+~osc_data_params[\sourceGroup2]

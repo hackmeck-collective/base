@@ -1,4 +1,4 @@
-~granular_1_buffer ?? {~granular_1_buffer = Buffer.readChannel(s, "C:/Users/Admin/Documents/00_Resourcen/ZZ_Github/Hackmeck/Synthese_Sounddesign/201211_Performance Patch/instruments/samples/203066__enjoypa__counting-from-1-to-20-48kHz.wav", channels: [0])};
+~granular_1_buffer ?? {~granular_1_buffer = Buffer.readChannel(s, thisProcess.nowExecutingPath.dirname +/+ "/samples/203066__enjoypa__counting-from-1-to-20-48kHz.wav", channels: [0])};
 
 (
 SynthDef.new(\granular_1,

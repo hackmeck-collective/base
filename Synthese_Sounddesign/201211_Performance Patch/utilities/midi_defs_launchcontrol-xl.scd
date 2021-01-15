@@ -28,7 +28,7 @@ var gradualPot = { |oldVal newVal|
 			~fm_1_controlbus,
 			~sine_OD_1_controlbus,
 			~modes_synth_1_controlbus,
-			~synchronus_grains_1_controlbus,
+			~wavetable_1_controlbus,
 			~reverb_controlbus,
 			~mixer_controlbus
 		],
@@ -38,13 +38,15 @@ var gradualPot = { |oldVal newVal|
 			~clicks_1_controlbus,
 			~granular_1_controlbus,
 			~wavetable_1_controlbus,
+			~synchronus_grains_1_controlbus,
 			~reverb_controlbus,
 			~mixer_controlbus
 		]
 	);
 
 	8.do { arg index;
-		row_busses[index] = presets[presetName][index]
+		row_busses[index] = presets[presetName][index];
+		presets[presetName][index].postln
 	}
 };
 
