@@ -1,9 +1,14 @@
 ~addrBook = AddrBook.new;
 ~addrBook.addMe(\daemon);
-~registrant = Registrant(~addrBook); // execute this on all clients
+~hail = Hail.new(~addrBook);
+//~registrant = Registrant(~addrBook); // execute this on all clients
 ~objSpace = OSCObjectSpace(~addrBook, oscPath:'/lsysArgs').acceptEvents_(true);
 ~objSpace.addDependant({|objectSpace, what, key, val|
-	"Received new lsys args %\n writing stream ... \n".postf(val);
+	if(key == \exit){
+		0.exit
+	};
+	//"Received new lsys args %\n writing stream ... \n".postf(val);
+	"writing stream .. ".postln;
 	if(key == \lsys){
 		var lsys = RedLSystem(val.axiom, val.rules), lsysPattern, lsysStream;
 		val.gen.do { lsys.next };
@@ -126,13 +131,11 @@
 			searchIndex = searchIndex + 1;
 		});
 
-		searchIndex.postln;
-
 		voices[..maxCur].do{|v indx|
 			v.data.lastTime = v.timeStep;
 			collectVoices[indx].add(v.data)
 		};
-		voices[maxCur..] = nil;
+		// voices[maxCur..] = nil;
 		newLastVoice = (
 			pitch: voices[0].pitch,
 			pointNow: voices[0].pointNow,

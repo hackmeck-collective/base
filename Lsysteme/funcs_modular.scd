@@ -12,15 +12,22 @@
 				self.oldPoint = self.pointNow;
 				self.pointNow = self.pointNow.translate(Point(0, -1).rotate((self.pitch * theta).degrad))
 			},
-			data: (chars: List.new, times: List.new, pitches: List.new, sIndex: List.new, points: List.new, myKey: keyInit),
-			addData: {|self charNow searchIndex|
+			data: (chars: List.new, pitches: List.new, points: List.new, myKey: keyInit, firstTime: timeInit),
+			addData: {|self charNow|
+				self.incTime;
+				self.incPoint;
 				self.data.chars.add(charNow);
-				self.data.times.add(self.timeStep);
 				self.data.pitches.add(self.pitch);
-				self.data.sIndex.add(searchIndex);
 				self.data.points.add([self.pointNow, self.oldPoint]);
 			}
 		)
+	};
+
+	var benchPrint = { |func label|
+		var res;
+		("starting " ++ label).postln;
+		{res = func.value}.bench;
+		res
 	};
 
 	var searchStr = { |str, lastVoice = nil|
@@ -28,6 +35,34 @@
 		var voices = nil!100;
 		var collectVoices = (List.new)!100;
 		var prevVoices = (List.new)!100;
+		var charNow;
+		var commands = (
+			$[: {
+				var oldVoice = voices[cur];
+				prevVoices[cur].add(voices[cur]);
+				cur = cur + 1;
+				if(cur > maxCur){maxCur = cur};
+				voices[cur] = newVoice.(
+					oldVoice.timeStep,
+					oldVoice.pitch,
+					oldVoice.pointNow,
+					oldVoice.oldPoint,
+					cur
+				);
+			},
+			$]: {
+				voices[cur].data.lastTime = voices[cur].timeStep;
+				collectVoices[cur].add(voices[cur].data);
+				cur = cur - 1;
+				voices[cur] = prevVoices[cur].pop;
+			},
+			$-: { voices[cur].decPitch },
+			$+: { voices[cur].incPitch },
+			$F: { voices[cur].addData(charNow) },
+			$G: { voices[cur].addData(charNow) },
+			$|: { voices[cur].addData(charNow) }
+		);
+
 		if(lastVoice.isNil){
 			voices[0] = newVoice.(0, 0, keyInit: 0);
 		}{
@@ -38,8 +73,11 @@
 				lastVoice.oldPoint,
 			);
 		};
+
+
 		while ({(searchIndex < str.size)}, {
-			var charNow = str[searchIndex], n;
+			var n;
+			charNow = str[searchIndex];
 			if(charNow.isDecDigit){
 				n = charNow.digit;
 				searchIndex = searchIndex + 1;
@@ -52,53 +90,24 @@
 				n = 1;
 			};
 			n.do {
-				case
-				{charNow == $[}{
-					var oldVoice = voices[cur];
-					prevVoices[cur].add(voices[cur]);
-					cur = cur + 1;
-					if(cur > maxCur){maxCur = cur};
-					voices[cur] = newVoice.(
-						oldVoice.timeStep,
-						oldVoice.pitch,
-						oldVoice.pointNow,
-						oldVoice.oldPoint,
-						cur
-					);
-				}
-				{charNow == $]}{
-					collectVoices[cur].add(voices[cur].data);
-					cur = cur - 1;
-					voices[cur] = prevVoices[cur].pop;
-				}
-				{charNow == $-}{
-					voices[cur].decPitch;
-				}
-				{charNow == $+}{
-					voices[cur].incPitch;
-				}
-				{
-					if([$F, $G, $|].includes(charNow)){
-						voices[cur].incTime;
-					};
-					voices[cur].incPoint;
-					voices[cur].addData(charNow, searchIndex);
-				};
+				commands[charNow].value;
 			};
 			searchIndex = searchIndex + 1;
 		});
-		voices[..maxCur].do{|v indx| collectVoices[indx].add(v.data)};
+
+		searchIndex.postln;
+
+		voices[..maxCur].do{|v indx|
+			v.data.lastTime = v.timeStep;
+			collectVoices[indx].add(v.data)
+		};
 		voices[maxCur..] = nil;
-		/*		voices.do { |v indx|
-		if(v.notNil){
-		if(v.timeStep > 0){ // keine zombie voices uebernehmen
-		collectVoices[indx].add(v.data);
-		}{
-		voices[indx] = nil;
-		}
-		}
-		};*/
-		[collectVoices.reject(_.isEmpty), voices];
+
+		[
+			collectVoices.reject(_.isEmpty),
+			voices[0].atAll([\pitch, \pointNow, \oldPoint]) // only the needed values, no open functions
+		]
+
 	};
 
 	var meltList = { |listIn|
@@ -123,7 +132,7 @@
 		var startTimes = List.new, timesOrdered;
 		var stringResult = searchStr.(lsys.asString, lastV);
 		var voices = stringResult[0];
-		var lastVoice = stringResult[1][0];
+		var lastVoice = stringResult[1];
 		var collectAgain = List.new;
 		var maxKey = voices.size;
 		var levelSteps = List.new;
@@ -131,14 +140,19 @@
 		voices.do { |voiceLevel voiceIndex|
 			levelSteps.add(Set.new);
 			voiceLevel.do { |voice|
-				levelSteps.last.add(voice.times.size);
-				startTimes.add(voice.times[0] - 1);
+				// levelSteps.last.add(voice.times.size);
+				levelSteps.last.add((voice.lastTime - voice.firstTime));
+				// startTimes.add(voice.times[0] - 1);
+				startTimes.add(voice.firstTime - 1);
 				voice.meltedList = meltList.([voice.pitches, voice.chars].flop)
 			}
 		};
-		timesOrdered = startTimes.order; // die Liste sortieren
-		startTimes = (startTimes[timesOrdered].differentiate); // diff damit es mit .wait geht
+
+		timesOrdered = startTimes.quickOrder;
+
+		startTimes = (startTimes[timesOrdered].differentiate);
 		// mit den sortier indizes alle voices in der richtigen reihenfolge sammeln
+
 		voices.flat[timesOrdered].do { |voice indx|
 			voice.newTime = startTimes[indx];
 			collectAgain.add(voice.copy);
@@ -190,15 +204,14 @@ Pdef(\sp1,
 				var startTime = voiceEvent.newTime,
 				notes = voiceEvent.pitches,
 				myKey = voiceEvent.myKey.asInteger,
-				sIndex = voiceEvent.sIndex,
 				points = voiceEvent.points,
-				stepsTaken = voiceEvent.times.size,
+				// stepsTaken = voiceEvent.times.size,
+				stepsTaken = voiceEvent.lastTime,
 				placeInLevel = evIn[\stream].levelSteps[myKey].asArray.sort.indexOf(stepsTaken) ?? 0,
 				newNote = voiceEvent.meltedList.flop[0],
 				chars = voiceEvent.meltedList.flop[1],
 				newRhy =  voiceEvent.meltedList.flop[2],
-				myMidiChan = (myKey * 3) + placeInLevel, // hier muss ein limit ..
-				colors = [Color.red, Color.blue, Color.cyan, Color.magenta, Color.green, Color.yellow, Color.cyan];
+				myMidiChan = (myKey * 3) + placeInLevel; // hier muss ein limit ..;
 				if(startTime > 0){
 					sp.wait(startTime * evIn[\baseTempo]);
 				};
@@ -276,5 +289,5 @@ Pdef(\sp1,
 			}.fork(AppClock);*/
 			0
 	})
-	],inf)//  <> PtimeClutch(Pbindef(\ctl))
+	],inf) <> PtimeClutch(Pbindef(\ctl))
 );

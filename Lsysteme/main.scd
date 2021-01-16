@@ -1,24 +1,36 @@
 // startup
 (
 
-// ~connectVirmidi.();
-// "funcs_modular.scd".loadRelative;
-"funcs_draw_only.scd".loadRelative;
+~connectVirmidi.();
+"funcs_modular.scd".loadRelative;
+// "funcs_draw_only.scd".loadRelative;
 // "gui_modular.scd".loadRelative;
 ~sendToProcessing = NetAddr("localhost", 12000);
 )
 
 
 (
-~lsys = RedLSystem("F-G", ( $F: "FG[FF-GGGFF++++F]F", $G: "GGF" ));
-4.0.do { ~lsys.next };
-~lsysPattern = ~makeStream.(~lsys); // "conversion" to pattern
+"starting redL".postln;
+{
+	~lsys = RedLSystem("F-G", ( $F: "FG[FF-GGGFF++++F]F", $G: "GGF" ));
+	5.0.do { ~lsys.next };
+}.bench;
+{
+	~lsysPattern = ~makeStream.(~lsys); // "conversion" to pattern
+}.bench
 )
 
+
+500 / 77872
+77872 / 500 * 0.001
 // play once
 (Pdef(\sp1) <> Pbind(\stream, Pfunc { ~lsysPattern })).play;
 
+~aa = {3+3}
 
+~bb = {var res; {res = ~aa.();}.bench;res}.value
+
+~bb
 //////////////////////////////////////////
 
 // simple usage
