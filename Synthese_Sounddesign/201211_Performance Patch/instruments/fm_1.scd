@@ -3,10 +3,7 @@ SynthDef.new(\fm_1,
 	{
 		arg gate = 1, freq;
 
-		var mod1_ratio = 2,
-		amp_d = 0.1,
-		amp_s = 1,
-		amp_c = 2;
+		var mod1_ratio = 2;
 
 		var macro_controls = Lag.kr(
 			In.kr(
@@ -28,12 +25,15 @@ SynthDef.new(\fm_1,
 		rng_trans = macro_2.lincurve(0,1,0,0.02,-2),
 		pitch_env_amount =  macro_2.linlin(0,1,0,-1),
 		pitch_env_time = 0.0 + (0.5 * macro_2),
-		amp_a = macro_2.lincurve(0,1,1,0.1,-3),
-		amp_r = 2 - (1 * macro_2),
 		noise_amt = macro_2.lincurve(0,1,0,1000,-2),
 		drift_amt = macro_2.lincurve(0,1,0,0.0075,-2);
 
-		var macro_3 = macro_controls[2];
+		var macro_3 = macro_controls[2],
+		amp_a = macro_3.lincurve(0,1,0.1,1,-3),
+		amp_d = 0.1,
+		amp_s = 1,
+		amp_r = 2 - (1 * macro_3),
+		amp_c = 2;
 
 		var fader = macro_controls[3],
 		vol = fader.lincurve(0,1,0,0.01,3);

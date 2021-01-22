@@ -1,9 +1,20 @@
 (a = Pbind(
 	\instrument, \BD_808_1,
-	\dur, Pseq([ 1/2], inf),
+	\dur, Pseq([ 4], inf),
 	\note, Pseq([-24], inf),
 	\group, ~source_group,
 ).play(~linkClock, quant: 1);)
+
+(Pbindef(\glocke,
+	\instrument, \simple_modes_synth_1,
+	\dur, Pseq([1/4], inf),
+	//\note, Pseq([0], inf),
+	\group, ~source_group,
+).play(~linkClock, quant: 1);)
+
+Pbindef(\glocke, \degree, Pseq([0,2b,4],inf))
+Pbindef(\glocke, \degree, Pseq([2b,4,6b],inf))
+Pbindef(\glocke).stop
 
 Pbind(
 	\instrument, \clicks_1,
@@ -36,7 +47,7 @@ b = Pbind(
 c = Pbind(
 	\type, \set,
 	\id, ~routingSynths.ef_reverb,
-	\dur, Pseq([1/2], inf),
+	\dur, Pseq([1], inf),
 	\args, #[\beatDurNow, \sidechain_trigger_verb],
 	\beatDurNow, {TempoClock.default.beatDur},
 	\sidechain_trigger_verb, 1
