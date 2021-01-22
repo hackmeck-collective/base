@@ -215,7 +215,7 @@ Pdef(\sp1,
 						\draw, Pfunc { |ev|
 							if(ev.checkPause.class != Rest){
 								ev.getPoints.do { |p|
-									~drawInstructions.add([p, myKey.linlin(0,5,0,1)]) //colors[myKey]
+									~drawInstructions.add([p, myKey.linlin(0,5,0,1).asFloat]) //colors[myKey]
 								};
 							};
 							0

@@ -24,7 +24,7 @@
 500 / 77872
 77872 / 500 * 0.001
 // play once
-(Pdef(\sp1) <> Pbind(\stream, Pfunc { ~lsysPattern })).play;
+(Pn(Pdef(\sp1) <> Pbind(\stream, Pfunc { ~lsysPattern }))).play;
 
 ~aa = {3+3}
 
@@ -57,4 +57,4 @@ duration of last playing element: %
 
 ~sendToProcessing.sendMsg('/linesMax', 1000);
 ~sendToProcessing.sendMsg('/scale', (.5).asFloat);
-~sendToProcessing.sendMsg('/scale', (2).asFloat);
+~sendToProcessing.sendMsg('/scale', (0.5).asFloat); //zoom
