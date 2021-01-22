@@ -19,6 +19,13 @@ Pbind(
 	\group, ~source_group,
 ).play
 
+Pbind(
+	\instrument, \modes_synth_1,
+	\dur, Pseq([1/4, 1/8, 1/8], inf),
+	\note, Pseq([0, 3, 7, 12], inf),
+	\group, ~source_group,
+).play
+
 a=Pbind(
 	\instrument, \sine_OD_1,
 	\dur, Pseq([1, 1, 2], inf),
