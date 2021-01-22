@@ -6,7 +6,7 @@
 "addressbook loaded";
 )
 
-~addrBook.peers
+/*~addrBook.peers*/
 
-~osc_data_params[\sourceGroup] = ~source_group.nodeID
-~osc_data_params[\sourceGroup2]
+/*~osc_data_params[\sourceGroup] = ~source_group.nodeID
+~osc_data_params[\sourceGroup2]*/
