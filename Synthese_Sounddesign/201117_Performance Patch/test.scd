@@ -1,73 +1,51 @@
-(
-~player = {
-	inf.do {
-		MIDIIn.doNoteOnAction(0, 0, 60, 100);
-		MIDIIn.doNoteOnAction(0, 0, 63, 100);
-		MIDIIn.doNoteOnAction(0, 0, 70, 100);
-		3.wait;
-		MIDIIn.doNoteOffAction(0, 0, 60);
-		MIDIIn.doNoteOffAction(0, 0, 63);
-		MIDIIn.doNoteOffAction(0, 0, 70);
-		1.wait
-	}
-}.fork
-)
-(
-~player = {
-	inf.do {
-		MIDIIn.doNoteOnAction(0, 1, 36, 100);
-		0.5.wait;
-		MIDIIn.doNoteOffAction(0, 1, 36);
-		1.wait
-	}
-}.fork
-)
+Pbind(
+	\instrument, \fm_1,
+	\dur, Pseq([2, 2], inf),
+	\note, Pseq([[-1, 3, 7, 12], [0, 3, 7, 14]], inf)
+).play
+
+Pbind(
+	\instrument, \Spreadsynth_1,
+	\dur, Pseq([1/8, 1/8, 1/4], inf),
+	\note, Pseq([7, 12, 5, 0], inf)
+).play
+
+Pbind(
+	\instrument, \simple_modes_synth_1,
+	\dur, Pseq([1/4, 1/8, 1/8], inf),
+	\note, Pseq([0, 3, 7, 12], inf)
+).play
+
+a = Pbind(
+	\instrument, \BD_808_1,
+	\dur, Pseq([7/8, 1/8], inf),
+	\note, Pseq([-24], inf),
+	\group, ~source_group,
+).play
+
+a.stop
+
+Pbind(
+	\dur, Pseq([
+		Pwrand(
+			[Pseq([1/2]), Pseq([1/4], 2)],
+			[0.75,0.25]
+		),
+		1/2,
+		Pwrand(
+			[Pseq([1/16], 8), Pseq([1/2])]
+			,[0.75,0.25]
+		),
+		1/2
+	],inf).trace,
+	\note, Pseq([0, 3, 7, 12], inf)
+).play
+
 
 (
-var note = 60;
-~player = {
-	inf.do {
-		MIDIIn.doNoteOnAction(0, 2, note, 100);
-		0.125.wait;
-		MIDIIn.doNoteOffAction(0, 2, note);
-		MIDIIn.doNoteOnAction(0, 2, note - 12, 100);
-		0.125.wait;
-		MIDIIn.doNoteOffAction(0, 2, note - 12);
-		MIDIIn.doNoteOnAction(0, 2, note - 24, 100);
-		0.125.wait;
-		MIDIIn.doNoteOffAction(0, 2, note - 24);
-		MIDIIn.doNoteOnAction(0, 2, note - 36, 100);
-		0.125.wait;
-		MIDIIn.doNoteOffAction(0, 2, note - 36);
-		MIDIIn.doNoteOnAction(0, 2, note + 12, 100);
-		0.125.wait;
-		MIDIIn.doNoteOffAction(0, 2, note + 12);
-		1.wait
-	}
-}.fork
+var a, b;
+a = Prand([1, Pseq([10, 20, 30]), 2, 3, 4, 5], 6);    // return 6 items
+b = a.asStream;
+7.do({ b.next.postln; });
 )
 
-(
-var note = 60, channel = 3;
-~player = {
-	inf.do {
-		MIDIIn.doNoteOnAction(0, channel, note, 100);
-		1.wait;
-		MIDIIn.doNoteOffAction(0, channel, note);
-		MIDIIn.doNoteOnAction(0, channel, note - 5, 100);
-		0.5.wait;
-		MIDIIn.doNoteOffAction(0, channel, note - 5);
-		MIDIIn.doNoteOnAction(0, channel, note - 12, 100);
-		0.5.wait;
-		MIDIIn.doNoteOffAction(0, channel, note - 12);
-		MIDIIn.doNoteOnAction(0, channel, note + 3, 100);
-		0.250.wait;
-		MIDIIn.doNoteOffAction(0, channel, note + 3);
-		MIDIIn.doNoteOnAction(0, channel, note + 12, 100);
-		0.250.wait;
-		MIDIIn.doNoteOffAction(0, channel, note + 12);
-		1.wait
-	}
-}.fork
-)
-~player.stop

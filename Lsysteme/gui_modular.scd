@@ -5,15 +5,25 @@ g[\makeLsys] = {
 	g.num.value.do { g.lsys.next };
 	g.lt = RedLTurtle.new(g.lsys, 40, g.theta.value, scale: g.sc.value);
 	g.tmpW !? { g.tmpW.close };
-	g.tmpW = g.lt.makeWindow(bounds: Rect(1000,0,2000,2000), initTranslate: Point(g.init1.value, g.init2.value));
+	g.tmpW = g.lt.makeWindow(bounds: Rect(1000,0,1000,1000), initTranslate: Point(g.init1.value, g.init2.value));
 };
 g[\printCode] = {
 	var convertRules = ();
 	var file = File.open(PathName(Document.current.path).pathOnly ++ "lsys_dict_modular.scd", "a");
 	var newString;
-	g.ru.value.keysValuesDo { |k v| convertRules[k] = v.reduce(_++_)};
-	newString = "~lsys = RedLSystem(%, %);\n %.do { ~lsys.next };".format(g.ax.value.reduce(_++_).asCompileString, convertRules.asCompileString, g.num.value).postln;
-	file.write("\n" ++ newString);
+	var axNow = g.ax.value;
+	var ruNow = g.ru.value;
+	ruNow.keysValuesDo { |k v| convertRules[k] = v.reduce(_++_)};
+	newString ="~objSpace[\\lsys] = (
+\taxiom: %,
+\trules: %,
+\tgen: %,
+\tuseLastV: false
+)".format(
+		if(axNow.class == String){axNow.reduce(_++_)}{axNow.asString}.asCompileString,
+		convertRules.asCompileString, g.num.value).postln;
+	// newString = "~lsys = RedLSystem(%, %);\n %.do { ~lsys.next };".format(g.ax.value.reduce(_++_).asCompileString, convertRules.asCompileString, g.num.value).postln;
+	file.write("\n\n" ++ newString);
 	file.close;
 };
 g.win = Window.new(bounds: Rect(0,0,1000,1000)).front;
@@ -36,15 +46,6 @@ Button(g.win, Rect(width:200, height: 50))
 Button(g.win, Rect(width:200, height: 50))
 .string_("print code")
 .action_(g[\printCode]);
-Button(g.win, Rect(width:200, height: 50))
-.string_("use for sound")
-.action_({
-	//g.lsys !? {
-	//g.newStream = ~makeStream.(g.lsys, g.theta.value);
-	// ~makePdef.(1, g.newStream, guiScale: g.guiScale.value);
-	// u.clearDrawing;
-	// }
-});
 g.win.view.decorator.nextLine;
 g.presetMenu = EZPopUpMenu.new(g.win,Rect(0,0,200,60),"load Preset");
 PathName("/home/vincent/SC/pieces/uns_trio/presets/").files.collect{|f|

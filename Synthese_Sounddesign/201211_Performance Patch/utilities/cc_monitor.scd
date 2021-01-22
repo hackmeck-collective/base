@@ -4,4 +4,4 @@ MIDIdef.cc('cc_monitor',
 	["cc",chan,num,vel,src].postln;
 }).permanent_(true);
 
-"functions loaded".postln;
+"CC Monitor".postln;
