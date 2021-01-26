@@ -25,10 +25,10 @@ var gradualPot = { |oldVal newVal|
 		pr1: [
 			~bd_808_1_controlbus,
 			~clicks_1_controlbus,
-			~fm_1_controlbus,
-			~sine_OD_1_controlbus,
-			~modes_synth_1_controlbus,
-			~wavetable_1_controlbus,
+			~sine_controlbus,
+			~rect_controlbus,
+			~saw_controlbus,
+			~sine_OD_controlbus,
 			~reverb_controlbus,
 			~mixer_controlbus
 		],
@@ -36,6 +36,7 @@ var gradualPot = { |oldVal newVal|
 		pr2: [
 			~bd_808_1_controlbus,
 			~clicks_1_controlbus,
+			~fm_vib_controlbus,
 			~granular_1_controlbus,
 			~wavetable_1_controlbus,
 			~synchronus_grains_1_controlbus,

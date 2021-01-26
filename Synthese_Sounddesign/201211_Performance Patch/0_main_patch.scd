@@ -17,16 +17,20 @@ s.waitForBoot {
 	"loading signal flow".postln;
 	"signal_flow.scd".loadRelative;
 	"loading instruments".postln;
-	"instruments/sine_OD_1.scd".loadRelative;
-	"instruments/granular_1.scd".loadRelative;
-	"instruments/synchronous_grains_1.scd".loadRelative;
-	"instruments/fm_1.scd".loadRelative;
-	"instruments/wavetable_1.scd".loadRelative;
-	"instruments/BD_808_1.scd".loadRelative;
-	"instruments/clicks_1.scd".loadRelative;
+	"instruments/modules/envelopes.scd".loadRelative;
+	"instruments/basic_waveforms/sine.scd".loadRelative;
+	"instruments/basic_waveforms/saw.scd".loadRelative;
+	"instruments/basic_waveforms/rectangle.scd".loadRelative;
+	"instruments/sine_OD.scd".loadRelative;
+	"instruments/fm_vib.scd".loadRelative;
+	// "instruments/granular_1.scd".loadRelative;
+	// "instruments/synchronous_grains_1.scd".loadRelative;
+	// "instruments/wavetable_1.scd".loadRelative;
+	// "instruments/BD_808_1.scd".loadRelative;
+	// "instruments/clicks_1.scd".loadRelative;
 //	"instruments/spreadsynth_1.scd".loadRelative;
-	"instruments/modes_synth_1.scd".loadRelative;
-	"instruments/simple_modes_synth_1.scd".loadRelative;
+	// "instruments/modes_synth_1.scd".loadRelative;
+	// "instruments/simple_modes_synth_1.scd".loadRelative;
 /*	"effects/Eli_Fieldsteel_reverb.scd".loadRelative;*/
 	"loading utilities".postln;
 /*	"utilities/cc_monitor.scd".loadRelative;*/

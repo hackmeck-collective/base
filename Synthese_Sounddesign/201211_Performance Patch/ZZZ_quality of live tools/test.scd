@@ -1,10 +1,137 @@
+(
 Pbind(
-	\instrument, \fm_1,
+	\instrument, \sine_pluck,
 	\dur, Pseq([2, 2], inf),
 	\note, Pseq([[-1, 3, 7, 12], [0, 3, 7, 14]], inf),
 	\group, ~source_group,
 ).play
+)
 
+(
+Pbind(
+	\instrument, \sine_pad,
+	\dur, Pseq([2, 2], inf),
+	\note, Pseq([[-1, 3, 7, 12], [0, 3, 7, 14]], inf),
+	\group, ~source_group,
+).play
+)
+
+(
+Pbind(
+	\instrument, \sine_lead,
+	\dur, Pseq([2, 2], inf),
+	\note, Pseq([[-1, 3, 7, 12], [0, 3, 7, 14]], inf),
+	\group, ~source_group,
+).play
+)
+
+(
+Pbind(
+	\instrument, \saw_pluck,
+	\dur, Pseq([2, 2], inf),
+	\note, Pseq([[-1, 3, 7, 12], [0, 3, 7, 14]], inf),
+	\group, ~source_group,
+).play
+)
+
+(
+Pbind(
+	\instrument, \saw_pad,
+	\dur, Pseq([2, 2], inf),
+	\note, Pseq([[-1, 3, 7, 12], [0, 3, 7, 14]], inf),
+	\group, ~source_group,
+).play
+)
+
+(
+Pbind(
+	\instrument, \saw_lead,
+	\dur, Pseq([2, 2], inf),
+	\note, Pseq([[-1, 3, 7, 12], [0, 3, 7, 14]], inf),
+	\group, ~source_group,
+).play
+)
+
+(
+Pbind(
+	\instrument, \rect_pluck,
+	\dur, Pseq([2, 2], inf),
+	\note, Pseq([[-1, 3, 7, 12], [0, 3, 7, 14]], inf),
+	\group, ~source_group,
+).play
+)
+
+(
+Pbind(
+	\instrument, \rect_pad,
+	\dur, Pseq([2, 2], inf),
+	\note, Pseq([[-1, 3, 7, 12], [0, 3, 7, 14]], inf),
+	\group, ~source_group,
+).play
+)
+
+(
+Pbind(
+	\instrument, \rect_lead,
+	\dur, Pseq([2, 2], inf),
+	\note, Pseq([[-1, 3, 7, 12], [0, 3, 7, 14]], inf),
+	\group, ~source_group,
+).play
+)
+
+(
+Pbind(
+	\instrument, \sine_OD_pluck,
+	\dur, Pseq([2, 2], inf),
+	\note, Pseq([[-1, 3, 7, 12], [0, 3, 7, 14]], inf),
+	\group, ~source_group,
+).play
+)
+
+(
+Pbind(
+	\instrument, \sine_OD_pad,
+	\dur, Pseq([2, 2], inf),
+	\note, Pseq([[-1, 3, 7, 12], [0, 3, 7, 14]], inf),
+	\group, ~source_group,
+).play
+)
+
+(
+Pbind(
+	\instrument, \sine_OD_lead,
+	\dur, Pseq([2, 2], inf),
+	\note, Pseq([[-1, 3, 7, 12], [0, 3, 7, 14]], inf),
+	\group, ~source_group,
+).play
+)
+
+(
+Pbind(
+	\instrument, \fm_vib_pluck,
+	\dur, Pseq([2, 2], inf),
+	\note, Pseq([[-1, 3, 7, 12], [0, 3, 7, 14]], inf),
+	\group, ~source_group,
+).play
+)
+
+(
+Pbind(
+	\instrument, \fm_vib_pad,
+	\dur, Pseq([2, 2], inf),
+	\note, Pseq([[-1, 3, 7, 12], [0, 3, 7, 14]], inf),
+	\group, ~source_group,
+).play
+)
+
+(
+Pbind(
+	\instrument, \fm_vib_lead,
+	\dur, Pseq([2, 2], inf),
+	\note, Pseq([[-1, 3, 7, 12], [0, 3, 7, 14]], inf),
+	\group, ~source_group,
+).play
+)
 /*Pbind(
 	\instrument, \Spreadsynth_1,
 	\dur, Pseq([1/8, 1/8, 1/4], inf),

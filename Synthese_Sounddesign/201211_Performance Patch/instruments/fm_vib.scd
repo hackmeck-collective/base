@@ -12,7 +12,7 @@
 
 			var macro_controls = Lag.kr(
 				In.kr(
-					~fm_1_controlbus ?? {~fm_1_controlbus = Bus.control(Server.default, 4)},
+					~fm_vib_controlbus ?? {~fm_vib_controlbus = Bus.control(Server.default, 4)},
 					4),
 				0.1);
 
