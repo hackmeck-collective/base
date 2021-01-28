@@ -16,11 +16,12 @@ s.waitForBoot {
 	};
 	"loading signal flow".postln;
 	"signal_flow.scd".loadRelative;
+/*	"control_busses.scd".loadRelative;*/
 	"loading instruments".postln;
 	"instruments/modules/envelopes.scd".loadRelative;
-	"instruments/basic_waveforms/sine.scd".loadRelative;
-	"instruments/basic_waveforms/saw.scd".loadRelative;
-	"instruments/basic_waveforms/rectangle.scd".loadRelative;
+	"instruments/modules/oscillators.scd".loadRelative;
+	"instruments/modules/pitch_operations.scd".loadRelative;
+	"instruments/synth_combo.scd".loadRelative;
 	"instruments/sine_OD.scd".loadRelative;
 	"instruments/fm_vib.scd".loadRelative;
 	// "instruments/granular_1.scd".loadRelative;
@@ -44,6 +45,7 @@ s.waitForBoot {
 
 ~switchRows.(\pr1);
 ~switchRows.(\pr2);
+~switchRows.(\pr3);
 
 TempoClock.default.tempo = 1
 

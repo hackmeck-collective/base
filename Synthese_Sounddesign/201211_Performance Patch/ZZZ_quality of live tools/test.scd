@@ -1,8 +1,19 @@
 (
 Pbind(
-	\instrument, \sine_pluck,
+	\instrument, \vibrato_sine_pluck,
 	\dur, Pseq([2, 2], inf),
 	\note, Pseq([[-1, 3, 7, 12], [0, 3, 7, 14]], inf),
+	\controlbus, ~row1_controlbus,
+	\group, ~source_group,
+).play
+)
+
+(
+Pbind(
+	\instrument, \fm_sine_pluck,
+	\dur, Pseq([0.2], inf),
+	\note, Pseq([-1,3,7,10,12], inf),
+	\controlbus, ~row3_controlbus,
 	\group, ~source_group,
 ).play
 )

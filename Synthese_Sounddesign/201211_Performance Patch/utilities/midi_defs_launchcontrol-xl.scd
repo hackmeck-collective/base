@@ -22,10 +22,11 @@ var gradualPot = { |oldVal newVal|
 
 ~switchRows = { arg presetName;
 	var presets = (
+
 		pr1: [
 			~bd_808_1_controlbus,
 			~clicks_1_controlbus,
-			~sine_controlbus,
+			~combo_controlbus,
 			~rect_controlbus,
 			~saw_controlbus,
 			~sine_OD_controlbus,
@@ -42,7 +43,18 @@ var gradualPot = { |oldVal newVal|
 			~synchronus_grains_1_controlbus,
 			~reverb_controlbus,
 			~mixer_controlbus
-		]
+		],
+
+		pr3: [
+			~row1_controlbus,
+			~row2_controlbus,
+			~row3_controlbus,
+			~row4_controlbus,
+			~row5_controlbus,
+			~row6_controlbus,
+			~reverb_controlbus,
+			~mixer_controlbus
+		],
 	);
 
 	8.do { arg index;
@@ -51,7 +63,7 @@ var gradualPot = { |oldVal newVal|
 	}
 };
 
-~switchRows.(\pr1);
+~switchRows.(\pr3);
 
 
 MIDIdef.cc('knob-1a',{

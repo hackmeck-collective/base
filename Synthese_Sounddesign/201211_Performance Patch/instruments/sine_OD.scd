@@ -15,7 +15,7 @@
 
 				var macro_controls = Lag.kr(
 					In.kr(
-						~sine_OD_1_controlbus ?? {~sine_OD_1_controlbus = Bus.control(Server.default, 4)},
+						~sine_OD_controlbus ?? {~sine_OD_controlbus = Bus.control(Server.default, 4)},
 						4),
 					0.1);
 

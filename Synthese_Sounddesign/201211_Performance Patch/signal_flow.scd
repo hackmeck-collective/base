@@ -19,6 +19,16 @@ ServerTree.add({ ~makeGroups.value }).run(\all);
 ~sidechain_bus ?? {~sidechain_bus = Bus.control(Server.default, 1)};
 ~tempo_bpm = {TempoClock.default.tempo * 60};
 
+~row1_controlbus ?? {~row1_controlbus = Bus.control(Server.default, 4)};
+~row2_controlbus ?? {~row2_controlbus = Bus.control(Server.default, 4)};
+~row3_controlbus ?? {~row3_controlbus = Bus.control(Server.default, 4)};
+~row4_controlbus ?? {~row4_controlbus = Bus.control(Server.default, 4)};
+~row5_controlbus ?? {~row5_controlbus = Bus.control(Server.default, 4)};
+~row6_controlbus ?? {~row6_controlbus = Bus.control(Server.default, 4)};
+~row7_controlbus ?? {~row7_controlbus = Bus.control(Server.default, 4)};
+~row8_controlbus ?? {~row8_controlbus = Bus.control(Server.default, 4)};
+
+
 SynthDef(\melody_bus, {
 	arg beatDurNow = 1;
 

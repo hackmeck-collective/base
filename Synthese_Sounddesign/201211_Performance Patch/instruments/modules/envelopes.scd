@@ -1,10 +1,10 @@
 (
 ~adsrTypes = (
-	pluck: {arg gate = 0, macro_3 = 0;
+	pluck: {arg gate = 0, envelope_mod = 0;
 
-		var amp_a = macro_3.lincurve(0,1,0.001,0.02,3),
-		amp_r = macro_3.lincurve(0,1,0.05,3,3),
-		amp_c = macro_3.lincurve(0,1,3,-4,3);
+		var amp_a = envelope_mod.lincurve(0,1,0.001,0.02,3),
+		amp_r = envelope_mod.lincurve(0,1,0.05,3,3),
+		amp_c = envelope_mod.lincurve(0,1,3,-4,3);
 		EnvGen.kr(
 			Env.perc(
 				attackTime: amp_a,
@@ -15,13 +15,13 @@
 			doneAction:2);
 	},
 
-	lead: {arg gate = 0, macro_3 = 0;
+	lead: {arg gate = 0, envelope_mod = 0;
 
-		var amp_a = macro_3.lincurve(0,1,0.01,0.25,3),
-		amp_d = macro_3.lincurve(0,1,0.5,0.1,3),
-		amp_s = macro_3.lincurve(0,1,0.7,1,3),
-		amp_r = macro_3.lincurve(0,1,0.1,1,3),
-		amp_c = macro_3.lincurve(0,1,3,-4,3);
+		var amp_a = envelope_mod.lincurve(0,1,0.01,0.25,3),
+		amp_d = envelope_mod.lincurve(0,1,0.5,0.1,3),
+		amp_s = envelope_mod.lincurve(0,1,0.7,1,3),
+		amp_r = envelope_mod.lincurve(0,1,0.1,1,3),
+		amp_c = envelope_mod.lincurve(0,1,3,-4,3);
 		EnvGen.kr(
 			Env.adsr(
 				attackTime: amp_a,
@@ -34,12 +34,12 @@
 			doneAction:2);
 	},
 
-	pad: {arg gate = 0, macro_3 = 0;
+	pad: {arg gate = 0, envelope_mod = 0;
 
-		var amp_a = macro_3.lincurve(0,1,0.3,3,3),
-		amp_d = macro_3.lincurve(0,1,0.5,3,3),
-		amp_s = macro_3.lincurve(0,1,0.7,1,3),
-		amp_r = macro_3.lincurve(0,1,1,3,3),
+		var amp_a = envelope_mod.lincurve(0,1,0.3,3,3),
+		amp_d = envelope_mod.lincurve(0,1,0.5,3,3),
+		amp_s = envelope_mod.lincurve(0,1,0.7,1,3),
+		amp_r = envelope_mod.lincurve(0,1,1,3,3),
 		amp_c = 3;
 		EnvGen.kr(
 			Env.adsr(
