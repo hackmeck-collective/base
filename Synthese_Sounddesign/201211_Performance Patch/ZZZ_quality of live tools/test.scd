@@ -1,9 +1,13 @@
 
 (
-Pbind(
-	\instrument, \pluck_unisonoDetune_pulsar_overdrive,
-	\dur, Pseq([0.2], inf),
-	\note, Pseq([-1,3,7,10,12], inf),
+Pbindef(\testi,
+	\adsrType, \pluck,
+	\pitchOp, Pseq([\slide, \fm, \unisonoDetune], inf),
+	\osc, Pseq([\pulsar, \fm], inf),
+	\fx, \overdrive,
+	\instrument, Pfunc {|ev| "%_%_%_%".format(ev.adsrType, ev.pitchOp, ev.osc, ev.fx).asSymbol },
+	\dur, Pseq([1/8], inf),
+	\note, Pseq([0], inf),
 	\out, ~melody_bus,
 	\controlbus, ~row3_controlbus,
 	\pitchOp_mod_1_macro_channel, 1,
@@ -15,12 +19,13 @@ Pbind(
 	\pitchOp_mod_2, 0.2,
 	\envelope_mod_macro_channel, 3,
 	\group, ~source_group,
-).play
+).play(quant: 2)
 )
+
 
 (
 Pbind(
-	\instrument, \pad_unisonoDetune_fm_overdrive,
+	\instrument, \pad_unisonoDetune_pulsar_overdrive,
 	\dur, Pseq([2], inf),
 	\note, Pseq([[-1,3,7,10,12]], inf),
 	\out, ~chords_bus,
@@ -34,7 +39,7 @@ Pbind(
 	\pitchOp_mod_2, 0.2,
 	\envelope_mod_macro_channel, 3,
 	\group, ~source_group,
-).play
+).play(quant: 2)
 )
 
 (
@@ -47,7 +52,7 @@ Pbind(
 	\fx_mod_1_macro_channel, 2,
 	\osc1_time_macro_channel, 3,
 	\group, ~source_group,
-).play
+).play(quant: 2)
 )
 
 (
@@ -71,7 +76,7 @@ Pbind(
 	\fx_mod_1_macro_channel, 2,
 	\osc1_time_macro_channel, 3,
 	\group, ~source_group,
-).play
+).play(quant: 2)
 )
 
 
