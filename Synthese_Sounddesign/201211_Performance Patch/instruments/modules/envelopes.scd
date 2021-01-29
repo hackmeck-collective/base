@@ -4,7 +4,7 @@
 
 		var amp_a = envelope_mod.lincurve(0,1,0.001,0.02,3),
 		amp_r = envelope_mod.lincurve(0,1,0.05,3,3),
-		amp_c = envelope_mod.lincurve(0,1,3,-4,3);
+		amp_c = envelope_mod.lincurve(0,1,1,-4,3);
 		EnvGen.kr(
 			Env.perc(
 				attackTime: amp_a,

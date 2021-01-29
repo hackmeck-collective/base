@@ -18,12 +18,15 @@ s.waitForBoot {
 	"signal_flow.scd".loadRelative;
 /*	"control_busses.scd".loadRelative;*/
 	"loading instruments".postln;
+	"instruments/modules/pitch_operations.scd".loadRelative;
 	"instruments/modules/envelopes.scd".loadRelative;
 	"instruments/modules/oscillators.scd".loadRelative;
-	"instruments/modules/pitch_operations.scd".loadRelative;
+	"instruments/modules/fx.scd".loadRelative;
+	"instruments/modules/drums.scd".loadRelative;
 	"instruments/synth_combo.scd".loadRelative;
-	"instruments/sine_OD.scd".loadRelative;
-	"instruments/fm_vib.scd".loadRelative;
+	"instruments/drum_combo.scd".loadRelative;
+/*	"instruments/sine_OD.scd".loadRelative;
+	"instruments/fm_vib.scd".loadRelative;*/
 	// "instruments/granular_1.scd".loadRelative;
 	// "instruments/synchronous_grains_1.scd".loadRelative;
 	// "instruments/wavetable_1.scd".loadRelative;
@@ -42,6 +45,8 @@ s.waitForBoot {
 	"ready".postln
 }
 )
+
+~row1_controlbus
 
 ~switchRows.(\pr1);
 ~switchRows.(\pr2);

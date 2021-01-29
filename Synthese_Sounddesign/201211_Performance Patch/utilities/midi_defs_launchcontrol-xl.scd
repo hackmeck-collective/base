@@ -1,14 +1,5 @@
 (
 
-//setup 1
-/*var row_1_bus = ~bd_808_1_controlbus,
-row_2_bus = ~clicks_1_controlbus,
-row_3_bus = ~fm_1_controlbus,
-row_4_bus = ~modes_synth_1_controlbus,
-row_5_bus = ~sine_OD_1_controlbus,
-row_6_bus = ~wavetable_1_controlbus,
-row_7_bus = ~synchronus_grains_1_controlbus,
-row_8_bus = ~grain_sample_timestretch_1_controlbus,*/
 var knob_a_start = 13,
 knob_b_start = 29,
 knob_c_start = 49,
