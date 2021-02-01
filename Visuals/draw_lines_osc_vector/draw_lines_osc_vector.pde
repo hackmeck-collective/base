@@ -2,6 +2,7 @@
 import oscP5.*;
 int oscPort = 12000; // port to listen for osc messages
 int linesMax = 1500; //number of lines that will be drawn
+float lerpFactor = 0.1; // scaling of drawing
 float scaleFactor = 1; // scaling of drawing
 int offSetX = 0; // x and y offset of drawing
 int offSetY = 0;
@@ -31,7 +32,7 @@ void draw() {
   
   scale(scaleFactor); //zoom
   //translate(offSetX / scaleFactor, offSetY / scaleFactor); 
-  centroid_old.lerp(centroid, 0.1);
+  centroid_old.lerp(centroid, lerpFactor);
   //middle = PVector.lerp(centroid_old, centroid, 0.5);
   println(centroid_old);
   translate((width / 2) - centroid_old.x, (height / 2) - centroid_old.y);
@@ -61,7 +62,9 @@ void oscEvent(OscMessage message) {
     
     // change the number of lines which will be drawn
     linesMax = message.get(0).intValue();
-
+  } else if(message.checkAddrPattern("/lerpFactor")==true){
+    lerpFactor = message.get(0).floatValue();
+    
   } else if(message.checkAddrPattern("/scale")==true){
     
     // change the scaling of the drawing
