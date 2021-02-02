@@ -1,0 +1,139 @@
+var o, p;
+o = [
+	Pbindef.prNew,  PbindProxy.prNew,  Array.prNew(24),  PatternProxy.prNew,  
+	PatternProxy.prNew,  Array.prNew(10),  PatternProxy.prNew,  PatternProxy.prNew,  
+	Scale.prNew,  Array.prNew(7),  Tuning.prNew,  Array.prNew(12),  
+	"ET12",  "Harmonic Minor",  PatternProxy.prNew,  Pfunc.prNew,  
+	{ |ev| -1 * ev.scale.size },  PatternProxy.prNew,  PatternProxy.prNew,  PatternProxy.prNew,  
+	{|chanOffset myKey maxKey| chanOffset + myKey},  PatternProxy.prNew,  Array.prNew(10),  PatternProxy.prNew,  
+	Array.prNew(10),  PatternProxy.prNew,  Array.prNew(7),  PatternProxy.prNew,  
+	Array.prNew(10),  EventPatternProxy.prNew,  Pbind.prNew,  Array.prNew(24)
+];
+p = [
+	// Pbindef
+	0, [ source: o[1],  pattern: o[1],  
+		envir: nil,  clock: nil,  
+		quant: nil,  condition: true,  
+		reset: nil,  player: nil,  
+		playQuant: nil,  fadeTime: nil,  
+		key: 'ctl' ],  
+	// PbindProxy
+	1, [ pairs: o[2],  source: o[29] ],  
+	// Array
+	2, [ 'setType',  o[3],  'legatoArr',  o[4],  
+		'amp',  o[6],  'scale',  o[7],  
+		'branchInterval',  o[14],  'stepInterval',  o[17],  
+		'noteOffset',  o[18],  'chanFunc',  o[19],  
+		'wrapLo',  o[21],  'wrapHi',  o[23],  
+		'vols',  o[25],  'setInstrument',  o[27] ],  
+	// PatternProxy
+	3, [ source: 'midi',  pattern: 'midi',  
+		envir: nil,  clock: nil,  
+		quant: 1.0,  condition: true,  
+		reset: nil ],  
+	// PatternProxy
+	4, [ source: o[5],  pattern: o[5],  
+		envir: nil,  clock: nil,  
+		quant: 1.0,  condition: true,  
+		reset: nil ],  
+	// Array
+	5, [ 0.95,  0.95,  0.95,  0.95,  
+		0.95,  0.95,  0.95,  0.95,  
+		0.95,  0.95 ],  
+	// PatternProxy
+	6, [ source: 0.1,  pattern: 0.1,  
+		envir: nil,  clock: nil,  
+		quant: 1.0,  condition: true,  
+		reset: nil ],  
+	// PatternProxy
+	7, [ source: o[8],  pattern: o[8],  
+		envir: nil,  clock: nil,  
+		quant: 1.0,  condition: true,  
+		reset: nil ],  
+	// Scale
+	8, [ degrees: o[9],  pitchesPerOctave: 12,  
+		tuning: o[10],  name: o[13] ],  
+	// Array
+	9, [ 0,  2,  3,  5,  
+		7,  8,  11 ],  
+	// Tuning
+	10, [ tuning: o[11],  octaveRatio: 2.0,  
+		name: o[12] ],  
+	// Array
+	11, [ 0.0,  1.0,  2.0,  3.0,  
+		4.0,  5.0,  6.0,  7.0,  
+		8.0,  9.0,  10.0,  11.0 ],  
+	// PatternProxy
+	14, [ source: o[15],  pattern: o[15],  
+		envir: nil,  clock: nil,  
+		quant: 1.0,  condition: true,  
+		reset: nil ],  
+	// Pfunc
+	15, [ nextFunc: o[16],  resetFunc: nil ],  
+	// PatternProxy
+	17, [ source: 1,  pattern: 1,  
+		envir: nil,  clock: nil,  
+		quant: 1.0,  condition: true,  
+		reset: nil ],  
+	// PatternProxy
+	18, [ source: 7,  pattern: 7,  
+		envir: nil,  clock: nil,  
+		quant: 1.0,  condition: true,  
+		reset: nil ],  
+	// PatternProxy
+	19, [ source: o[20],  pattern: o[20],  
+		envir: nil,  clock: nil,  
+		quant: 1.0,  condition: true,  
+		reset: nil ],  
+	// PatternProxy
+	21, [ source: o[22],  pattern: o[22],  
+		envir: nil,  clock: nil,  
+		quant: 1.0,  condition: true,  
+		reset: nil ],  
+	// Array
+	22, [ 24,  36,  24,  36,  
+		36,  36,  36,  36,  
+		36,  36 ],  
+	// PatternProxy
+	23, [ source: o[24],  pattern: o[24],  
+		envir: nil,  clock: nil,  
+		quant: 1.0,  condition: true,  
+		reset: nil ],  
+	// Array
+	24, [ 96,  96,  96,  96,  
+		96,  96,  96,  96,  
+		96,  96 ],  
+	// PatternProxy
+	25, [ source: o[26],  pattern: o[26],  
+		envir: nil,  clock: nil,  
+		quant: 1.0,  condition: true,  
+		reset: nil ],  
+	// Array
+	26, [ 1,  1,  1,  1,  
+		1,  1,  1 ],  
+	// PatternProxy
+	27, [ source: o[28],  pattern: o[28],  
+		envir: nil,  clock: nil,  
+		quant: 1.0,  condition: true,  
+		reset: nil ],  
+	// Array
+	28, [ 'simple_modes_synth_1',  'sine_OD_1',  'wavetable_1',  'fm_1',  
+		'fm_1',  'fm_1',  'fm_1',  'fm_1',  
+		'fm_1',  'fm_1' ],  
+	// EventPatternProxy
+	29, [ source: o[30],  pattern: o[30],  
+		envir: nil,  clock: nil,  
+		quant: 1.0,  condition: true,  
+		reset: nil,  player: nil,  
+		playQuant: nil,  fadeTime: nil ],  
+	// Pbind
+	30, [ patternpairs: o[31] ],  
+	// Array
+	31, [ 'setType',  o[3],  'legatoArr',  o[4],  
+		'amp',  o[6],  'scale',  o[7],  
+		'branchInterval',  o[14],  'stepInterval',  o[17],  
+		'noteOffset',  o[18],  'chanFunc',  o[19],  
+		'wrapLo',  o[21],  'wrapHi',  o[23],  
+		'vols',  o[25],  'setInstrument',  o[27] ]
+];
+prUnarchive(o,p);

@@ -1,0 +1,2112 @@
+var o, p;
+o = [
+	Pbindef.prNew,  PbindProxy.prNew,  Array.prNew(6),  PatternProxy.prNew,  
+	PatternProxy.prNew,  PatternProxy.prNew,  Pseq.prNew,  List.prNew,  
+	Array.prNew(2),  Event.prNew,  Array.prNew(16),  List.prNew,  
+	Array.prNew(3),  Set.prNew,  Array.prNew(4),  Set.prNew,  
+	Array.prNew(4),  Set.prNew,  Array.prNew(4),  Event.prNew,  
+	Array.prNew(12),  Point.prNew,  Point.prNew,  List.prNew,  
+	Array.prNew(11),  Event.prNew,  Array.prNew(32),  List.prNew,  
+	Array.prNew(8),  List.prNew,  Array.prNew(8),  Array.prNew(2),  
+	Point.prNew,  Point.prNew,  Array.prNew(2),  Point.prNew,  
+	Array.prNew(2),  Point.prNew,  Array.prNew(2),  Point.prNew,  
+	Array.prNew(2),  Point.prNew,  Array.prNew(2),  Point.prNew,  
+	Array.prNew(2),  Point.prNew,  Array.prNew(2),  Point.prNew,  
+	List.prNew,  Array.prNew(8),  List.prNew,  Array.prNew(8),  
+	Array.prNew(3),  Array.prNew(3),  Array.prNew(3),  Array.prNew(3),  
+	Array.prNew(3),  Array.prNew(3),  Array.prNew(3),  Array.prNew(3),  
+	Event.prNew,  Array.prNew(32),  List.prNew,  Array.prNew(1),  
+	List.prNew,  Array.prNew(1),  Array.prNew(2),  Point.prNew,  
+	Point.prNew,  List.prNew,  Array.prNew(1),  List.prNew,  
+	Array.prNew(1),  Array.prNew(3),  Event.prNew,  Array.prNew(32),  
+	List.prNew,  Array.prNew(1),  List.prNew,  Array.prNew(1),  
+	Array.prNew(2),  Point.prNew,  Point.prNew,  List.prNew,  
+	Array.prNew(1),  List.prNew,  Array.prNew(1),  Array.prNew(3),  
+	Event.prNew,  Array.prNew(32),  List.prNew,  Array.prNew(2),  
+	List.prNew,  Array.prNew(2),  Array.prNew(2),  Point.prNew,  
+	Point.prNew,  Array.prNew(2),  Point.prNew,  List.prNew,  
+	Array.prNew(2),  List.prNew,  Array.prNew(2),  Array.prNew(3),  
+	Array.prNew(3),  Event.prNew,  Array.prNew(32),  List.prNew,  
+	Array.prNew(1),  List.prNew,  Array.prNew(1),  Array.prNew(2),  
+	Point.prNew,  Point.prNew,  List.prNew,  Array.prNew(1),  
+	List.prNew,  Array.prNew(1),  Array.prNew(3),  Event.prNew,  
+	Array.prNew(32),  List.prNew,  Array.prNew(1),  List.prNew,  
+	Array.prNew(1),  Array.prNew(2),  Point.prNew,  Point.prNew,  
+	List.prNew,  Array.prNew(1),  List.prNew,  Array.prNew(1),  
+	Array.prNew(3),  Event.prNew,  Array.prNew(32),  List.prNew,  
+	Array.prNew(1),  List.prNew,  Array.prNew(1),  Array.prNew(2),  
+	Point.prNew,  Point.prNew,  List.prNew,  Array.prNew(1),  
+	List.prNew,  Array.prNew(1),  Array.prNew(3),  Event.prNew,  
+	Array.prNew(32),  List.prNew,  Array.prNew(2),  List.prNew,  
+	Array.prNew(2),  Array.prNew(2),  Point.prNew,  Point.prNew,  
+	Array.prNew(2),  Point.prNew,  List.prNew,  Array.prNew(2),  
+	List.prNew,  Array.prNew(2),  Array.prNew(3),  Array.prNew(3),  
+	Event.prNew,  Array.prNew(32),  List.prNew,  Array.prNew(2),  
+	List.prNew,  Array.prNew(2),  Array.prNew(2),  Point.prNew,  
+	Point.prNew,  Array.prNew(2),  Point.prNew,  List.prNew,  
+	Array.prNew(2),  List.prNew,  Array.prNew(2),  Array.prNew(3),  
+	Array.prNew(3),  Event.prNew,  Array.prNew(32),  List.prNew,  
+	Array.prNew(1),  List.prNew,  Array.prNew(1),  Array.prNew(2),  
+	Point.prNew,  Point.prNew,  List.prNew,  Array.prNew(1),  
+	List.prNew,  Array.prNew(1),  Array.prNew(3),  Event.prNew,  
+	Array.prNew(32),  List.prNew,  Array.prNew(1),  List.prNew,  
+	Array.prNew(1),  Array.prNew(2),  Point.prNew,  Point.prNew,  
+	List.prNew,  Array.prNew(1),  List.prNew,  Array.prNew(1),  
+	Array.prNew(3),  Event.prNew,  Array.prNew(16),  List.prNew,  
+	Array.prNew(4),  Set.prNew,  Array.prNew(4),  Set.prNew,  
+	Array.prNew(8),  Set.prNew,  Array.prNew(4),  Set.prNew,  
+	Array.prNew(4),  Event.prNew,  Array.prNew(12),  Point.prNew,  
+	Point.prNew,  List.prNew,  Array.prNew(30),  Event.prNew,  
+	Array.prNew(32),  List.prNew,  Array.prNew(16),  List.prNew,  
+	Array.prNew(16),  Array.prNew(2),  Point.prNew,  Point.prNew,  
+	Array.prNew(2),  Point.prNew,  Array.prNew(2),  Point.prNew,  
+	Array.prNew(2),  Point.prNew,  Array.prNew(2),  Point.prNew,  
+	Array.prNew(2),  Point.prNew,  Array.prNew(2),  Point.prNew,  
+	Array.prNew(2),  Point.prNew,  Array.prNew(2),  Point.prNew,  
+	Array.prNew(2),  Point.prNew,  Array.prNew(2),  Point.prNew,  
+	Array.prNew(2),  Point.prNew,  Array.prNew(2),  Point.prNew,  
+	Array.prNew(2),  Point.prNew,  Array.prNew(2),  Point.prNew,  
+	Array.prNew(2),  Point.prNew,  List.prNew,  Array.prNew(16),  
+	List.prNew,  Array.prNew(16),  Array.prNew(3),  Array.prNew(3),  
+	Array.prNew(3),  Array.prNew(3),  Array.prNew(3),  Array.prNew(3),  
+	Array.prNew(3),  Array.prNew(3),  Array.prNew(3),  Array.prNew(3),  
+	Array.prNew(3),  Array.prNew(3),  Array.prNew(3),  Array.prNew(3),  
+	Array.prNew(3),  Array.prNew(3),  Event.prNew,  Array.prNew(32),  
+	List.prNew,  Array.prNew(1),  List.prNew,  Array.prNew(1),  
+	Array.prNew(2),  Point.prNew,  Point.prNew,  List.prNew,  
+	Array.prNew(1),  List.prNew,  Array.prNew(1),  Array.prNew(3),  
+	Event.prNew,  Array.prNew(32),  List.prNew,  Array.prNew(1),  
+	List.prNew,  Array.prNew(1),  Array.prNew(2),  Point.prNew,  
+	Point.prNew,  List.prNew,  Array.prNew(1),  List.prNew,  
+	Array.prNew(1),  Array.prNew(3),  Event.prNew,  Array.prNew(32),  
+	List.prNew,  Array.prNew(2),  List.prNew,  Array.prNew(2),  
+	Array.prNew(2),  Point.prNew,  Point.prNew,  Array.prNew(2),  
+	Point.prNew,  List.prNew,  Array.prNew(2),  List.prNew,  
+	Array.prNew(2),  Array.prNew(3),  Array.prNew(3),  Event.prNew,  
+	Array.prNew(32),  List.prNew,  Array.prNew(1),  List.prNew,  
+	Array.prNew(1),  Array.prNew(2),  Point.prNew,  Point.prNew,  
+	List.prNew,  Array.prNew(1),  List.prNew,  Array.prNew(1),  
+	Array.prNew(3),  Event.prNew,  Array.prNew(32),  List.prNew,  
+	Array.prNew(1),  List.prNew,  Array.prNew(1),  Array.prNew(2),  
+	Point.prNew,  Point.prNew,  List.prNew,  Array.prNew(1),  
+	List.prNew,  Array.prNew(1),  Array.prNew(3),  Event.prNew,  
+	Array.prNew(32),  List.prNew,  Array.prNew(1),  List.prNew,  
+	Array.prNew(1),  Array.prNew(2),  Point.prNew,  Point.prNew,  
+	List.prNew,  Array.prNew(1),  List.prNew,  Array.prNew(1),  
+	Array.prNew(3),  Event.prNew,  Array.prNew(32),  List.prNew,  
+	Array.prNew(4),  List.prNew,  Array.prNew(4),  Array.prNew(2),  
+	Point.prNew,  Point.prNew,  Array.prNew(2),  Point.prNew,  
+	Array.prNew(2),  Point.prNew,  Array.prNew(2),  Point.prNew,  
+	List.prNew,  Array.prNew(4),  List.prNew,  Array.prNew(4),  
+	Array.prNew(3),  Array.prNew(3),  Array.prNew(3),  Array.prNew(3),  
+	Event.prNew,  Array.prNew(32),  List.prNew,  Array.prNew(2),  
+	List.prNew,  Array.prNew(2),  Array.prNew(2),  Point.prNew,  
+	Point.prNew,  Array.prNew(2),  Point.prNew,  List.prNew,  
+	Array.prNew(2),  List.prNew,  Array.prNew(2),  Array.prNew(3),  
+	Array.prNew(3),  Event.prNew,  Array.prNew(32),  List.prNew,  
+	Array.prNew(1),  List.prNew,  Array.prNew(1),  Array.prNew(2),  
+	Point.prNew,  Point.prNew,  List.prNew,  Array.prNew(1),  
+	List.prNew,  Array.prNew(1),  Array.prNew(3),  Event.prNew,  
+	Array.prNew(32),  List.prNew,  Array.prNew(1),  List.prNew,  
+	Array.prNew(1),  Array.prNew(2),  Point.prNew,  Point.prNew,  
+	List.prNew,  Array.prNew(1),  List.prNew,  Array.prNew(1),  
+	Array.prNew(3),  Event.prNew,  Array.prNew(32),  List.prNew,  
+	Array.prNew(1),  List.prNew,  Array.prNew(1),  Array.prNew(2),  
+	Point.prNew,  Point.prNew,  List.prNew,  Array.prNew(1),  
+	List.prNew,  Array.prNew(1),  Array.prNew(3),  Event.prNew,  
+	Array.prNew(32),  List.prNew,  Array.prNew(2),  List.prNew,  
+	Array.prNew(2),  Array.prNew(2),  Point.prNew,  Point.prNew,  
+	Array.prNew(2),  Point.prNew,  List.prNew,  Array.prNew(2),  
+	List.prNew,  Array.prNew(2),  Array.prNew(3),  Array.prNew(3),  
+	Event.prNew,  Array.prNew(32),  List.prNew,  Array.prNew(1),  
+	List.prNew,  Array.prNew(1),  Array.prNew(2),  Point.prNew,  
+	Point.prNew,  List.prNew,  Array.prNew(1),  List.prNew,  
+	Array.prNew(1),  Array.prNew(3),  Event.prNew,  Array.prNew(32),  
+	List.prNew,  Array.prNew(1),  List.prNew,  Array.prNew(1),  
+	Array.prNew(2),  Point.prNew,  Point.prNew,  List.prNew,  
+	Array.prNew(1),  List.prNew,  Array.prNew(1),  Array.prNew(3),  
+	Event.prNew,  Array.prNew(32),  List.prNew,  Array.prNew(2),  
+	List.prNew,  Array.prNew(2),  Array.prNew(2),  Point.prNew,  
+	Point.prNew,  Array.prNew(2),  Point.prNew,  List.prNew,  
+	Array.prNew(2),  List.prNew,  Array.prNew(2),  Array.prNew(3),  
+	Array.prNew(3),  Event.prNew,  Array.prNew(32),  List.prNew,  
+	Array.prNew(1),  List.prNew,  Array.prNew(1),  Array.prNew(2),  
+	Point.prNew,  Point.prNew,  List.prNew,  Array.prNew(1),  
+	List.prNew,  Array.prNew(1),  Array.prNew(3),  Event.prNew,  
+	Array.prNew(32),  List.prNew,  Array.prNew(1),  List.prNew,  
+	Array.prNew(1),  Array.prNew(2),  Point.prNew,  Point.prNew,  
+	List.prNew,  Array.prNew(1),  List.prNew,  Array.prNew(1),  
+	Array.prNew(3),  Event.prNew,  Array.prNew(32),  List.prNew,  
+	Array.prNew(1),  List.prNew,  Array.prNew(1),  Array.prNew(2),  
+	Point.prNew,  Point.prNew,  List.prNew,  Array.prNew(1),  
+	List.prNew,  Array.prNew(1),  Array.prNew(3),  Event.prNew,  
+	Array.prNew(32),  List.prNew,  Array.prNew(4),  List.prNew,  
+	Array.prNew(4),  Array.prNew(2),  Point.prNew,  Point.prNew,  
+	Array.prNew(2),  Point.prNew,  Array.prNew(2),  Point.prNew,  
+	Array.prNew(2),  Point.prNew,  List.prNew,  Array.prNew(4),  
+	List.prNew,  Array.prNew(4),  Array.prNew(3),  Array.prNew(3),  
+	Array.prNew(3),  Array.prNew(3),  Event.prNew,  Array.prNew(32),  
+	List.prNew,  Array.prNew(1),  List.prNew,  Array.prNew(1),  
+	Array.prNew(2),  Point.prNew,  Point.prNew,  List.prNew,  
+	Array.prNew(1),  List.prNew,  Array.prNew(1),  Array.prNew(3),  
+	Event.prNew,  Array.prNew(32),  List.prNew,  Array.prNew(2),  
+	List.prNew,  Array.prNew(2),  Array.prNew(2),  Point.prNew,  
+	Point.prNew,  Array.prNew(2),  Point.prNew,  List.prNew,  
+	Array.prNew(2),  List.prNew,  Array.prNew(2),  Array.prNew(3),  
+	Array.prNew(3),  Event.prNew,  Array.prNew(32),  List.prNew,  
+	Array.prNew(4),  List.prNew,  Array.prNew(4),  Array.prNew(2),  
+	Point.prNew,  Point.prNew,  Array.prNew(2),  Point.prNew,  
+	Array.prNew(2),  Point.prNew,  Array.prNew(2),  Point.prNew,  
+	List.prNew,  Array.prNew(4),  List.prNew,  Array.prNew(4),  
+	Array.prNew(3),  Array.prNew(3),  Array.prNew(3),  Array.prNew(3),  
+	Event.prNew,  Array.prNew(32),  List.prNew,  Array.prNew(1),  
+	List.prNew,  Array.prNew(1),  Array.prNew(2),  Point.prNew,  
+	Point.prNew,  List.prNew,  Array.prNew(1),  List.prNew,  
+	Array.prNew(1),  Array.prNew(3),  Event.prNew,  Array.prNew(32),  
+	List.prNew,  Array.prNew(1),  List.prNew,  Array.prNew(1),  
+	Array.prNew(2),  Point.prNew,  Point.prNew,  List.prNew,  
+	Array.prNew(1),  List.prNew,  Array.prNew(1),  Array.prNew(3),  
+	Event.prNew,  Array.prNew(32),  List.prNew,  Array.prNew(1),  
+	List.prNew,  Array.prNew(1),  Array.prNew(2),  Point.prNew,  
+	Point.prNew,  List.prNew,  Array.prNew(1),  List.prNew,  
+	Array.prNew(1),  Array.prNew(3),  Event.prNew,  Array.prNew(32),  
+	List.prNew,  Array.prNew(2),  List.prNew,  Array.prNew(2),  
+	Array.prNew(2),  Point.prNew,  Point.prNew,  Array.prNew(2),  
+	Point.prNew,  List.prNew,  Array.prNew(2),  List.prNew,  
+	Array.prNew(2),  Array.prNew(3),  Array.prNew(3),  Event.prNew,  
+	Array.prNew(32),  List.prNew,  Array.prNew(2),  List.prNew,  
+	Array.prNew(2),  Array.prNew(2),  Point.prNew,  Point.prNew,  
+	Array.prNew(2),  Point.prNew,  List.prNew,  Array.prNew(2),  
+	List.prNew,  Array.prNew(2),  Array.prNew(3),  Array.prNew(3),  
+	Event.prNew,  Array.prNew(32),  List.prNew,  Array.prNew(1),  
+	List.prNew,  Array.prNew(1),  Array.prNew(2),  Point.prNew,  
+	Point.prNew,  List.prNew,  Array.prNew(1),  List.prNew,  
+	Array.prNew(1),  Array.prNew(3),  Event.prNew,  Array.prNew(32),  
+	List.prNew,  Array.prNew(1),  List.prNew,  Array.prNew(1),  
+	Array.prNew(2),  Point.prNew,  Point.prNew,  List.prNew,  
+	Array.prNew(1),  List.prNew,  Array.prNew(1),  Array.prNew(3),  
+	EventPatternProxy.prNew,  Pbind.prNew,  Array.prNew(6)
+];
+p = [
+	// Pbindef
+	0, [ source: o[1],  pattern: o[1],  
+		envir: nil,  clock: nil,  
+		quant: nil,  condition: true,  
+		reset: nil,  player: nil,  
+		playQuant: nil,  fadeTime: nil,  
+		key: 'opts' ],  
+	// PbindProxy
+	1, [ pairs: o[2],  source: o[740] ],  
+	// Array
+	2, [ 'baseTempo',  o[3],  'durCalc',  o[4],  
+		'part',  o[5] ],  
+	// PatternProxy
+	3, [ source: 0.33333333333333,  pattern: 0.33333333333333,  
+		envir: nil,  clock: nil,  
+		quant: 1.0,  condition: true,  
+		reset: nil ],  
+	// PatternProxy
+	4, [ source: 'waitAll',  pattern: 'waitAll',  
+		envir: nil,  clock: nil,  
+		quant: 1.0,  condition: true,  
+		reset: nil ],  
+	// PatternProxy
+	5, [ source: o[6],  pattern: o[6],  
+		envir: nil,  clock: nil,  
+		quant: 1.0,  condition: true,  
+		reset: nil ],  
+	// Pseq
+	6, [ list: o[7],  repeats: inf,  
+		offset: 0 ],  
+	// List
+	7, [ array: o[8] ],  
+	// Array
+	8, [ o[9],  o[209] ],  
+	// Event
+	9, [ array: o[10],  size: 5,  
+		proto: nil,  parent: nil,  
+		know: true ],  
+	// Array
+	10, [ 'maxKey',  3,  'levelSteps',  o[11],  
+		'lastVoice',  o[19],  'streamSize',  11,  
+		nil,  nil,  nil,  nil,  
+		'stream',  o[23],  nil,  nil ],  
+	// List
+	11, [ array: o[12] ],  
+	// Array
+	12, [ o[13],  o[15],  o[17] ],  
+	// Set
+	13, [ array: o[14],  size: 1 ],  
+	// Array
+	14, [ 8,  nil,  nil,  nil ],  
+	// Set
+	15, [ array: o[16],  size: 2 ],  
+	// Array
+	16, [ nil,  2,  nil,  1 ],  
+	// Set
+	17, [ array: o[18],  size: 1 ],  
+	// Array
+	18, [ nil,  nil,  nil,  1 ],  
+	// Event
+	19, [ array: o[20],  size: 3,  
+		proto: nil,  parent: nil,  
+		know: true ],  
+	// Array
+	20, [ nil,  nil,  nil,  nil,  
+		'pitch',  5,  'pointNow',  o[21],  
+		'oldPoint',  o[22],  nil,  nil ],  
+	// Point
+	21, [ x: 2.1903841094228,  y: 1.7469964138661 ],  
+	// Point
+	22, [ x: 3.1653397549068,  y: 1.5245970223675 ],  
+	// List
+	23, [ array: o[24] ],  
+	// Array
+	24, [ o[25],  o[60],  o[74],  o[88],  
+		o[105],  o[119],  o[133],  o[147],  
+		o[164],  o[181],  o[195] ],  
+	// Event
+	25, [ array: o[26],  size: 8,  
+		proto: nil,  parent: nil,  
+		know: true ],  
+	// Array
+	26, [ 'pitches',  o[27],  'firstTime',  0,  
+		nil,  nil,  nil,  nil,  
+		'points',  o[29],  'lastTime',  8,  
+		'chars',  o[48],  'myKey',  0,  
+		'meltedList',  o[50],  'newTime',  -1,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil ],  
+	// List
+	27, [ array: o[28] ],  
+	// Array
+	28, [ 0,  1,  2,  3,  
+		2,  3,  4,  5 ],  
+	// List
+	29, [ array: o[30] ],  
+	// Array
+	30, [ o[31],  o[34],  o[36],  o[38],  
+		o[40],  o[42],  o[44],  o[46] ],  
+	// Array
+	31, [ o[32],  o[33] ],  
+	// Point
+	32, [ x: 0.0,  y: -1.0 ],  
+	// Point
+	33, [ x: 0,  y: 0 ],  
+	// Array
+	34, [ o[35],  o[32] ],  
+	// Point
+	35, [ x: 0.78184702786772,  y: -1.6234703080456 ],  
+	// Array
+	36, [ o[37],  o[35] ],  
+	// Point
+	37, [ x: 1.7567638424861,  y: -1.4009007580744 ],  
+	// Array
+	38, [ o[39],  o[37] ],  
+	// Point
+	39, [ x: 2.1905801880762,  y: -0.49989943826468 ],  
+	// Array
+	40, [ o[41],  o[39] ],  
+	// Point
+	41, [ x: 3.1654970026946,  y: -0.27732988829352 ],  
+	// Array
+	42, [ o[43],  o[41] ],  
+	// Point
+	43, [ x: 3.5993133482847,  y: 0.6236714315162 ],  
+	// Array
+	44, [ o[45],  o[43] ],  
+	// Point
+	45, [ x: 3.1653397549068,  y: 1.5245970223675 ],  
+	// Array
+	46, [ o[47],  o[45] ],  
+	// Point
+	47, [ x: 2.1903841094228,  y: 1.7469964138661 ],  
+	// List
+	48, [ array: o[49] ],  
+	// Array
+	49, [ $F,  $F,  $F,  $F,  
+		$F,  $F,  $F,  $F ],  
+	// List
+	50, [ array: o[51] ],  
+	// Array
+	51, [ o[52],  o[53],  o[54],  o[55],  
+		o[56],  o[57],  o[58],  o[59] ],  
+	// Array
+	52, [ 0,  $F,  1 ],  
+	// Array
+	53, [ 1,  $F,  1 ],  
+	// Array
+	54, [ 2,  $F,  1 ],  
+	// Array
+	55, [ 3,  $F,  1 ],  
+	// Array
+	56, [ 2,  $F,  1 ],  
+	// Array
+	57, [ 3,  $F,  1 ],  
+	// Array
+	58, [ 4,  $F,  1 ],  
+	// Array
+	59, [ 5,  $F,  1 ],  
+	// Event
+	60, [ array: o[61],  size: 8,  
+		proto: nil,  parent: nil,  
+		know: true ],  
+	// Array
+	61, [ 'pitches',  o[62],  'firstTime',  2,  
+		nil,  nil,  nil,  nil,  
+		'points',  o[64],  'lastTime',  3,  
+		'chars',  o[69],  'myKey',  1,  
+		'meltedList',  o[71],  'newTime',  2,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil ],  
+	// List
+	62, [ array: o[63] ],  
+	// Array
+	63, [ 1 ],  
+	// List
+	64, [ array: o[65] ],  
+	// Array
+	65, [ o[66] ],  
+	// Array
+	66, [ o[67],  o[68] ],  
+	// Point
+	67, [ x: 1.5636940557354,  y: -2.2469406160911 ],  
+	// Point
+	68, [ x: 0.78184702786772,  y: -1.6234703080456 ],  
+	// List
+	69, [ array: o[70] ],  
+	// Array
+	70, [ $F ],  
+	// List
+	71, [ array: o[72] ],  
+	// Array
+	72, [ o[73] ],  
+	// Array
+	73, [ 1,  $F,  1 ],  
+	// Event
+	74, [ array: o[75],  size: 8,  
+		proto: nil,  parent: nil,  
+		know: true ],  
+	// Array
+	75, [ 'pitches',  o[76],  'firstTime',  4,  
+		nil,  nil,  nil,  nil,  
+		'points',  o[78],  'lastTime',  5,  
+		'chars',  o[83],  'myKey',  1,  
+		'meltedList',  o[85],  'newTime',  2,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil ],  
+	// List
+	76, [ array: o[77] ],  
+	// Array
+	77, [ 3 ],  
+	// List
+	78, [ array: o[79] ],  
+	// Array
+	79, [ o[80] ],  
+	// Array
+	80, [ o[81],  o[82] ],  
+	// Point
+	81, [ x: 2.6243965336663,  y: 0.40110188154504 ],  
+	// Point
+	82, [ x: 2.1905801880762,  y: -0.49989943826468 ],  
+	// List
+	83, [ array: o[84] ],  
+	// Array
+	84, [ $F ],  
+	// List
+	85, [ array: o[86] ],  
+	// Array
+	86, [ o[87] ],  
+	// Array
+	87, [ 3,  $F,  1 ],  
+	// Event
+	88, [ array: o[89],  size: 8,  
+		proto: nil,  parent: nil,  
+		know: true ],  
+	// Array
+	89, [ 'pitches',  o[90],  'firstTime',  4,  
+		nil,  nil,  nil,  nil,  
+		'points',  o[92],  'lastTime',  6,  
+		'chars',  o[99],  'myKey',  1,  
+		'meltedList',  o[101],  'newTime',  0,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil ],  
+	// List
+	90, [ array: o[91] ],  
+	// Array
+	91, [ 3,  4 ],  
+	// List
+	92, [ array: o[93] ],  
+	// Array
+	93, [ o[94],  o[97] ],  
+	// Array
+	94, [ o[95],  o[96] ],  
+	// Point
+	95, [ x: 2.6243965336663,  y: 0.40110188154504 ],  
+	// Point
+	96, [ x: 2.1905801880762,  y: -0.49989943826468 ],  
+	// Array
+	97, [ o[98],  o[95] ],  
+	// Point
+	98, [ x: 2.1904229402884,  y: 1.3020274723963 ],  
+	// List
+	99, [ array: o[100] ],  
+	// Array
+	100, [ $F,  $F ],  
+	// List
+	101, [ array: o[102] ],  
+	// Array
+	102, [ o[103],  o[104] ],  
+	// Array
+	103, [ 3,  $F,  1 ],  
+	// Array
+	104, [ 4,  $F,  1 ],  
+	// Event
+	105, [ array: o[106],  size: 8,  
+		proto: nil,  parent: nil,  
+		know: true ],  
+	// Array
+	106, [ 'pitches',  o[107],  'firstTime',  6,  
+		nil,  nil,  nil,  nil,  
+		'points',  o[109],  'lastTime',  7,  
+		'chars',  o[114],  'myKey',  1,  
+		'meltedList',  o[116],  'newTime',  2,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil ],  
+	// List
+	107, [ array: o[108] ],  
+	// Array
+	108, [ 3 ],  
+	// List
+	109, [ array: o[110] ],  
+	// Array
+	110, [ o[111] ],  
+	// Array
+	111, [ o[112],  o[113] ],  
+	// Point
+	112, [ x: 4.0331296938748,  y: 1.5246727513259 ],  
+	// Point
+	113, [ x: 3.5993133482847,  y: 0.6236714315162 ],  
+	// List
+	114, [ array: o[115] ],  
+	// Array
+	115, [ $F ],  
+	// List
+	116, [ array: o[117] ],  
+	// Array
+	117, [ o[118] ],  
+	// Array
+	118, [ 3,  $F,  1 ],  
+	// Event
+	119, [ array: o[120],  size: 8,  
+		proto: nil,  parent: nil,  
+		know: true ],  
+	// Array
+	120, [ 'pitches',  o[121],  'firstTime',  6,  
+		nil,  nil,  nil,  nil,  
+		'points',  o[123],  'lastTime',  7,  
+		'chars',  o[128],  'myKey',  2,  
+		'meltedList',  o[130],  'newTime',  0,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil ],  
+	// List
+	121, [ array: o[122] ],  
+	// Array
+	122, [ 4 ],  
+	// List
+	123, [ array: o[124] ],  
+	// Array
+	124, [ o[125] ],  
+	// Array
+	125, [ o[126],  o[127] ],  
+	// Point
+	126, [ x: 1.7564493469106,  y: 2.2029530632476 ],  
+	// Point
+	127, [ x: 2.1904229402884,  y: 1.3020274723963 ],  
+	// List
+	128, [ array: o[129] ],  
+	// Array
+	129, [ $F ],  
+	// List
+	130, [ array: o[131] ],  
+	// Array
+	131, [ o[132] ],  
+	// Array
+	132, [ 4,  $F,  1 ],  
+	// Event
+	133, [ array: o[134],  size: 8,  
+		proto: nil,  parent: nil,  
+		know: true ],  
+	// Array
+	134, [ 'pitches',  o[135],  'firstTime',  8,  
+		nil,  nil,  nil,  nil,  
+		'points',  o[137],  'lastTime',  9,  
+		'chars',  o[142],  'myKey',  1,  
+		'meltedList',  o[144],  'newTime',  2,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil ],  
+	// List
+	135, [ array: o[136] ],  
+	// Array
+	136, [ 5 ],  
+	// List
+	137, [ array: o[138] ],  
+	// Array
+	138, [ o[139] ],  
+	// Array
+	139, [ o[140],  o[141] ],  
+	// Point
+	140, [ x: 1.2154284639389,  y: 1.9693958053647 ],  
+	// Point
+	141, [ x: 2.1903841094228,  y: 1.7469964138661 ],  
+	// List
+	142, [ array: o[143] ],  
+	// Array
+	143, [ $F ],  
+	// List
+	144, [ array: o[145] ],  
+	// Array
+	145, [ o[146] ],  
+	// Array
+	146, [ 5,  $F,  1 ],  
+	// Event
+	147, [ array: o[148],  size: 8,  
+		proto: nil,  parent: nil,  
+		know: true ],  
+	// Array
+	148, [ 'pitches',  o[149],  'firstTime',  8,  
+		nil,  nil,  nil,  nil,  
+		'points',  o[151],  'lastTime',  10,  
+		'chars',  o[158],  'myKey',  1,  
+		'meltedList',  o[160],  'newTime',  0,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil ],  
+	// List
+	149, [ array: o[150] ],  
+	// Array
+	150, [ 5,  6 ],  
+	// List
+	151, [ array: o[152] ],  
+	// Array
+	152, [ o[153],  o[156] ],  
+	// Array
+	153, [ o[154],  o[155] ],  
+	// Point
+	154, [ x: 1.2154284639389,  y: 1.9693958053647 ],  
+	// Point
+	155, [ x: 2.1903841094228,  y: 1.7469964138661 ],  
+	// Array
+	156, [ o[157],  o[154] ],  
+	// Point
+	157, [ x: 0.43369026407547,  y: 1.345789048767 ],  
+	// List
+	158, [ array: o[159] ],  
+	// Array
+	159, [ $F,  $F ],  
+	// List
+	160, [ array: o[161] ],  
+	// Array
+	161, [ o[162],  o[163] ],  
+	// Array
+	162, [ 5,  $F,  1 ],  
+	// Array
+	163, [ 6,  $F,  1 ],  
+	// Event
+	164, [ array: o[165],  size: 8,  
+		proto: nil,  parent: nil,  
+		know: true ],  
+	// Array
+	165, [ 'pitches',  o[166],  'firstTime',  8,  
+		nil,  nil,  nil,  nil,  
+		'points',  o[168],  'lastTime',  10,  
+		'chars',  o[175],  'myKey',  1,  
+		'meltedList',  o[177],  'newTime',  0,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil ],  
+	// List
+	166, [ array: o[167] ],  
+	// Array
+	167, [ 5,  6 ],  
+	// List
+	168, [ array: o[169] ],  
+	// Array
+	169, [ o[170],  o[173] ],  
+	// Array
+	170, [ o[171],  o[172] ],  
+	// Point
+	171, [ x: 1.2154284639389,  y: 1.9693958053647 ],  
+	// Point
+	172, [ x: 2.1903841094228,  y: 1.7469964138661 ],  
+	// Array
+	173, [ o[174],  o[171] ],  
+	// Point
+	174, [ x: 0.43369026407547,  y: 1.345789048767 ],  
+	// List
+	175, [ array: o[176] ],  
+	// Array
+	176, [ $F,  $F ],  
+	// List
+	177, [ array: o[178] ],  
+	// Array
+	178, [ o[179],  o[180] ],  
+	// Array
+	179, [ 5,  $F,  1 ],  
+	// Array
+	180, [ 6,  $F,  1 ],  
+	// Event
+	181, [ array: o[182],  size: 8,  
+		proto: nil,  parent: nil,  
+		know: true ],  
+	// Array
+	182, [ 'pitches',  o[183],  'firstTime',  10,  
+		nil,  nil,  nil,  nil,  
+		'points',  o[185],  'lastTime',  11,  
+		'chars',  o[190],  'myKey',  2,  
+		'meltedList',  o[192],  'newTime',  2,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil ],  
+	// List
+	183, [ array: o[184] ],  
+	// Array
+	184, [ 6 ],  
+	// List
+	185, [ array: o[186] ],  
+	// Array
+	186, [ o[187] ],  
+	// Array
+	187, [ o[188],  o[189] ],  
+	// Point
+	188, [ x: -0.34804793578795,  y: 0.7221822921693 ],  
+	// Point
+	189, [ x: 0.43369026407547,  y: 1.345789048767 ],  
+	// List
+	190, [ array: o[191] ],  
+	// Array
+	191, [ $F ],  
+	// List
+	192, [ array: o[193] ],  
+	// Array
+	193, [ o[194] ],  
+	// Array
+	194, [ 6,  $F,  1 ],  
+	// Event
+	195, [ array: o[196],  size: 8,  
+		proto: nil,  parent: nil,  
+		know: true ],  
+	// Array
+	196, [ 'pitches',  o[197],  'firstTime',  10,  
+		nil,  nil,  nil,  nil,  
+		'points',  o[199],  'lastTime',  11,  
+		'chars',  o[204],  'myKey',  2,  
+		'meltedList',  o[206],  'newTime',  0,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil ],  
+	// List
+	197, [ array: o[198] ],  
+	// Array
+	198, [ 6 ],  
+	// List
+	199, [ array: o[200] ],  
+	// Array
+	200, [ o[201] ],  
+	// Array
+	201, [ o[202],  o[203] ],  
+	// Point
+	202, [ x: -0.34804793578795,  y: 0.7221822921693 ],  
+	// Point
+	203, [ x: 0.43369026407547,  y: 1.345789048767 ],  
+	// List
+	204, [ array: o[205] ],  
+	// Array
+	205, [ $F ],  
+	// List
+	206, [ array: o[207] ],  
+	// Array
+	207, [ o[208] ],  
+	// Array
+	208, [ 6,  $F,  1 ],  
+	// Event
+	209, [ array: o[210],  size: 5,  
+		proto: nil,  parent: nil,  
+		know: true ],  
+	// Array
+	210, [ 'maxKey',  4,  'levelSteps',  o[211],  
+		'lastVoice',  o[221],  'streamSize',  30,  
+		nil,  nil,  nil,  nil,  
+		'stream',  o[225],  nil,  nil ],  
+	// List
+	211, [ array: o[212] ],  
+	// Array
+	212, [ o[213],  o[215],  o[217],  o[219] ],  
+	// Set
+	213, [ array: o[214],  size: 1 ],  
+	// Array
+	214, [ nil,  nil,  16,  nil ],  
+	// Set
+	215, [ array: o[216],  size: 3 ],  
+	// Array
+	216, [ nil,  nil,  nil,  nil,  
+		nil,  2,  4,  1 ],  
+	// Set
+	217, [ array: o[218],  size: 2 ],  
+	// Array
+	218, [ nil,  2,  nil,  1 ],  
+	// Set
+	219, [ array: o[220],  size: 1 ],  
+	// Array
+	220, [ nil,  nil,  nil,  1 ],  
+	// Event
+	221, [ array: o[222],  size: 3,  
+		proto: nil,  parent: nil,  
+		know: true ],  
+	// Array
+	222, [ nil,  nil,  nil,  nil,  
+		'pitch',  13,  'pointNow',  o[223],  
+		'oldPoint',  o[224],  nil,  nil ],  
+	// Point
+	223, [ x: -0.78173813660832,  y: -1.6239691816172 ],  
+	// Point
+	224, [ x: -0.00010878856230567,  y: -1.0002259954635 ],  
+	// List
+	225, [ array: o[226] ],  
+	// Array
+	226, [ o[227],  o[286],  o[300],  o[314],  
+		o[331],  o[345],  o[359],  o[373],  
+		o[396],  o[413],  o[427],  o[441],  
+		o[455],  o[472],  o[486],  o[500],  
+		o[517],  o[531],  o[545],  o[559],  
+		o[582],  o[596],  o[613],  o[636],  
+		o[650],  o[664],  o[678],  o[695],  
+		o[712],  o[726] ],  
+	// Event
+	227, [ array: o[228],  size: 8,  
+		proto: nil,  parent: nil,  
+		know: true ],  
+	// Array
+	228, [ 'pitches',  o[229],  'firstTime',  0,  
+		nil,  nil,  nil,  nil,  
+		'points',  o[231],  'lastTime',  16,  
+		'chars',  o[266],  'myKey',  0,  
+		'meltedList',  o[268],  'newTime',  -1,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil ],  
+	// List
+	229, [ array: o[230] ],  
+	// Array
+	230, [ 0,  1,  2,  3,  
+		4,  5,  6,  7,  
+		6,  7,  8,  9,  
+		10,  11,  12,  13 ],  
+	// List
+	231, [ array: o[232] ],  
+	// Array
+	232, [ o[233],  o[236],  o[238],  o[240],  
+		o[242],  o[244],  o[246],  o[248],  
+		o[250],  o[252],  o[254],  o[256],  
+		o[258],  o[260],  o[262],  o[264] ],  
+	// Array
+	233, [ o[234],  o[235] ],  
+	// Point
+	234, [ x: 0.0,  y: -1.0 ],  
+	// Point
+	235, [ x: 0,  y: 0 ],  
+	// Array
+	236, [ o[237],  o[234] ],  
+	// Point
+	237, [ x: 0.78184702786772,  y: -1.6234703080456 ],  
+	// Array
+	238, [ o[239],  o[237] ],  
+	// Point
+	239, [ x: 1.7567638424861,  y: -1.4009007580744 ],  
+	// Array
+	240, [ o[241],  o[239] ],  
+	// Point
+	241, [ x: 2.1905801880762,  y: -0.49989943826468 ],  
+	// Array
+	242, [ o[243],  o[241] ],  
+	// Point
+	243, [ x: 1.7566065946983,  y: 0.40102615258659 ],  
+	// Array
+	244, [ o[245],  o[243] ],  
+	// Point
+	245, [ x: 0.78165094921437,  y: 0.62342554408521 ],  
+	// Array
+	246, [ o[247],  o[245] ],  
+	// Point
+	247, [ x: -8.7250649046244e-05,  y: -0.00018121251249259 ],  
+	// Array
+	248, [ o[249],  o[247] ],  
+	// Point
+	249, [ x: 8.7282275266837e-05,  y: -1.0001811972816 ],  
+	// Array
+	250, [ o[251],  o[249] ],  
+	// Point
+	251, [ x: -0.78165091758815,  y: -1.6237879538793 ],  
+	// Array
+	252, [ o[253],  o[251] ],  
+	// Point
+	253, [ x: -0.78147638466384,  y: -2.6237879386484 ],  
+	// Array
+	254, [ o[255],  o[253] ],  
+	// Point
+	255, [ x: 0.0004794473917511,  y: -3.2471217791499 ],  
+	// Array
+	256, [ o[257],  o[255] ],  
+	// Point
+	257, [ x: 0.97535740144687,  y: -3.024382077486 ],  
+	// Array
+	258, [ o[259],  o[257] ],  
+	// Point
+	259, [ x: 1.4090164860344,  y: -2.1233050561639 ],  
+	// Array
+	260, [ o[261],  o[259] ],  
+	// Point
+	261, [ x: 0.97488565808839,  y: -1.2224552217149 ],  
+	// Array
+	262, [ o[263],  o[261] ],  
+	// Point
+	263, [ x: -0.00010878856230567,  y: -1.0002259954635 ],  
+	// Array
+	264, [ o[265],  o[263] ],  
+	// Point
+	265, [ x: -0.78173813660832,  y: -1.6239691816172 ],  
+	// List
+	266, [ array: o[267] ],  
+	// Array
+	267, [ $F,  $F,  $F,  $F,  
+		$F,  $F,  $F,  $F,  
+		$F,  $F,  $F,  $F,  
+		$F,  $F,  $F,  $F ],  
+	// List
+	268, [ array: o[269] ],  
+	// Array
+	269, [ o[270],  o[271],  o[272],  o[273],  
+		o[274],  o[275],  o[276],  o[277],  
+		o[278],  o[279],  o[280],  o[281],  
+		o[282],  o[283],  o[284],  o[285] ],  
+	// Array
+	270, [ 0,  $F,  1 ],  
+	// Array
+	271, [ 1,  $F,  1 ],  
+	// Array
+	272, [ 2,  $F,  1 ],  
+	// Array
+	273, [ 3,  $F,  1 ],  
+	// Array
+	274, [ 4,  $F,  1 ],  
+	// Array
+	275, [ 5,  $F,  1 ],  
+	// Array
+	276, [ 6,  $F,  1 ],  
+	// Array
+	277, [ 7,  $F,  1 ],  
+	// Array
+	278, [ 6,  $F,  1 ],  
+	// Array
+	279, [ 7,  $F,  1 ],  
+	// Array
+	280, [ 8,  $F,  1 ],  
+	// Array
+	281, [ 9,  $F,  1 ],  
+	// Array
+	282, [ 10,  $F,  1 ],  
+	// Array
+	283, [ 11,  $F,  1 ],  
+	// Array
+	284, [ 12,  $F,  1 ],  
+	// Array
+	285, [ 13,  $F,  1 ],  
+	// Event
+	286, [ array: o[287],  size: 8,  
+		proto: nil,  parent: nil,  
+		know: true ],  
+	// Array
+	287, [ 'pitches',  o[288],  'firstTime',  2,  
+		nil,  nil,  nil,  nil,  
+		'points',  o[290],  'lastTime',  3,  
+		'chars',  o[295],  'myKey',  1,  
+		'meltedList',  o[297],  'newTime',  2,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil ],  
+	// List
+	288, [ array: o[289] ],  
+	// Array
+	289, [ 1 ],  
+	// List
+	290, [ array: o[291] ],  
+	// Array
+	291, [ o[292] ],  
+	// Array
+	292, [ o[293],  o[294] ],  
+	// Point
+	293, [ x: 1.5636940557354,  y: -2.2469406160911 ],  
+	// Point
+	294, [ x: 0.78184702786772,  y: -1.6234703080456 ],  
+	// List
+	295, [ array: o[296] ],  
+	// Array
+	296, [ $F ],  
+	// List
+	297, [ array: o[298] ],  
+	// Array
+	298, [ o[299] ],  
+	// Array
+	299, [ 1,  $F,  1 ],  
+	// Event
+	300, [ array: o[301],  size: 8,  
+		proto: nil,  parent: nil,  
+		know: true ],  
+	// Array
+	301, [ 'pitches',  o[302],  'firstTime',  4,  
+		nil,  nil,  nil,  nil,  
+		'points',  o[304],  'lastTime',  5,  
+		'chars',  o[309],  'myKey',  1,  
+		'meltedList',  o[311],  'newTime',  2,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil ],  
+	// List
+	302, [ array: o[303] ],  
+	// Array
+	303, [ 3 ],  
+	// List
+	304, [ array: o[305] ],  
+	// Array
+	305, [ o[306] ],  
+	// Array
+	306, [ o[307],  o[308] ],  
+	// Point
+	307, [ x: 2.6243965336663,  y: 0.40110188154504 ],  
+	// Point
+	308, [ x: 2.1905801880762,  y: -0.49989943826468 ],  
+	// List
+	309, [ array: o[310] ],  
+	// Array
+	310, [ $F ],  
+	// List
+	311, [ array: o[312] ],  
+	// Array
+	312, [ o[313] ],  
+	// Array
+	313, [ 3,  $F,  1 ],  
+	// Event
+	314, [ array: o[315],  size: 8,  
+		proto: nil,  parent: nil,  
+		know: true ],  
+	// Array
+	315, [ 'pitches',  o[316],  'firstTime',  4,  
+		nil,  nil,  nil,  nil,  
+		'points',  o[318],  'lastTime',  6,  
+		'chars',  o[325],  'myKey',  1,  
+		'meltedList',  o[327],  'newTime',  0,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil ],  
+	// List
+	316, [ array: o[317] ],  
+	// Array
+	317, [ 3,  4 ],  
+	// List
+	318, [ array: o[319] ],  
+	// Array
+	319, [ o[320],  o[323] ],  
+	// Array
+	320, [ o[321],  o[322] ],  
+	// Point
+	321, [ x: 2.6243965336663,  y: 0.40110188154504 ],  
+	// Point
+	322, [ x: 2.1905801880762,  y: -0.49989943826468 ],  
+	// Array
+	323, [ o[324],  o[321] ],  
+	// Point
+	324, [ x: 2.1904229402884,  y: 1.3020274723963 ],  
+	// List
+	325, [ array: o[326] ],  
+	// Array
+	326, [ $F,  $F ],  
+	// List
+	327, [ array: o[328] ],  
+	// Array
+	328, [ o[329],  o[330] ],  
+	// Array
+	329, [ 3,  $F,  1 ],  
+	// Array
+	330, [ 4,  $F,  1 ],  
+	// Event
+	331, [ array: o[332],  size: 8,  
+		proto: nil,  parent: nil,  
+		know: true ],  
+	// Array
+	332, [ 'pitches',  o[333],  'firstTime',  6,  
+		nil,  nil,  nil,  nil,  
+		'points',  o[335],  'lastTime',  7,  
+		'chars',  o[340],  'myKey',  1,  
+		'meltedList',  o[342],  'newTime',  2,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil ],  
+	// List
+	333, [ array: o[334] ],  
+	// Array
+	334, [ 5 ],  
+	// List
+	335, [ array: o[336] ],  
+	// Array
+	336, [ o[337] ],  
+	// Array
+	337, [ o[338],  o[339] ],  
+	// Point
+	338, [ x: -0.19330469626959,  y: 0.84582493558382 ],  
+	// Point
+	339, [ x: 0.78165094921437,  y: 0.62342554408521 ],  
+	// List
+	340, [ array: o[341] ],  
+	// Array
+	341, [ $F ],  
+	// List
+	342, [ array: o[343] ],  
+	// Array
+	343, [ o[344] ],  
+	// Array
+	344, [ 5,  $F,  1 ],  
+	// Event
+	345, [ array: o[346],  size: 8,  
+		proto: nil,  parent: nil,  
+		know: true ],  
+	// Array
+	346, [ 'pitches',  o[347],  'firstTime',  6,  
+		nil,  nil,  nil,  nil,  
+		'points',  o[349],  'lastTime',  7,  
+		'chars',  o[354],  'myKey',  2,  
+		'meltedList',  o[356],  'newTime',  0,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil ],  
+	// List
+	347, [ array: o[348] ],  
+	// Array
+	348, [ 4 ],  
+	// List
+	349, [ array: o[350] ],  
+	// Array
+	350, [ o[351] ],  
+	// Array
+	351, [ o[352],  o[353] ],  
+	// Point
+	352, [ x: 1.7564493469106,  y: 2.2029530632476 ],  
+	// Point
+	353, [ x: 2.1904229402884,  y: 1.3020274723963 ],  
+	// List
+	354, [ array: o[355] ],  
+	// Array
+	355, [ $F ],  
+	// List
+	356, [ array: o[357] ],  
+	// Array
+	357, [ o[358] ],  
+	// Array
+	358, [ 4,  $F,  1 ],  
+	// Event
+	359, [ array: o[360],  size: 8,  
+		proto: nil,  parent: nil,  
+		know: true ],  
+	// Array
+	360, [ 'pitches',  o[361],  'firstTime',  8,  
+		nil,  nil,  nil,  nil,  
+		'points',  o[363],  'lastTime',  9,  
+		'chars',  o[368],  'myKey',  1,  
+		'meltedList',  o[370],  'newTime',  2,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil ],  
+	// List
+	361, [ array: o[362] ],  
+	// Array
+	362, [ 7 ],  
+	// List
+	363, [ array: o[364] ],  
+	// Array
+	364, [ o[365] ],  
+	// Array
+	365, [ o[366],  o[367] ],  
+	// Point
+	366, [ x: 0.00026181519957992,  y: -2.0001811820508 ],  
+	// Point
+	367, [ x: 8.7282275266837e-05,  y: -1.0001811972816 ],  
+	// List
+	368, [ array: o[369] ],  
+	// Array
+	369, [ $F ],  
+	// List
+	370, [ array: o[371] ],  
+	// Array
+	371, [ o[372] ],  
+	// Array
+	372, [ 7,  $F,  1 ],  
+	// Event
+	373, [ array: o[374],  size: 8,  
+		proto: nil,  parent: nil,  
+		know: true ],  
+	// Array
+	374, [ 'pitches',  o[375],  'firstTime',  8,  
+		nil,  nil,  nil,  nil,  
+		'points',  o[377],  'lastTime',  12,  
+		'chars',  o[388],  'myKey',  1,  
+		'meltedList',  o[390],  'newTime',  0,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil ],  
+	// List
+	375, [ array: o[376] ],  
+	// Array
+	376, [ 7,  8,  9,  10 ],  
+	// List
+	377, [ array: o[378] ],  
+	// Array
+	378, [ o[379],  o[382],  o[384],  o[386] ],  
+	// Array
+	379, [ o[380],  o[381] ],  
+	// Point
+	380, [ x: 0.00026181519957992,  y: -2.0001811820508 ],  
+	// Point
+	381, [ x: 8.7282275266837e-05,  y: -1.0001811972816 ],  
+	// Array
+	382, [ o[383],  o[380] ],  
+	// Point
+	383, [ x: 0.78221764725517,  y: -2.6235150225522 ],  
+	// Array
+	384, [ o[385],  o[383] ],  
+	// Point
+	385, [ x: 1.7570956013103,  y: -2.4007753208883 ],  
+	// Array
+	386, [ o[387],  o[385] ],  
+	// Point
+	387, [ x: 2.1907546858978,  y: -1.4996982995662 ],  
+	// List
+	388, [ array: o[389] ],  
+	// Array
+	389, [ $F,  $F,  $F,  $F ],  
+	// List
+	390, [ array: o[391] ],  
+	// Array
+	391, [ o[392],  o[393],  o[394],  o[395] ],  
+	// Array
+	392, [ 7,  $F,  1 ],  
+	// Array
+	393, [ 8,  $F,  1 ],  
+	// Array
+	394, [ 9,  $F,  1 ],  
+	// Array
+	395, [ 10,  $F,  1 ],  
+	// Event
+	396, [ array: o[397],  size: 8,  
+		proto: nil,  parent: nil,  
+		know: true ],  
+	// Array
+	397, [ 'pitches',  o[398],  'firstTime',  8,  
+		nil,  nil,  nil,  nil,  
+		'points',  o[400],  'lastTime',  10,  
+		'chars',  o[407],  'myKey',  1,  
+		'meltedList',  o[409],  'newTime',  0,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil ],  
+	// List
+	398, [ array: o[399] ],  
+	// Array
+	399, [ 7,  8 ],  
+	// List
+	400, [ array: o[401] ],  
+	// Array
+	401, [ o[402],  o[405] ],  
+	// Array
+	402, [ o[403],  o[404] ],  
+	// Point
+	403, [ x: 0.00026181519957992,  y: -2.0001811820508 ],  
+	// Point
+	404, [ x: 8.7282275266837e-05,  y: -1.0001811972816 ],  
+	// Array
+	405, [ o[406],  o[403] ],  
+	// Point
+	406, [ x: 0.78221764725517,  y: -2.6235150225522 ],  
+	// List
+	407, [ array: o[408] ],  
+	// Array
+	408, [ $F,  $F ],  
+	// List
+	409, [ array: o[410] ],  
+	// Array
+	410, [ o[411],  o[412] ],  
+	// Array
+	411, [ 7,  $F,  1 ],  
+	// Array
+	412, [ 8,  $F,  1 ],  
+	// Event
+	413, [ array: o[414],  size: 8,  
+		proto: nil,  parent: nil,  
+		know: true ],  
+	// Array
+	414, [ 'pitches',  o[415],  'firstTime',  10,  
+		nil,  nil,  nil,  nil,  
+		'points',  o[417],  'lastTime',  11,  
+		'chars',  o[422],  'myKey',  2,  
+		'meltedList',  o[424],  'newTime',  2,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil ],  
+	// List
+	415, [ array: o[416] ],  
+	// Array
+	416, [ 8 ],  
+	// List
+	417, [ array: o[418] ],  
+	// Array
+	418, [ o[419] ],  
+	// Array
+	419, [ o[420],  o[421] ],  
+	// Point
+	420, [ x: 1.5641734793108,  y: -3.2468488630536 ],  
+	// Point
+	421, [ x: 0.78221764725517,  y: -2.6235150225522 ],  
+	// List
+	422, [ array: o[423] ],  
+	// Array
+	423, [ $F ],  
+	// List
+	424, [ array: o[425] ],  
+	// Array
+	425, [ o[426] ],  
+	// Array
+	426, [ 8,  $F,  1 ],  
+	// Event
+	427, [ array: o[428],  size: 8,  
+		proto: nil,  parent: nil,  
+		know: true ],  
+	// Array
+	428, [ 'pitches',  o[429],  'firstTime',  10,  
+		nil,  nil,  nil,  nil,  
+		'points',  o[431],  'lastTime',  11,  
+		'chars',  o[436],  'myKey',  1,  
+		'meltedList',  o[438],  'newTime',  0,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil ],  
+	// List
+	429, [ array: o[430] ],  
+	// Array
+	430, [ 7 ],  
+	// List
+	431, [ array: o[432] ],  
+	// Array
+	432, [ o[433] ],  
+	// Array
+	433, [ o[434],  o[435] ],  
+	// Point
+	434, [ x: -0.78130185173953,  y: -3.6237879234176 ],  
+	// Point
+	435, [ x: -0.78147638466384,  y: -2.6237879386484 ],  
+	// List
+	436, [ array: o[437] ],  
+	// Array
+	437, [ $F ],  
+	// List
+	438, [ array: o[439] ],  
+	// Array
+	439, [ o[440] ],  
+	// Array
+	440, [ 7,  $F,  1 ],  
+	// Event
+	441, [ array: o[442],  size: 8,  
+		proto: nil,  parent: nil,  
+		know: true ],  
+	// Array
+	442, [ 'pitches',  o[443],  'firstTime',  10,  
+		nil,  nil,  nil,  nil,  
+		'points',  o[445],  'lastTime',  11,  
+		'chars',  o[450],  'myKey',  2,  
+		'meltedList',  o[452],  'newTime',  0,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil ],  
+	// List
+	443, [ array: o[444] ],  
+	// Array
+	444, [ 8 ],  
+	// List
+	445, [ array: o[446] ],  
+	// Array
+	446, [ o[447] ],  
+	// Array
+	447, [ o[448],  o[449] ],  
+	// Point
+	448, [ x: 1.5641734793108,  y: -3.2468488630536 ],  
+	// Point
+	449, [ x: 0.78221764725517,  y: -2.6235150225522 ],  
+	// List
+	450, [ array: o[451] ],  
+	// Array
+	451, [ $F ],  
+	// List
+	452, [ array: o[453] ],  
+	// Array
+	453, [ o[454] ],  
+	// Array
+	454, [ 8,  $F,  1 ],  
+	// Event
+	455, [ array: o[456],  size: 8,  
+		proto: nil,  parent: nil,  
+		know: true ],  
+	// Array
+	456, [ 'pitches',  o[457],  'firstTime',  12,  
+		nil,  nil,  nil,  nil,  
+		'points',  o[459],  'lastTime',  14,  
+		'chars',  o[466],  'myKey',  2,  
+		'meltedList',  o[468],  'newTime',  2,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil ],  
+	// List
+	457, [ array: o[458] ],  
+	// Array
+	458, [ 10,  11 ],  
+	// List
+	459, [ array: o[460] ],  
+	// Array
+	460, [ o[461],  o[464] ],  
+	// Array
+	461, [ o[462],  o[463] ],  
+	// Point
+	462, [ x: 2.6244137704854,  y: -0.59862127824414 ],  
+	// Point
+	463, [ x: 2.1907546858978,  y: -1.4996982995662 ],  
+	// Array
+	464, [ o[465],  o[462] ],  
+	// Point
+	465, [ x: 2.1902829425394,  y: 0.30222855620492 ],  
+	// List
+	466, [ array: o[467] ],  
+	// Array
+	467, [ $F,  $F ],  
+	// List
+	468, [ array: o[469] ],  
+	// Array
+	469, [ o[470],  o[471] ],  
+	// Array
+	470, [ 10,  $F,  1 ],  
+	// Array
+	471, [ 11,  $F,  1 ],  
+	// Event
+	472, [ array: o[473],  size: 8,  
+		proto: nil,  parent: nil,  
+		know: true ],  
+	// Array
+	473, [ 'pitches',  o[474],  'firstTime',  12,  
+		nil,  nil,  nil,  nil,  
+		'points',  o[476],  'lastTime',  13,  
+		'chars',  o[481],  'myKey',  2,  
+		'meltedList',  o[483],  'newTime',  0,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil ],  
+	// List
+	474, [ array: o[475] ],  
+	// Array
+	475, [ 10 ],  
+	// List
+	476, [ array: o[477] ],  
+	// Array
+	477, [ o[478] ],  
+	// Array
+	478, [ o[479],  o[480] ],  
+	// Point
+	479, [ x: 2.6244137704854,  y: -0.59862127824414 ],  
+	// Point
+	480, [ x: 2.1907546858978,  y: -1.4996982995662 ],  
+	// List
+	481, [ array: o[482] ],  
+	// Array
+	482, [ $F ],  
+	// List
+	483, [ array: o[484] ],  
+	// Array
+	484, [ o[485] ],  
+	// Array
+	485, [ 10,  $F,  1 ],  
+	// Event
+	486, [ array: o[487],  size: 8,  
+		proto: nil,  parent: nil,  
+		know: true ],  
+	// Array
+	487, [ 'pitches',  o[488],  'firstTime',  12,  
+		nil,  nil,  nil,  nil,  
+		'points',  o[490],  'lastTime',  13,  
+		'chars',  o[495],  'myKey',  1,  
+		'meltedList',  o[497],  'newTime',  0,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil ],  
+	// List
+	488, [ array: o[489] ],  
+	// Array
+	489, [ 9 ],  
+	// List
+	490, [ array: o[491] ],  
+	// Array
+	491, [ o[492] ],  
+	// Array
+	492, [ o[493],  o[494] ],  
+	// Point
+	493, [ x: 1.950235355502,  y: -2.8016423758222 ],  
+	// Point
+	494, [ x: 0.97535740144687,  y: -3.024382077486 ],  
+	// List
+	495, [ array: o[496] ],  
+	// Array
+	496, [ $F ],  
+	// List
+	497, [ array: o[498] ],  
+	// Array
+	498, [ o[499] ],  
+	// Array
+	499, [ 9,  $F,  1 ],  
+	// Event
+	500, [ array: o[501],  size: 8,  
+		proto: nil,  parent: nil,  
+		know: true ],  
+	// Array
+	501, [ 'pitches',  o[502],  'firstTime',  12,  
+		nil,  nil,  nil,  nil,  
+		'points',  o[504],  'lastTime',  14,  
+		'chars',  o[511],  'myKey',  1,  
+		'meltedList',  o[513],  'newTime',  0,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil ],  
+	// List
+	502, [ array: o[503] ],  
+	// Array
+	503, [ 9,  10 ],  
+	// List
+	504, [ array: o[505] ],  
+	// Array
+	505, [ o[506],  o[509] ],  
+	// Array
+	506, [ o[507],  o[508] ],  
+	// Point
+	507, [ x: 1.950235355502,  y: -2.8016423758222 ],  
+	// Point
+	508, [ x: 0.97535740144687,  y: -3.024382077486 ],  
+	// Array
+	509, [ o[510],  o[507] ],  
+	// Point
+	510, [ x: 2.3838944400895,  y: -1.9005653545001 ],  
+	// List
+	511, [ array: o[512] ],  
+	// Array
+	512, [ $F,  $F ],  
+	// List
+	513, [ array: o[514] ],  
+	// Array
+	514, [ o[515],  o[516] ],  
+	// Array
+	515, [ 9,  $F,  1 ],  
+	// Array
+	516, [ 10,  $F,  1 ],  
+	// Event
+	517, [ array: o[518],  size: 8,  
+		proto: nil,  parent: nil,  
+		know: true ],  
+	// Array
+	518, [ 'pitches',  o[519],  'firstTime',  14,  
+		nil,  nil,  nil,  nil,  
+		'points',  o[521],  'lastTime',  15,  
+		'chars',  o[526],  'myKey',  1,  
+		'meltedList',  o[528],  'newTime',  2,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil ],  
+	// List
+	519, [ array: o[520] ],  
+	// Array
+	520, [ 11 ],  
+	// List
+	521, [ array: o[522] ],  
+	// Array
+	522, [ o[523] ],  
+	// Array
+	523, [ o[524],  o[525] ],  
+	// Point
+	524, [ x: 0.54075483014237,  y: -0.32160538726581 ],  
+	// Point
+	525, [ x: 0.97488565808839,  y: -1.2224552217149 ],  
+	// List
+	526, [ array: o[527] ],  
+	// Array
+	527, [ $F ],  
+	// List
+	528, [ array: o[529] ],  
+	// Array
+	529, [ o[530] ],  
+	// Array
+	530, [ 11,  $F,  1 ],  
+	// Event
+	531, [ array: o[532],  size: 8,  
+		proto: nil,  parent: nil,  
+		know: true ],  
+	// Array
+	532, [ 'pitches',  o[533],  'firstTime',  14,  
+		nil,  nil,  nil,  nil,  
+		'points',  o[535],  'lastTime',  15,  
+		'chars',  o[540],  'myKey',  3,  
+		'meltedList',  o[542],  'newTime',  0,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil ],  
+	// List
+	533, [ array: o[534] ],  
+	// Array
+	534, [ 11 ],  
+	// List
+	535, [ array: o[536] ],  
+	// Array
+	536, [ o[537] ],  
+	// Array
+	537, [ o[538],  o[539] ],  
+	// Point
+	538, [ x: 1.7561521145933,  y: 1.203078390654 ],  
+	// Point
+	539, [ x: 2.1902829425394,  y: 0.30222855620492 ],  
+	// List
+	540, [ array: o[541] ],  
+	// Array
+	541, [ $F ],  
+	// List
+	542, [ array: o[543] ],  
+	// Array
+	543, [ o[544] ],  
+	// Array
+	544, [ 11,  $F,  1 ],  
+	// Event
+	545, [ array: o[546],  size: 8,  
+		proto: nil,  parent: nil,  
+		know: true ],  
+	// Array
+	546, [ 'pitches',  o[547],  'firstTime',  14,  
+		nil,  nil,  nil,  nil,  
+		'points',  o[549],  'lastTime',  15,  
+		'chars',  o[554],  'myKey',  2,  
+		'meltedList',  o[556],  'newTime',  0,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil ],  
+	// List
+	547, [ array: o[548] ],  
+	// Array
+	548, [ 10 ],  
+	// List
+	549, [ array: o[550] ],  
+	// Array
+	550, [ o[551] ],  
+	// Array
+	551, [ o[552],  o[553] ],  
+	// Point
+	552, [ x: 2.8175535246771,  y: -0.99948833317799 ],  
+	// Point
+	553, [ x: 2.3838944400895,  y: -1.9005653545001 ],  
+	// List
+	554, [ array: o[555] ],  
+	// Array
+	555, [ $F ],  
+	// List
+	556, [ array: o[557] ],  
+	// Array
+	557, [ o[558] ],  
+	// Array
+	558, [ 10,  $F,  1 ],  
+	// Event
+	559, [ array: o[560],  size: 8,  
+		proto: nil,  parent: nil,  
+		know: true ],  
+	// Array
+	560, [ 'pitches',  o[561],  'firstTime',  16,  
+		nil,  nil,  nil,  nil,  
+		'points',  o[563],  'lastTime',  20,  
+		'chars',  o[574],  'myKey',  1,  
+		'meltedList',  o[576],  'newTime',  2,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil ],  
+	// List
+	561, [ array: o[562] ],  
+	// Array
+	562, [ 13,  14,  15,  16 ],  
+	// List
+	563, [ array: o[564] ],  
+	// Array
+	564, [ o[565],  o[568],  o[570],  o[572] ],  
+	// Array
+	565, [ o[566],  o[567] ],  
+	// Point
+	566, [ x: -1.5633674846543,  y: -2.2477123677709 ],  
+	// Point
+	567, [ x: -0.78173813660832,  y: -1.6239691816172 ],  
+	// Array
+	568, [ o[569],  o[566] ],  
+	// Point
+	569, [ x: -1.563018418811,  y: -3.2477123068474 ],  
+	// Array
+	570, [ o[571],  o[569] ],  
+	// Point
+	571, [ x: -0.78095380638729,  y: -3.8709096608168 ],  
+	// Array
+	572, [ o[573],  o[571] ],  
+	// Point
+	573, [ x: 0.19388525740809,  y: -3.6479998142453 ],  
+	// List
+	574, [ array: o[575] ],  
+	// Array
+	575, [ $F,  $F,  $F,  $F ],  
+	// List
+	576, [ array: o[577] ],  
+	// Array
+	577, [ o[578],  o[579],  o[580],  o[581] ],  
+	// Array
+	578, [ 13,  $F,  1 ],  
+	// Array
+	579, [ 14,  $F,  1 ],  
+	// Array
+	580, [ 15,  $F,  1 ],  
+	// Array
+	581, [ 16,  $F,  1 ],  
+	// Event
+	582, [ array: o[583],  size: 8,  
+		proto: nil,  parent: nil,  
+		know: true ],  
+	// Array
+	583, [ 'pitches',  o[584],  'firstTime',  16,  
+		nil,  nil,  nil,  nil,  
+		'points',  o[586],  'lastTime',  17,  
+		'chars',  o[591],  'myKey',  1,  
+		'meltedList',  o[593],  'newTime',  0,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil ],  
+	// List
+	584, [ array: o[585] ],  
+	// Array
+	585, [ 13 ],  
+	// List
+	586, [ array: o[587] ],  
+	// Array
+	587, [ o[588] ],  
+	// Array
+	588, [ o[589],  o[590] ],  
+	// Point
+	589, [ x: -1.5633674846543,  y: -2.2477123677709 ],  
+	// Point
+	590, [ x: -0.78173813660832,  y: -1.6239691816172 ],  
+	// List
+	591, [ array: o[592] ],  
+	// Array
+	592, [ $F ],  
+	// List
+	593, [ array: o[594] ],  
+	// Array
+	594, [ o[595] ],  
+	// Array
+	595, [ 13,  $F,  1 ],  
+	// Event
+	596, [ array: o[597],  size: 8,  
+		proto: nil,  parent: nil,  
+		know: true ],  
+	// Array
+	597, [ 'pitches',  o[598],  'firstTime',  16,  
+		nil,  nil,  nil,  nil,  
+		'points',  o[600],  'lastTime',  18,  
+		'chars',  o[607],  'myKey',  1,  
+		'meltedList',  o[609],  'newTime',  0,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil ],  
+	// List
+	598, [ array: o[599] ],  
+	// Array
+	599, [ 13,  14 ],  
+	// List
+	600, [ array: o[601] ],  
+	// Array
+	601, [ o[602],  o[605] ],  
+	// Array
+	602, [ o[603],  o[604] ],  
+	// Point
+	603, [ x: -1.5633674846543,  y: -2.2477123677709 ],  
+	// Point
+	604, [ x: -0.78173813660832,  y: -1.6239691816172 ],  
+	// Array
+	605, [ o[606],  o[603] ],  
+	// Point
+	606, [ x: -1.563018418811,  y: -3.2477123068474 ],  
+	// List
+	607, [ array: o[608] ],  
+	// Array
+	608, [ $F,  $F ],  
+	// List
+	609, [ array: o[610] ],  
+	// Array
+	610, [ o[611],  o[612] ],  
+	// Array
+	611, [ 13,  $F,  1 ],  
+	// Array
+	612, [ 14,  $F,  1 ],  
+	// Event
+	613, [ array: o[614],  size: 8,  
+		proto: nil,  parent: nil,  
+		know: true ],  
+	// Array
+	614, [ 'pitches',  o[615],  'firstTime',  16,  
+		nil,  nil,  nil,  nil,  
+		'points',  o[617],  'lastTime',  20,  
+		'chars',  o[628],  'myKey',  1,  
+		'meltedList',  o[630],  'newTime',  0,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil ],  
+	// List
+	615, [ array: o[616] ],  
+	// Array
+	616, [ 13,  14,  15,  16 ],  
+	// List
+	617, [ array: o[618] ],  
+	// Array
+	618, [ o[619],  o[622],  o[624],  o[626] ],  
+	// Array
+	619, [ o[620],  o[621] ],  
+	// Point
+	620, [ x: -1.5633674846543,  y: -2.2477123677709 ],  
+	// Point
+	621, [ x: -0.78173813660832,  y: -1.6239691816172 ],  
+	// Array
+	622, [ o[623],  o[620] ],  
+	// Point
+	623, [ x: -1.563018418811,  y: -3.2477123068474 ],  
+	// Array
+	624, [ o[625],  o[623] ],  
+	// Point
+	625, [ x: -0.78095380638729,  y: -3.8709096608168 ],  
+	// Array
+	626, [ o[627],  o[625] ],  
+	// Point
+	627, [ x: 0.19388525740809,  y: -3.6479998142453 ],  
+	// List
+	628, [ array: o[629] ],  
+	// Array
+	629, [ $F,  $F,  $F,  $F ],  
+	// List
+	630, [ array: o[631] ],  
+	// Array
+	631, [ o[632],  o[633],  o[634],  o[635] ],  
+	// Array
+	632, [ 13,  $F,  1 ],  
+	// Array
+	633, [ 14,  $F,  1 ],  
+	// Array
+	634, [ 15,  $F,  1 ],  
+	// Array
+	635, [ 16,  $F,  1 ],  
+	// Event
+	636, [ array: o[637],  size: 8,  
+		proto: nil,  parent: nil,  
+		know: true ],  
+	// Array
+	637, [ 'pitches',  o[638],  'firstTime',  18,  
+		nil,  nil,  nil,  nil,  
+		'points',  o[640],  'lastTime',  19,  
+		'chars',  o[645],  'myKey',  2,  
+		'meltedList',  o[647],  'newTime',  2,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil ],  
+	// List
+	638, [ array: o[639] ],  
+	// Array
+	639, [ 14 ],  
+	// List
+	640, [ array: o[641] ],  
+	// Array
+	641, [ o[642] ],  
+	// Array
+	642, [ o[643],  o[644] ],  
+	// Point
+	643, [ x: -1.5626693529677,  y: -4.2477122459239 ],  
+	// Point
+	644, [ x: -1.563018418811,  y: -3.2477123068474 ],  
+	// List
+	645, [ array: o[646] ],  
+	// Array
+	646, [ $F ],  
+	// List
+	647, [ array: o[648] ],  
+	// Array
+	648, [ o[649] ],  
+	// Array
+	649, [ 14,  $F,  1 ],  
+	// Event
+	650, [ array: o[651],  size: 8,  
+		proto: nil,  parent: nil,  
+		know: true ],  
+	// Array
+	651, [ 'pitches',  o[652],  'firstTime',  18,  
+		nil,  nil,  nil,  nil,  
+		'points',  o[654],  'lastTime',  19,  
+		'chars',  o[659],  'myKey',  2,  
+		'meltedList',  o[661],  'newTime',  0,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil ],  
+	// List
+	652, [ array: o[653] ],  
+	// Array
+	653, [ 14 ],  
+	// List
+	654, [ array: o[655] ],  
+	// Array
+	655, [ o[656] ],  
+	// Array
+	656, [ o[657],  o[658] ],  
+	// Point
+	657, [ x: -1.5626693529677,  y: -4.2477122459239 ],  
+	// Point
+	658, [ x: -1.563018418811,  y: -3.2477123068474 ],  
+	// List
+	659, [ array: o[660] ],  
+	// Array
+	660, [ $F ],  
+	// List
+	661, [ array: o[662] ],  
+	// Array
+	662, [ o[663] ],  
+	// Array
+	663, [ 14,  $F,  1 ],  
+	// Event
+	664, [ array: o[665],  size: 8,  
+		proto: nil,  parent: nil,  
+		know: true ],  
+	// Array
+	665, [ 'pitches',  o[666],  'firstTime',  20,  
+		nil,  nil,  nil,  nil,  
+		'points',  o[668],  'lastTime',  21,  
+		'chars',  o[673],  'myKey',  2,  
+		'meltedList',  o[675],  'newTime',  2,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil ],  
+	// List
+	666, [ array: o[667] ],  
+	// Array
+	667, [ 16 ],  
+	// List
+	668, [ array: o[669] ],  
+	// Array
+	669, [ o[670] ],  
+	// Array
+	670, [ o[671],  o[672] ],  
+	// Point
+	671, [ x: 1.1687243212035,  y: -3.4250899676738 ],  
+	// Point
+	672, [ x: 0.19388525740809,  y: -3.6479998142453 ],  
+	// List
+	673, [ array: o[674] ],  
+	// Array
+	674, [ $F ],  
+	// List
+	675, [ array: o[676] ],  
+	// Array
+	676, [ o[677] ],  
+	// Array
+	677, [ 16,  $F,  1 ],  
+	// Event
+	678, [ array: o[679],  size: 8,  
+		proto: nil,  parent: nil,  
+		know: true ],  
+	// Array
+	679, [ 'pitches',  o[680],  'firstTime',  20,  
+		nil,  nil,  nil,  nil,  
+		'points',  o[682],  'lastTime',  22,  
+		'chars',  o[689],  'myKey',  2,  
+		'meltedList',  o[691],  'newTime',  0,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil ],  
+	// List
+	680, [ array: o[681] ],  
+	// Array
+	681, [ 16,  17 ],  
+	// List
+	682, [ array: o[683] ],  
+	// Array
+	683, [ o[684],  o[687] ],  
+	// Array
+	684, [ o[685],  o[686] ],  
+	// Point
+	685, [ x: 1.1687243212035,  y: -3.4250899676738 ],  
+	// Point
+	686, [ x: 0.19388525740809,  y: -3.6479998142453 ],  
+	// Array
+	687, [ o[688],  o[685] ],  
+	// Point
+	688, [ x: 1.6022261315785,  y: -2.5239372722877 ],  
+	// List
+	689, [ array: o[690] ],  
+	// Array
+	690, [ $F,  $F ],  
+	// List
+	691, [ array: o[692] ],  
+	// Array
+	692, [ o[693],  o[694] ],  
+	// Array
+	693, [ 16,  $F,  1 ],  
+	// Array
+	694, [ 17,  $F,  1 ],  
+	// Event
+	695, [ array: o[696],  size: 8,  
+		proto: nil,  parent: nil,  
+		know: true ],  
+	// Array
+	696, [ 'pitches',  o[697],  'firstTime',  20,  
+		nil,  nil,  nil,  nil,  
+		'points',  o[699],  'lastTime',  22,  
+		'chars',  o[706],  'myKey',  2,  
+		'meltedList',  o[708],  'newTime',  0,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil ],  
+	// List
+	697, [ array: o[698] ],  
+	// Array
+	698, [ 16,  17 ],  
+	// List
+	699, [ array: o[700] ],  
+	// Array
+	700, [ o[701],  o[704] ],  
+	// Array
+	701, [ o[702],  o[703] ],  
+	// Point
+	702, [ x: 1.1687243212035,  y: -3.4250899676738 ],  
+	// Point
+	703, [ x: 0.19388525740809,  y: -3.6479998142453 ],  
+	// Array
+	704, [ o[705],  o[702] ],  
+	// Point
+	705, [ x: 1.6022261315785,  y: -2.5239372722877 ],  
+	// List
+	706, [ array: o[707] ],  
+	// Array
+	707, [ $F,  $F ],  
+	// List
+	708, [ array: o[709] ],  
+	// Array
+	709, [ o[710],  o[711] ],  
+	// Array
+	710, [ 16,  $F,  1 ],  
+	// Array
+	711, [ 17,  $F,  1 ],  
+	// Event
+	712, [ array: o[713],  size: 8,  
+		proto: nil,  parent: nil,  
+		know: true ],  
+	// Array
+	713, [ 'pitches',  o[714],  'firstTime',  22,  
+		nil,  nil,  nil,  nil,  
+		'points',  o[716],  'lastTime',  23,  
+		'chars',  o[721],  'myKey',  3,  
+		'meltedList',  o[723],  'newTime',  2,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil ],  
+	// List
+	714, [ array: o[715] ],  
+	// Array
+	715, [ 17 ],  
+	// List
+	716, [ array: o[717] ],  
+	// Array
+	717, [ o[718] ],  
+	// Array
+	718, [ o[719],  o[720] ],  
+	// Point
+	719, [ x: 2.0357279419534,  y: -1.6227845769016 ],  
+	// Point
+	720, [ x: 1.6022261315785,  y: -2.5239372722877 ],  
+	// List
+	721, [ array: o[722] ],  
+	// Array
+	722, [ $F ],  
+	// List
+	723, [ array: o[724] ],  
+	// Array
+	724, [ o[725] ],  
+	// Array
+	725, [ 17,  $F,  1 ],  
+	// Event
+	726, [ array: o[727],  size: 8,  
+		proto: nil,  parent: nil,  
+		know: true ],  
+	// Array
+	727, [ 'pitches',  o[728],  'firstTime',  22,  
+		nil,  nil,  nil,  nil,  
+		'points',  o[730],  'lastTime',  23,  
+		'chars',  o[735],  'myKey',  3,  
+		'meltedList',  o[737],  'newTime',  0,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil,  
+		nil,  nil,  nil,  nil ],  
+	// List
+	728, [ array: o[729] ],  
+	// Array
+	729, [ 17 ],  
+	// List
+	730, [ array: o[731] ],  
+	// Array
+	731, [ o[732] ],  
+	// Array
+	732, [ o[733],  o[734] ],  
+	// Point
+	733, [ x: 2.0357279419534,  y: -1.6227845769016 ],  
+	// Point
+	734, [ x: 1.6022261315785,  y: -2.5239372722877 ],  
+	// List
+	735, [ array: o[736] ],  
+	// Array
+	736, [ $F ],  
+	// List
+	737, [ array: o[738] ],  
+	// Array
+	738, [ o[739] ],  
+	// Array
+	739, [ 17,  $F,  1 ],  
+	// EventPatternProxy
+	740, [ source: o[741],  pattern: o[741],  
+		envir: nil,  clock: nil,  
+		quant: 1.0,  condition: true,  
+		reset: nil,  player: nil,  
+		playQuant: nil,  fadeTime: nil ],  
+	// Pbind
+	741, [ patternpairs: o[742] ],  
+	// Array
+	742, [ 'baseTempo',  o[3],  'durCalc',  o[4],  
+		'part',  o[5] ]
+];
+prUnarchive(o,p);
