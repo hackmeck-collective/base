@@ -51,7 +51,7 @@ var gradualPot = { |oldVal newVal|
 	8.do { arg index;
 		row_busses[index] = presets[presetName][index];
 		presets[presetName][index].postln
-	}
+	};
 };
 
 ~switchRows.(\pr3);
