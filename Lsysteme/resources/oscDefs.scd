@@ -1,5 +1,5 @@
 thisProcess.openUDPPort(9010); // listening to open stage control
-
+// OSCFunc.trace(true, true);
 OSCdef(\oct, { |msg|
 	var index =	msg[1].asString.last.digit - 1,
 	lo =  24 + (msg[2] * 12),

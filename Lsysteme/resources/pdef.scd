@@ -5,7 +5,7 @@
 				0 // nur ein Branch (root)
 			}{
 				Pseq(ev.part.startTimes[1..] * ev.baseTempo)
-			} * Rest()
+			} * Rest() // no sound pls
 		},
 		\cnt, Pseries(),
 		\playNext, Pfunc { |ev|
@@ -13,19 +13,27 @@
 			myKey = voiceEvent.myKey.asInteger,
 			firstPoint = ~gui.lastPoints[voiceEvent.parentId] ? Point(0,0),
 			lastPoint,
-			addPitch = if(~useLastPitch){~lastPitch}{0};
+			addPitch = if(~lsys.useLastPitch){~lsys.lastPitch}{0};
 			// if(myKey == 0){~lastPitch = ~lastPitch + voiceEvent.pitches.last};
-			if(myKey == 0){~lastPitch = voiceEvent.pitches.last}; // welche version macht mehr sinn?
-			PmonoArtic(\default,
+			if(myKey == 0){~lsys.lastPitch = voiceEvent.pitches.last}; // welche version macht mehr sinn?
+			PmonoArtic2(\default, // muss
 				\server, ~targetServer,
-				\legato, Pfunc { ctl.legatoArr[myKey] },
+				\instrument, Pfunc { ctl.instrument },
 				\pitches, Pseq(voiceEvent.pitches),
-				\dur, Pfunc { |evInner| evInner.baseTempo },
-				\amp, Pfunc { ctl.amp * ctl.vols[myKey] },
 				\charNow, Pseq(voiceEvent.chars),
+				\dur, Pfunc { |evInner| evInner.baseTempo },
+				\legato, Pfunc { ctl.legatoArr[myKey] },
+				\amp, Pfunc { ctl.amp * ctl.vols[myKey] },
+				\degree, Pfunc { |ev|
+					ctl.branchInterval +
+					(ev.pitches * ctl.stepInterval) +
+					(myKey * ctl.noteOffset) +
+					addPitch
+				},
 				\checkPause, Pfunc { |evInner|
 					if(evInner.charNow == $G){Rest(evInner.dur)}{0}
 				},
+				// gui stuff ab hier
 				\calcPoint, Pfunc { |ev|
 					lastPoint = firstPoint;
 					firstPoint = firstPoint.translate(
@@ -42,12 +50,7 @@
 					};
 					0
 				},
-				\degree, Pfunc { |ev|
-					ctl.branchInterval +
-					(ev.pitches * ctl.stepInterval) +
-					(myKey * ctl.noteOffset) +
-					addPitch
-				},
+
 				\finish, { |evInner|
 					evInner.midinote = evInner.midinote.wrap(ctl.wrapLo[myKey], ctl.wrapHi[myKey]);
 					evInner
@@ -56,11 +59,6 @@
 		}
 	)
 };
-
-Pbindef(\opts,
-	\baseTempo, 1/4,
-	\durCalc, \waitAll,
-);
 
 Pdef(\partPlayer,
 	Pbind(
@@ -71,7 +69,7 @@ Pdef(\partPlayer,
 			"active branchLevels now: %\n".postf(ev.part.maxKey);
 			if(ev.part.maxKey >= 10) { "Too many branch Levels, not Playing!".warn; 1}{
 				/*if(ev.counter == 1){
-					~gui.toProcessing.sendMsg('/reset'); // fragwuerdig? ja wenn es mehrere parts gibt schlecht
+				~gui.toProcessing.sendMsg('/reset'); // fragwuerdig? ja wenn es mehrere parts gibt schlecht
 				};*/
 				~pchain.(~ctl).play(l, protoEvent: ev, quant: 0);
 				"duration of this part: ".post;
@@ -82,7 +80,7 @@ Pdef(\partPlayer,
 					(ev.part.stream[0].lastTime * ev.baseTempo).postln
 				}
 			}
-		} * Rest(),
+		} * Rest() // no sound pls,
 	) <> Pbindef(\opts)
 );
 

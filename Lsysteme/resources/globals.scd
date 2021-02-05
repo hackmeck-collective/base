@@ -1,18 +1,19 @@
-~addrBook = AddrBook.new;
-~addrBook.addMe;//(Peer(\vincent, NetAddr("192.168.178.28",57120)));
-~hail = Hail.new(~addrBook);
+l = LinkClock.new(1).permanent_(true);
 
-~lsys = (); // dict for everything regarding the lsys
+// dict for everything regarding the lsys
+~lsys = ();
 ~lsys.list = List.new;
 ~lsys.argsList = List.new;
-l = LinkClock.new(1).permanent_(true);
+// how is the new lsys integrated
+~lsys.integration = \replace; // \add nil
+~lsys.useLastPitch = false; // geht das ueberhaupt?
+~lsys.lastPitch = 0;
+
+//
 ~gui = ();
 ~gui.points = List.new;
 ~gui.scale = 10;
 ~gui.lastPoints = ();
-~useLastPitch = true;
-~lastPitch = 0;
-~newLsysMode = \replace; // \add nil
 
 ~ctl = (
 	legatoArr: 0.95!10,
@@ -23,10 +24,19 @@ l = LinkClock.new(1).permanent_(true);
 	noteOffset: -7,
 	wrapLo: 36!10,
 	wrapHi: 96!10,
-	tempoMod: 1,
 	vols: 1!10,
 	theta: 51.45,
-	setInstrument: [\simple_modes_synth_1, \sine_OD_1, \wavetable_1] ++ (\fm_1 ! 7) // fuer benni
+	instrument: \default,
+	//setInstrument: [\simple_modes_synth_1, \sine_OD_1, \wavetable_1] ++ (\fm_1 ! 7) // fuer benni
+);
+
+// these parameters may change everytime a lsys starts again
+Pbindef(\opts,
+	\baseTempo, 1/4,
+	\durCalc, \waitAll,	/*
+	quantisation option for the whole lsys. \waitAll waits for all branches to finish
+	\waitRoot waits only for root to finish
+	*/
 );
 
 if(~localSetup){
@@ -34,6 +44,9 @@ if(~localSetup){
 	~gui.toProcessing = NetAddr("127.0.0.1", 12000);
 }{
 	var checkConnection = Condition.new;
+	~addrBook = AddrBook.new;
+	~addrBook.addMe;
+	~hail = Hail.new(~addrBook);
 	block {|break|
 		{
 			inf.do {
@@ -45,16 +58,30 @@ if(~localSetup){
 				};
 			};
 			checkConnection.hang;
-			//("processing IP = " ++ ~addrBook.at(\Philipp).addr.ip).warn;
+
 			~gui.toProcessing = NetAddr(~addrBook.at(\Philipp).addr.ip, 12000);
+
+			~objSpace_philipp = OSCObjectSpace(~addrBook, oscPath:'/data');
+			~objSpace_philipp.addDependant({|objectSpace, what, key, val|
+				~ctl.scale = Scale.new(~objSpace_philipp[\data]);
+				~ctl.branchInterval = ~ctl.scale.size;
+			});
+
 			~targetServer = Server(
 				\benni,
 				NetAddr(~addrBook.at(\Benni).addr.ip, 57110),
 				ServerOptions.new().maxLogins_(4),
 				1
 			);
+
+			~objSpace_benni = OSCObjectSpace(~addrBook, oscPath:'/params');
+			~objSpace_benni.addDependant({|objectSpace, what, key, val|
+				if(key == \sourceGroup){
+					~ctl.group = ~objSpace_benni[\sourceGroup];
+				}
+			});
+
 		}.fork
 	};
-
 };
 

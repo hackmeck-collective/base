@@ -1,23 +1,23 @@
 "make_lsys.scd".loadRelative;
-~newLsys = { |axiom, rules, gen, useLastV = false|
+~newLsys = { |axiom, rules, gen, useLastPitch = false|
 	var lsys = RedLSystem(axiom, rules), lsysPattern;
 	gen.do { lsys.next };
 	{
-		if(useLastV ?? false){
-			lsysPattern = ~makeStream.(lsys, lastV: ~saveLastV);
+		if(useLastPitch ?? false){
+			lsysPattern = ~makeStream.(lsys, startingPitch: ~lsys.saveLastPitch);
 		}{
 			lsysPattern = ~makeStream.(lsys);
 		}
 	}.bench;
-	~saveLastV = lsysPattern.lastVoice;
+	~lsys.saveLastPitch = lsysPattern.lastPitch;
 	~lsys.newPattern = lsysPattern;
 	~lsys.list.add(lsysPattern);
-	~lsys.argsList.add((axiom: axiom, rules: rules, gen: gen, useLastV: useLastV));
+	~lsys.argsList.add((axiom: axiom, rules: rules, gen: gen, useLastPitch: useLastPitch));
 	case
-	{~newLsysMode == \replace}{
+	{~lsys.integration == \replace}{
 		Pbindef(\opts,\part, Pseq([~lsys.list.last], inf));
 	}
-	{~newLsysMode == \add}{
+	{~lsys.integration == \add}{
 		Pbindef(\opts,\part, Pseq(~lsys.list, inf));
 	};
 };
