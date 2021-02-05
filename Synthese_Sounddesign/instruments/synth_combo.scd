@@ -73,8 +73,7 @@ s.wait;
 											envelope_mod = 0.25,
 											envelope_mod_macro_channel = 3;
 
-											var note = \note.kr(60,0),
-											in_freq = freq;
+											var note = \note.kr(60,0);
 
 											var macro_controls = Lag.kr(
 												In.kr(
@@ -90,7 +89,11 @@ s.wait;
 											vol = fader.lincurve(0,1,0,0.1,3),
 											vol_correct = 1;
 
-											var oscillator, fx, envelope, filter, amp;
+											var envelope, pitchOp_freq, oscillator, fx, filter, amp;
+
+
+											// pitchOp_mod_1 = [pitchOp_mod_1, macro_1, macro_2, macro_3].at(pitchOp_mod_1_macro_channel)
+
 
 											pitchOp_mod_1 = Select.kr(pitchOp_mod_1_macro_channel,
 												[pitchOp_mod_1, macro_1, macro_2, macro_3]);
@@ -116,7 +119,7 @@ s.wait;
 												prependArgs: [gate, envelope_mod],
 											);
 
-											freq = SynthDef.wrap(
+											pitchOp_freq = SynthDef.wrap(
 												pitchOp_function,
 												prependArgs: [freq, gate, pitchOp_mod_1, pitchOp_mod_2],
 											);
@@ -124,18 +127,18 @@ s.wait;
 											oscillator = Splay.ar(
 												SynthDef.wrap(
 													oscillator_function,
-													prependArgs: [freq, gate, oscillator_mod_1, oscillator_mod_2],
+													prependArgs: [pitchOp_freq, gate, oscillator_mod_1, oscillator_mod_2],
 												)
 											);
 
 											fx = SynthDef.wrap(
 												fx_function,
-												prependArgs: [oscillator, gate, in_freq, fx_mod_1, fx_mod_2],
+												prependArgs: [oscillator, gate, freq, fx_mod_1, fx_mod_2],
 											);
 
 											filter = SynthDef.wrap(
 												fx_function,
-												prependArgs: [oscillator, gate, in_freq, filter_mod_1, filter_mod_2],
+												prependArgs: [oscillator, gate, freq, filter_mod_1, filter_mod_2],
 											);
 
 											amp = filter * vol * envelope;
