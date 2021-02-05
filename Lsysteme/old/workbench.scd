@@ -1,40 +1,68 @@
-// wenn opts noch keine liste hat sollte ein neues lsys das immer aktualisieren
-// modus zwischen ersetzen und anhaengen bauen wenn neues lsys kommt
-l.tempo = 3
-~newLsys.(
-	axiom: "-F",//"F-F-F-F-F",
-	rules: ( $F: "F[FGF]-FG+F[--FF]+F-F" ),
-	gen: 2.0,
-	useLastV: true
-)
+~presetSpace = OSCObjectSpace(~addrBook, oscPath:'/presets').acceptEvents_(true);
+
 // baueme umdrehen
-~newLsys.(
+
+// pr1
+Pbindef('ctl', \setInstrument, [\simple_modes_synth_1, \sine_OD_1, \wavetable_1] ++ (\fm_1 ! 7) )
+~presetSpace[\selectPreset] = \test
+// alle presets in den objspace laden beim start
+// ueber selectPreset umschalten
+~presetSpace[\test] = ();
+~presetSpace[\test].writeArchive("/home/vincent/Repos/Hackmeck/Presets/Test" +/+ "instruments.archive")
+~presetSpace[\test].pbindInstruments = [\wavetable_1] ++ (\synchronus_grains_1 ! 9)
+
+~loadPreset = { |presetName|
+	Pbindef('ctl', \setInstrument, ~presetSpace[presetName].pbindInstruments);
+}
+
+//pr2
+Pbindef('ctl', \setInstrument, [\wavetable_1] ++ (\synchronus_grains_1 ! 9) )
+
+Pbindef('ctl', \setInstrument,(\sine_OD_1 ! 10))
+
+
+// $P fuer lsys repetition
+~objSpace[\lsys] = (
 	axiom: "F",
-	rules: ($F: "F-F++F-F"),
-	gen: 3.0,
+	rules: ( $F: "F+F[FGGF--F]" ),
+	gen: 2.0,
 	useLastV: false
 )
 
-~newLsysMode = \add; // \add \replace nil
-Pbindef(\opts,\part, Pseq(~lsys.list, inf));
+Pbindef('ctl', 'wrapLo', 48!10)
+Pbindef('ctl', 'wrapHi', 72!10)
 
-// $P fuer lsys repetition
-~newLsys.(
-	axiom: "++F",
-	rules: ( $F: "F+F[FGGF--F]" ),
-	gen: 3.0,
-	useLastV: true
+Pbindef('ctl', 'legatoArr', 0.15!10)
+Pbindef('ctl', 'branchInterval', Pfunc({ |ev| -1 * ev.scale.size }))
+Object.readArchive("/home/vincent/Repos/Hackmeck/Presets/Test" +/+ "pbindef_ctl.archive")
+Pbindef('ctl').source.pairs.do(_.postln)
+
+Pbindef('ctl').writeArchive("/home/vincent/Repos/Hackmeck/Presets/Test" +/+ "pbindef_ctl.archive")
+
+Pbindef(\opts).writeArchive("/home/vincent/Repos/Hackmeck/Presets/Test" +/+ "pbindef_opts.archive")
+Pbindef('ctl', 'noteOffset', 7)
+Pbindef(\opts, \durCalc, \waitAll); //
+Pbindef(\opts, \baseTempo, 1 / 4); // dann hat man direkt eine gute quantisierung
+
+~objSpace[\lsys] = (
+	axiom: "F-F",//"F-F-F-F-F",
+	rules: ( $F: "F[F]-F+F[--F]+F-F" ),
+	gen: 2.0,
+	useLastV: false
 )
 
-~ctl.wrapLo = 48!10;
-~ctl.wrapHi = 72!10;
+// das neueste ist
+~lsys.newPattern.maxKey
+~lsys.list.last.maxKey
 
 ~lsys.list.clear
-Pbindef(\opts).clear
+~lsys.list.size
+
 Pbindef(\opts,
-	\part, Pseq(~lsys.list,inf),//Pn(Pseq(~lsys.list), inf, \partRepeat),
+	\part, Pseq(~lsys.list, inf),
 	\baseTempo, 1/4,
-	\durCalc, \waitAll
+	\durCalc, \waitAll,
+	\theta, 51.45
 );
 
 Pbindef(\opts, \part, Pseq(~lsys.list[7..], inf))
@@ -47,34 +75,22 @@ Pbindef(\opts, \durCalc, \noWait); // spielt nur den Stamm zu ende bevor ein neu
 Pbindef(\opts, \durCalc, \waitAll); // spielt alles zu ende bevor ein neues anfaengt
 Pbindef(\opts, \durCalc, Pseq([\waitAll, \noWait], inf));
 
-Pbindef(\opts, \baseTempo, 1/2);
 
 l.tempo = 0.5
 Pbind(\server, ~benniServer).play(quant:1, clock: l)
 
 Pdef(\partPlayer).stop
-Pbindef(\ctl, \legato, 70);
+
 (
 Pdef(\partPlayer).play(l, quant:1)
 )
+~lastPoints
 
-~lsys.list.last.startTimes.size
-
-~ctl.noteOffset = -7
-~ctl.branchInterval = 7;
-
-~ctl.noteOffset = 7
-~ctl.branchInterval = -7;
-
-~ctl.legatoArr = [1.1, 0.8, 1.4, 0.1] ++ (0.1!10)
-~ctl.legatoArr = 1.1!10
-~ctl.vols = 1!10
-~ctl.vols = [1, 1, 1] ++ (1!10)
-~ctl.theta = 60
-Tdef(\drawLines).play(l);
+Tdef(\drawLines).play;
 Tdef(\drawLines).stop;
 Pbindef(\ctl, \theta, 70);
 
+Pbindef(\ctl, \setType, \note);
 
 Pbindef(\ctl, \server, ~benniServer, \setType, \note);
 
@@ -131,7 +147,3 @@ Pbindef(\ctl, \setInstrument, [\simple_modes_synth_1, \sine_OD_1, \simple_modes_
 ~objSpace_benni[\sourceGroup]
 
 ~gui.toProcessing.sendMsg('/reset')
-
-~gui.toProcessing.sendMsg('/lerpFactor', 0.1)
-~gui.toProcessing.sendMsg('/linesMax', 350)
-~presetSpace = OSCObjectSpace(~addrBook, oscPath:'/presets').acceptEvents_(true);

@@ -2,7 +2,7 @@ Pbindef(\ctl,
 	\legatoArr, 0.95!10,
 	\amp, 0.1,
 	\scale, Scale.harmonicMinor,
-	\branchInterval, Pfunc { |ev| ev.scale.size },
+	\branchInterval, Pfunc { |ev| ev.scale.size * -1 },
 	\stepInterval, 1,
 	\noteOffset, Pfunc { |ev| ev.scale.size * -1 },
 	\chanFunc, {|chanOffset myKey maxKey| chanOffset + myKey},
@@ -11,6 +11,10 @@ Pbindef(\ctl,
 	\vols, [1, 1, 1, 1, 1, 1, 1],
 	\setInstrument, [\simple_modes_synth_1, \sine_OD_1, \wavetable_1] ++ (\fm_1 ! 7) // fuer benni
 );
+
+// das problem bei diesem ding ist, dass zweige mit selben branchlevel parallel laufen, daher
+// ueberschreiben die sich gegenseitig
+~lastPoints = (Point(0, 0))!10;
 
 ~pchain = Plazy({ |evIn|
 	Pspawner({ | sp |
@@ -24,12 +28,18 @@ Pbindef(\ctl,
 			newNote = voiceEvent.meltedList.flop[0],
 			chars = voiceEvent.meltedList.flop[1],
 			newRhy =  voiceEvent.meltedList.flop[2],
-			myMidiChan = myKey;//(myKey * 3) + placeInLevel; // hier muss ein limit ..;
+			myMidiChan = myKey, //(myKey * 3) + placeInLevel; // hier muss ein limit ..;
+			firstPoint = ~lastPoints[myKey],
+			lastPoint;//Point(0, 0);
+
 			if(startTime > 0){
 				sp.wait(startTime * evIn[\baseTempo]);
 			};
 			sp.par(
-				Pbind(\type, Pkey(\setType),
+				// PmonoArtic(\default) <> koennte durch pause rausgehauen werden?
+				Pbind(
+					\testKey, myKey,
+					\type, Pkey(\setType),
 					\instrument,  Pfunc { |ev| ev.setInstrument.clipAt(myKey) },
 					\midiout, ~mOut,
 					\cleanupFunc, {~mOut.clear},
@@ -42,12 +52,22 @@ Pbindef(\ctl,
 					\checkPause, Pfunc { |ev|
 						if(ev.charNow == $G){Rest(ev.dur)}{0}
 					},
+					\pitches, Pseq(newNote),
+					\calcPoint, Pfunc { |ev|
+						lastPoint = firstPoint;
+						firstPoint = firstPoint.translate(
+							Point(0, -1 * ev.rhyFactors).rotate((ev.pitches * ev.theta).degrad)
+						);
+						~lastPoints[myKey + 1] = firstPoint;
+						[lastPoint, firstPoint]
+					},
 					\getPoints, Pclump(Pkey(\rhyFactors), Pseq(points)),
 					\draw, Pfunc { |ev|
 						if(ev.checkPause.class != Rest){
-							ev.getPoints.do { |p|
-								~gui.points.add([p, myKey.linlin(0,5,0,1).asFloat]) //colors[myKey]
-							};
+							~gui.points.add([ev.calcPoint, myKey.linlin(0,5,0,1).asFloat]) //colors[myKey]
+							/*ev.getPoints.do { |p|
+							~gui.points.add([p, myKey.linlin(0,5,0,1).asFloat]) //colors[myKey]
+							};*/
 						};
 						0
 					},
@@ -63,7 +83,21 @@ Pbindef(\ctl,
 			);
 		};
 	})
+/*	.collect { |ev|
+		if(ev.testKey.notNil){~lastPoints[ev.testKey + 1] =	ev.calcPoint[1]
+			/*			ev.calcPoint[1].translate(
+			Point(0, -1 * ev.rhyFactors).rotate((ev.pitches * ev.theta.postln).degrad)
+			)*/
+		};
+		ev
+	};*/
 }) <> PtimeClutch(Pbindef(\ctl));
+
+Pbindef(\opts,
+	\baseTempo, 1/4,
+	\durCalc, \waitAll,
+	\theta, 51.45
+);
 
 Pdef(\partPlayer,
 	Pbind(
@@ -73,7 +107,8 @@ Pdef(\partPlayer,
 			"list index % of %\n".postf(ev.counter, Pbindef(\opts).source[\part].source.list.size);
 			"active branchLevels now: %\n".postf(ev.part.maxKey);
 			if(ev.part.maxKey >= 10) { "Too many branch Levels, not Playing!".warn; 1}{
-				(~pchain <> (stream: ev.part, baseTempo: ev.baseTempo)).play(l, quant: 0); // quant??
+				~lastPoints = (Point(0, 0))!10;
+				(~pchain <> (stream: ev.part, baseTempo: ev.baseTempo, theta: ev.theta)).play(l, quant: 0); // quant??
 				"duration of this part: ".post;
 				if(ev.durCalc == \waitAll){
 					// FLOOR FUER BESSERE SYNC
