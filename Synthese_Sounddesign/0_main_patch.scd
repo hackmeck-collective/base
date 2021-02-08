@@ -7,11 +7,17 @@ s.waitForBoot {
 		MIDIIn.connectAll;
 	};
 	"loading signal flow".postln;
-	"signal_flow/signal_flow.scd".loadRelative;
+	"signal_flow/groups_setup.scd".loadRelative;
+	"signal_flow/controlbus_setup.scd".loadRelative;
+	"signal_flow/audiobus_setup.scd".loadRelative;
+	"signal_flow/sendFx_setup.scd".loadRelative;
+	"signal flow loaded".postln;
 
 	"loading instruments".postln;
-	"instruments/synth_combo.scd".loadRelative;
-	"instruments/drum_combo.scd".loadRelative;
+	"instruments/modules/0_load_modules.scd".loadRelative;
+	"instruments/makeModularSynthDef.scd".loadRelative;
+	"instruments/makeModularDrum.scd".loadRelative;
+	"Benni_instruments_1.scd".loadRelative;
 
 	"loading control interfaces".postln;
 	"control_interfaces/midi_defs_launchcontrol-xl.scd".loadRelative;

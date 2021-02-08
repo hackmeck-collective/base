@@ -9,7 +9,7 @@
 
 	},
 
-	/*lpf_12: {arg in, gate, freq = 440, filter_mod_1 = 0, filter_mod_2 = 0;
+	lpf_12: {arg in, gate, freq = 440, filter_mod_1 = 0, filter_mod_2 = 0;
 
 		var filter_freq = freq * filter_mod_1.lincurve(0,1,1,8,3),
 		filter_resonance = filter_mod_2.lincurve(0,1,1,4,3);
@@ -80,7 +80,7 @@
 		db = filter_mod_2.lincurve(0,1,0,-12,3);
 
 		BLowShelf.ar(in, filter_freq, filter_resonance, db);
-	},*/
+	},
 
 	nofilter:  {arg in;
 
