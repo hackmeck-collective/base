@@ -1,4 +1,8 @@
 ~pulsar_buffer_1 ?? {~pulsar_buffer_1 = Buffer.readChannel(s, thisProcess.nowExecutingPath.dirname +/+ "/buffer_data/Metall_2_5.wav", channels: [0])};
+~grainCloudGuitar_buffer ?? {~grainCloudGuitar_buffer = Buffer.readChannel(s, thisProcess.nowExecutingPath.dirname +/+ "/buffer_data/Guitar_Note_A.wav", channels: [0])};
+~grainCloudRecord_buffer ?? {~grainCloudRecord_buffer = Buffer.readChannel(s, thisProcess.nowExecutingPath.dirname +/+ "/buffer_data/Guitar_Note_A.wav", channels: [0])};
+
+
 
 (
 ~oscillatorTypes = (
@@ -13,17 +17,7 @@
 		Clip.ar(SinOscFB.ar(freq,feedback) * gain, -1, 1);
 
 	},
-	/*
-	rect: {arg freq = 440,
-		gate = 1,
-		oscillator_mod_1 = 0,
-		oscillator_mod_2 = 0;
 
-		var pulsewidth = oscillator_mod_1.lincurve(0,1,0.5,0.01,3);
-
-		Pulse.ar(freq, pulsewidth);
-	},
-*/
 	fm: {arg freq = 440,
 		gate = 1,
 		oscillator_mod_1 = 0,
@@ -55,6 +49,64 @@
 			-1,
 			8,
 			16
+		);
+	},
+
+	grainCloudGuitar: {arg freq = 440,
+		gate = 1,
+		oscillator_mod_1 = 0,
+		oscillator_mod_2 = 0;
+
+		var grain_density = oscillator_mod_1.lincurve(0,1,1,10,3),
+		grain_rate = (freq.cpsmidi-69).midiratio * 15.midiratio,
+		grain_length_ratio = (2/grain_density) * oscillator_mod_2.lincurve(0,1,2,0.1,3);
+
+		var grain_trigger, grain_position;
+
+		grain_trigger = Dust.ar(grain_density);
+		grain_position = 0.1 + Latch.ar(WhiteNoise.ar().abs/2,grain_trigger);
+
+		GrainBuf.ar(
+			1,
+			grain_trigger,
+			grain_length_ratio,
+			~grainCloudGuitar_buffer,
+			grain_rate,
+			grain_position,
+			4,
+			Latch.ar(WhiteNoise.ar(),grain_trigger),
+			-1,
+			16,
+			0.5
+		);
+	},
+
+	grainCloudGuitar: {arg freq = 440,
+		gate = 1,
+		oscillator_mod_1 = 0,
+		oscillator_mod_2 = 0;
+
+		var grain_density = oscillator_mod_1.lincurve(0,1,1,10,3),
+		grain_rate = (freq.cpsmidi-69).midiratio * 15.midiratio,
+		grain_length_ratio = (2/grain_density) * oscillator_mod_2.lincurve(0,1,2,0.1,3);
+
+		var grain_trigger, grain_position;
+
+		grain_trigger = Dust.ar(grain_density);
+		grain_position = 0.1 + Latch.ar(WhiteNoise.ar().abs/2,grain_trigger);
+
+		GrainBuf.ar(
+			1,
+			grain_trigger,
+			grain_length_ratio,
+			~grainCloudRecord_buffer,
+			grain_rate,
+			grain_position,
+			4,
+			Latch.ar(WhiteNoise.ar(),grain_trigger),
+			-1,
+			16,
+			0.5
 		);
 	},
 

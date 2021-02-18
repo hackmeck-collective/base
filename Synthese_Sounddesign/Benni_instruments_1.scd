@@ -1,15 +1,12 @@
-~makeModularSynthDef.(pluck_fm_basic_nofx_nofilter).asSymbol
+Pbindef(\test)
 
-(
-Pbindef(\plucks,
+~variedPlucks = (
 	\adsrType, \pluck,
 	\pitchOp, Pseq([\slide, \fm, \unisonoDetune], inf),
 	\osc, Pseq([\pulsar, \fm], inf),
 	\fx, \shelvedOverdriveSoft,
 	\filter, \lpf_moog,
 	\instrument, Pfunc {|ev| ~makeModularSynthDef.(ev.adsrType, ev.pitchOp, ev.osc, ev.fx, ev.filter).asSymbol},
-	\dur, Pseq([1/16], 4),
-	\note, Pseq([0,7,12,19], 4),
 	\controlbus, ~launchcontrol_xl_row_4,
 	\out, ~melody_bus,
 	\send_1, ~ef_reverb,
@@ -35,8 +32,91 @@ Pbindef(\plucks,
 	\envelope_mod_macro_channel, 0,
 	\vol_macro_channel, 0,
 	\group, ~source_group,
-).play(quant: 2)
 )
+(
+~dict.keysValuesDo { arg keys, values
+	Pbindef(\test,
+		\dur, Pseq([1/4], 4),
+		\note, Pseq([0,7,12,19], 4),
+		keys, values).play(quant: 4)
+};
+)
+(
+Pbindef(\plucks4,
+	\dur, Pseq([1/4], 4),
+	\note, Pseq([0,7,12,19], 4),
+	\adsrType, \pluck,
+	\pitchOp, Pseq([\slide, \fm, \unisonoDetune], inf),
+	\osc, Pseq([\pulsar, \fm], inf),
+	\fx, \shelvedOverdriveSoft,
+	\filter, \lpf_moog,
+	\instrument, Pfunc {|ev| ~makeModularSynthDef.(ev.adsrType, ev.pitchOp, ev.osc, ev.fx, ev.filter).asSymbol},
+	\controlbus, ~launchcontrol_xl_row_4,
+	\out, ~melody_bus,
+	\send_1, ~ef_reverb,
+	\send_1_level, 0.5,
+	\pitchOp_mod_1, 0,
+	\pitchOp_mod_2, 0,
+	\oscillator_mod_1, 0.5,
+	\oscillator_mod_2, 0,
+	\fx_mod_1, 1,
+	\fx_mod_2, 1,
+	\filter_mod_1, 0,
+	\filter_mod_2, 1,
+	\envelope_mod, 0.3,
+	\vol, 1,
+	\pitchOp_mod_1_macro_channel, 0,
+	\pitchOp_mod_2_macro_channel, 0,
+	\oscillator_mod_1_macro_channel, 0,
+	\oscillator_mod_2_macro_channel, 0,
+	\fx_mod_1_macro_channel, 0,
+	\fx_mod_2_macro_channel, 0,
+	\filter_mod_1_macro_channel, 0,
+	\filter_mod_2_macro_channel, 0,
+	\envelope_mod_macro_channel, 0,
+	\vol_macro_channel, 0,
+	\group, ~source_group,
+).play(quant: 4)
+);
+
+(
+Pbindef(\guitar_cloud,
+	\adsrType, \pad,
+	\pitchOp, \unisonoDetune,
+	\osc, \grainCloudGuitar,
+	\fx, \nofx,
+	\filter, \nofilter,
+	\instrument, Pfunc {|ev| ~makeModularSynthDef.(ev.adsrType, ev.pitchOp, ev.osc, ev.fx, ev.filter).asSymbol},
+	\dur, Pseq([4], inf),
+	\note, Pseq([[-12,0,7]], inf),
+	\harmonic, Pseq([Pwhite(1,8).round], inf),
+	\controlbus, ~launchcontrol_xl_row_4,
+	\out, ~melody_bus,
+	\send_1, ~ef_reverb,
+	\send_1_level, 0.5,
+	\pitchOp_mod_1, 0,
+	\pitchOp_mod_2, 0,
+	\oscillator_mod_1, 1,
+	\oscillator_mod_2, 0,
+	\fx_mod_1, 1,
+	\fx_mod_2, 1,
+	\filter_mod_1, 0,
+	\filter_mod_2, 1,
+	\envelope_mod, 0.5,
+	\vol, 1,
+	\pitchOp_mod_1_macro_channel, 0,
+	\pitchOp_mod_2_macro_channel, 0,
+	\oscillator_mod_1_macro_channel, 0,
+	\oscillator_mod_2_macro_channel, 0,
+	\fx_mod_1_macro_channel, 0,
+	\fx_mod_2_macro_channel, 0,
+	\filter_mod_1_macro_channel, 0,
+	\filter_mod_2_macro_channel, 0,
+	\envelope_mod_macro_channel, 0,
+	\vol_macro_channel, 0,
+	\group, ~source_group,
+).play(quant: 4)
+);
 
 (
 Pbindef(\BD1,
@@ -75,8 +155,8 @@ Pbindef(\BD1,
 	\filter_mod_2_macro_channel, 0,
 	\vol_macro_channel, 0,
 	\group, ~source_group,
-).play(quant: 2)
-)
+).play(quant: 4)
+);
 
 (
 Pbindef(\BD2,
@@ -115,8 +195,8 @@ Pbindef(\BD2,
 	\filter_mod_2_macro_channel, 0,
 	\vol_macro_channel, 0,
 	\group, ~source_group,
-).play(quant: 2)
-)
+).play(quant: 4)
+);
 
 (
 Pbindef(\SD1,
@@ -155,8 +235,8 @@ Pbindef(\SD1,
 	\filter_mod_2_macro_channel, 0,
 	\vol_macro_channel, 0,
 	\group, ~source_group,
-).play(quant: 2)
-)
+).play(quant: 4)
+);
 
 (
 Pbindef(\SD2,
@@ -195,8 +275,8 @@ Pbindef(\SD2,
 	\filter_mod_2_macro_channel, 0,
 	\vol_macro_channel, 0,
 	\group, ~source_group,
-).play(quant: 2)
-)
+).play(quant: 4)
+);
 
 (
 Pbindef(\Bongo1,
@@ -235,8 +315,8 @@ Pbindef(\Bongo1,
 	\filter_mod_2_macro_channel, 0,
 	\vol_macro_channel, 0,
 	\group, ~source_group,
-).play(quant: 2)
-)
+).play(quant: 4)
+);
 
 (
 Pbindef(\HH1,
@@ -275,8 +355,8 @@ Pbindef(\HH1,
 	\filter_mod_2_macro_channel, 0,
 	\vol_macro_channel, 0,
 	\group, ~source_group,
-).play(quant: 2)
-)
+).play(quant: 4)
+);
 
 (
 Pbindef(\HH2,
@@ -315,5 +395,5 @@ Pbindef(\HH2,
 	\filter_mod_2_macro_channel, 0,
 	\vol_macro_channel, 0,
 	\group, ~source_group,
-).play(quant: 2)
-)
+).play(quant: 4)
+);
