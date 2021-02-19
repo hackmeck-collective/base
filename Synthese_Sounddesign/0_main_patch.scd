@@ -17,7 +17,8 @@ s.waitForBoot {
 	"instruments/modules/0_load_modules.scd".loadRelative;
 	"instruments/makeModularSynthDef.scd".loadRelative;
 	"instruments/makeModularDrum.scd".loadRelative;
-	"Benni_instruments_1.scd".loadRelative;
+
+	"presets/presets.scd".loadRelative;
 
 	"loading control interfaces".postln;
 	"control_interfaces/midi_defs_launchcontrol-xl.scd".loadRelative;
