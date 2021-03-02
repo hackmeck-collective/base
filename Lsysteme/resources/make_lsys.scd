@@ -96,7 +96,7 @@
 			maxKey: voices.size,
 			stream: voices.flat[timesOrdered],
 			lastPitch: lastPitch,
-			startTimes: startTimes[timesOrdered].differentiate
+			startTimes: startTimes[timesOrdered]// .differentiate fuer ptpar
 		)
 	};
 	stringToObject.(lsysString);

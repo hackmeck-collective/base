@@ -1,4 +1,4 @@
-l = LinkClock.new(1).permanent_(true);
+l = LinkClock.new().permanent_(true).enableMeterSync;
 
 // dict for everything regarding the lsys
 ~lsys = ();
@@ -16,17 +16,20 @@ l = LinkClock.new(1).permanent_(true);
 ~gui.lastPoints = ();
 
 ~ctl = (
+	baseTempo: 1/4,
 	legatoArr: 0.95!10,
 	amp: 0.1,
 	scale: Scale.harmonicMinor,
-	branchInterval: 7,
+	branchInterval: 7,//7,
 	stepInterval: 1,
-	noteOffset: -7,
+	noteOffset: 48,
 	wrapLo: 36!10,
 	wrapHi: 96!10,
 	vols: 1!10,
 	theta: 51.45,
-	instrument: \default,
+	quant: 4,
+	instrument: [\default],
+	presetName: \variedPlucks
 	//setInstrument: [\simple_modes_synth_1, \sine_OD_1, \wavetable_1] ++ (\fm_1 ! 7) // fuer benni
 );
 
@@ -43,45 +46,47 @@ if(~localSetup){
 	~targetServer = Server.default;
 	~gui.toProcessing = NetAddr("127.0.0.1", 12000);
 }{
-	var checkConnection = Condition.new;
 	~addrBook = AddrBook.new;
 	~addrBook.addMe;
 	~hail = Hail.new(~addrBook);
-	block {|break|
-		{
+	~synthDescRel = SynthDescRelay(~addrBook);
+
+	{
+		block {|break|
 			inf.do {
 				1.wait;
 				("utopia peers: " ++ ~addrBook.names).postln;
-				if(~addrBook.names.includes(\Philipp) && ~addrBook.names.includes(\Benni)){
-					checkConnection.unhang;
+				if(~addrBook.names.includes(\Philipp) && ~addrBook.names.includes(\Benni)){ //
+
+					//~gui.toProcessing = NetAddr("127.0.0.1", 12000);
+					~gui.toProcessing = NetAddr(~addrBook.at(\Philipp).addr.ip, 12000);
+
+					~objSpace_philipp = OSCObjectSpace(~addrBook, oscPath:'/pitches');
+					~objSpace_philipp.addDependant({|objectSpace, what, key, val|
+						~ctl.scale = 4.collect { |i| ~objSpace_philipp[\pitches] + (i * 12) }.flat.sort;
+						//~ctl.branchInterval = ~ctl.scale.size;
+					});
+
+					~targetServer = Server.remote(
+						\benni,
+						NetAddr(~addrBook.at(\Benni).addr.ip, 57110),
+						ServerOptions.new().maxLogins_(2),
+						1
+					);
+					// ~targetServer.latency = 0.5;
+
+					~presets_benni = OSCObjectSpace(~addrBook, oscPath:'/instrumentPresets').acceptEvents_(true);
+					~objSpace_benni = OSCObjectSpace(~addrBook, oscPath:'/params').acceptEvents_(true);
+					~objSpace_benni.addDependant({|objectSpace, what, key, val|
+						~ctl[key] = ~objSpace_benni[key];
+					});
 					break.value;
 				};
 			};
-			checkConnection.hang;
+		};
 
-			~gui.toProcessing = NetAddr(~addrBook.at(\Philipp).addr.ip, 12000);
 
-			~objSpace_philipp = OSCObjectSpace(~addrBook, oscPath:'/data');
-			~objSpace_philipp.addDependant({|objectSpace, what, key, val|
-				~ctl.scale = Scale.new(~objSpace_philipp[\data]);
-				~ctl.branchInterval = ~ctl.scale.size;
-			});
+	}.fork
 
-			~targetServer = Server(
-				\benni,
-				NetAddr(~addrBook.at(\Benni).addr.ip, 57110),
-				ServerOptions.new().maxLogins_(4),
-				1
-			);
-
-			~objSpace_benni = OSCObjectSpace(~addrBook, oscPath:'/params');
-			~objSpace_benni.addDependant({|objectSpace, what, key, val|
-				if(key == \sourceGroup){
-					~ctl.group = ~objSpace_benni[\sourceGroup];
-				}
-			});
-
-		}.fork
-	};
 };
 
