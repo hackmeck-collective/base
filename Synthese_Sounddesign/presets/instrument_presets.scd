@@ -1,15 +1,14 @@
+(
 ~callInstrumentPreset = {
 	arg instrName;
-	var preset = ~instrumentPresetsDictionary[instrName];
 	Pbindef(instrName).clear;
-	preset.keysValuesDo { arg keys, values;
-		Pbindef(instrName, keys, values)
-	};
 	Pbindef(instrName,
+		\getPreset, Pfunc {|ev| ev.putAll(~instrumentPresetsDictionary[instrName])},
 		\instrument, Pfunc {|ev| ~makeModularSynthDef.(ev.adsrType, ev.pitchOp, ev.osc, ev.fx, ev.filter).asSymbol},
 		\group, Pfunc {~source_group},
 	);
 };
+);
 
 "call instrument preset function loaded".postln;
 
@@ -130,10 +129,10 @@
 	\out: ~chords_bus,
 	\send_1: ~ef_reverb,
 	\send_1_level: 0.5,
-	\pitchOp_mod_1: 0.5,
-	\pitchOp_mod_2: 0.5,
-	\oscillator_mod_1: 0.75,
-	\oscillator_mod_2: 0.5,
+	\pitchOp_mod_1: 0.75,
+	\pitchOp_mod_2: 0.25,
+	\oscillator_mod_1: 0.5,
+	\oscillator_mod_2: 0.25,
 	\fx_mod_1: 1,
 	\fx_mod_2: 1,
 	\filter_mod_1: 0,
