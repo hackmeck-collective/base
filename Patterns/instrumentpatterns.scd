@@ -28,7 +28,7 @@ var presetName = \simplePluck;
 ~callInstrumentPreset.(presetName);
 Pbindef(presetName,
 	\dur, Pseq([1/2], inf),
-	\note, Pn(Plazy{ Pseq(~pitchesRootDissonance[\pitches], 1)}) + 12,
+	\note, 0, //Pn(Plazy{ Pseq(~pitchesRootDissonance[\pitches], 1)}) + 12,
 	\vol, 0.5,
 ).play(~linkClock, quant: 4);
 )

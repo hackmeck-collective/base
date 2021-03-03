@@ -16,7 +16,6 @@
 		var filter_function = ~filterTypes[filterTypes];
 
 		~synthDefPool.add(synthDefName);
-		~osc_data_params[\synthDefs] = ~synthDefPool;
 
 		SynthDef.new(synthDefName,
 			{
