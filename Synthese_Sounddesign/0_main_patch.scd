@@ -1,11 +1,6 @@
 (
-"booting server".postln;
-"boot_audio_server.scd".loadRelative;
-s.waitForBoot {
-	if(MIDIClient.initialized.not){
-		MIDIClient.init;
-		MIDIIn.connectAll;
-	};
+var waitForPeers = false;
+var loadStuff = {
 	"loading signal flow".postln;
 	"signal_flow/groups_setup.scd".loadRelative;
 	"signal_flow/controlbus_setup.scd".loadRelative;
@@ -18,17 +13,45 @@ s.waitForBoot {
 	"instruments/makeModularSynthDef.scd".loadRelative;
 	"instruments/makeModularDrum.scd".loadRelative;
 
-	"presets/presets.scd".loadRelative;
+	"presets/instrument_presets.scd".loadRelative;
+	"presets/drum_presets.scd".loadRelative;
+
 
 	"loading control interfaces".postln;
 	"control_interfaces/midi_defs_launchcontrol-xl.scd".loadRelative;
 
+
+	~linkClock = LinkClock.new(1).latency_(s.latency).enableMeterSync.permanent_(true);
+	CmdPeriod.run;
+	"ready".postln;
+};
+
+"booting server".postln;
+"audio_server_options.scd".loadRelative;
+s.waitForBoot {
+	if(MIDIClient.initialized.not){
+		MIDIClient.init;
+		MIDIIn.connectAll;
+	};
+	ServerTree.removeAll;
 	"loading network".postln;
 	"network/address_book.scd".loadRelative;
 	"network/ip_config.scd".loadRelative;
-
-	~linkClock = LinkClock.new(1).permanent_(true);
-	"ready".postln
+	"waiting...".postln;
+	if(waitForPeers){
+		block {|break|
+			inf.do{
+				~addrBook.names.postln;
+				if(~addrBook.names.includes(\vincent)){
+					loadStuff.value;
+					break.value
+				};
+				1.wait
+			}
+		}
+	}{
+		loadStuff.value
+	}
 };
 );
 
@@ -45,7 +68,7 @@ s.waitForBoot {
 
 SynthDef
 
-	lpf_freq = macro_3.lincurve(0,1,60,18000,3);
+lpf_freq = macro_3.lincurve(0,1,60,18000,3);
 
 TempoClock.default.tempo = 1
 

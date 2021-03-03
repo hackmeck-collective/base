@@ -62,4 +62,4 @@ s.sync;
 	~sendFX.ef_reverb = Synth.new(\ef_reverb,target: ~effect_group); //kann ich das hier auslagern????
 };
 
-ServerTree.add({ ~startSendFX.value }).run(\all);
+ServerTree.add({ ~startSendFX.value });

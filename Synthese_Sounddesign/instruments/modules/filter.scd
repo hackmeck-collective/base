@@ -82,7 +82,7 @@
 		BLowShelf.ar(in, filter_freq, filter_resonance, db);
 	},
 
-	nofilter:  {arg in;
+	noFilter:  {arg in;
 
 		in;
 	},

@@ -3,8 +3,10 @@
 ~makeGroups = {
 	~source_group = Group.new;
 	~effect_group = Group.after(~source_group);
-	~bus_group = Group.after(~effect_group);
+	~bus_group = Group.after(~source_group);
+	~summing_group = Group.after(~effect_group);
 	~master_group = Group.tail;
+	~routing[\sourceGroup] = ~source_group.nodeID;
 };
-ServerTree.removeAll;
-ServerTree.add({ ~makeGroups.value }).run(\all);
+
+ServerTree.add({ ~makeGroups.value });

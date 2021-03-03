@@ -16,6 +16,7 @@
 		var filter_function = ~filterTypes[filterTypes];
 
 		~synthDefPool.add(synthDefName);
+		~osc_data_params[\synthDefs] = ~synthDefPool;
 
 		SynthDef.new(synthDefName,
 			{
@@ -34,7 +35,7 @@
 				filter_mod_1,
 				filter_mod_2,
 				envelope_mod,
-				vol,
+				vol = 0.5,
 				pitchOp_mod_2_macro_channel,
 				pitchOp_mod_1_macro_channel,
 				oscillator_mod_1_macro_channel,
@@ -111,8 +112,8 @@
 				);
 
 				filter = SynthDef.wrap(
-					fx_function,
-					prependArgs: [oscillator, gate, freq, filter_mod_1, filter_mod_2],
+					filter_function,
+					prependArgs: [fx, gate, freq, filter_mod_1, filter_mod_2],
 				);
 
 				amp = filter * vol * envelope;
@@ -124,3 +125,5 @@
 	};
 	synthDefName
 };
+
+"make modular synthdef function loaded".postln;

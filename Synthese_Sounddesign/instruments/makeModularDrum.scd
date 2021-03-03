@@ -38,7 +38,7 @@
 				fx_mod_2,
 				filter_mod_1,
 				filter_mod_2,
-				vol,
+				vol = 0.5,
 				time_factor_macro_channel,
 				fx_mod_1_macro_channel,
 				fx_mod_2_macro_channel,

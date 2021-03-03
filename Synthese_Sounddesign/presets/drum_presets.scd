@@ -1,8 +1,23 @@
+~callDrumPreset = {
+	arg instrName;
+	var preset = ~drumPresetsDictionary[instrName];
+	Pbindef(instrName).clear;
+	preset.keysValuesDo { arg keys, values;
+		Pbindef(instrName, keys, values)
+	};
+	Pbindef(instrName,
+		\instrument, Pfunc {|ev| ~makeModularDrum.(ev.drumType, ev.fx, ev.filter).asSymbol},
+		\group, Pfunc {~source_group},
+	);
+};
+
+"call drum preset function loaded".postln;
+
 (
-~bd1 = (
+~drumPresetsDictionary[\bd1] = (
 	\drumType: \bodyTimbreTransientTail,
-	\fx: \nofx,
-	\filter: \nofilter,
+	\fx: \noFx,
+	\filter: \noFilter,
 	\controlbus: ~launchcontrol_xl_row_1,
 	\out: ~drums_bus,
 	\send_1: ~ef_reverb,
@@ -31,12 +46,11 @@
 	\filter_mod_1_macro_channel: 0,
 	\filter_mod_2_macro_channel: 0,
 	\vol_macro_channel: 0,
-	\group: Pfunc {~source_group},
 );
 );
 
 (
-~bd2 = (\drumType: \fmTransientTail,
+~drumPresetsDictionary[\bd2] = (\drumType: \fmTransientTail,
 	\fx: \shelvedOverdriveSoft,
 	\filter: \lpf_24,
 	\controlbus: ~launchcontrol_xl_row_1,
@@ -67,14 +81,13 @@
 	\filter_mod_1_macro_channel: 0,
 	\filter_mod_2_macro_channel: 0,
 	\vol_macro_channel: 0,
-	\group: Pfunc {~source_group},
 );
 );
 
 (
-~sd1 = (\drumType: \bodyTimbreTransientTail,
+~drumPresetsDictionary[\sd1] = (\drumType: \bodyTimbreTransientTail,
 	\fx: \shelvedOverdriveSoft,
-	\filter: \nofilter,
+	\filter: \noFilter,
 	\controlbus: ~launchcontrol_xl_row_1,
 	\out: ~drums_bus,
 	\send_1: ~ef_reverb,
@@ -103,14 +116,13 @@
 	\filter_mod_1_macro_channel: 0,
 	\filter_mod_2_macro_channel: 0,
 	\vol_macro_channel: 0,
-	\group: Pfunc {~source_group},
 );
 );
 
 (
-~sd2 = (\drumType: \fmTransientTail,
+~drumPresetsDictionary[\sd2] = (\drumType: \fmTransientTail,
 	\fx: \sampleRateReduction,
-	\filter: \nofilter,
+	\filter: \noFilter,
 	\controlbus: ~launchcontrol_xl_row_1,
 	\out: ~drums_bus,
 	\send_1: ~ef_reverb,
@@ -139,14 +151,13 @@
 	\filter_mod_1_macro_channel: 0,
 	\filter_mod_2_macro_channel: 0,
 	\vol_macro_channel: 0,
-	\group: Pfunc {~source_group},
 );
 );
 
 (
-~bongo1 = (\drumType: \fmTransientTail,
+~drumPresetsDictionary[\bongo1] = (\drumType: \fmTransientTail,
 	\fx: \sampleRateReduction,
-	\filter: \nofilter,
+	\filter: \noFilter,
 	\controlbus: ~launchcontrol_xl_row_1,
 	\out: ~drums_bus,
 	\send_1: ~ef_reverb,
@@ -175,14 +186,13 @@
 	\filter_mod_1_macro_channel: 0,
 	\filter_mod_2_macro_channel: 0,
 	\vol_macro_channel: 0,
-	\group: Pfunc {~source_group},
 );
 );
 
 (
-~hh1 = (\drumType: \bodyTimbreTransientTail,
-	\fx: \nofx,
-	\filter: \nofilter,
+~drumPresetsDictionary[\hh1] = (\drumType: \bodyTimbreTransientTail,
+	\fx: \noFx,
+	\filter: \noFilter,
 	\controlbus: ~launchcontrol_xl_row_1,
 	\out: ~drums_bus,
 	\send_1: ~ef_reverb,
@@ -211,14 +221,13 @@
 	\filter_mod_1_macro_channel: 0,
 	\filter_mod_2_macro_channel: 0,
 	\vol_macro_channel: 0,
-	\group: Pfunc {~source_group},
 );
 );
 
 (
-~hh2 = (\drumType: \fmTransientTail,
-	\fx: \nofx,
-	\filter: \nofilter,
+~drumPresetsDictionary[\hh2] = (\drumType: \fmTransientTail,
+	\fx: \noFx,
+	\filter: \noFilter,
 	\controlbus: ~launchcontrol_xl_row_1,
 	\out: ~drums_bus,
 	\send_1: ~ef_reverb,
@@ -247,6 +256,8 @@
 	\filter_mod_1_macro_channel: 0,
 	\filter_mod_2_macro_channel: 0,
 	\vol_macro_channel: 0,
-	\group: Pfunc {~source_group},
 );
 );
+
+
+"drum presets loaded".postln;

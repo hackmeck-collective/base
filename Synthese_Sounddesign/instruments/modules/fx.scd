@@ -106,7 +106,7 @@
 		), freq * 0.5);
 	},
 
-	nofx: {arg in;
+	noFx: {arg in;
 
 		in;
 	},

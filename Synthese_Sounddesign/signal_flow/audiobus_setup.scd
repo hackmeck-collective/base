@@ -5,9 +5,22 @@
 ~drums_bus ?? {~drums_bus = Bus.audio(s,2)};
 ~aux_bus ?? {~aux_bus = Bus.audio(s,2)};
 ~instruments_bus ?? {~instruments_bus = Bus.audio(s,2)};
-~melody_bus ?? {~melody_bus = Bus.audio(s,2)};
 ~effect_bus ?? {~effect_bus = Bus.audio(s,2)};
 ~master ?? {~master = Bus.audio(s,2)};
+
+"writing indices to object space".postln;
+//
+// ~osc_data_params[\melodyBus] = ~melody_bus.index;
+// ~osc_data_params[\chordsBus] = ~chords_bus.index;
+// ~osc_data_params[\drumsBus] = ~drums_bus.index;
+// ~osc_data_params[\auxBus] = ~aux_bus.index;
+
+~routing[\melodyBus] = ~melody_bus.index;
+~routing[\chordsBus] = ~chords_bus.index;
+~routing[\drumsBus] = ~drums_bus.index;
+~routing[\auxBus] = ~aux_bus.index;
+
+"defining Synthdefs for audio busses".postln;
 
 SynthDef(\melody_bus, {
 	arg beatDurNow = 1,
@@ -144,12 +157,12 @@ s.sync;
 			\controlbus, ~launchcontrol_xl_row_8,
 			\lpf_freq, 18000],
 		target: ~master_group);
-	~audioBusses.effectBus = Synth.new(\effect_bus,target: ~bus_group);
-	~audioBusses.instrumentsBus = Synth.new(\instruments_bus,target: ~bus_group);
-	~audioBusses.melodyBus = Synth.new(\melody_bus,target: ~source_group);
-	~audioBusses.chordsBus = Synth.new(\chords_bus,target: ~source_group);
-	~audioBusses.drumsBus = Synth.new(\drums_bus,target: ~source_group);
-	~audioBusses.auxBus = Synth.new(\aux_bus,target: ~source_group);
+	~audioBusses.effectBus = Synth.new(\effect_bus,target: ~summing_group);
+	~audioBusses.instrumentsBus = Synth.new(\instruments_bus,target: ~summing_group);
+	~audioBusses.melodyBus = Synth.new(\melody_bus,target: ~bus_group);
+	~audioBusses.chordsBus = Synth.new(\chords_bus,target: ~bus_group);
+	~audioBusses.drumsBus = Synth.new(\drums_bus,target: ~bus_group);
+	~audioBusses.auxBus = Synth.new(\aux_bus,target: ~bus_group);
 };
 
-ServerTree.add({ ~startAudioBusses.value }).run(\all);
+ServerTree.add({ ~startAudioBusses.value });

@@ -38,6 +38,24 @@
 		;
 	},
 
+	slideVibrato: {arg freq = 440,
+		gate = 0,
+		pitchOp_mod_1 = 0,
+		pitchOp_mod_2 = 0;
+
+		var interval = pitchOp_mod_1.lincurve(0,1,-24,24,0).midiratio,
+		time = pitchOp_mod_2.lincurve(0,1,0.01,2,3);
+		var speed = pitchOp_mod_2.lincurve(0,1,2,8,3),
+		amount = freq * pitchOp_mod_2.lincurve(0,1,0.001,0.025,3);
+
+		freq = freq * EnvGen.kr(
+			Env.new([interval,1],
+				time,
+				curve: -4),
+			gate: gate) + SinOsc.ar(speed,Rand(),amount)
+		;
+	},
+
 	fm: {arg freq = 440,
 		gate = 0,
 		pitchOp_mod_1 = 0,
