@@ -14,22 +14,46 @@
 			firstPoint = ~gui.lastPoints[voiceEvent.parentId] ? Point(0,0),
 			lastPoint,
 			addPitch = if(~lsys.useLastPitch){~lsys.lastPitch}{0};
+			ctl.keys.postln;
 			// if(myKey == 0){~lastPitch = ~lastPitch + voiceEvent.pitches.last};
 			if(myKey == 0){~lsys.lastPitch = voiceEvent.pitches.last}; // welche version macht mehr sinn?
-			PmonoArtic2(\default, // muss
+			Pbind(//PmonoArtic2(\default, // muss
 				\server, ~targetServer,
-				\instrument, Pfunc { ctl.instrument },
+				//\controlbus, 0,
+				/*				Pfunc {
+				[
+				ctl.launchcontrol_xl_row_4,
+				ctl.launchcontrol_xl_row_5,
+				ctl.launchcontrol_xl_row_6
+				][myKey]
+				},*/
+				\out, Pfunc { ctl.melodyBus },
+				\group, Pfunc { ctl.sourceGroup },
+				/*				\adsrType, \pluck,
+				\pitchOp, Pseq([\slide, \fm, \unisonoDetune], inf),
+				\osc, Pseq([\pulsar, \fm], inf),
+				\fx, \shelvedOverdriveSoft,
+				\filter, \lpf_moog,
+				\instrument, Pfunc {|ev| "%_%_%_%_%".format(ev.adsrType, ev.pitchOp, ev.osc, ev.fx, ev.filter).asSymbol },*/
+				\instrument, Pfunc { ctl.instrument.choose }.stutter(8),
 				\pitches, Pseq(voiceEvent.pitches),
 				\charNow, Pseq(voiceEvent.chars),
 				\dur, Pfunc { |evInner| evInner.baseTempo },
 				\legato, Pfunc { ctl.legatoArr[myKey] },
 				\amp, Pfunc { ctl.amp * ctl.vols[myKey] },
+				\midinote, Pfunc { |ev|
+				ctl.scale.wrapAt(ev.pitches * ctl.stepInterval) + ctl.noteOffset +
+				(myKey * 12)
+				// ctl.branchInterval +
+				},
+				//\vol, 0.5,
+/*				\scale, Pfunc { ctl.scale },
 				\degree, Pfunc { |ev|
 					ctl.branchInterval +
 					(ev.pitches * ctl.stepInterval) +
 					(myKey * ctl.noteOffset) +
 					addPitch
-				},
+				},*/
 				\checkPause, Pfunc { |evInner|
 					if(evInner.charNow == $G){Rest(evInner.dur)}{0}
 				},
@@ -52,6 +76,7 @@
 				},
 
 				\finish, { |evInner|
+					//evInner.postln;
 					evInner.midinote = evInner.midinote.wrap(ctl.wrapLo[myKey], ctl.wrapHi[myKey]);
 					evInner
 				}
@@ -62,6 +87,7 @@
 
 Pdef(\partPlayer,
 	Pbind(
+		// \test, Pfunc { |ev| ev.postln},
 		\counter, Pn(Plazy({ Pseries(1, length: Pbindef(\opts).source[\part].source.list.size)})),
 		\dur, Pfunc { |ev|
 			"\n#### Now playing: ####".postln;
@@ -71,7 +97,7 @@ Pdef(\partPlayer,
 				/*if(ev.counter == 1){
 				~gui.toProcessing.sendMsg('/reset'); // fragwuerdig? ja wenn es mehrere parts gibt schlecht
 				};*/
-				~pchain.(~ctl).play(l, protoEvent: ev, quant: 0);
+				~pchain.(~ctl).play(l, protoEvent: (ev.putAll(~presets_benni[~ctl.presetName]))); // quant
 				"duration of this part: ".post;
 				if(ev.durCalc == \waitAll){
 					// FLOOR FUER BESSERE SYNC

@@ -1,5 +1,6 @@
 "make_lsys.scd".loadRelative;
-~newLsys = { |axiom, rules, gen, useLastPitch = false|
+"pdefCreator.scd".loadRelative;
+/*~newLsys = { |axiom, rules, gen, useLastPitch = false|
 	var lsys = RedLSystem(axiom, rules), lsysPattern;
 	gen.do { lsys.next };
 	{
@@ -20,4 +21,20 @@
 	{~lsys.integration == \add}{
 		Pbindef(\opts,\part, Pseq(~lsys.list, inf));
 	};
+};*/
+~newLsys = { |name, axiom, rules, gen, useLastPitch = false|
+	var lsys = RedLSystem(axiom, rules), lsysPattern;
+	gen.do { lsys.next };
+	{
+		if(useLastPitch ?? false){
+			lsysPattern = ~makeStream.(lsys, startingPitch: ~lsys.saveLastPitch);
+		}{
+			lsysPattern = ~makeStream.(lsys);
+		}
+	}.bench;
+	~lsys.saveLastPitch = lsysPattern.lastPitch;
+	~lsys.newPattern = lsysPattern;
+	~lsys.list.add(lsysPattern);
+	~lsys.argsList.add((name: name, axiom: axiom, rules: rules, gen: gen, useLastPitch: useLastPitch));
+	~makePdef.(name, lsysPattern)
 };
