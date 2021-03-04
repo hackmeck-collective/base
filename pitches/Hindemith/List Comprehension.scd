@@ -15,7 +15,7 @@ Set[1, 2, 6, 10, 11] & Set[5, 6]; //Intersection
 
 (
 ~intervals = { |chord|
-	all {: (chord[i+gap] - chord[i]),
+	all {: (chord[i+gap] - chord[i]).mod(12),
 		gap <- (1 .. chord.lastIndex),
 		i <- (0 .. chord.lastIndex - gap)
 	}
@@ -68,9 +68,7 @@ Set[1, 2, 6, 10, 11] & Set[5, 6]; //Intersection
 
 
 
-
-
-
+// DissDegree 0
 // A Ohne Tritonus I Ohne Sekunden und Septimen 1 Grundton und Basston sind derselbe
 //Vierklänge
 (
@@ -78,24 +76,21 @@ var excludeAll = Set[1, 2, 6, 10, 11];
 var without2or7 = { |set| (excludeAll & set).isEmpty }; //without-2-or-7-constraint
 var maxUpperNote = 24;
 
-z = all {: [0, n1, n2, n3],
-	n1 <- (1..(maxUpperNote-2)),
+z = all {: (list: [0, n1, n2, n3], rootNote: rootNote),
+	n1 <- (1..(maxUpperNote-2)), excludeAll.includes(n1).not,
 
-	n2 <- ((n1+1)..(maxUpperNote-1)),
+	n2 <- ((n1+1)..(maxUpperNote-1)), without2or7.(~intervals.([0, n1, n2]).asSet),
 
+	n3 <- ((n2+1)..maxUpperNote), without2or7.(~intervals.([0, n1, n2, n3]).asSet),
 
-	n3 <- ((n2+1)..maxUpperNote),
-
-	without2or7.(~intervals.([0, n1, n2, n3]).asSet),
-
-	~rootNote.([0, n1, n2, n3]) == 0
+	var rootNote = ~rootNote.([0, n1, n2, n3]), rootNote == 0
 };
 )
-z.next
+z.size
 
 
 
-
+// DissDegree 1
 // A ohne tritonus I Ohne Sekunden und Septimen 2 Grundton liegt hoeher im Akkord
 //Vierklänge
 (
@@ -103,39 +98,39 @@ var excludeAll = Set[1, 2, 6, 10, 11];
 var without2or7 = { |set| (excludeAll & set).isEmpty }; //without-2-or-7-constraint
 var maxUpperNote = 24;
 
-z = all {: [0, n1, n2, n3],
-	n1 <- (1..(maxUpperNote-2)),
+z = all {: (list: [0, n1, n2, n3], rootNote: rootNote),
+	n1 <- (1..(maxUpperNote-2)), excludeAll.includes(n1).not,
 
-	n2 <- ((n1+1)..(maxUpperNote-1)),
+	n2 <- ((n1+1)..(maxUpperNote-1)), without2or7.(~intervals.([0, n1, n2]).asSet),
 
+	n3 <- ((n2+1)..maxUpperNote), without2or7.(~intervals.([0, n1, n2, n3]).asSet),
 
-	n3 <- ((n2+1)..maxUpperNote),
-
-	without2or7.(~intervals.([0, n1, n2, n3]).asSet),
-
-	~rootNote.([0, n1, n2, n3]) != 0
+	var rootNote = ~rootNote.([0, n1, n2, n3]), rootNote != 0
 };
 )
-{z.next}.bench
+z.size
 
 
+
+// DissDegree 2
 // B mit tritonus II ohne kleine Sekunden und große Septimen. Tritonus untergeordnet a) Nur mit kleiner Septime (ohne gr. Sekunde) Grundton Und Basston sind derselbe
 //Vierklänge
 //vgl. Unterweisung im Tonsatz S. 124.
 //"Als Erfahrungstatsache steht fest, dass der Tritonus, wenn er mit anderen Intervallen zum Akkord verbunden wird, sich der Herrschaft der starksten Intervall aus der Reihe 2 beugt. Die ersten beiden Paare (Quinte - Quarte, große Terz - kleine Sexte) unterdrücken seine Unbestimmtheit, überlassen sich aber willig der ihm eigenen Zielstrebigkeit. [...] Das nächste Paar (kleine Terz - große Sexte) hat nicht mehr so viel harmonische Kraft, um die Unbestimmtheit des Tritonus in sich zu einem harmonisch sicheren Klang umzuformen. Ein Akkord, der außer dem Tritonus kein besseres Intervall als eines dieser beiden enthält, bleibt deshalb so unbestimmt wie der Tritonus selbst."
+
 (
 
 var excludeAll = Set[1, 2, 11];
-var includeOneOf = Set[7, 5, 4, 8];
+var includeAll = Set[6, 10];
+var includeAtleastOneOf = Set[7, 5, 4, 8]; // stärkere intervalle als kleine Terz
 var maxUpperNote = 24;
 
 //var dissonanzen = [7, 5, 4, 8, 3, 9, 2, 10, 1, 11];
 
 z = all {: [0, n1, n2, n3],
-	n1 <- (1..(maxUpperNote-2)),
+	n1 <- (1..(maxUpperNote-2)), excludeAll.includes(n1).not,
 
-	n2 <- ((n1+1)..(maxUpperNote-1)),
-
+	n2 <- ((n1+1)..(maxUpperNote-1)), (excludeAll & ~intervals.([0, n1, n2]).asSet).isEmpty,
 
 	n3 <- ((n2+1)..maxUpperNote),
 
@@ -143,20 +138,22 @@ z = all {: [0, n1, n2, n3],
 
 	(excludeAll & intervals).isEmpty,
 
-	intervals.includes(6) && intervals.includes(10),
+	// includeAll.isSubsetOf(intervals),
+	includeAll isSubsetOf: intervals,
 
-	(intervals & includeOneOf).notEmpty,
+	(intervals & includeAtleastOneOf).notEmpty,
 
 	~rootNote.([0, n1, n2, n3]) == 0
 };
 )
-z.next
+z.size
 
-
+// DissDegree 3
 // B mit Tritonus II ohne kleine Sekunden und große Septimen. Tritonus untergeordnet b mit großer Sekunde und kleiner Septime 1. Grundton Und Basston sind derselbe
 (
 
 var excludeAll = Set[1, 11];
+var includeAll = Set[2, 6, 10];
 var includeOneOf = Set[7, 5, 4, 8];
 var maxUpperNote = 24;
 //var dissonanzen = [7, 5, 4, 8, 3, 9, 2, 10, 1, 11];
@@ -174,18 +171,19 @@ z = all {: [0, n1, n2, n3],
 
 	(intervals & includeOneOf).notEmpty,
 
-	intervals.includes(2), intervals.includes(6), intervals.includes(10),
+	includeAll isSubsetOf: intervals,
 
 	~rootNote.([0, n1, n2, n3]) == 0
 };
 )
 
+// DissDegree 4
 // B mit Tritonus II ohne kleine Sekunden ODER (!) große Septimen. Tritonus untergeordnet b mit großer Sekunde und kleiner Septime 2. Grundton liegt höher im Akkord
 (
 
 var excludeAll = Set[1, 11];
+var includeAll = Set[2, 6, 10];
 var includeOneOf = Set[7, 5, 4, 8];
-var includeOneOf2 = Set[2, 10];
 var maxUpperNote = 24;
 //var dissonanzen = [7, 5, 4, 8, 3, 9, 2, 10, 1, 11];
 
@@ -202,16 +200,14 @@ z = all {: [0, n1, n2, n3],
 
 	(intervals & includeOneOf).notEmpty,
 
-	intervals.includes(6),
-
-	(intervals.asSet & includeOneOf2).notEmpty,
+	includeAll isSubsetOf: intervals,
 
 	~rootNote.([0, n1, n2, n3]) != 0
 };
 )
 
 
-
+// DissDegree 5
 // B mit Tritonus II ohne kleine Sekunden ODER (!) große Septimen. Tritonus untergeordnet b mit großer Sekunde und kleiner Septime 3. Mit mehreren Tritoni
 (
 
@@ -242,7 +238,7 @@ z = all {: [0, n1, n2, n3],
 )
 
 
-
+// DissDegree 6
 // A ohne Tritonus III Mit Sekunden ODER Septimen 1 Grundton und Basston sind derselbe
 //Vierklänge
 (
@@ -264,7 +260,7 @@ z = all {: [0, n1, n2, n3],
 )
 z.next
 
-
+// DissDegree 7
 // A ohne Tritonus III Mit Sekunden ODER Septimen 2 Grundton liegt höher im Akkord
 //Vierklänge
 (
@@ -286,7 +282,7 @@ z = all {: [0, n1, n2, n3],
 )
 {z.next}.bench
 
-
+// DissDegree 8
 // B mit Tritonus IV Mt kleinen Sekunden ODER großen Septimen. Ein Tritonus oder mehrere untergeordnet 1. Grundton Und Basston sind derselbe
 (
 
@@ -314,6 +310,8 @@ z = all {: [0, n1, n2, n3],
 };
 )
 
+
+// DissDegree 9
 // B mit Tritonus IV Mt kleinen Sekunden ODER großen Septimen. Ein Tritonus oder mehrere untergeordnet 2. Grundton liegt höher im Akkord
 (
 var includeOneOf = Set[1, 11];
@@ -341,11 +339,11 @@ z = all {: [0, n1, n2, n3],
 )
 
 
-
+// DissDegree 10
 //A ohne Tritonus V Unbestimmbar
 [[0,4,8],[0,5,10],[0,5,10,15],[0,5,10,15,20],[0,5,10,15,20,25]]
 
-
+// DissDegree 11
 // B mit Tritonus
 
 
