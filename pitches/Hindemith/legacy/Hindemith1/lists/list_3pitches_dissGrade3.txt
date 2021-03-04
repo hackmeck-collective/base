@@ -1,0 +1,24 @@
+~root0_pitches3_dissGrade3 = [ 
+(list: [ 0, 4, 6 ], root: 0, dissGrade: 3), 
+(list: [ 0, 4, 18 ], root: 0, dissGrade: 3), 
+(list: [ 0, 4, 30 ], root: 0, dissGrade: 3), 
+(list: [ 0, 4, 42 ], root: 0, dissGrade: 3), 
+(list: [ 0, 16, 18 ], root: 0, dissGrade: 3), 
+(list: [ 0, 16, 30 ], root: 0, dissGrade: 3), 
+(list: [ 0, 16, 42 ], root: 0, dissGrade: 3), 
+(list: [ 0, 28, 30 ], root: 0, dissGrade: 3), 
+(list: [ 0, 28, 42 ], root: 0, dissGrade: 3), 
+(list: [ 0, 40, 42 ], root: 0, dissGrade: 3), 
+(list: [ 12, 16, 18 ], root: 12, dissGrade: 3), 
+(list: [ 12, 16, 30 ], root: 12, dissGrade: 3), 
+(list: [ 12, 16, 42 ], root: 12, dissGrade: 3), 
+(list: [ 12, 28, 30 ], root: 12, dissGrade: 3), 
+(list: [ 12, 28, 42 ], root: 12, dissGrade: 3), 
+(list: [ 12, 40, 42 ], root: 12, dissGrade: 3), 
+(list: [ 24, 28, 30 ], root: 24, dissGrade: 3), 
+(list: [ 24, 28, 42 ], root: 24, dissGrade: 3), 
+(list: [ 24, 40, 42 ], root: 24, dissGrade: 3), 
+(list: [ 36, 40, 42 ], root: 36, dissGrade: 3), 
+];
+
+if(~root0_pitches3_dissGrade3.notNil,{"~root0_pitches3_dissGrade3: OK".postln},{"~root0_pitches3_dissGrade3 failed".postln});

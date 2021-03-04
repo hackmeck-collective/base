@@ -1,0 +1,4 @@
+~root0_pitches6_dissGrade2 = [ 
+];
+
+if(~root0_pitches6_dissGrade2.notNil,{"~root0_pitches6_dissGrade2: OK".postln},{"~root0_pitches6_dissGrade2 failed".postln});

@@ -1,0 +1,8 @@
+~root0_pitches5_dissGrade2 = [ 
+(list: [ 0, 9, 19, 29, 39 ], root: 0, dissGrade: 2), 
+(list: [ 0, 10, 20, 30, 40 ], root: 0, dissGrade: 2), 
+];
+
+
+
+if(~root0_pitches5_dissGrade2.notNil,{"~root0_pitches5_dissGrade2: OK".postln},{"~root0_pitches5_dissGrade2 failed".postln});
