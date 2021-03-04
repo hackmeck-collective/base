@@ -45,20 +45,22 @@ Set[1, 2, 6, 10, 11] & Set[5, 6]; //Intersection
 	};
 	//winner = listen.detect(_.notEmpty).minItem{|event| event.lowNote};
 	possibleWinner = listen.detect(_.notEmpty);
-
-	if(chooseU.includes(possibleWinner[0].interval),{
-		winner = possibleWinner.minItem{|event| event.lowNote};
-		winner.lowNote;
-	},{
-		winner = possibleWinner.maxItem{|event| event.highNote};
-		winner.highNote;
-	});
-
+	if(possibleWinner.isNil){
+		nil
+	}{
+		if(chooseU.includes(possibleWinner[0].interval),{
+			winner = possibleWinner.minItem{|event| event.lowNote};
+			winner.lowNote;
+		},{
+			winner = possibleWinner.maxItem{|event| event.highNote};
+			winner.highNote;
+		});
+	}
 };
 
 )
 
-
+~rootNote.([0,3,6,12])
 
 
 
@@ -127,7 +129,7 @@ var maxUpperNote = 24;
 
 //var dissonanzen = [7, 5, 4, 8, 3, 9, 2, 10, 1, 11];
 
-z = all {: [0, n1, n2, n3],
+z = all {: (list: [0, n1, n2, n3], rootNote: rootNote),
 	n1 <- (1..(maxUpperNote-2)), excludeAll.includes(n1).not,
 
 	n2 <- ((n1+1)..(maxUpperNote-1)), (excludeAll & ~intervals.([0, n1, n2]).asSet).isEmpty,
@@ -143,7 +145,7 @@ z = all {: [0, n1, n2, n3],
 
 	(intervals & includeAtleastOneOf).notEmpty,
 
-	~rootNote.([0, n1, n2, n3]) == 0
+	var rootNote = ~rootNote.([0, n1, n2, n3]), rootNote == 0
 };
 )
 z.size
@@ -158,7 +160,7 @@ var includeOneOf = Set[7, 5, 4, 8];
 var maxUpperNote = 24;
 //var dissonanzen = [7, 5, 4, 8, 3, 9, 2, 10, 1, 11];
 
-z = all {: [0, n1, n2, n3],
+z = all {: (list: [0, n1, n2, n3], rootNote: rootNote),
 	n1 <- (1..(maxUpperNote-2)),
 
 	n2 <- ((n1+1)..(maxUpperNote-1)),
@@ -173,7 +175,7 @@ z = all {: [0, n1, n2, n3],
 
 	includeAll isSubsetOf: intervals,
 
-	~rootNote.([0, n1, n2, n3]) == 0
+	var rootNote = ~rootNote.([0, n1, n2, n3]), rootNote == 0
 };
 )
 
@@ -187,7 +189,7 @@ var includeOneOf = Set[7, 5, 4, 8];
 var maxUpperNote = 24;
 //var dissonanzen = [7, 5, 4, 8, 3, 9, 2, 10, 1, 11];
 
-z = all {: [0, n1, n2, n3],
+z = all {: (list: [0, n1, n2, n3], rootNote: rootNote),
 	n1 <- (1..(maxUpperNote-2)),
 
 	n2 <- ((n1+1)..(maxUpperNote-1)),
@@ -202,7 +204,7 @@ z = all {: [0, n1, n2, n3],
 
 	includeAll isSubsetOf: intervals,
 
-	~rootNote.([0, n1, n2, n3]) != 0
+	var rootNote = ~rootNote.([0, n1, n2, n3]), rootNote != 0
 };
 )
 
@@ -217,7 +219,7 @@ var includeOneOf2 = Set[2, 10];
 var maxUpperNote = 12;
 //var dissonanzen = [7, 5, 4, 8, 3, 9, 2, 10, 1, 11];
 
-z = all {: [0, n1, n2, n3],
+z = all {: (list: [0, n1, n2, n3], rootNote: rootNote),
 	n1 <- (1..(maxUpperNote-2)),
 
 	n2 <- ((n1+1)..(maxUpperNote-1)),
@@ -232,7 +234,9 @@ z = all {: [0, n1, n2, n3],
 
 	(intervals.asSet & includeOneOf2).notEmpty,
 
-	(intervals.select({|item| item == 6}).size > 1)
+	(intervals.select({|item| item == 6}).size > 1),
+
+	var rootNote = ~rootNote.([0, n1, n2, n3])
 
 };
 )
@@ -243,22 +247,25 @@ z = all {: [0, n1, n2, n3],
 //Vierklänge
 (
 var excludeAll = Set[6];
+var includeAtleastOneOf = Set[1,2,10,11];
 var maxUpperNote = 24;
 
-z = all {: [0, n1, n2, n3],
+z = all {: (list: [0, n1, n2, n3], rootNote: rootNote),
 	n1 <- (1..(maxUpperNote-2)),
 
 	n2 <- ((n1+1)..(maxUpperNote-1)),
 
-
 	n3 <- ((n2+1)..maxUpperNote),
 
-	(~intervals.([0, n1, n2, n3]).asSet & exludeAll).isEmpty,
+	var intervals = ~intervals.([0, n1, n2, n3]).asSet,
 
-	~rootNote.([0, n1, n2, n3]) == 0
+	(intervals & excludeAll).isEmpty,
+
+	(intervals & includeAtleastOneOf).notEmpty,
+
+	var rootNote = ~rootNote.([0, n1, n2, n3]), rootNote == 0
 };
 )
-z.next
 
 // DissDegree 7
 // A ohne Tritonus III Mit Sekunden ODER Septimen 2 Grundton liegt höher im Akkord
@@ -267,7 +274,7 @@ z.next
 var excludeAll = Set[6];
 var maxUpperNote = 24;
 
-z = all {: [0, n1, n2, n3],
+z = all {: (list: [0, n1, n2, n3], rootNote: rootNote),
 	n1 <- (1..(maxUpperNote-2)),
 
 	n2 <- ((n1+1)..(maxUpperNote-1)),
@@ -277,7 +284,7 @@ z = all {: [0, n1, n2, n3],
 
 	(~intervals.([0, n1, n2, n3]).asSet & excludeAll).isEmpty,
 
-	~rootNote.([0, n1, n2, n3]) != 0
+	var rootNote = ~rootNote.([0, n1, n2, n3]), rootNote != 0
 };
 )
 {z.next}.bench
@@ -291,7 +298,7 @@ var includeOneOf2 = Set[7, 5, 4, 8];
 var maxUpperNote = 24;
 //var dissonanzen = [7, 5, 4, 8, 3, 9, 2, 10, 1, 11];
 
-z = all {: [0, n1, n2, n3],
+z = all {: (list: [0, n1, n2, n3], rootNote: rootNote),
 	n1 <- (1..(maxUpperNote-2)),
 
 	n2 <- ((n1+1)..(maxUpperNote-1)),
@@ -306,7 +313,7 @@ z = all {: [0, n1, n2, n3],
 
 	(intervals & includeOneOf2).notEmpty,
 
-	~rootNote.([0, n1, n2, n3]) == 0
+	var rootNote = ~rootNote.([0, n1, n2, n3]), rootNote == 0
 };
 )
 
@@ -319,7 +326,7 @@ var includeOneOf2 = Set[7, 5, 4, 8];
 var maxUpperNote = 24;
 //var dissonanzen = [7, 5, 4, 8, 3, 9, 2, 10, 1, 11];
 
-z = all {: [0, n1, n2, n3],
+z = all {: (list: [0, n1, n2, n3], rootNote: rootNote),
 	n1 <- (1..(maxUpperNote-2)),
 
 	n2 <- ((n1+1)..(maxUpperNote-1)),
@@ -334,7 +341,7 @@ z = all {: [0, n1, n2, n3],
 
 	(intervals & includeOneOf2).notEmpty,
 
-	~rootNote.([0, n1, n2, n3]) != 0
+	var rootNote = ~rootNote.([0, n1, n2, n3]), rootNote != 0
 };
 )
 
@@ -344,13 +351,28 @@ z = all {: [0, n1, n2, n3],
 [[0,4,8],[0,5,10],[0,5,10,15],[0,5,10,15,20],[0,5,10,15,20,25]]
 
 // DissDegree 11
-// B mit Tritonus
+// B mit Tritonus VI Unbestimmbar Tritonus übergeordnet
+(
+var maxUpperNote = 40;
+var smallestInterval = 3;
+//var dissonanzen = [7, 5, 4, 8, 3, 9, 2, 10, 1, 11];
 
+z = all {: (list: [0, n1, n2, n3], rootNote: rootNote),
+	n1 <- (smallestInterval, (smallestInterval * 2) ..(maxUpperNote-2)),
 
+	n2 <- ((n1+smallestInterval), (n1+(smallestInterval* 2))..(maxUpperNote-1)),
 
+	n3 <- ((n2+smallestInterval), (n2+(smallestInterval* 2))..maxUpperNote),
 
+	var intervals = ~intervals.([0, n1, n2, n3]).asSet,
 
+	intervals.includes(6),
 
+	:: [0, n1, n2, n3].postln,
+
+	var rootNote = ~rootNote.([0, n1, n2, n3])
+};
+)
 
 /*
 
@@ -360,11 +382,11 @@ var removeAll = { |i| (excludeAll & i.mod(12).asArray).isEmpty };
 var maxInterval = 15;
 
 z = all {: [0, i1, i2],
-	i1 <- (1..maxInterval), removeAll.(i1), //Wenn es keins der oben stehenden Intervalle ist, lässt er den Fall durch
-	//:: i1.postln,
-	i2 <- (i1 + 1 .. maxInterval), removeAll.(i2),
+i1 <- (1..maxInterval), removeAll.(i1), //Wenn es keins der oben stehenden Intervalle ist, lässt er den Fall durch
+//:: i1.postln,
+i2 <- (i1 + 1 .. maxInterval), removeAll.(i2),
 
-	var invs = ~intervals.([i1, i2]), removeAll.(invs)
+var invs = ~intervals.([i1, i2]), removeAll.(invs)
 }
 )
 
@@ -378,15 +400,15 @@ var removeAll = { |i| (excludeAll & i.mod(12).asArray).isEmpty };
 var maxInterval = 23;
 
 z = {: [i1, i2, i3],
-	i1 <- (1..maxInterval), removeAll.(i1),
+i1 <- (1..maxInterval), removeAll.(i1),
 
-	i2 <- (i1 + 1.. maxInterval), removeAll.(i2),
+i2 <- (i1 + 1.. maxInterval), removeAll.(i2),
 
-	var invs = ~intervals.([i1, i2]), removeAll.(invs),
+var invs = ~intervals.([i1, i2]), removeAll.(invs),
 
-	i3 <- (i2 + 1.. maxInterval), removeAll.(i3),
+i3 <- (i2 + 1.. maxInterval), removeAll.(i3),
 
-			var invs = ~intervals.([i1, i2, i3]), removeAll.(invs) && (~grundTon.([i1, i2, i3]))
+var invs = ~intervals.([i1, i2, i3]), removeAll.(invs) && (~grundTon.([i1, i2, i3]))
 }
 )
 
@@ -400,24 +422,24 @@ var excludeAll = Set[1, 2, 6, 10, 11];
 var excludeUnique = Set[5, 8, 9]; //Quarte, kl. Sexte, gr. Sexte.
 var removeAll = { |i| (excludeAll & i.mod(12).asArray).isEmpty };
 var removeUnique = { |arr i|
-	if(arr.mod(12).includes(i.mod(12))){
-		true // pass if the note already exists in a lower octave
-	}{
-		(excludeUnique & i.mod(12).asArray).isEmpty
-	}
+if(arr.mod(12).includes(i.mod(12))){
+true // pass if the note already exists in a lower octave
+}{
+(excludeUnique & i.mod(12).asArray).isEmpty
+}
 };
 var maxInterval = 23;
 
 z = {: [0, i1, i2, i3],
-	i1 <- (1..maxInterval), (
-		(excludeAll | excludeUnique) & [i1.mod(12)]
-	).isEmpty,
+i1 <- (1..maxInterval), (
+(excludeAll | excludeUnique) & [i1.mod(12)]
+).isEmpty,
 
-	i2 <- (i1 + 1..maxInterval), removeAll.(i2) && removeUnique.([i1], i2),
-	var invs = ~intervals.([i1, i2]), removeAll.(invs),
+i2 <- (i1 + 1..maxInterval), removeAll.(i2) && removeUnique.([i1], i2),
+var invs = ~intervals.([i1, i2]), removeAll.(invs),
 
-	i3 <- (i2 + 1..maxInterval), removeAll.(i3) && removeUnique.([i1, i2], i3),
-	var invs = ~intervals.([i1, i2, i3]), removeAll.(invs) && (i3 > i2)
+i3 <- (i2 + 1..maxInterval), removeAll.(i3) && removeUnique.([i1, i2], i3),
+var invs = ~intervals.([i1, i2, i3]), removeAll.(invs) && (i3 > i2)
 };
 )
 z.all.size
@@ -436,17 +458,17 @@ var symmetryTest = { |arr1, arr2| (Set.newFrom(arr1) & Set.newFrom(arr2 * 2 % 12
 var maxInterval = 23;
 
 z = {: [0,i1, i2, i3],
-	i1 <- (1..maxInterval), removeAll.(i1),
+i1 <- (1..maxInterval), removeAll.(i1),
 
-	i2 <- (i1 + 1..maxInterval), removeAll.(i2),// && symmetryTest.([i2], [i1]),
-	//:: ("interval 1: " ++ [i1, intervals]).postln,
+i2 <- (i1 + 1..maxInterval), removeAll.(i2),// && symmetryTest.([i2], [i1]),
+//:: ("interval 1: " ++ [i1, intervals]).postln,
 
-	var invs = ~intervals.([i1, i2]), removeAll.(invs),// && symmetryTest.(invs, [i1, i2]),
+var invs = ~intervals.([i1, i2]), removeAll.(invs),// && symmetryTest.(invs, [i1, i2]),
 
-	i3 <- (i2 + 1.. maxInterval), removeAll.(i3)  && (mustInclude & [i1, i2, i3].mod(12).asArray).notEmpty,
-	//:: ("  interval 2: " ++ [i2, intervals]).postln,&& symmetryTest.([i3], [i1, i2])
+i3 <- (i2 + 1.. maxInterval), removeAll.(i3)  && (mustInclude & [i1, i2, i3].mod(12).asArray).notEmpty,
+//:: ("  interval 2: " ++ [i2, intervals]).postln,&& symmetryTest.([i3], [i1, i2])
 
-	var invs = ~intervals.([i1, i2, i3]), removeAll.(invs) && (i3 > i2)//symmetryTest.(invs, [i1, i2, i3]) &&
+var invs = ~intervals.([i1, i2, i3]), removeAll.(invs) && (i3 > i2)//symmetryTest.(invs, [i1, i2, i3]) &&
 }
 )
 //Wie kann ein KLang wie [ 0, 3, 4, 10 ] sein?!?
@@ -458,36 +480,36 @@ var excludeAll = Set[1, 2, 6, 10, 11];
 var excludeUnique = Set[5, 8, 9];
 var removeAll = { |i| (excludeAll & i.mod(12).asArray).isEmpty };
 var removeUnique = { |arr i|
-	if(arr.mod(12).includes(i.mod(12))){
-		true // pass if the note already exist in a lower octave
-	}{
-		(excludeUnique & i.mod(12).asArray).isEmpty
-	}
+if(arr.mod(12).includes(i.mod(12))){
+true // pass if the note already exist in a lower octave
+}{
+(excludeUnique & i.mod(12).asArray).isEmpty
+}
 };
 var maxInterval = 60;
 
 z = {: [0, i1, i2, i3, i4, i5, i6, i7],
-	i1 <- (1..maxInterval), (
-		(excludeAll | excludeUnique) & [i1.mod(12)]
-	).isEmpty,
+i1 <- (1..maxInterval), (
+(excludeAll | excludeUnique) & [i1.mod(12)]
+).isEmpty,
 
-	i2 <- (i1 + 1..maxInterval), removeAll.(i2) && removeUnique.([i1], i2),
-	var invs = ~intervals.([i1, i2]), removeAll.(invs),
+i2 <- (i1 + 1..maxInterval), removeAll.(i2) && removeUnique.([i1], i2),
+var invs = ~intervals.([i1, i2]), removeAll.(invs),
 
-	i3 <- (i2 + 1..maxInterval), removeAll.(i3) && removeUnique.([i1, i2], i3),
-	var invs = ~intervals.([i1, i2, i3]), removeAll.(invs),// && (i3 > i2)
+i3 <- (i2 + 1..maxInterval), removeAll.(i3) && removeUnique.([i1, i2], i3),
+var invs = ~intervals.([i1, i2, i3]), removeAll.(invs),// && (i3 > i2)
 
-	i4 <- (i3 + 1..maxInterval), removeAll.(i4) && removeUnique.([i1, i2, i3], i4),
-	var invs = ~intervals.([i1, i2, i3, i4]), removeAll.(invs),// && (i3 > i2)
+i4 <- (i3 + 1..maxInterval), removeAll.(i4) && removeUnique.([i1, i2, i3], i4),
+var invs = ~intervals.([i1, i2, i3, i4]), removeAll.(invs),// && (i3 > i2)
 
-	i5 <- (i4 + 1..maxInterval), removeAll.(i5) && removeUnique.([i1, i2, i3, i4], i5),
-	var invs = ~intervals.([i1, i2, i3, i4, i5]), removeAll.(invs),// && (i3 > i2)
+i5 <- (i4 + 1..maxInterval), removeAll.(i5) && removeUnique.([i1, i2, i3, i4], i5),
+var invs = ~intervals.([i1, i2, i3, i4, i5]), removeAll.(invs),// && (i3 > i2)
 
-	i6 <- (i5 + 1..maxInterval), removeAll.(i6) && removeUnique.([i1, i2, i3, i4, i5], i6),
-	var invs = ~intervals.([i1, i2, i3, i4, i5, i6]), removeAll.(invs),// && (i3 > i2)
+i6 <- (i5 + 1..maxInterval), removeAll.(i6) && removeUnique.([i1, i2, i3, i4, i5], i6),
+var invs = ~intervals.([i1, i2, i3, i4, i5, i6]), removeAll.(invs),// && (i3 > i2)
 
-	i7 <- (i6 + 1..maxInterval), removeAll.(i7) && removeUnique.([i1, i2, i3, i4, i5, i6], i7),
-	var invs = ~intervals.([i1, i2, i3, i4, i5, i6, i7]), removeAll.(invs) && (i7 > i6)
+i7 <- (i6 + 1..maxInterval), removeAll.(i7) && removeUnique.([i1, i2, i3, i4, i5, i6], i7),
+var invs = ~intervals.([i1, i2, i3, i4, i5, i6, i7]), removeAll.(invs) && (i7 > i6)
 };
 )
 {z.next}.bench
