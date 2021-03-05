@@ -37,38 +37,48 @@ Set[1, 2, 6, 10, 11] & Set[5, 6]; //Intersection
 	var possibleWinner;
 	var winner;
 	var intervals = ~intervalsAndNotes.(pitches);
+	var listOflistNumbers = [];
+	var uniqueIntevals;
 
 	intervals.do { |event| //Iteriert über die Liste der Events
 		if(event.interval != 0 && (event.interval != 6), {
-			listen[dissonanzen.indexOf(event.interval)].add(event)
-		})
+			listen[dissonanzen.indexOf(event.interval)].add(event);
+			listOflistNumbers = listOflistNumbers.add(event.interval);
+		});
+
 	};
+	uniqueIntevals = ~intervals.(listOflistNumbers.as(Set).asArray);
+
 	//winner = listen.detect(_.notEmpty).minItem{|event| event.lowNote};
 	possibleWinner = listen.detect(_.notEmpty);
 	if(possibleWinner.isNil){
 		nil
 	}{
-		if(chooseU.includes(possibleWinner[0].interval),{
-			winner = possibleWinner.minItem{|event| event.lowNote};
-			winner.lowNote;
-		},{
-			winner = possibleWinner.maxItem{|event| event.highNote};
-			winner.highNote;
-		});
+		if(uniqueIntevals.size == 1){
+			nil
+		}{
+			if(chooseU.includes(possibleWinner[0].interval),{
+				winner = possibleWinner.minItem{|event| event.lowNote};
+				winner.lowNote;
+			},{
+				winner = possibleWinner.maxItem{|event| event.highNote};
+				winner.highNote;
+			});
+		}
 	}
 };
 
 )
-
-~rootNote.([0,3,6,12])
-
-
+(List.new ! 10).do {|list| if(list.notEmpty){countNonEmptyLists = countNonEmptyLists + 1}}
+~rootNote.([0,3,7,12])
 
 
 
 
 
 
+
+~rootNote.([ 0, 4, 8, 12 ])
 
 // DissDegree 0
 // A Ohne Tritonus I Ohne Sekunden und Septimen 1 Grundton und Basston sind derselbe
@@ -88,7 +98,7 @@ z = all {: (list: [0, n1, n2, n3], rootNote: rootNote),
 	var rootNote = ~rootNote.([0, n1, n2, n3]), rootNote == 0
 };
 )
-z.size
+z.do(_.postln)
 
 
 
