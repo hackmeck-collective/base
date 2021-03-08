@@ -1,4 +1,4 @@
-l = LinkClock.new().permanent_(true).enableMeterSync;
+~linkClock = ~linkClock ?? { LinkClock.new().permanent_(true).enableMeterSync};
 
 // dict for everything regarding the lsys
 ~lsys = ();
@@ -29,10 +29,8 @@ l = LinkClock.new().permanent_(true).enableMeterSync;
 	theta: 51.45,
 	quant: 4,
 	maxPatDur: 36,
-	//instrument: [\default], gibt so error
-	presetName: \simpleBass,
+	presetName: \simplePluck,
 	useLastPitch: true
-	//setInstrument: [\simple_modes_synth_1, \sine_OD_1, \wavetable_1] ++ (\fm_1 ! 7) // fuer benni
 );
 
 ~ctlPresets = ();
@@ -68,9 +66,8 @@ if(~localSetup){
 						ServerOptions.new().maxLogins_(2),
 						1
 					);
-					// ~targetServer.latency = 0.5;
 
-					~presets_benni = OSCObjectSpace(~addrBook, oscPath:'/instrumentPresets').acceptEvents_(true);
+					~instrumentPresetsDictionary = OSCObjectSpace(~addrBook, oscPath:'/instrumentPresets').acceptEvents_(true);
 					~routing = OSCObjectSpace(~addrBook, oscPath:'/routing').acceptEvents_(true);
 					~routing.addDependant({|objectSpace, what, key, val|
 							~ctl[key] = ~routing[key];
@@ -85,3 +82,24 @@ if(~localSetup){
 
 };
 
+Pdef(\playVisuals,
+	(
+		Pdef(\play) <>
+		Pbind(\getDiff, Pdiff(Pkey(\testCount))) <>
+		PtimeClutch(Pbind(\testCount, Pseries()))
+	).collect{|ev|
+		if(ev.getDiff == 1){
+			if(~gui.points.isEmpty.not){
+				~gui.points.do { |p|
+					var wp1 = (p[0][0]) * ~gui.scale,  // ~win.bounds.bottom/2 oder so
+					wp2 = (p[0][1]) * ~gui.scale,
+					branchLevel = p[1],
+					oscMsg = (wp1.asArray ++ wp2.asArray).asInteger ++ branchLevel;
+					{~gui.toProcessing.sendMsg('/lines', *oscMsg)}.defer(~targetServer.latency - 0.125) // damit es mit server latency zusammen kommt
+				};
+				~gui.points.clear;
+			};
+		};
+		ev
+	}
+);

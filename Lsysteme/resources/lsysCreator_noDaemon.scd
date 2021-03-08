@@ -9,6 +9,6 @@
 	~lsys.newPattern = lsysPattern;
 	~lsys.list.add(lsysPattern);
 	~lsys.argsList.add((name: name, axiom: axiom, rules: rules, gen: gen, useLastPitch: useLastPitch));
-	~ctlPresets[name] = ~ctl.copy; //usePreset ?? { () };
+	~ctlPresets[name] = ~ctlPresets[name] ?? { ~ctl.copy }; //usePreset ?? { () };
 	~makePdef.(name, lsysPattern);
 };
