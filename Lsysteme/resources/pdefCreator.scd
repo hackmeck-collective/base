@@ -1,37 +1,47 @@
 ~makePdef = { |name, lsys|
-	Pdef(name, {
-		var gui = topEnvironment[\gui];
-		var topL = topEnvironment[\lsys];
-		var topCtl = topEnvironment[\ctl];
-		var startOffsets = lsys.startTimes * topCtl.baseTempo;
-		var voices = lsys.stream.collect { |ev|
-				var voiceEvent = ev,
-				myKey = voiceEvent.myKey.asInteger,
+	Pdef(name,
+		Pdef((name.asString ++ "_innerPdef").asSymbol, {
+			var gui = topEnvironment[\gui];
+			var topL = topEnvironment[\lsys];
+			var routing = topEnvironment[\routing];
+			var startOffsets = lsys.startTimes * ~baseTempo;
+			var voices = lsys.stream.collect { |voiceEvent|
+				var myKey = voiceEvent.myKey.asInteger,
 				firstPoint = gui.lastPoints[voiceEvent.parentId] ? Point(0,0),
 				lastPoint,
-				addPitch = if(topL.useLastPitch){topL.lastPitch}{0};
-				// if(myKey == 0){~lastPitch = ~lastPitch + voiceEvent.pitches.last};
-				if(myKey == 0){topL.lastPitch = voiceEvent.pitches.last}; // welche version macht mehr sinn?
-				PmonoArtic2(\default, // muss // Pbind
+				addPitch = if(~useLastPitch){topL.globalPitch + topL.globalPitchBalance}{0};
+				Pbind(//PmonoArtic2(\default, // muss // Pbind
+					\getPreset, Pfunc{|ev| ev.putAll(topEnvironment[\presets_benni][ev.presetName])},
+					\server, topEnvironment[\targetServer],
+/*					\adsrType, \pluck,
+					\sendGate, false,
+					\pitchOp, Pseq([\slide, \fm, \unisonoDetune], inf),
+					\osc, Pseq([\pulsar, \fm], inf),
+					\fx, \shelvedOverdriveSoft,
+					\filter, \noFilter,*/
+					\instrument, Pfunc {|ev| topEnvironment[\makeModularSynthDef].(ev.adsrType, ev.pitchOp, ev.osc, ev.fx, ev.filter).asSymbol},
+					\group, Pfunc { routing[\sourceGroup] },
+					\out, Pfunc { routing[\melodyBus] },
 					\pitches, Pseq(voiceEvent.pitches),
 					\charNow, Pseq(voiceEvent.chars),
-					\dur, Pfunc { topCtl.baseTempo },
-					\legato, Pfunc { topCtl.legatoArr[myKey] },
-					\amp, Pfunc { topCtl.amp * topCtl.vols[myKey] },
-					\degree, Pfunc { |ev|
-						(ev.pitches * topCtl.stepInterval) +
-						(myKey * topCtl.branchInterval)
-						// ctl.branchInterval +
+					\dur, ~baseTempo,
+					\legato, Pfunc {|ev| ev.legatoArr[myKey]},
+					\amp, Pfunc {|ev| ev.amp * ev.vols[myKey]},
+					\degree, Pfunc {|ev|
+						(ev.pitches * ev.stepInterval) + (myKey * ev.branchInterval) + addPitch
 					},
 					\checkPause, Pfunc { |ev|
 						if(ev.charNow == $G){Rest(ev.dur)}{0}
 					},
 					\finish, { |ev|
-						ev.midinote = ev.midinote.wrap(topCtl.wrapLo[myKey], topCtl.wrapHi[myKey]);
+						if(myKey == 0){topL.globalPitch = ev.pitches + addPitch};
+						ev.midinote = ev.midinote.wrap(~wrapLo[myKey], ~wrapHi[myKey]);
 						ev
 					}
 				)
-		};
-		Psync(Ptpar([startOffsets, voices].flop.flat.postln), topCtl.quant, 36)
-	})
+			};
+			// topL.globalPitch = (topL.globalPitch + lsys.lastPitch).postln;
+			Psync(Ptpar([startOffsets, voices].flop.flat), ~quant, ~maxPatDur)
+		}) <> ~ctlPresets[name]
+	)
 }

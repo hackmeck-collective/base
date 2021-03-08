@@ -1,0 +1,6 @@
+~root0_pitches6_dissGrade10 = [ 
+(list: [ 11, 16, 21, 26, 31, 36 ], root: 36, dissGrade: 10), 
+(list: [ 23, 28, 33, 38, 43, 48 ], root: 48, dissGrade: 10), 
+];
+
+if(~root0_pitches6_dissGrade10.notNil,{"~root0_pitches6_dissGrade10: OK".postln},{"~root0_pitches6_dissGrade10 failed".postln});
