@@ -1,17 +1,13 @@
-~synthDefPool = Set.new;
-
 ~makeModularDrum = { |drumTypes, fxTypes,filterTypes|
 	var synthDefName =
 	drumTypes ++ "_" ++
 	fxTypes.asString ++ "_" ++
 	filterTypes.asString;
 
-	if(~synthDefPool.includes(synthDefName).not){
+	if(SynthDescLib.match(synthDefName).isNil){
 		var drum_function = ~drumTypes[drumTypes];
 		var fx_function = ~fxTypes[fxTypes];
 		var filter_function = ~filterTypes[filterTypes];
-
-		~synthDefPool.add(synthDefName);
 
 		(SynthDef.new(synthDefName,
 			{

@@ -1,11 +1,9 @@
-
 (
 var presetName = \variedPlucks;
 ~callInstrumentPreset.(presetName);
 Pbindef(presetName,
 	\dur, Pseq([1/4], inf),
 	\note, Pseq([0], inf),
-	\vol, 0.5,
 ).play(~linkClock, quant: 4);
 )
 
@@ -15,9 +13,9 @@ Pbindef(\variedPlucks).stop(quant: 4);
 var presetName = \srrPluck;
 ~callInstrumentPreset.(presetName);
 Pbindef(presetName,
-	\dur, Pseq([1/2], inf),
+	\dur, Pseq([1/16], 5),
 	\note, Pn(Plazy{ Pseq(~pitchesRootDissonance[\pitches], 1)}) + 12,
-	\vol, 0.25,
+	\fx_mod_1, Pseq([0.9,0.8,0.7,0.6], inf),
 ).play(~linkClock, quant: 4);
 )
 
@@ -28,8 +26,7 @@ var presetName = \simplePluck;
 ~callInstrumentPreset.(presetName);
 Pbindef(presetName,
 	\dur, Pseq([1/2], inf),
-	\note, 0, //Pn(Plazy{ Pseq(~pitchesRootDissonance[\pitches], 1)}) + 12,
-	\vol, 0.5,
+	\note, Pn(Plazy{ Pseq(~pitchesRootDissonance[\pitches], 1)}) + 12,
 ).play(~linkClock, quant: 4);
 )
 
@@ -39,7 +36,7 @@ Pbindef(\simplePluck).stop(quant: 4);
 var presetName = \simpleBass;
 ~callInstrumentPreset.(presetName);
 Pbindef(presetName,
-	\dur, Pseq([3,1], inf),
+	\dur, Pseq([3.5,0.5], inf),
 	\note, Pfunc {~pitchesRootDissonance[\root]} + Pseq([-24,-12], inf),
 ).play(~linkClock, quant: 4);
 )
@@ -63,7 +60,7 @@ var presetName = \slideVibratoLead;
 ~callInstrumentPreset.(presetName);
 Pbindef(presetName,
 	\dur, Pseq([4], inf),
-	\note, Pfunc {~pitchesRootDissonance[\root]} + Pseq([[0,7,12]], inf),
+	\note, 0, //Pfunc {~pitchesRootDissonance[\root]} + Pseq([[0,7,12]], inf),
 ).play(~linkClock, quant: 4);
 )
 

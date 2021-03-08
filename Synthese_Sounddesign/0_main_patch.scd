@@ -16,10 +16,11 @@ var loadStuff = {
 	"presets/instrument_presets.scd".loadRelative;
 	"presets/drum_presets.scd".loadRelative;
 
-
 	"loading control interfaces".postln;
 	"control_interfaces/midi_defs_launchcontrol-xl.scd".loadRelative;
 
+	if ( ~pitchesRootDissonance[\pitches] == nil ) {~pitchesRootDissonance[\pitches] = [0,3,5,7,10]};
+	if (~pitchesRootDissonance[\root] == nil ) {~pitchesRootDissonance[\root] = [0]};
 
 	~linkClock = LinkClock.new(1).latency_(s.latency).enableMeterSync.permanent_(true);
 	CmdPeriod.run;
@@ -56,7 +57,6 @@ s.waitForBoot {
 );
 
 ~switchRows.(\bank_1);
-
 
 
 ~adsrTypes.keys;

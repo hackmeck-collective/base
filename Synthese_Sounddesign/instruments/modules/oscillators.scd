@@ -2,8 +2,6 @@
 ~grainCloudGuitar_buffer ?? {~grainCloudGuitar_buffer = Buffer.readChannel(s, thisProcess.nowExecutingPath.dirname +/+ "/buffer_data/Guitar_Note_A.wav", channels: [0])};
 ~grainCloudRecord_buffer ?? {~grainCloudRecord_buffer = Buffer.readChannel(s, thisProcess.nowExecutingPath.dirname +/+ "/buffer_data/Guitar_Note_A.wav", channels: [0])};
 
-
-
 (
 ~oscillatorTypes = (
 	basic: {arg freq = 440,
@@ -18,6 +16,18 @@
 
 	},
 
+	filteredNoise: {arg freq = 440,
+		gate = 1,
+		oscillator_mod_1 = 0,
+		oscillator_mod_2 = 0;
+
+		var rq = oscillator_mod_1.lincurve(0,1,0.0005,5,3),
+		gain = oscillator_mod_1.lincurve(0,1,135,0.75,3);
+
+		BPF.ar(PinkNoise.ar(), freq, rq, gain);
+
+	},
+
 	fm: {arg freq = 440,
 		gate = 1,
 		oscillator_mod_1 = 0,
@@ -27,6 +37,18 @@
 		ratio = freq * oscillator_mod_2.lincurve(0,1,1,5,3);
 
 		SinOsc.ar(freq + SinOsc.ar(ratio,Rand(),amount));
+	},
+
+	formant: {arg freq = 440,
+		gate = 1,
+		oscillator_mod_1 = 0,
+		oscillator_mod_2 = 0;
+
+		var formantFrequency = freq * oscillator_mod_1.lincurve(0,1,1,64,3),
+		bandwidth = (formantFrequency - freq) * oscillator_mod_2.lincurve(0,1,1,64,3);
+
+		Formant.ar(freq, formantFrequency, bandwidth);
+
 	},
 
 	pulsar: {arg freq = 440,
@@ -81,7 +103,7 @@
 		);
 	},
 
-	grainCloudGuitar: {arg freq = 440,
+	/*grainCloudGuitar: {arg freq = 440,
 		gate = 1,
 		oscillator_mod_1 = 0,
 		oscillator_mod_2 = 0;
@@ -108,7 +130,7 @@
 			16,
 			0.5
 		);
-	},
+	},*/
 
 	modal: {arg freq = 440,
 		gate = 1,

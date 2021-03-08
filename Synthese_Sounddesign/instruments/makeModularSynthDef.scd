@@ -1,5 +1,3 @@
-~synthDefPool = Set.new;
-
 ~makeModularSynthDef = { |adsrType, pitchOpType, oscillatorType, fxTypes,filterTypes|
 	var synthDefName =
 	adsrType.asString ++ "_" ++
@@ -8,14 +6,12 @@
 	fxTypes.asString ++ "_" ++
 	filterTypes.asString;
 
-	if(~synthDefPool.includes(synthDefName).not){
+	if(SynthDescLib.match(synthDefName).isNil){
 		var envelope_function = ~adsrTypes[adsrType];
 		var oscillator_function = ~oscillatorTypes[oscillatorType];
 		var pitchOp_function = ~pitchOpTypes[pitchOpType];
 		var fx_function = ~fxTypes[fxTypes];
 		var filter_function = ~filterTypes[filterTypes];
-
-		~synthDefPool.add(synthDefName);
 
 		SynthDef.new(synthDefName,
 			{

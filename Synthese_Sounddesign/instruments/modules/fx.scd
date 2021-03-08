@@ -98,7 +98,7 @@
 
 	sampleRateReduction: {arg in, gate, freq = 440, fx_mod_1 = 0, fx_mod_2 = 0;
 
-		var sample_rate_ratio = fx_mod_1.lincurve(0,1,2,32,3);
+		var sample_rate_ratio = fx_mod_1.lincurve(0,1,1,64,3);
 
 		BHiPass.ar(
 			Latch.ar(
