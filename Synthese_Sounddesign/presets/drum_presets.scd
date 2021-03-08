@@ -16,8 +16,21 @@
 
 "call drum preset function loaded".postln;
 
+~editDrum = {
+	arg instrName;
+	var env = ~drumPresetsDictionary[instrName];
+	var txt = "";
+	env.asSortedArray.do { |arr|
+		txt = txt ++ "~% = %;\n".format(arr[0], arr[1].asCompileString)
+	};
+	Document.new(instrName.asString ++ "_temp", txt, env);
+};
+
+"edit preset function loaded".postln;
+
 (
 ~drumPresetsDictionary[\bd1] = (
+	\note: Pfunc {~pitchesRootDissonance[\root].mod(12)} - 24,
 	\drumType: \bodyTimbreTransientTail,
 	\fx: \noFx,
 	\filter: \noFilter,
@@ -56,6 +69,7 @@
 
 (
 ~drumPresetsDictionary[\bd2] = (
+	\note: Pfunc {~pitchesRootDissonance[\root].mod(12)} - 24,
 	\drumType: \fmTransientTail,
 	\fx: \shelvedOverdriveSoft,
 	\filter: \lpf_24,
@@ -93,6 +107,7 @@
 
 (
 ~drumPresetsDictionary[\sd1] = (
+	\note: Pfunc {~pitchesRootDissonance[\root].mod(12)} -5,
 	\drumType: \bodyTimbreTransientTail,
 	\fx: \shelvedOverdriveSoft,
 	\filter: \noFilter,
@@ -130,6 +145,7 @@
 
 (
 ~drumPresetsDictionary[\sd2] = (
+	\note: Pfunc {~pitchesRootDissonance[\root].mod(12)} -5,
 	\drumType: \fmTransientTail,
 	\fx: \sampleRateReduction,
 	\filter: \noFilter,
@@ -276,5 +292,7 @@
 );
 );
 
+~drumPresetsDictionary.keys.do {|k| ~callDrumPreset.(k.post); " ".post;};
 
-"drum presets loaded".postln;
+"\ndrum presets loaded".postln;
+

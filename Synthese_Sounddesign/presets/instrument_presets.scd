@@ -3,7 +3,11 @@
 	arg instrName;
 	Pbindef(instrName).clear;
 	Pbindef(instrName,
-		\getPreset, Pfunc {|ev| ev.putAll(~instrumentPresetsDictionary[instrName])},
+		\getPreset, Pfunc {|ev|
+			~instrumentPresetsDictionary[instrName].keysValuesDo{|key, value|
+				ev[key] = value.next;};
+			ev;
+		},
 		\instrument, Pfunc {|ev| ~makeModularSynthDef.(ev.adsrType, ev.pitchOp, ev.osc, ev.fx, ev.filter).asSymbol},
 		\group, Pfunc {~source_group},
 	);
@@ -11,6 +15,18 @@
 );
 
 "call instrument preset function loaded".postln;
+
+~editInst = {
+	arg instrName;
+	var env = ~instrumentPresetsDictionary[instrName];
+	var txt = "";
+	env.asSortedArray.do { |arr|
+		txt = txt ++ "~% = %;\n".format(arr[0], arr[1].asCompileString)
+	};
+	Document.new(instrName.asString ++ "_temp", txt, env);
+};
+
+"edit preset function loaded".postln;
 
 (
 ~instrumentPresetsDictionary[\srrPluck] = (
@@ -31,7 +47,7 @@
 	\fx_mod_1: 0.7,
 	\fx_mod_2: 1,
 	\filter_mod_1: 1,
-	\filter_mod_2: 0,
+	\filter_mod_2: 1,
 	\envelope_mod: 0.5,
 	\vol: 0.25,
 	\pitchOp_mod_1_macro_channel: 0,
@@ -86,8 +102,10 @@
 ~instrumentPresetsDictionary[\variedPlucks] = (
 	\adsrType: \pluck,
 	\sendGate: false,
-	\pitchOp: \slide,
-	\osc: \fm,
+	\pitchOp: Pseq ([\slide,\vibrato], inf).asStream,
+	\osc: Pseq([\fm, \pulsar, \basic], inf).asStream,
+/*	\pitchOp: \slide,
+	\osc: \fm,*/
 	\fx: \shelvedOverdriveSoft,
 	\filter: \noFilter,
 	\controlbus: ~launchcontrol_xl_row_4,
@@ -291,5 +309,7 @@
 );
 );
 
+~instrumentPresetsDictionary.keys.do {|k| ~callInstrumentPreset.(k.post); " ".post;};
 
-"instrument presets loaded".postln;
+"\ninstrument presets loaded".postln;
+

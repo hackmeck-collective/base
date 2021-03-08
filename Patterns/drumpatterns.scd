@@ -1,33 +1,49 @@
 
 
+
+Pdef(\hhPhrase,
+	Ptsym(
+		Pseq([[\hh1, \bd2], [\bongo1, \hh2]], inf),
+		dur: Pseq([8, 16, 8], inf)
+	)
+)
+
+
+
+
+// drum sequencing
+Pdef(\hhPhrase,
+	Ptsym(
+		Pseq([[\hh1, \bongo1], [\bongo1, \hh2]], inf),
+		dur: Pseq([8], inf)
+	) <> Pbind(
+		\hh1_dyn, Pseg([0.2,1,0.2],[2, 2]).repeat,
+		\bongo1_dyn, Pseg([1,0.2,1],[3, 1]).repeat
+	)
+).play(~linkClock, quant: 4);
+
+
+
 (
-var presetName = \bd1;
-~callDrumPreset.(presetName);
-Pbindef(presetName,
+
+Pbindef(\bd1,
 	\dur, Pseq([1], inf),
-	\note, Pfunc {~pitchesRootDissonance[\root].mod(12)} - 24,
 	\time_factor, Pseq([0.8,0.4], inf),
 	\punch_factor, Pseq([3,1], inf),
 ).play(~linkClock, quant: 4);
 
-presetName = \bd2;
-~callDrumPreset.(presetName);
-Pbindef(presetName,
+Pbindef(\bd2,
 	\dur, Pseq([0.5], inf),
-	\note, Pfunc {~pitchesRootDissonance[\root].mod(12)} - 24,
 ).play(~linkClock, quant: 4);
 
-presetName = \sd1;
-~callDrumPreset.(presetName);
-Pbindef(presetName,
+Pbindef(\sd1,
 	\dur, Pseq([Rest(0.5),0.5], inf),
-	\note, Pfunc {~pitchesRootDissonance[\root].mod(12)} -5,
 	\vol, Pseq([0,0.6,0,0.5]*0.9, inf),
 	\time_factor, Pseq([0,0.2,0,0.4], inf),
 ).play(~linkClock, quant: 4);
 
 )
-
+~editDrum.(\bd1)
 
 (
 Pbindef(\bd1).stop;
@@ -39,7 +55,6 @@ Pbindef(\bd2).stop;
 Pbindef(\bd2,
 	\dur, Pseq([2], inf),
 	\time_factor, Pseq([1,0.2,0.5,0.1], inf),
-	\note, Pfunc {~pitchesRootDissonance[\root].mod(12)} - 24,
 	\vol, 0.75,
 	\type, \on,
 );
@@ -51,7 +66,6 @@ var presetName = \sd1;
 ~callDrumPreset.(presetName);
 Pbindef(presetName,
 	\dur, Pseq([Rest(0.5),0.5], inf),
-	\note, Pfunc {~pitchesRootDissonance[\root].mod(12)} -5,
 	\vol, Pseq([0,0.6,0,0.5]*0.9, inf),
 	\time_factor, Pseq([0,0.2,0,0.4], inf),
 ).play(~linkClock, quant: 4);
@@ -64,7 +78,6 @@ var presetName = \sd2;
 ~callDrumPreset.(presetName);
 Pbindef(presetName,
 	\dur, Pseq([Rest(2.25),0.5,0.25,Rest(1)], inf),
-	\note, Pseq([0,7,-5,0], inf),
 	\vol, Pseq([0,0.6,0.7,0.5]*0.9, inf),
 	\time_factor, Pseq([0,0.2,0.5,0], inf),
 ).play(~linkClock, quant: 4);
@@ -84,12 +97,11 @@ Pbindef(presetName,
 ).play(~linkClock, quant: 4);
 );
 (
-var presetName = \bongo1;
-~callDrumPreset.(presetName);
-Pbindef(presetName,
+
+Pbindef(\bongo1,
 	\dur, Pseq([1/4], inf),
 	\note, Pseq([Pseq([7], 28),Pseq([9], 4)],inf),
-	\vol, Pseq([0.9,0.6,0.7,0.5]*0.5, inf),
+	\vol, Pseq([0.9,0.6,0.7,0.5]*0.5, inf)  * Pfunc {|ev| ev.bongo1_dyn ? 1 },
 	\time_factor, Pseq([0.5,0.2,1,0.5], inf),
 	\punch_factor, Pseq([3,1,1,2], inf),
 ).play(~linkClock, quant: 4);
@@ -109,16 +121,14 @@ Pbindef(\bongo1,
 )
 
 (
-var presetName = \hh1;
-~callDrumPreset.(presetName);
-Pbindef(presetName,
+Pbindef(\hh1,
 	\dur, Pseq([1/8], inf),
 	\note, Pseq([Pseq([48], 28),Pseq([49], 4)],inf),
-	\vol, Pseq([0.9,0.6,0.7,0.5]*0.5, inf),
+	\vol, Pseq([0.9,0.6,0.7,0.5], inf) * Pfunc {|ev| ev.hh1_dyn ? 1 },
 	\time_factor, Pseq([0.4,0.2,0.2,0.5], inf),
 	\punch_factor, Pseq([3,1,1,2], inf),
 ).play(~linkClock, quant: 4);
-);
+)
 
 
 Pbindef(\hh1).stop(quant: 4);

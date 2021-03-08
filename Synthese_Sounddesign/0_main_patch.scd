@@ -19,6 +19,8 @@ var loadStuff = {
 	"loading control interfaces".postln;
 	"control_interfaces/midi_defs_launchcontrol-xl.scd".loadRelative;
 
+	Pdef(\rest, Pbind(\dur, Pn(Rest())));
+
 	if ( ~pitchesRootDissonance[\pitches] == nil ) {~pitchesRootDissonance[\pitches] = [0,3,5,7,10]};
 	if (~pitchesRootDissonance[\root] == nil ) {~pitchesRootDissonance[\root] = [0]};
 
@@ -54,8 +56,8 @@ s.waitForBoot {
 		loadStuff.value
 	}
 };
-);
-
+)
+/*
 ~switchRows.(\bank_1);
 
 
@@ -77,3 +79,4 @@ s.record
 s.freeAll
 
 s.stopRecording
+*/

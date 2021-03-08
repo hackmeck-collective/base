@@ -6,6 +6,7 @@ Pbindef(presetName,
 	\note, Pseq([0], inf),
 ).play(~linkClock, quant: 4);
 )
+~editInst.(\variedPlucks)
 
 Pbindef(\variedPlucks).stop(quant: 4);
 
@@ -50,8 +51,10 @@ var presetName = \simpleBassPad;
 Pbindef(presetName,
 	\dur, Pseq([6,Rest(2)], inf),
 	\note, Pfunc {~pitchesRootDissonance[\root]} + Pseq([-24], inf),
+	\fx_mod_1, Pfunc { ~launchcontrol_xl_row_4.getnSynchronous[0] } + Pwhite(-0.05,0.05)
 ).play(~linkClock, quant: 4);
 )
+~editInst.(\simpleBassPad)
 
 Pbindef(\simpleBassPad).stop(quant: 4);
 
