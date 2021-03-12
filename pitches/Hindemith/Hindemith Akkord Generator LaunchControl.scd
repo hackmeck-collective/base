@@ -18,7 +18,13 @@
 };
 
 
-
+~uniqueInterval = { |chord|
+	var set = Set.new();
+	chord.doAdjacentPairs { |a b|
+		set.add(a - b)
+	};
+	(set.size == 1)
+};
 
 
 ~rootNote = { |pitches|
@@ -28,23 +34,24 @@
 	var possibleWinner;
 	var winner;
 	var intervals = ~intervalsAndNotes.(pitches);
-	var listOflistNumbers = [];
-	var uniqueIntevals;
+	// var listOfIntervals = [];
+	// var uniqueIntevals;
 	intervals.do { |event| //Iteriert über die Liste der Events
 		if(event.interval != 0 && (event.interval != 6), {
 			listen[dissonanzen.indexOf(event.interval)].add(event);
-			listOflistNumbers = listOflistNumbers.add(event.interval);
+			// listOfIntervals.add(event.interval);
 		});
 
 	};
-	uniqueIntevals = ~intervals.(listOflistNumbers.as(Set).asArray);
+
+	// uniqueIntevals = ~intervals.(listOfIntervals.as(Set).asArray);
 
 	//winner = listen.detect(_.notEmpty).minItem{|event| event.lowNote};
 	possibleWinner = listen.detect(_.notEmpty);
 	if(possibleWinner.isNil){
 		nil
 	}{
-		if(uniqueIntevals.size == 1){
+		if(~uniqueInterval.(pitches)){
 			nil
 		}{
 			if(chooseU.includes(possibleWinner[0].interval),{
@@ -71,13 +78,13 @@ n1 <- (1..(maxUpperNote-%)),".format(noteString, maxUpperNote, numNotes - 2) ++ 
 
 	++
 	(if(numNotes==3){""}{
-(numNotes - 3).collect { |nn|
-		"% <- ((%+1)..(maxUpperNote-%)),".format("n" ++ (nn + 2), "n" ++ (nn + 1), numNotes - nn - 3)
-		++ (if(excludeAll.notNil){"(% & ~intervals.([0, %]).asSet).isEmpty,".format(
-			excludeAll, noteStringArray[0..(nn + 1)].reduce{|a b| a ++ ", " ++ b}
-		)}{""}) ++ "\n"
+		(numNotes - 3).collect { |nn|
+			"% <- ((%+1)..(maxUpperNote-%)),".format("n" ++ (nn + 2), "n" ++ (nn + 1), numNotes - nn - 3)
+			++ (if(excludeAll.notNil){"(% & ~intervals.([0, %]).asSet).isEmpty,".format(
+				excludeAll, noteStringArray[0..(nn + 1)].reduce{|a b| a ++ ", " ++ b}
+			)}{""}) ++ "\n"
 
-	}.reduce{|a b| a ++ b}
+		}.reduce{|a b| a ++ b}
 	})
 	++ "% <- ((%+1)..maxUpperNote), \n
 
@@ -100,19 +107,20 @@ z = {: (list: [0, n1, n2], rootNote: rootNote),
 	var maxUpperNote = 24,
 	n1 <- (1..(maxUpperNote-1)), Set[ 6, 2, 10, 11, 1 ].includes(n1).not,
 	n2 <- ((n1+1)..maxUpperNote), //:: intervals.postln,
-	var intervals = ~intervals.([0, n1, n2]).asSet,
+	var intervals = ~intervals.([0, n1, n2].postln).asSet,
 	(Set[ 6, 2, 10, 11, 1 ] & intervals).isEmpty,
 	(intervals & Set[ 8, 0, 3, 9, 2, 11, 6, 10, 4, 1, 5, 7 ]).notEmpty,
 	true, //Set[  ] isSubsetOf: intervals,
 	//:: [intervals, [0,n1,n2]].postln,
-	var rootNote = ~rootNote.([0, n1, n2]), ((rootNote == 0) && rootNote.notNil)};
+	var rootNote = ~rootNote.([0, n1, n2].postln), ((rootNote == 0) && rootNote.notNil)
+};
 z.next;
 
 //1
 z = ~getListComprehension.(
 	numNotes: 3, // > 3 //funktioniert noch nicht für alle Listen mit numNotes: 3
 	excludeAll: Set[1, 2, 6, 10, 11],
-	includeAll: Set[],
+	//includeAll: Set[],
 	includeOneOf: Set[0,1,2,3,4,5,6,7,8,9,10,11],
 	maxUpperNote: 24,
 	rootNoteEqual: "==" // == != oder nil
