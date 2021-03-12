@@ -9,7 +9,7 @@ z = ~getListComprehension.(
 )
 
 z.next
-[1,2,]
+
 ("[0" ++ 3.collect {|i| ", n%".format(i + 1) }.reduce{|a b| a ++ b}  ++ "]").postcs
 
 ~getListComprehension = { |numNotes, excludeAll, includeAll, includeOneOf, maxUpperNote, rootNoteEqual|
@@ -46,7 +46,7 @@ var intervals = ~intervals.(%).asSet,".format(noteStringArray.last, noteStringAr
 	++ (if(includeAll.notNil){"% isSubsetOf: intervals,".format(includeAll)}{""}) ++ "\n"
 
 	++ "var rootNote = ~rootNote.(%)".format(noteString) ++ (if(rootNoteEqual.notNil){", (rootNote % 0) && (rootNote.notNil)}".format(rootNoteEqual)}{"}"});
-
+	str.asCompileString.postln;
 	str.interpret
 };
 
