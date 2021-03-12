@@ -1,4 +1,4 @@
-~makeStream = { |lsysString, startingPitch = nil|
+~makeStream = { |lsysString|
 	var idMaker = Pseries().asStream;
 	var newVoice = {|timeInit = 0, pitchInit = 0, keyInit, parentId|
 		var myId = idMaker.next();
@@ -57,7 +57,7 @@
 		);
 
 		// make root voice
-		voices[0] = newVoice.(0, startingPitch ? 0, parentId: 0, keyInit: 0);
+		voices[0] = newVoice.(0, 0, parentId: 0, keyInit: 0);
 
 		while ({(searchIndex < str.size)}, {
 			var n;
@@ -83,20 +83,19 @@
 		voices[0].data.lastTime = voices[0].timeStep;
 		collectVoices[0].add(voices[0].data);
 
-		[collectVoices.reject(_.isEmpty), voices[0].pitch]
+		collectVoices.reject(_.isEmpty)
 	};
 
 	var stringToObject = { |lsys|
-		var stringResult = searchStr.(lsys.asString);
-		var voices = stringResult[0];
-		var lastPitch = stringResult[1];
-		var startTimes = voices.collect{|branch| branch.collect{|v| v.firstTime}}.flat;
+		var voices = searchStr.(lsys.asString);
+		var startTimes = voices.collect{ |branch| branch.collect { |v| v.firstTime} }.flat;
+		var lastTimes = voices.collect{ |branch| branch.collect { |v| v.lastTime} }.flat;
 		var timesOrdered = startTimes.order;
 		(
 			maxKey: voices.size,
 			stream: voices.flat[timesOrdered],
-			lastPitch: lastPitch,
-			startTimes: startTimes[timesOrdered]// .differentiate fuer ptpar
+			startTimes: startTimes[timesOrdered],
+			lastTimes: lastTimes[timesOrdered]
 		)
 	};
 	stringToObject.(lsysString);

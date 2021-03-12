@@ -2,20 +2,10 @@
 
 // dict for everything regarding the lsys
 ~lsys = ();
-~lsys.list = List.new;
-~lsys.argsList = List.new;
-// how is the new lsys integrated
-~lsys.integration = \replace; // \add nil
 ~lsys.globalPitch = 0;
 ~lsys.globalPitchBalance = 0;
-
-//
-~gui = ();
-~gui.points = List.new;
-~gui.scale = 10;
-~gui.lastPoints = ();
-
-~ctl = (
+~lsys.presets = ();
+~lsys.defaultPreset = (
 	baseTempo: 1/4,
 	legatoArr: 0.95!10,
 	amp: 0.2,
@@ -29,11 +19,15 @@
 	theta: 51.45,
 	quant: 4,
 	maxPatDur: 36,
-	presetName: \simplePluck,
-	useLastPitch: true
+	presetName: \simplePluck!10,
+	useGlobalPitch: true
 );
 
-~ctlPresets = ();
+//
+~gui = ();
+~gui.points = List.new;
+~gui.scale = 10;
+~gui.lastPoints = ();
 
 if(~localSetup){
 	~targetServer = Server.default;
@@ -69,9 +63,9 @@ if(~localSetup){
 
 					~instrumentPresetsDictionary = OSCObjectSpace(~addrBook, oscPath:'/instrumentPresets').acceptEvents_(true);
 					~routing = OSCObjectSpace(~addrBook, oscPath:'/routing').acceptEvents_(true);
-					~routing.addDependant({|objectSpace, what, key, val|
-							~ctl[key] = ~routing[key];
-					});
+					/*~routing.addDependant({|objectSpace, what, key, val|
+						~ctl[key] = ~routing[key];
+					});*/
 					break.value;
 				};
 			};
@@ -82,13 +76,35 @@ if(~localSetup){
 
 };
 
+Pdef(\rest, Pbind(\dur, Pn(Rest())));
+
+/*Pdef(\playVisuals,
+(
+Pdef(\play) <>
+Pbind(\getDiff, Pdiff(Pkey(\testCount))) <>
+PtimeClutch(Pbind(\testCount, Pseries()))
+).collect{|ev|
+if(ev.getDiff == 1){
+if(~gui.points.isEmpty.not){
+~gui.points.do { |p|
+var wp1 = (p[0][0]) * ~gui.scale,  // ~win.bounds.bottom/2 oder so
+wp2 = (p[0][1]) * ~gui.scale,
+branchLevel = p[1],
+oscMsg = (wp1.asArray ++ wp2.asArray).asInteger ++ branchLevel;
+{~gui.toProcessing.sendMsg('/lines', *oscMsg)}.defer(~targetServer.latency - 0.125) // damit es mit server latency zusammen kommt
+};
+~gui.points.clear;
+};
+};
+ev
+}
+);*/
+
+
 Pdef(\playVisuals,
-	(
-		Pdef(\play) <>
-		Pbind(\getDiff, Pdiff(Pkey(\testCount))) <>
-		PtimeClutch(Pbind(\testCount, Pseries()))
-	).collect{|ev|
-		if(ev.getDiff == 1){
+	Pdef(\play) <>
+	PtimeClutch(
+		Pbind(\sendToGui, Pfunc {
 			if(~gui.points.isEmpty.not){
 				~gui.points.do { |p|
 					var wp1 = (p[0][0]) * ~gui.scale,  // ~win.bounds.bottom/2 oder so
@@ -99,7 +115,7 @@ Pdef(\playVisuals,
 				};
 				~gui.points.clear;
 			};
-		};
-		ev
-	}
+			0
+		})
+	)
 );
