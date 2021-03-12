@@ -1,17 +1,6 @@
 
 
 
-~rootNote.([0, 8, 15, 21]); //Mozart Dissonanzenquartett ersten Takte
-~intervals.([0, 8, 15, 21]);
-Set[1, 2, 6, 10, 11] & Set[5, 6]; //Intersection
-(
-~excludeAll = Set[1, 2, 6, 10, 11];
-(~intervals.([0, 8, 15, 21]).asSet & ~excludeAll).isEmpty
-)
-~intervalsAndLowNote.([0, 8, 15, 21])
-~rootNote.([ 0, 5, 9, 12 ]);
-~intervalsAndLowNote.([ 0, 5, 9, 12 ])
-
 
 (
 ~intervals = { |chord|
@@ -385,6 +374,10 @@ z = all {: (list: [0, n1, n2, n3], rootNote: rootNote),
 )
 
 /*
+
+
+~rootNote.([0, 8, 15, 21]); //Mozart Dissonanzenquartett ersten Takte
+
 
 ( // I(alle ohne Tritonus , Sekunden und Septimen
 var excludeAll = Set[1, 2, 6, 10, 11];
