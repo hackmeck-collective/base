@@ -5,16 +5,48 @@
 
 ~overdrive_fuction_2 ?? {
 	~overdrive_fuction_2 = Env([-0.999,0,0.999],[1,1],[16,-16]).asSignal(8193);
-~overdrive_fuction_2 = ~overdrive_fuction_2.asWavetableNoWrap;};
+	~overdrive_fuction_2 = ~overdrive_fuction_2.asWavetableNoWrap;};
 ~overdrive_fuction_2_buf ?? ~overdrive_fuction_2_buf = Buffer.loadCollection(s, ~overdrive_fuction_2);
 
 ~overdrive_fuction_3 ?? {
 	~overdrive_fuction_3 = Env([-0.999,0,0.999],[1,1],[32,-32]).asSignal(8193);
-~overdrive_fuction_3 = ~overdrive_fuction_3.asWavetableNoWrap;};
+	~overdrive_fuction_3 = ~overdrive_fuction_3.asWavetableNoWrap;};
 ~overdrive_fuction_3_buf ?? ~overdrive_fuction_3_buf = Buffer.loadCollection(s, ~overdrive_fuction_3);
 
 (
 ~fxTypes = (
+
+	tremoloRect: {arg in, gate, freq = 440, fx_mod_1, fx_mod_2, beatDuration, syncMultiplier;
+
+		var depth = fx_mod_1.lincurve(0,1,0,1,3),
+		speed = 1 / (beatDuration * 4 * fx_mod_2);
+
+		in * LFPulse.ar(speed, mul: depth, add: (1 - depth));
+	},
+
+/*	tremoloSaw: {arg in, gate, freq = 440, fx_mod_1, fx_mod_2, beatDuration, syncMultiplier;
+
+		var depth = fx_mod_1.lincurve(0,1,0,1,3),
+		speed = 1 / (beatDuration * 4 * fx_mod_2);
+
+		in * Clip.ar((depth - LFSaw.ar(speed, mul: depth, add: (1 - depth))).neg);
+	},*/
+
+	tremoloRamp: {arg in, gate, freq = 440, fx_mod_1, fx_mod_2, beatDuration, syncMultiplier;
+
+		var depth = fx_mod_1.lincurve(0,1,0,1,3),
+		speed = 1 / (beatDuration * 4 * fx_mod_2);
+
+		in * Clip.ar(LFSaw.ar(speed, mul: depth, add: (1 - depth)));
+	},
+
+	tremoloSine: {arg in, gate, freq = 440, fx_mod_1, fx_mod_2, beatDuration, syncMultiplier;
+
+		var depth = fx_mod_1.lincurve(0,1,0,1,3),
+		speed = 1 / (beatDuration * 4 * fx_mod_2);
+
+		in * Clip.ar(SinOsc.ar(speed, mul: depth, add: (1 - depth)));
+	},
 
 	overdriveSoft: {arg in, gate, freq = 440, fx_mod_1, fx_mod_2;
 

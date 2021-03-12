@@ -13,12 +13,6 @@
 }.fork
 )
 
-~newLsys.(
-	name: \basicL,
-	axiom: "F",//"F-F-F-F-F",
-	rules: ( $F: "F[FGF]-FG+F[--FF]+F-F" ),
-	gen: 2.0
-)
 
 /*
 F - play
@@ -29,14 +23,40 @@ G - rest
 | - play no rule
 */
 
+(
+~newLsys.(
+	name: \theLick,
+	axiom: "F",//"F-F-F-F-F",
+	rules: ( $F: "F+F+F+F--FG--F+FGG" ),
+	gen: 2.0
+);
+)
 
 Pdef(\basicL).play(l)
+~ctlPresets.theLick.presetName = \simplePluck
+~ctlPresets.theLick.baseTempo = 1/4
+Pdef(\play, Psym(Pseq([\theLick], inf))).play
+
+(
+~newLsys.(
+	name: \fuenfte,
+	axiom: "F-[F-F]-F-F",
+	rules: ( $F: "GFFF--FGGG" ),
+	gen: 2.0
+);
+)
+
+Pdef(\basicL).play(l)
+~ctlPresets.fuenfte.presetName = \simplePluck
+~ctlPresets.theLick.baseTempo = 1/4
+Pdef(\play, Psym(Pseq([\fuenfte], inf))).play
 
 
-Pdef(\play, Psym(Pseq([\basicL], inf))).play
 
-~ctlPresets.basicL.presetName = \srrPluck
 
+\srrLead
+\formantLead
+\noisyLead
 
 
 
@@ -50,6 +70,8 @@ Pdef(\play, Psym(Pseq([\basicL], inf))).play
 
 Pdef(\snowFlake).play(l)
 ~ctlPresets.snowFlake.baseTempo = 1/8
+~ctlPresets.snowFlake.presetName = \srrLead
+Pdef(\play, Psym(Pseq([\snowFlake], inf))).play
 
 ~newLsys.(
 	name: \pausen,
