@@ -33,8 +33,8 @@ G - rest
 )
 
 Pdef(\basicL).play(l)
-~ctlPresets.theLick.presetName = \simplePluck
-~ctlPresets.theLick.baseTempo = 1/4
+~lsys.presets.theLick.presetName = \simplePluck!10
+~lsys.presets.theLick.baseTempo = 1/8
 Pdef(\play, Psym(Pseq([\theLick], inf))).play
 
 (

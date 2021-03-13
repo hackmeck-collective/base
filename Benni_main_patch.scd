@@ -18,7 +18,9 @@ var loadStuff = {
 	"Synthese_Sounddesign/instruments/presets/drum_presets.scd".loadRelative;
 
 	"loading patternfunctions".postln;
-	"patterns/patterndynamics.scd".loadRelative;
+	"patterns/rhythmicPatterns.scd".loadRelative;
+	"patterns/pitchPatterns.scd".loadRelative;
+	"patterns/patternFunctions.scd".loadRelative;
 
 	"loading control interfaces".postln;
 	"control_interfaces/midi_defs_launchcontrol-xl.scd".loadRelative;

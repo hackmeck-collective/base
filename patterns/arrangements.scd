@@ -1,69 +1,110 @@
+//////// RHYTHMEN mit INSTRUMENTEN verketten
+
+~bd = ( Pdef(\bd1) <> Pbindef(\bd_pattern_8th_rng) <> Pbindef(\root) ).play(~linkClock, quant: 4);
+
+~sd = ( Pdef(\sd1) <> Pbindef(\sd_pattern_1) <> Pbindef(\fifth)  ).play(~linkClock, quant: 4);
+
+( Pdef(\hh1) <> Pbindef(\euclidean_8th_rng) <> Pbindef(\root)  ).play(~linkClock, quant: 4);
+
+( Pdef(\hh2) <> Pbindef(\euclidean_8th_rng) <> Pbindef(\root)  ).play(~linkClock, quant: 4);
+
+( Pdef(\bongo_1) <> Pbindef(\euclidean_8th_rng) <> Pbindef(\allArp)  ).play(~linkClock, quant: 4);
+
+( Pdef(\simplePluck) <> Pbindef(\euclidean_8th_rng) <> Pbindef(\allArp)  ).play(~linkClock, quant: 4);
+
+( Pdef(\simplePluckReverse) <> Pbindef(\euclidean_8th_rng) <> Pbindef(\allArp)  ).play(~linkClock, quant: 4);
 
 
 
 
+
+
+
+Ptsym(
+	Pseq([[\simplePluck_chain, \simplePluckReverse_chain, \noiseSwoosh_chain, \simpleBassPad_chain],
+		[\simplePluck_chain, \simplePluckReverse_chain, \srrPluck_chain, \noiseSwoosh_chain, \simpleBassPad_chain]], inf),
+	dur: Pseq([16], inf),
+);
 
 (
-Pdef(\drums_dub_steppers,
+Pdef(\pluckPattern_2,
 
-	"drums_dub_steppers.scd".loadRelative;
+	(
 
-	Ptsym(
-		Pseq([[\hh1, \bd1, \bd2, \sd1], [\hh1, \hh2, \bd2, \sd1, \sd2]], inf),
-		dur: Pseq([8], inf)
+		Pbindef(\variedPlucks,
+			\dur, Pseq([1/4], inf),
+			\note, Pfunc {~pitchesRootDissonance[\root]},
+			\vol, (0.2 + (0.3 * Pgauss(0, 0.05) + Pfunc {|time|~metreDynamics_4_4.(time)} <> Ptime().mod(4))),
+		);
+
+		Pbindef(\slideVibratoLead,
+			\dur, Pseq([1], inf),
+			\note, Pfunc {~pitchesRootDissonance[\root]} + Pseq([0,0,0,12], inf),
+		);
+
+		(
+			Pbindef(\simpleBass,
+				\dur, Pseq([3.5,0.5], inf),
+				\note, Pfunc {~pitchesRootDissonance[\root]} + Pseq([-24,-12], inf),
+			);
+		);
+
+		(
+			Pbindef(\arpBass,
+				\dur, Pseq([3.5,0.5], inf),
+				\note, Pfunc {~pitchesRootDissonance[\root]} + Pseq([-24,-12], inf),
+				\beatDuration, Pfunc { ~linkClock.tempo },
+			);
+		);
+
+		Pbindef(\srrPluck,
+			\dur, Pseq([Rest(2+(11/16)),Pseq([1/16], 5), Rest(1)], inf),
+			\note, Pn(Plazy{ Pseq(~pitchesRootDissonance[\pitches], 1)}) + 12,
+			\fx_mod_1, Pseq([0.9,0.8,0.7,0.6], inf),
+		);
+
+		Pbindef(\noiseSwoosh,
+			\dur, Pseq([16], inf),
+			\note, 0,
+			\beatDuration, Pfunc { ~linkClock.tempo },
+			\envCurve, 10,
+			\vol, 0.9,
+			\syncMultiplier, Pfunc {|ev| (ev.dur * ev.stretch);},
+		);
+
 	);
-).play(~linkClock, quant: 4);
-);
-
-Pdef(\drums_dub_steppers).stop;
-
-(
-Pdef(\drums_4ttf,
-
-	"drums_4-4.scd".loadRelative;
 
 	Ptsym(
-		Pseq([[\bd1, \bd2, \sd1, \hh1]], inf),
-		dur: Pseq([4], inf),
-);
-).play(~linkClock, quant: 4);
-);
-
-Pdef(\drums_4ttf).stop
-
-(
-Pdef(\drums_trap,
-
-	"drums_trap.scd".loadRelative;
-
-	Ptsym(
-		Pseq([[\bd1, \sd1, \hh1]], inf),
+		Pseq([[\variedPlucks_chain, \simpleBass_chain, \noiseSwoosh_chain], [\slideVibratoLead_chain, \srrPluck_chain, \arpBass_chain, \noiseSwoosh_chain]], inf),
 		dur: Pseq([16], inf),
-);
-).play(~linkClock, quant: 4);
+	);
+).play(~linkClock, quant: 1);
 );
 
-Pdef(\drums_trap).stop
+Pdef(\pluckPattern_2).stop;
 
 (
-Pdef(\percussion_loop_1,
-
-	"percussion_loop_1.scd".loadRelative;
-
-	Ptsym(
-		Pseq([[\bongo_4, \bongo_8_ob],
-			[\bongo_8, \bongo_8_ob],
-			[\bongo_8, \bongo_16],
-			[\bongo_8, \bongo_8_ob]],inf),
-		dur: Pseq([4], inf)
-	) <> Pbind(
-		\bongo_4_dyn, Pseg([1,1,1],[4, 4]).repeat,
-		\bongo_8_ob_dyn, Pseg([1,1,1],[8, 8]).repeat,
-		\bongo_8_dyn, Pseg([0,1,1,1,0],[4, 4]).repeat,
-		\bongo_16_dyn, Pseg([0,1,0],[2, 2]).repeat,
-	);
+Pbindef(\srrBassPad,
+	\dur, Pseq([6,Rest(2)], inf),
+	\note, Pfunc {~pitchesRootDissonance[\root]} + Pseq([-24], inf),
+	\fx_mod_1, Pfunc { ~launchcontrol_xl_row_4.getnSynchronous[0] } + Pwhite(-0.05,0.05)
 ).play(~linkClock, quant: 4);
-);
+)
 
-Pdef(\percussion_loop_1).stop
+~editInst.(\simpleBassPad)
+
+Pbindef(\simpleBassPad).stop(quant: 4);
+
+
+
+(
+Pbindef(\guitarCloud,
+	\dur, Pseq([4], inf),
+	\note, Pfunc {~pitchesRootDissonance[\root]} + Pseq([[-12, 0]], inf),
+	\harmonic, Ptuple([1] ++ (Pwhite(1, 8).round ! 3), inf),
+	\filter_mod_1, 0,
+).play(~linkClock, quant: 4);
+)
+
+Pbindef(\guitarCloud).stop(quant: 4);
 

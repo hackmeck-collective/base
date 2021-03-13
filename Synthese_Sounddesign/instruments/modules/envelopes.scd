@@ -59,8 +59,6 @@
 		amp_r = beatDuration * syncMultiplier * (1 - envelope_mod),
 		amp_c = envCurve;
 
-		beatDuration.postln;
-		syncMultiplier.postln;
 		amp_a.postln;
 		amp_r.postln;
 

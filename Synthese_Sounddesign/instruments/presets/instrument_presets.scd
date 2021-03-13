@@ -1,12 +1,12 @@
 (
 ~callInstrumentPreset = {
 	arg instrName;
-	Pbindef(instrName).clear;
-	Pdef((instrName.asString ++ "_chain").asSymbol,
+	Pdef(instrName).clear;
+	Pdef(instrName,
 		Pbind(
 			\instrument, Pfunc {|ev| ~makeModularSynthDef.(ev.adsrType, ev.pitchOp, ev.osc, ev.fx, ev.filter).asSymbol},
 			\group, Pfunc {~source_group}
-		) <> ~instrumentPresetsDictionary[instrName] <> Pbindef(instrName);
+		) <> ~instrumentPresetsDictionary[instrName];
 	)
 };
 );
@@ -81,7 +81,7 @@
 	\pitchOp_mod_1, 0.55,
 	\pitchOp_mod_2, 0.5,
 	\oscillator_mod_1, 0.45,
-	\oscillator_mod_2, Pseq([0.2,0],inf),
+	\oscillator_mod_2, 0,
 	\fx_mod_1, 1,
 	\fx_mod_2, 1,
 	\filter_mod_1, 0.75,
@@ -323,7 +323,7 @@
 (
 ~instrumentPresetsDictionary[\srrLead].set(
 	\adsrType, \lead,
-	\sendGate, false,
+	\sendGate, true,
 	\pitchOp, \unisonoDetune,
 	\osc, \fm,
 	\fx, \sampleRateReduction,
@@ -359,7 +359,7 @@
 (
 ~instrumentPresetsDictionary[\detuneLead].set(
 	\adsrType, \lead,
-	\sendGate, false,
+	\sendGate, true,
 	\pitchOp, \vibrato,
 	\osc, \formant,
 	\fx, \shelvedOverdriveMid,
@@ -395,7 +395,7 @@
 (
 ~instrumentPresetsDictionary[\noisyLead].set(
 	\adsrType, \lead,
-	\sendGate, false,
+	\sendGate, true,
 	\pitchOp, \unisonoDetune,
 	\osc, \filteredNoise,
 	\fx, \overdriveSoft,
