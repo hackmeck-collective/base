@@ -75,14 +75,16 @@
 
 
 //("[0" ++ 3.collect {|i| ", n%".format(i + 1) }.reduce{|a b| a ++ b}  ++ "]").postcs
-~getListComprehension = { |numNotes, excludeAll, includeAll, includeOneOf, includeOneOf2, maxUpperNote, rootNoteEqual|
+~getListComprehension = { |numNotes, underlyingScale, excludeAll, includeAll, includeOneOf, includeOneOf2, mehrereTritoni, maxUpperNote, rootNoteEqual|
 	var noteStringArray = (numNotes - 1).collect {|i| "n%".format(i + 1) };
 	var noteString = ("[0" ++ (numNotes - 1).collect {|i| ", n%".format(i + 1) }.reduce{|a b| a ++ b}  ++ "]");
 	var str = "
 {: (list: %, rootNote: rootNote), \n
 var maxUpperNote = %, \n
 
-n1 <- (1..(maxUpperNote-%)),".format(noteString, maxUpperNote, numNotes - 2) ++ (if(excludeAll.notNil){"%.includes(n1).not,".format(excludeAll)} {""}) ++ "\n"
+n1 <- (1..(maxUpperNote-%)),".format(noteString, maxUpperNote, numNotes - 2)
+	++ (if(excludeAll.notNil){"%.includes(n1).not,".format(excludeAll)} {""})
+	++ (if(underlyingScale.notNil){"%.includes(n1),".format(underlyingScale)}{""}) ++ "\n"
 
 	++
 	(if(numNotes==3){""}{
@@ -90,21 +92,29 @@ n1 <- (1..(maxUpperNote-%)),".format(noteString, maxUpperNote, numNotes - 2) ++ 
 			"% <- ((%+1)..(maxUpperNote-%)),".format("n" ++ (nn + 2), "n" ++ (nn + 1), numNotes - nn - 3)
 			++ (if(excludeAll.notNil){"(% & ~intervals.([0, %]).asSet).isEmpty,".format(
 				excludeAll, noteStringArray[0..(nn + 1)].reduce{|a b| a ++ ", " ++ b}
-			)}{""}) ++ "\n"
+			)}{""})
+			++ (if(underlyingScale.notNil){"([0, %].asSet - %).isEmpty,".format(
+				noteStringArray[0..(nn + 1)].reduce{|a b| a ++ ", " ++ b}, underlyingScale
+			)}{""})
+			++ "\n"
 
 		}.reduce{|a b| a ++ b}
 	})
 	++ "% <- ((%+1)..maxUpperNote), \n
 
-var intervals = ~intervals.(%).asSet,".format(noteStringArray.last, noteStringArray.wrapAt(-2), noteString)  ++ "\n"
+var intervals = ~intervals.(%),".format(noteStringArray.last, noteStringArray.wrapAt(-2), noteString)  ++ "\n"
 
-	++ (if(excludeAll.notNil){"(% & intervals).isEmpty,".format(excludeAll)}{""}) ++ "\n"
 
-	++ (if(includeOneOf.notNil){"(intervals & %).notEmpty,".format(includeOneOf)}{""}) ++ "\n"
 
-	++ (if(includeOneOf2.notNil){"(intervals & %).notEmpty,".format(includeOneOf2)}{""}) ++ "\n"
+	++ (if(excludeAll.notNil){"(% & intervals.asSet).isEmpty,".format(excludeAll)}{""}) ++ "\n"
 
-	++ (if(includeAll.notNil){"% isSubsetOf: intervals,".format(includeAll)}{""}) ++ "\n"
+	++ (if(includeOneOf.notNil){"(intervals.asSet & %).notEmpty,".format(includeOneOf)}{""}) ++ "\n"
+
+	++ (if(includeOneOf2.notNil){"(intervals.asSet & %).notEmpty,".format(includeOneOf2)}{""}) ++ "\n"
+
+	++ (if(includeAll.notNil){"% isSubsetOf: intervals.asSet,".format(includeAll)}{""}) ++ "\n"
+
+	++ (if(mehrereTritoni.notNil){"(intervals.count({|item| item.mod(12) == 6}) >= 2),"}{""}) ++ "\n"
 
 	++ "var rootNote = ~rootNote.(%)".format(noteString) ++ (if(rootNoteEqual.notNil){", (rootNote % 0) && (rootNote.notNil)}".format(rootNoteEqual)}{"}"});
 	str.asCompileString.postln;
@@ -116,10 +126,11 @@ var intervals = ~intervals.(%).asSet,".format(noteStringArray.last, noteStringAr
 
 
 
+
 // DissDegree 0
 // A Ohne Tritonus I Ohne Sekunden und Septimen 1 Grundton und Basston sind derselbe
 z = ~getListComprehension.(
-	numNotes: 3, // >= 3
+	numNotes: 6, // >= 3
 	excludeAll: Set[1, 2, 6, 10, 11],
 	//includeAll: Set[],
 	//includeOneOf: Set[0,1,2,3,4,5,6,7,8,9,10,11],
@@ -185,7 +196,7 @@ z = ~getListComprehension.(
 );
 z.all
 
-//falsch! mehrere Tritoni
+
 // DissDegree 5
 // B mit Tritonus II ohne kleine Sekunden und große Septimen. Tritonus untergeordnet b mit großer Sekunde ODER(!) kleiner Septime 3. Mit mehreren Tritoni
 z = ~getListComprehension.(
@@ -194,6 +205,7 @@ z = ~getListComprehension.(
 	includeAll: Set[6],
 	includeOneOf: Set[7, 5, 4, 8],
 	includeOneOf2: Set[2, 10],
+	mehrereTritoni: true,
 	maxUpperNote: 24,
 	//rootNoteEqual: "!="  // == != oder nil
 )
@@ -245,16 +257,18 @@ z.all.size
 // B mit Tritonus IV Mt kleinen Sekunden ODER großen Septimen. Ein Tritonus oder mehrere untergeordnet 2. Grundton liegt höher im Akkord
 z = ~getListComprehension.(
 	numNotes: 6, // >= 3
+	underlyingScale: Set[0,1,3,4,6,7,9,10],
 	//excludeAll: Set[6],
 	includeAll: Set[6],
 	includeOneOf: Set[1,11],
 	includeOneOf2: Set[7, 5, 4, 8],
-	maxUpperNote: 12,
+	maxUpperNote: 24,
 	rootNoteEqual: "!="  // == != oder nil
 );
-z.next
-z.all.at(18981)
-{z.all.size}.bench //dauert 0.5 Sekunden
+
+{z.all.size.postln}.bench //dauert 0.5 Sekunden für maxUpperNote=24 & underlyingScale=Set[0,1,3,4,6,7,9,10]
+
+//Hier am Besten maxUpperNote>11 in Verbund mit underlyingScale=[0,1,2,3,4,5,6,7,8,9,10,11](chromatisch) verbieten!
 
 
 // DissDegree 10
