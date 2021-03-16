@@ -19,7 +19,7 @@
 	theta: 51.45,
 	quant: 4,
 	maxPatDur: 36,
-	presetName: \simplePluck!10,
+	instr: \simplePluck!10,
 	useGlobalPitch: true
 );
 
@@ -63,9 +63,7 @@ if(~localSetup){
 
 					~instrumentPresetsDictionary = OSCObjectSpace(~addrBook, oscPath:'/instrumentPresets').acceptEvents_(true);
 					~routing = OSCObjectSpace(~addrBook, oscPath:'/routing').acceptEvents_(true);
-					/*~routing.addDependant({|objectSpace, what, key, val|
-						~ctl[key] = ~routing[key];
-					});*/
+
 					break.value;
 				};
 			};

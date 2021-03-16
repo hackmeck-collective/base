@@ -12,16 +12,18 @@ Pdef(\play, Psym(Pseq([\basicL], inf)))
 Pdef(\play).play(~linkClock, quant:4)
 Pdef(\playVisuals).play(~linkClock, quant:4)
 Pdef(\basicL_filter, Pbind(\legato, Pkey(\legato) * Pseq([1, 1, 0.1],inf)))
-~lsys.presets.basicL.presetName = \srrPluck
-~lsys.presets.basicL.presetName = \simplePluck
-~lsys.presets.basicL.presetName = \simpleBass
-~lsys.presets.snowFlake.presetName = \simpleBass
-~lsys.presets.pausen.presetName = \simpleBass
-~lsys.presets.basicL.legatoArr = 1.1 ! 10
+~lsys.presets.basicL.instr = \srrPluck
+~lsys.presets.basicL.instr = \simpleBass
+~lsys.presets.basicL.instr = [\simpleBass, \srrPluck, \simplePluck]
+~lsys.presets.snowFlake.instr = \simpleBass
+~lsys.presets.pausen.instr = \simpleBass
+~lsys.presets.basicL.legatoArr = 1
 ~lsys.presets.basicL.legatoArr = [1.1, 0.8, 1.9, 0.1] ++ (0.1!10);
 ~lsys.presets.basicL.maxPatDur = 3
 ~lsys.presets.basicL.baseTempo = 1/2
-~lsys.presets.snowFlake.document
+~lsys.presets.basicL.document
+
+~instrumentPresetsDictionary[\srrPluck]
 
 // Ptsym der ein Signal gibt wenn das naechste element gespielt wird.
 // die Inf versionen der Patterns zur Sicherheit benutzen
@@ -30,7 +32,10 @@ Pdef(\play, Ptsym(
 	dur: Pfunc{ |i|
 		var nextFinish = thisThread.beats + i;
 		"playing for % beats".format(i).postln;
-		thisThread.clock.schedAbs(nextFinish, { "finished playing for % beats".format(i).postln; nil});
+		thisThread.clock.schedAbs(nextFinish, {
+			"finished playing for % beats".format(i).postln;
+			nil
+		});
 		i
 	} <> Pseq([1,5,30],inf)
 ))
@@ -82,7 +87,7 @@ Pdef(\play).quant = 4;
 	gen: 3
 )
 
-~lsys.presets.pausen2.presetName = \srrPluck
+~lsys.presets.pausen2.instr = \srrPluck
 ~lsys.presets.pausen2.baseTempo = 1/8
 ~lsys.presets.pausen2.theta = 24
 

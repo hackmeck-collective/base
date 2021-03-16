@@ -13,26 +13,20 @@
 				addPitch = if(~useGlobalPitch){top[\lsys].globalPitch + top[\lsys].globalPitchBalance}{0};
 				PmonoArtic2() <> Pdef((name.asString ++ "_filter").asSymbol) <> Pbind(
 					\dur, ~baseTempo,
-/*					\pats, List.new,
-					\getPreset, Pfunc{|ev|
-						ev.pats.clear;
-						top[\instrumentPresetsDictionary][ev.presetName].keysValuesDo { |k, v|
-							if(v.isKindOf(Pattern)){
-								ev.pats.add([k, v])
-							}{
-								ev[k] = v
-							}
-						};
-						ev
-					},*/
 					\server, top[\targetServer],
 					\instrument, Pfunc {|ev| top[\makeModularSynthDef].(ev.adsrType, ev.pitchOp, ev.osc, ev.fx, ev.filter).asSymbol},
 					\group, Pfunc { top[\routing][\sourceGroup] },
 					\out, Pfunc { top[\routing][\melodyBus] },
 					\pitches, Pseq(voiceEvent.pitches),
 					\charNow, Pseq(voiceEvent.chars),
-					\legato, Pfunc {|ev| if(ev.sendGate){ev.legatoArr[myKey]}{ev.legatoArr[myKey].clip2(0.99)}},
-					\vol, Pfunc {|ev| ev.vol * ev.vols[myKey]},
+					\legato, Pfunc {|ev|
+						if(ev.sendGate){
+							ev.legatoArr.asArray.wrapAt(myKey)
+						}{
+							ev.legatoArr.asArray.wrapAt(myKey).clip2(0.99)
+						}
+					},
+					\vol, Pfunc {|ev| ev.vol * ev.vols.asArray.wrapAt(myKey)},
 					\degree, Pfunc {|ev|
 						(ev.pitches * ev.stepInterval) + (myKey * ev.branchInterval) + addPitch
 					},
@@ -65,10 +59,10 @@
 					},
 					\finish, { |ev|
 						if(myKey == 0){top[\lsys].globalPitch = ev.pitches + addPitch};
-						ev.midinote = ev.midinote.wrap(~wrapLo[myKey], ~wrapHi[myKey]);
+						ev.midinote = ev.midinote.wrap(~wrapLo.asArray.wrapAt(myKey), ~wrapHi.asArray.wrapAt(myKey));
 						ev
 					}
-				) <> top[\instrumentPresetsDictionary][~presetName[myKey]]
+				) <> top[\instrumentPresetsDictionary][~instr.asArray.wrapAt(myKey)]
 			};
 			top[\lsys][\presets][name].nextFinish = (thisThread.beats + (~maxPatDur * ~baseTempo)).roundUp(~quant);
 			top[\lsys][\presets][name].startOffsets = startOffsets; // fuer drum struktur?
