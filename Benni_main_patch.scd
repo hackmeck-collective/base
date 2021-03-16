@@ -5,7 +5,7 @@ var loadStuff = {
 	"Synthese_Sounddesign/signal_flow/groups_setup.scd".loadRelative;
 	"Synthese_Sounddesign/signal_flow/controlbus_setup.scd".loadRelative;
 	"Synthese_Sounddesign/signal_flow/audiobus_setup.scd".loadRelative;
-	"Synthese_Sounddesign/signal_flow/sendFx_setup.scd".loadRelative;
+	"Synthese_Sounddesign/signal_flow/sendFX_setup.scd".loadRelative;
 	"Synthese_Sounddesign/signal flow loaded".postln;
 
 	"loading instruments".postln;
