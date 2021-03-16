@@ -83,6 +83,15 @@ Pbindef(\pulse_16_ob,
 	\syncMultiplier, Pfunc {|ev| (ev.dur * ev.stretch);},
 );
 
+Pbindef(\pulse_64,
+	\dur, Pseq([1/64], inf),
+	\stretch, 4,
+	\time, Ptime(),
+	\vol, Pfunc {|ev| ~metreDynamics_4_4.(ev.time, 0.3, 0.05, 0.6)} * Pfunc {|ev| ev.hh1_dyn ? 1 },
+	\beatDuration, Pfunc { ~linkClock.tempo },
+	\syncMultiplier, Pfunc {|ev| (ev.dur * ev.stretch);},
+);
+
 Pbindef(\euclidean_8th_rng,
 	\dur,Pbjorklund2(Pwhite(1,8),Pwhite(1,16))/4,
 	\time, Ptime(),

@@ -14,6 +14,8 @@ var loadStuff = {
 //	"Synthese_Sounddesign/instruments/makeModularDrum.scd".loadRelative;
 
 	"loading presets".postln;
+	"Presets/InstrumentPresetFunction.scd".loadRelative;
+	~instrPreset.loadAll;
 	"Synthese_Sounddesign/instruments/presets/instrument_presets.scd".loadRelative;
 //	"Synthese_Sounddesign/instruments/presets/drum_presets.scd".loadRelative;
 

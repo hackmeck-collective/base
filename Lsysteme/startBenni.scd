@@ -26,15 +26,16 @@ G - rest
 (
 ~newLsys.(
 	name: \theLick,
-	axiom: "F",//"F-F-F-F-F",
+	axiom: "-F",//"F-F-F-F-F",
 	rules: ( $F: "F+F+F+F--FG--F+FGG" ),
 	gen: 2.0
 );
 )
 
 Pdef(\basicL).play(l)
-~lsys.presets.theLick.presetName = \simplePluck!10
-~lsys.presets.theLick.baseTempo = 1/8
+~lsys.presets.theLick.instr = \simpleBass
+~lsys.presets.theLick.baseTempo = 1/7
+~lsys.presets.theLick.quant = 0
 Pdef(\play, Psym(Pseq([\theLick], inf))).play
 
 (

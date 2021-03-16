@@ -4,9 +4,7 @@
 	Pdef(instrName).clear;
 	Pdef(instrName,
 		Pbind(
-			\instrument, Pfunc {|ev|
-				~makeModularSynthDef.(ev.adsrType, ev.pitchOp, ev.osc, ev.fx, ev.filter,
-					ev.pitchOp_2, ev.osc_2, ev.fx_2, ev.filter_2, ev.drumType, ev.drumType_2).asSymbol},
+			\instrument, Pfunc {|ev| ~makeModularSynthDef.valueWithEnvir(ev)},
 			\group, Pfunc {~source_group}
 		) <> ~instrumentPresetsDictionary[instrName];
 	)
@@ -30,6 +28,7 @@
 ////////////////// PLUCKS
 
 
+/*
 ~instrumentPresetsDictionary[\simplePluck] = PbindProxy();
 (
 ~instrumentPresetsDictionary[\simplePluck].set(
@@ -106,7 +105,7 @@
 	\envelope_mod_macro_channel, 0,
 	\vol_macro_channel, 0,
 );
-);
+);*/
 
 ~instrumentPresetsDictionary[\srrPluck] = PbindProxy();
 (
@@ -523,7 +522,7 @@
 ~instrumentPresetsDictionary[\simpleBass] = PbindProxy();
 (
 ~instrumentPresetsDictionary[\simpleBass].set(
-	\octave, 2,
+	\octave, [2, 4],
 	\adsrType, \lead,
 	\sendGate, true,
 	\pitchOp, \slide,

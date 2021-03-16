@@ -1,22 +1,18 @@
-~makeModularSynthDef = {
-	|adsrType, pitchOpType, oscillatorType, fxType, filterType, pitchOpType_2, oscillatorType_2, fxType_2, filterType_2, drumType, drumType_2|
+~makeModularSynthDef = {|
+	adsrType = \noEnv,
+	pitchOpType = \noPitchOp,
+	oscillatorType = \noOscillator,
+	fxType = \noFx,
+	filterType = \noFilter,
+	pitchOpType_2 = \noPitchOp,
+	oscillatorType_2 = \noOscillator,
+	fxType_2 = \noFx,
+	filterType_2 = \noFilter,
+	drumType = \noDrum,
+	drumType_2 = \noDrum
+	|
 
 	var synthDefName;
-
-	if (adsrType.isNil){adsrType = \noEnv};
-
-	if (pitchOpType.isNil){pitchOpType = \noPitchOp};
-	if (oscillatorType.isNil){oscillatorType = \noOscillator};
-	if (fxType.isNil){fxType = \noFx};
-	if (filterType.isNil){filterType = \noFilter};
-
-	if (pitchOpType_2.isNil){pitchOpType_2 = \noPitchOp};
-	if (oscillatorType_2.isNil){oscillatorType_2 = \noOscillator};
-	if (fxType_2.isNil){fxType_2 = \noFx};
-	if (filterType_2.isNil){filterType_2 = \noFilter};
-
-	if (drumType.isNil){drumType = \noDrum};
-	if (drumType_2.isNil){drumType_2 = \noDrum};
 
 	synthDefName =
 	adsrType.asString ++ "_" ++
