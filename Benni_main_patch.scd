@@ -14,9 +14,9 @@ var loadStuff = {
 //	"Synthese_Sounddesign/instruments/makeModularDrum.scd".loadRelative;
 
 	"loading presets".postln;
-	"Presets/InstrumentPresetFunction.scd".loadRelative;
+	"Presets/InstrumentPresetFunctions.scd".loadRelative;
 	~instrPreset.loadAll;
-	"Synthese_Sounddesign/instruments/presets/instrument_presets.scd".loadRelative;
+//	"Synthese_Sounddesign/instruments/presets/instrument_presets.scd".loadRelative;
 //	"Synthese_Sounddesign/instruments/presets/drum_presets.scd".loadRelative;
 
 	"loading patternfunctions".postln;
@@ -41,8 +41,12 @@ var loadStuff = {
 
 	~linkClock = LinkClock.new(1).latency_(s.latency).enableMeterSync.permanent_(true);
 	CmdPeriod.run;
+
+	Document.open(thisProcess.nowExecutingPath.dirname +/+ "patterns" +/+ "arrangements.scd");
+
 	"ready".postln;
 };
+
 
 Server.killAll;
 "reading audio server options".postln;
@@ -74,6 +78,11 @@ s.waitForBoot {
 	}
 };
 )
+
+
+
+
+
 /*
 ~switchRows.(\bank_1);
 

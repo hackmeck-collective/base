@@ -1,12 +1,10 @@
-~instrumentPresetsDictionary[\simplePluckReverse] = PbindProxy();
 (
-~instrumentPresetsDictionary[\simplePluckReverse].set(
+~instrumentPresetsDictionary[\simplePluckReverse] = [
 	\adsrType, \sync,
 	\sendGate, false,
-	\pitchOp, \slide,
-	\osc, \fm,
-	\fx, \noFx,
-	\filter, \noFilter,
+	\pitchOpType, \slide,
+	\oscillatorType, \fm,
+	\oscillatorType_2, \fm,
 	\beatDuration, Pfunc { ~linkClock.tempo },
 	\syncMultiplier, Pfunc {|ev| (ev.dur * ev.stretch);},
 	\controlbus, ~launchcontrol_xl_row_4,
@@ -16,7 +14,9 @@
 	\pitchOp_mod_1, 0.55,
 	\pitchOp_mod_2, 0.5,
 	\oscillator_mod_1, 0.45,
-	\oscillator_mod_2, 0,
+	\oscillator_mod_2, 0.001,
+	\oscillator_2_mod_1, 0.15,
+	\oscillator_2_mod_2, 0.01,
 	\fx_mod_1, 1,
 	\fx_mod_2, 1,
 	\filter_mod_1, 0.75,
@@ -35,5 +35,6 @@
 	\filter_mod_2_macro_channel, 0,
 	\envelope_mod_macro_channel, 0,
 	\vol_macro_channel, 0,
-);
-);
+];
+~callInstrumentPreset.(\simplePluckReverse);
+)

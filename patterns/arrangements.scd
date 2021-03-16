@@ -13,15 +13,19 @@
 ( Pdef(\bongo_1) <> Pbindef(\euclidean_8th_rng) <> Pbindef(\fifth)  ).play(~linkClock, quant: 4);
 
 
-( Pdef(\simplePluck) <> Pn(Psync(Pbindef(\melTest),maxdur:8)) <> Pbindef(\pulse_16)).play(~linkClock, quant: 4);
+( Pdef(\srrPluck) <> Pn(Psync(Pbindef(\melTest),maxdur:6)) <> Pbindef(\pulse_16)).play(~linkClock, quant: 4);
 
 
-~pluckRev = ( Pdef(\simplePluckReverse) <> Pbindef(\pulse_4) <> Pbindef(\allArp)  ).play(~linkClock, quant: 4);
+~pluckRev = ( Pdef(\simplePluckReverse) <> Pn(Psync(Pbindef(\melTest),maxdur:8)) <> Pbindef(\pulse_4) ).play(~linkClock, quant: 4);
 
 ~pluck2 = ( Pdef(\simplePluck) <> Pbindef(\euclidean_8th_rng) <> Pbindef(\allArp)  ).play(~linkClock, quant: 4);
 
+~pluckRev.stop
 ~pluck2.stop
 ~bd.stop
+
+~instrPreset.edit(\simplePluck)
+~instrPreset.create(\srrPluck)
 
 
 Ptsym(
