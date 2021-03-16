@@ -14,11 +14,25 @@
 };
 
 
+~pitchTrigger = { |noteArray, repeats, notes|
+	Pindex(
+		noteArray,
+		Pclutch(
+			Pseq([666,Pstutter(
+				Pseq(repeats,inf),
+				Pseq(notes, inf)
+			)]),
+			Pfunc{|ev| ev.dur.isNumber}
+		),
+		inf
+	)
+}
+
 
 /*
 (
 Pbind(
-	\amp, Pgauss(0, 0.05) + Pfunc {|time|~metreDynamics_4_4.(time)} <> Ptime().mod(4),
-	\dur, Pseq([1/8], inf),
+\amp, Pgauss(0, 0.05) + Pfunc {|time|~metreDynamics_4_4.(time)} <> Ptime().mod(4),
+\dur, Pseq([1/8], inf),
 ).play;
 )*/

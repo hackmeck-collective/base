@@ -26,9 +26,9 @@
 
 "edit preset function loaded".postln;
 
-~drumPresetsDictionary[\bd1] = PbindProxy.new;
+~instrumentPresetsDictionary[\bd1] = PbindProxy.new;
 (
-~drumPresetsDictionary[\bd1].set(
+~instrumentPresetsDictionary[\bd1].set(
 	\octave, 3,
 	\drumType, \bodyTimbreTransientTail,
 	\fx, \noFx,
@@ -66,9 +66,9 @@
 );
 );
 
-~drumPresetsDictionary[\bdThump] = PbindProxy.new;
+~instrumentPresetsDictionary[\bdThump] = PbindProxy.new;
 (
-~drumPresetsDictionary[\bdThump].set(
+~instrumentPresetsDictionary[\bdThump].set(
 	\octave, 2,
 	\drumType, \fmTransientTail,
 	\fx, \shelvedOverdriveSoft,
@@ -105,9 +105,9 @@
 );
 );
 
-~drumPresetsDictionary[\sd1] = PbindProxy.new;
+~instrumentPresetsDictionary[\sd1] = PbindProxy.new;
 (
-~drumPresetsDictionary[\sd1].set(
+~instrumentPresetsDictionary[\sd1].set(
 	\octave, 4,
 	\drumType, \bodyTimbreTransientTail,
 	\fx, \shelvedOverdriveSoft,
@@ -144,9 +144,9 @@
 );
 );
 
-~drumPresetsDictionary[\sd2] = PbindProxy.new;
+~instrumentPresetsDictionary[\sd2] = PbindProxy.new;
 (
-~drumPresetsDictionary[\sd2].set(
+~instrumentPresetsDictionary[\sd2].set(
 	\octave, 5,
 	\drumType, \fmTransientTail,
 	\fx, \sampleRateReduction,
@@ -183,9 +183,9 @@
 );
 );
 
-~drumPresetsDictionary[\hh1] = PbindProxy.new;
+~instrumentPresetsDictionary[\hh1] = PbindProxy.new;
 (
-~drumPresetsDictionary[\hh1].set(
+~instrumentPresetsDictionary[\hh1].set(
 	\octave, 8,
 	\drumType, \bodyTimbreTransientTail,
 	\fx, \noFx,
@@ -222,9 +222,9 @@
 );
 );
 
-~drumPresetsDictionary[\hh2] = PbindProxy.new;
+~instrumentPresetsDictionary[\hh2] = PbindProxy.new;
 (
-~drumPresetsDictionary[\hh2].set(
+~instrumentPresetsDictionary[\hh2].set(
 	\octave, 7,
 	\drumType, \fmTransientTail,
 	\fx, \noFx,
@@ -261,9 +261,9 @@
 );
 );
 
-~drumPresetsDictionary[\bongo_1] = PbindProxy.new;
+~instrumentPresetsDictionary[\bongo_1] = PbindProxy.new;
 (
-~drumPresetsDictionary[\bongo_1].set(
+~instrumentPresetsDictionary[\bongo_1].set(
 	\octave, 5,
 	\drumType, \fmTransientTail,
 	\fx, \sampleRateReduction,

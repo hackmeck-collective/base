@@ -1,15 +1,86 @@
 //////// RHYTHMEN definieren
 
-Pbindef(\half_arp,
-	\dur, Pseq([1/2], inf),
+Pbindef(\pulse,
+	\dur, Pseq([1], inf),
 	\stretch, 4,
+	\time, Ptime(),
+	\vol, Pfunc {|ev| ~metreDynamics_4_4.(ev.time, 0.3, 0.05, 0.6)} * Pfunc {|ev| ev.hh1_dyn ? 1 },
+	\beatDuration, Pfunc { ~linkClock.tempo },
+	\syncMultiplier, Pfunc {|ev| (ev.dur * ev.stretch);},
 );
 
-Pbindef(\Pulse_16th,
+Pbindef(\pulse_2,
+	\dur, Pseq([1/2], inf),
+	\stretch, 4,
+	\time, Ptime(),
+	\vol, Pfunc {|ev| ~metreDynamics_4_4.(ev.time, 0.3, 0.05, 0.6)} * Pfunc {|ev| ev.hh1_dyn ? 1 },
+		\beatDuration, Pfunc { ~linkClock.tempo },
+	\syncMultiplier, Pfunc {|ev| (ev.dur * ev.stretch);},
+);
+
+Pbindef(\pulse_2_ob,
+	\dur, Pseq([Rest(1/2),1/2], inf),
+	\stretch, 4,
+	\time, Ptime(),
+	\vol, Pfunc {|ev| ~metreDynamics_4_4.(ev.time, 0.3, 0.05, 0.6)} * Pfunc {|ev| ev.hh1_dyn ? 1 },
+		\beatDuration, Pfunc { ~linkClock.tempo },
+	\syncMultiplier, Pfunc {|ev| (ev.dur * ev.stretch);},
+);
+
+Pbindef(\pulse_4,
+	\dur, Pseq([1/4], inf),
+	\stretch, 4,
+	\time, Ptime(),
+	\vol, Pfunc {|ev| ~metreDynamics_4_4.(ev.time, 0.3, 0.05, 0.6)} * Pfunc {|ev| ev.hh1_dyn ? 1 },
+	\beatDuration, Pfunc { ~linkClock.tempo },
+	\syncMultiplier, Pfunc {|ev| (ev.dur * ev.stretch);},
+
+);
+
+Pbindef(\pulse_4_ob,
+	\dur, Pseq([Rest(1/4),1/4], inf),
+	\stretch, 4,
+	\time, Ptime(),
+	\vol, Pfunc {|ev| ~metreDynamics_4_4.(ev.time, 0.3, 0.05, 0.6)} * Pfunc {|ev| ev.hh1_dyn ? 1 },
+	\beatDuration, Pfunc { ~linkClock.tempo },
+	\syncMultiplier, Pfunc {|ev| (ev.dur * ev.stretch);},
+
+);
+
+Pbindef(\pulse_8,
+	\dur, Pseq([1/8], inf),
+	\stretch, 4,
+	\time, Ptime(),
+	\vol, Pfunc {|ev| ~metreDynamics_4_4.(ev.time, 0.3, 0.05, 0.6)} * Pfunc {|ev| ev.hh1_dyn ? 1 },
+	\beatDuration, Pfunc { ~linkClock.tempo },
+	\syncMultiplier, Pfunc {|ev| (ev.dur * ev.stretch);},
+);
+
+Pbindef(\pulse_8_ob,
+	\dur, Pseq([Rest(1/8),1/8], inf),
+	\stretch, 4,
+	\time, Ptime(),
+	\vol, Pfunc {|ev| ~metreDynamics_4_4.(ev.time, 0.3, 0.05, 0.6)} * Pfunc {|ev| ev.hh1_dyn ? 1 },
+	\beatDuration, Pfunc { ~linkClock.tempo },
+	\syncMultiplier, Pfunc {|ev| (ev.dur * ev.stretch);},
+);
+
+Pbindef(\pulse_16,
 	\dur, Pseq([1/16], inf),
 	\stretch, 4,
 	\time, Ptime(),
 	\vol, Pfunc {|ev| ~metreDynamics_4_4.(ev.time, 0.3, 0.05, 0.6)} * Pfunc {|ev| ev.hh1_dyn ? 1 },
+	\beatDuration, Pfunc { ~linkClock.tempo },
+	\syncMultiplier, Pfunc {|ev| (ev.dur * ev.stretch);},
+);
+
+Pbindef(\pulse_16_ob,
+	\dur, Pseq([Rest(1/16),1/16], inf),
+	\stretch, 4,
+	\time, Ptime(),
+	\vol, Pfunc {|ev| ~metreDynamics_4_4.(ev.time, 0.3, 0.05, 0.6)} * Pfunc {|ev| ev.hh1_dyn ? 1 },
+	\beatDuration, Pfunc { ~linkClock.tempo },
+	\syncMultiplier, Pfunc {|ev| (ev.dur * ev.stretch);},
 );
 
 Pbindef(\euclidean_8th_rng,
@@ -18,6 +89,8 @@ Pbindef(\euclidean_8th_rng,
 	\vol, Pfunc {|ev| ~metreDynamics_4_4.(ev.time, 0.3, 0.05, 0.6)} * Pfunc {|ev| ev.hh1_dyn ? 1 },
 	\time_factor, Pfunc {|ev| ~metreDynamics_4_4.(ev.time, 0.5, 0.05, 0.1)},
 	\punch_factor, Pfunc {|ev| ~metreDynamics_4_4.(ev.time, 0.5, 0.05, 0.1)},
+	\beatDuration, Pfunc { ~linkClock.tempo },
+	\syncMultiplier, Pfunc {|ev| (ev.dur * ev.stretch);},
 );
 
 Pbindef(\bd_pattern_8th_rng,
@@ -28,7 +101,12 @@ Pbindef(\bd_pattern_8th_rng,
 			Pseq([Rest(0.5),1,0.5]),
 			Pseq([1.5,0.5])],1)
 	], inf),
-	\time_factor, 0.3,
+	\time, Ptime(),
+	\vol, Pfunc {|ev| ~metreDynamics_4_4.(ev.time, 0.3, 0.05, 0.6)} * Pfunc {|ev| ev.hh1_dyn ? 1 },
+	\time_factor, Pfunc {|ev| ~metreDynamics_4_4.(ev.time, 0.5, 0.05, 0.1)},
+	\beatDuration, Pfunc { ~linkClock.tempo },
+	\syncMultiplier, Pfunc {|ev| (ev.dur * ev.stretch);},
+	//	\time_factor, 0.3,
 );
 
 Pbindef(\sd_pattern_1,
@@ -36,6 +114,8 @@ Pbindef(\sd_pattern_1,
 	\time, Ptime(),
 	\vol,  Pfunc {|ev| ~metreDynamics_4_4.(ev.time, 0.6, 0.05, 0.3)},
 	\time_factor, Pfunc {|ev| ~metreDynamics_4_4.(ev.time, 0.5, 0.05, 0.1)},
+	\beatDuration, Pfunc { ~linkClock.tempo },
+	\syncMultiplier, Pfunc {|ev| (ev.dur * ev.stretch);},
 );
 
 "rhythmic patterns loaded".postln;

@@ -1,23 +1,27 @@
 //////// RHYTHMEN mit INSTRUMENTEN verketten
 
-~bd = ( Pdef(\bd1) <> Pbindef(\bd_pattern_8th_rng) <> Pbindef(\root) ).play(~linkClock, quant: 4);
+~bd = ( Pdef(\bdThump) <> Pbindef(\bd_pattern_8th_rng) <> Pbindef(\root) ).play(~linkClock, quant: 4);
 
-~sd = ( Pdef(\sd1) <> Pbindef(\sd_pattern_1) <> Pbindef(\fifth)  ).play(~linkClock, quant: 4);
+~sd = ( Pdef(\sd3) <> Pbindef(\sd_pattern_1) <> Pbindef(\fifth)  ).play(~linkClock, quant: 4);
+
+( Pdef(\sd2) <> Pbindef(\euclidean_8th_rng) <> Pbindef(\root)  ).play(~linkClock, quant: 4);
 
 ( Pdef(\hh1) <> Pbindef(\euclidean_8th_rng) <> Pbindef(\root)  ).play(~linkClock, quant: 4);
 
 ( Pdef(\hh2) <> Pbindef(\euclidean_8th_rng) <> Pbindef(\root)  ).play(~linkClock, quant: 4);
 
-( Pdef(\bongo_1) <> Pbindef(\euclidean_8th_rng) <> Pbindef(\allArp)  ).play(~linkClock, quant: 4);
-
-( Pdef(\simplePluck) <> Pbindef(\euclidean_8th_rng) <> Pbindef(\allArp)  ).play(~linkClock, quant: 4);
-
-( Pdef(\simplePluckReverse) <> Pbindef(\euclidean_8th_rng) <> Pbindef(\allArp)  ).play(~linkClock, quant: 4);
+( Pdef(\bongo_1) <> Pbindef(\euclidean_8th_rng) <> Pbindef(\fifth)  ).play(~linkClock, quant: 4);
 
 
+( Pdef(\simplePluck) <> Pn(Psync(Pbindef(\melTest),maxdur:8)) <> Pbindef(\pulse_16)).play(~linkClock, quant: 4);
 
 
+~pluckRev = ( Pdef(\simplePluckReverse) <> Pbindef(\pulse_4) <> Pbindef(\allArp)  ).play(~linkClock, quant: 4);
 
+~pluck2 = ( Pdef(\simplePluck) <> Pbindef(\euclidean_8th_rng) <> Pbindef(\allArp)  ).play(~linkClock, quant: 4);
+
+~pluck2.stop
+~bd.stop
 
 
 Ptsym(

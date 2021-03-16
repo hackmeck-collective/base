@@ -11,16 +11,16 @@ var loadStuff = {
 	"loading instruments".postln;
 	"Synthese_Sounddesign/instruments/modules/0_load_modules.scd".loadRelative;
 	"Synthese_Sounddesign/instruments/makeModularSynthDef.scd".loadRelative;
-	"Synthese_Sounddesign/instruments/makeModularDrum.scd".loadRelative;
+//	"Synthese_Sounddesign/instruments/makeModularDrum.scd".loadRelative;
 
 	"loading presets".postln;
 	"Synthese_Sounddesign/instruments/presets/instrument_presets.scd".loadRelative;
-	"Synthese_Sounddesign/instruments/presets/drum_presets.scd".loadRelative;
+//	"Synthese_Sounddesign/instruments/presets/drum_presets.scd".loadRelative;
 
 	"loading patternfunctions".postln;
+	"patterns/patternFunctions.scd".loadRelative;
 	"patterns/rhythmicPatterns.scd".loadRelative;
 	"patterns/pitchPatterns.scd".loadRelative;
-	"patterns/patternFunctions.scd".loadRelative;
 
 	"loading control interfaces".postln;
 	"control_interfaces/midi_defs_launchcontrol-xl.scd".loadRelative;
@@ -43,8 +43,9 @@ var loadStuff = {
 };
 
 Server.killAll;
-"booting server".postln;
+"reading audio server options".postln;
 "audio_server_options.scd".loadRelative;
+"booting server".postln;
 s.waitForBoot {
 	if(MIDIClient.initialized.not){
 		MIDIClient.init;

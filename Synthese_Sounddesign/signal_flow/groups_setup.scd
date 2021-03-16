@@ -2,6 +2,7 @@
 
 ~makeGroups = {
 	~source_group = Group.new;
+//	~source_group = ParGroup.new;
 	~effect_group = Group.after(~source_group);
 	~bus_group = Group.after(~source_group);
 	~summing_group = Group.after(~effect_group);

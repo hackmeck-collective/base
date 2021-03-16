@@ -1,5 +1,10 @@
 (
 ~adsrTypes = (
+	noEnv: {var sig;
+
+		sig = 1;
+	},
+
 	pluck: {arg gate = 0, envelope_mod = 0, beatDuration, syncMultiplier, envCurve = 3;
 
 		var amp_a = envelope_mod.lincurve(0,1,0.001,0.02,3),
