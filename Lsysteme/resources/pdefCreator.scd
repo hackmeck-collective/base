@@ -14,7 +14,17 @@
 				PmonoArtic2() <> Pdef((name.asString ++ "_filter").asSymbol) <> Pbind(
 					\dur, ~baseTempo,
 					\server, top[\targetServer],
-					\instrument, Pfunc {|ev| top[\makeModularSynthDef].(ev.adsrType, ev.pitchOp, ev.osc, ev.fx, ev.filter).asSymbol},
+					\instrument, Pfunc {|ev|
+						/*ev.pitchOpType = ev.pitchOp;
+						ev.oscillatorType = ev.osc;
+						ev.fxType = ev.fx;
+						ev.filterType = ev.filter;
+						ev.pitchOpType_2 = ev.pitchOp_2;
+						ev.oscillatorType_2 = ev.osc_2;
+						ev.fxType_2 = ev.fx_2;
+						ev.filterType_2 = ev.filter_2;*/
+						top[\makeModularSynthDef].valueWithEnvir(ev)
+					},
 					\group, Pfunc { top[\routing][\sourceGroup] },
 					\out, Pfunc { top[\routing][\melodyBus] },
 					\pitches, Pseq(voiceEvent.pitches),
@@ -62,7 +72,7 @@
 						ev.midinote = ev.midinote.wrap(~wrapLo.asArray.wrapAt(myKey), ~wrapHi.asArray.wrapAt(myKey));
 						ev
 					}
-				) <> top[\instrumentPresetsDictionary][~instr.asArray.wrapAt(myKey)]
+				) <> Pbind(*(top[\instrumentPresetsDictionary][~instr.asArray.wrapAt(myKey)])) //
 			};
 			top[\lsys][\presets][name].nextFinish = (thisThread.beats + (~maxPatDur * ~baseTempo)).roundUp(~quant);
 			top[\lsys][\presets][name].startOffsets = startOffsets; // fuer drum struktur?
