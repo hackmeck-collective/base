@@ -1,44 +1,42 @@
-~newLsys.(
-	name: \basicL,
-	axiom: "F",//"F-F-F-F-F",
-	rules: ( $F: "F-[F]+4F" ),
-	gen: 3.0
-)
+~lsysPreset.edit(\basicL)
 
-Pdef(\basicL).play(~linkClock, quant: 1)
+~lsysPreset.create(\pausen)
 
+Pdef(\pausen).play(~linkClock, quant: 1)
+~instrumentPresetsDictionary.getPairs
 ~lsys.presets.basicL.vols = [0.25,0.5,1] ++ (0!10)
-Pdef(\play, Psym(Pseq([\basicL], inf)))
+Pdef(\play, Psym(Pseq([\twoY,\twoY_2,\twoY_3], inf).stutter(3)))
 Pdef(\play).play(~linkClock, quant:4)
 Pdef(\playVisuals).play(~linkClock, quant:4)
 Pdef(\basicL_filter, Pbind(\legato, Pkey(\legato) * Pseq([1, 1, 0.1],inf)))
 ~lsys.presets.basicL.instr = \srrPluck
 ~lsys.presets.basicL.instr = \simpleBass
 ~lsys.presets.basicL.instr = [\simpleBass, \srrPluck, \simplePluck]
-~lsys.presets.snowFlake.instr = \simpleBass
+~lsys.presets.snowFlake.instr = \srrPluck
 ~lsys.presets.pausen.instr = \simpleBass
 ~lsys.presets.basicL.legatoArr = 1
 ~lsys.presets.basicL.legatoArr = [1.1, 0.8, 1.9, 0.1] ++ (0.1!10);
 ~lsys.presets.basicL.maxPatDur = 3
 ~lsys.presets.basicL.baseTempo = 1/2
-~lsys.presets.basicL.document
+~lsys.presets.basicL.quant = 0
 
-~instrumentPresetsDictionary[\srrPluck]
+~instrumentPresetsDictionary[\simpleBass]
 
 // Ptsym der ein Signal gibt wenn das naechste element gespielt wird.
 // die Inf versionen der Patterns zur Sicherheit benutzen
 Pdef(\play, Ptsym(
-	Pseq([\snowFlakeInf, \basicLInf], inf),
+	Pseq([\snowFlakeInf], inf),
 	dur: Pfunc{ |i|
 		var nextFinish = thisThread.beats + i;
+		~addrBook.at(\Benni).sendMsg("/trigger1", i, ~lsys.globalPitch);
 		"playing for % beats".format(i).postln;
 		thisThread.clock.schedAbs(nextFinish, {
 			"finished playing for % beats".format(i).postln;
 			nil
 		});
 		i
-	} <> Pseq([1,5,30],inf)
-))
+	} <> Pseq([2, 3, 3],inf)
+)).play(~linkClock, quant: 4)
 
 ~lsys.presets.basicL.nextFinish
 
