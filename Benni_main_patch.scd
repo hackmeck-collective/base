@@ -10,7 +10,7 @@ var loadStuff = {
 
 	"loading instruments".postln;
 	"Synthese_Sounddesign/instruments/modules/0_load_modules.scd".loadRelative;
-	"Synthese_Sounddesign/instruments/makeModularSynthDef.scd".loadRelative;
+	"Synthese_Sounddesign/instruments/makeModularSynthDef2.scd".loadRelative;
 //	"Synthese_Sounddesign/instruments/makeModularDrum.scd".loadRelative;
 
 	"loading presets".postln;
@@ -36,7 +36,7 @@ var loadStuff = {
 
 	Pdef(\rest, Pbind(\dur, Pn(Rest())));
 
-	if (~pitchesRootDissonance[\pitches] == nil ) {~pitchesRootDissonance[\pitches] = [0,3,5,7,10]};
+	if (~pitchesRootDissonance[\pitches] == nil ) {~pitchesRootDissonance[\pitches] = [-36,-9,5,-17,10]};
 	if (~pitchesRootDissonance[\root] == nil ) {~pitchesRootDissonance[\root] = [0]};
 
 	~linkClock = LinkClock.new(1).latency_(s.latency).enableMeterSync.permanent_(true);
@@ -46,7 +46,6 @@ var loadStuff = {
 
 	"ready".postln;
 };
-
 
 Server.killAll;
 "reading audio server options".postln;
@@ -85,6 +84,10 @@ s.waitForBoot {
 
 /*
 ~switchRows.(\bank_1);
+
+~ass = {|nice, ass,| var str = "";  thisFunction.argNames.do {|name| str = str ++ name ++ ", "}; str}
+
+~ass.().postcs
 
 
 ~adsrTypes.keys;

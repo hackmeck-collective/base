@@ -1,12 +1,12 @@
 (
 ~instrumentPresetsDictionary[\hh1] = [
-	\octave, 8,
+	\octave, 7,
 	\drumType, \bodyTimbreTransientTail,
 	\type, \on,
 	\controlbus, ~launchcontrol_xl_row_1,
 	\out, ~drums_bus,
 	\send_1, ~ef_reverb,
-	\send_1_level, 0,
+	\send_1_level, 0.15,
 	\timbre_ratio, 0.05,
 	\body_sweep_ratio, 1,
 	\timbre_sweep_ratio, 1,
@@ -18,7 +18,7 @@
 	\timbre_vol, 0.6,
 	\transient_vol, 0.75,
 	\tail_vol, 1,
-	\time_factor, 0.25,
+	\time_factor, 0.5,
 	\punch_factor, 2,
 	\fx_mod_1, 1,
 	\fx_mod_2, 0.7,

@@ -1,3 +1,7 @@
+~euclid = { |hits, length, offset, pulse|
+	Pbjorklund2(hits,length,inf,offset.asStream) * pulse;
+};
+
 ~metreDynamics_4_4 = {
 	arg time,
 	factor = 0.3,
@@ -13,12 +17,11 @@
 	pattern = (pattern * factor) + (1.sum3rand * random) + static;
 };
 
-
-~pitchTrigger = { |noteArray, repeats, notes|
+~pitchTriggerRepeat = { |noteArray, repeats, notes|
 	Pindex(
 		noteArray,
 		Pclutch(
-			Pseq([666,Pstutter(
+			Pseq([Pstutter(
 				Pseq(repeats,inf),
 				Pseq(notes, inf)
 			)]),
@@ -26,13 +29,38 @@
 		),
 		inf
 	)
-}
+};
 
 
-/*
-(
-Pbind(
-\amp, Pgauss(0, 0.05) + Pfunc {|time|~metreDynamics_4_4.(time)} <> Ptime().mod(4),
-\dur, Pseq([1/8], inf),
-).play;
-)*/
+~pitchesAndOctaves = { |noteArray, lowerLimit = 0, upperLimit = 12, harmonics = 1, transpositions = 10|
+
+	(noteArray + [(0..transpositions)*.x(((1..harmonics) * 2).ratiomidi).round])
+	.flat.asSet.asArray.select({arg item; (item <= upperLimit) && (item >= lowerLimit)}).sort
+};
+
+~pitchesAndOctavesJI = { |noteArray, lowerLimit = 0, upperLimit = 12, harmonics = 1, transpositions = 10|
+
+	(noteArray + [(0..transpositions)*.x(((1..harmonics) * 2).ratiomidi)])
+	.flat.asSet.asArray.select({arg item; (item <= upperLimit) && (item >= lowerLimit)}).sort
+};
+
+~intervalFilter = { |input, root, filteredIntervals|
+
+	var pitchFilter, transposedToRoot, transposedBack;
+
+	transposedToRoot = input - root;
+	pitchFilter = transposedToRoot.select({arg item; filteredIntervals.includes(item.round.mod(12).asInteger)});
+	transposedBack = pitchFilter + root;
+	transposedBack;
+};
+
+~chord = { |chordtones, lowerLimit = 0, upperLimit = 12, harmonics = 1|
+	~intervalFilter.(
+		~pitchesAndOctaves.(~pitchesRootDissonance[\pitches], lowerLimit, upperLimit, harmonics),
+		~pitchesRootDissonance[\root],
+		chordtones)
+};
+
+~pitchPerDuration = { |pitchArray, durations|
+	Ptsym(Pseq(pitchArray, inf),dur: Pseq(durations, inf))
+};

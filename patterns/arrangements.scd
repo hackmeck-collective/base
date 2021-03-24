@@ -1,107 +1,94 @@
+Document.open(thisProcess.nowExecutingPath.dirname +/+ "pitchPatterns.scd");
+Document.open(thisProcess.nowExecutingPath.dirname +/+ "rhythmicPatterns.scd");
+Document.open(thisProcess.nowExecutingPath.dirname +/+ "patternFunctions.scd");
+
+/////////////////// ev funktioniert nicht?
+
+~instrPreset.create(\tonalSwoosh)
+~instrPreset.edit(\noiseSwoosh)
+
 //////// RHYTHMEN mit INSTRUMENTEN verketten
 
-~bd = ( Pdef(\bdThump) <> Pbindef(\bd_pattern_8th_rng) <> Pbindef(\root) ).play(~linkClock, quant: 4);
 
-~sd = ( Pdef(\sd3) <> Pbindef(\sd_pattern_1) <> Pbindef(\fifth)  ).play(~linkClock, quant: 4);
+~bd.stop;
+~bd = ( Pdef(\bdThump) <> Pbindef(\root) <> Pbindef(\bd_pattern_8th_rng) ).play(~linkClock, quant: 4);
+~bd2.stop;
+~bd2 = ( Pdef(\bd1) <> Pbindef(\root) <> Pbindef(\pulse_2) ).play(~linkClock, quant: 4);
+~sd.stop;
+~sd = ( Pdef(\sd1) <> Pbindef(\fifth) <> Pbindef(\sd_pattern_1)  ).play(~linkClock, quant: 4);
 
-( Pdef(\sd2) <> Pbindef(\euclidean_8th_rng) <> Pbindef(\root)  ).play(~linkClock, quant: 4);
+~hh1.stop;
+~hh1 = ( Pdef(\hh1) <> Pbindef(\root) <> Pbindef(\euclidean_8th_rng) ).play(~linkClock, quant: 4);
+~hh2.stop;
+~hh2 = ( Pdef(\hh2) <> Pbindef(\root) <> Pbindef(\euclidean_16th_rng) ).play(~linkClock, quant: 4);
+~hh_rng.stop;
+~hh_rng = ( Pdef(\hh3) <> Pbindef(\root) <> Pbindef(\hh_rng) ).play(~linkClock, quant: 4);
 
-( Pdef(\hh1) <> Pbindef(\euclidean_8th_rng) <> Pbindef(\root)  ).play(~linkClock, quant: 4);
-
-( Pdef(\hh2) <> Pbindef(\euclidean_8th_rng) <> Pbindef(\root)  ).play(~linkClock, quant: 4);
-
-( Pdef(\bongo_1) <> Pbindef(\euclidean_8th_rng) <> Pbindef(\fifth)  ).play(~linkClock, quant: 4);
-
-
-( Pdef(\srrPluck) <> Pn(Psync(Pbindef(\melTest),maxdur:6)) <> Pbindef(\pulse_16)).play(~linkClock, quant: 4);
+~perc.stop;
+~perc = ( Pdef(\sd2) <> Pbindef(\pat_332) <> Pbindef(\euclidean_4th_rng) ).play(~linkClock, quant: 4);
+~perc2.stop;
+~perc2 = ( Pdef(\bongo_1) <> Pbindef(\pat_332_allArp) <> Pbindef(\pulse_16)  ).play(~linkClock, quant: 4);
+~perc3.stop;
+~perc3 = ( Pdef(\bongo_muted) <> Pbindef(\pat_332_allArp) <> Pbindef(\euclidean_32th_rng)  ).play(~linkClock, quant: 4);
 
 
-~pluckRev = ( Pdef(\simplePluckReverse) <> Pn(Psync(Pbindef(\melTest),maxdur:8)) <> Pbindef(\pulse_4) ).play(~linkClock, quant: 4);
+~bd.stop;
+~bd = ( Pdef(\bdThump) <> Pbindef(\root) <> Pbindef(\pulse_4) ).play(~linkClock, quant: 4);
+~bd2.stop;
+~bd2 = ( Pdef(\bd1) <> Pbindef(\root) <> Pbindef(\pulse_2) ).play(~linkClock, quant: 4);
+~sd.stop;
+~sd = ( Pdef(\sd1) <> Pbindef(\fifth) <> Pbindef(\pulse_2_ob)  ).play(~linkClock, quant: 4);
+~sd2.stop;
+~sd2 = ( Pdef(\sd2) <> Pbindef(\fifth) <> Pbindef(\pulse_4_ob)  ).play(~linkClock, quant: 4);
+~sdSwoosh.stop;
+~sdSwoosh = ( Pdef(\tonalSwoosh) <> Pbindef(\fifth) <> Pbindef(\pulse_4_ob)  ).play(~linkClock, quant: 4);
 
-~pluck2 = ( Pdef(\simplePluck) <> Pbindef(\euclidean_8th_rng) <> Pbindef(\allArp)  ).play(~linkClock, quant: 4);
+~boom.stop;
+~boom =  ( Pdef(\boom) <> Pbindef(\root) <> Pbindef(\pulse, \stretch, 16) ).play(~linkClock, quant: 4);
 
+~longSwoosh.stop;
+~longSwoosh =  ( Pdef(\noiseSwoosh) <> Pbindef(\root) <> Pbindef(\pulse, \stretch, 8) ).play(~linkClock, quant: 4);
+Pdef(\noiseSwoosh).source
+
+
+~pluck = ( Pdef(\srrPluck) <> Pn(Psync(Pbindef(\third,),maxdur:4)) <> Pbindef(\pulse_4_ob)).play(~linkClock, quant: 8);
+
+~pluck_ob = ( Pdef(\srrPluck) <> Pn(Psync(Pbindef(\tensions),maxdur:4)) <> Pbindef(\pulse_8_ob)).play(~linkClock, quant: 8);
+
+~pluck = ( Pdef(\srrPluck) <> Pn(Psync(Pbindef(\rawArp),maxdur:4)) <> Pbindef(\pulse_16)).play(~linkClock, quant: 8);
+
+~pluck = ( Pdef(\simplePluck) <> Pn(Psync(Pbindef(\allOctavesArp),maxdur:4)) <> Pbindef(\pulse_16)).play(~linkClock, quant: 8);
+~pluck_ob.stop
+~pluck = ( Pdef(\simplePluck) <> Pn(Psync(Pbindef(\allOctavesTriadArp),maxdur:4)) <> Pbindef(\pulse_16)).play(~linkClock, quant: 8);
+
+~pluck = ( Pdef(\simplePluck) <> Pn(Psync(Pbindef(\allOctavesTetraArp),maxdur:4)) <> Pbindef(\pulse_16)).play(~linkClock, quant: 8);
+
+~pluck = ( Pdef(\simplePluck) <> Pn(Psync(Pbindef(\allOctavesTensionsArp),maxdur:4)) <> Pbindef(\pulse_16)).play(~linkClock, quant: 8);
+
+~pluck = ( Pdef(\srrPluck) <> Pn(Psync(Pbindef(\midArp),maxdur:4)) <> Pbindef(\pulse_16)).play(~linkClock, quant: 8);
+
+~pluckRev = ( Pdef(\simplePluckReverse) <> Pn(Psync(Pbindef(\pat_332),maxdur:8)) <> Pbindef(\pulse_8) ).play(~linkClock, quant: 4);
+
+~pluck2 = ( Pdef(\simplePluck) <> (strum: -0.02) <> Ptsym(Pseq([\xSus4, \triad, \x7sus4, \allOctavesTensionsArp], inf),dur: Pseq([2], inf)) <> Pbindef(\euclidean_16th_rng) ).play(~linkClock, quant: 4);
+
+
+~pluck3.stop;
+~pluck3 = ( Pdef(\variedPlucks) <> ~chord.( <> Pbindef(\pulse_16)  ).play(~linkClock, quant: 4);
+
+
+
+
+
+
+
+~pluck.stop
+~pluck_ob.stop
 ~pluckRev.stop
-~pluck2.stop
+
 ~bd.stop
 
 ~instrPreset.edit(\simplePluck)
 ~instrPreset.create(\srrPluck)
-
-
-Ptsym(
-	Pseq([[\simplePluck_chain, \simplePluckReverse_chain, \noiseSwoosh_chain, \simpleBassPad_chain],
-		[\simplePluck_chain, \simplePluckReverse_chain, \srrPluck_chain, \noiseSwoosh_chain, \simpleBassPad_chain]], inf),
-	dur: Pseq([16], inf),
-);
-
-(
-Pdef(\pluckPattern_2,
-
-	(
-
-		Pbindef(\variedPlucks,
-			\dur, Pseq([1/4], inf),
-			\note, Pfunc {~pitchesRootDissonance[\root]},
-			\vol, (0.2 + (0.3 * Pgauss(0, 0.05) + Pfunc {|time|~metreDynamics_4_4.(time)} <> Ptime().mod(4))),
-		);
-
-		Pbindef(\slideVibratoLead,
-			\dur, Pseq([1], inf),
-			\note, Pfunc {~pitchesRootDissonance[\root]} + Pseq([0,0,0,12], inf),
-		);
-
-		(
-			Pbindef(\simpleBass,
-				\dur, Pseq([3.5,0.5], inf),
-				\note, Pfunc {~pitchesRootDissonance[\root]} + Pseq([-24,-12], inf),
-			);
-		);
-
-		(
-			Pbindef(\arpBass,
-				\dur, Pseq([3.5,0.5], inf),
-				\note, Pfunc {~pitchesRootDissonance[\root]} + Pseq([-24,-12], inf),
-				\beatDuration, Pfunc { ~linkClock.tempo },
-			);
-		);
-
-		Pbindef(\srrPluck,
-			\dur, Pseq([Rest(2+(11/16)),Pseq([1/16], 5), Rest(1)], inf),
-			\note, Pn(Plazy{ Pseq(~pitchesRootDissonance[\pitches], 1)}) + 12,
-			\fx_mod_1, Pseq([0.9,0.8,0.7,0.6], inf),
-		);
-
-		Pbindef(\noiseSwoosh,
-			\dur, Pseq([16], inf),
-			\note, 0,
-			\beatDuration, Pfunc { ~linkClock.tempo },
-			\envCurve, 10,
-			\vol, 0.9,
-			\syncMultiplier, Pfunc {|ev| (ev.dur * ev.stretch);},
-		);
-
-	);
-
-	Ptsym(
-		Pseq([[\variedPlucks_chain, \simpleBass_chain, \noiseSwoosh_chain], [\slideVibratoLead_chain, \srrPluck_chain, \arpBass_chain, \noiseSwoosh_chain]], inf),
-		dur: Pseq([16], inf),
-	);
-).play(~linkClock, quant: 1);
-);
-
-Pdef(\pluckPattern_2).stop;
-
-(
-Pbindef(\srrBassPad,
-	\dur, Pseq([6,Rest(2)], inf),
-	\note, Pfunc {~pitchesRootDissonance[\root]} + Pseq([-24], inf),
-	\fx_mod_1, Pfunc { ~launchcontrol_xl_row_4.getnSynchronous[0] } + Pwhite(-0.05,0.05)
-).play(~linkClock, quant: 4);
-)
-
-~editInst.(\simpleBassPad)
-
-Pbindef(\simpleBassPad).stop(quant: 4);
 
 
 

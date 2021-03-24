@@ -1,5 +1,6 @@
 (
-~instrumentPresetsDictionary[\noiseSwoosh] = [
+~instrumentPresetsDictionary[\tonalSwoosh] = [
+	\octave, 4,
 	\adsrType, \sync,
 	\sendGate, false,
 	\pitchOpType, \slide,
@@ -10,19 +11,19 @@
 	\controlbus, ~launchcontrol_xl_row_4,
 	\out, ~melody_bus,
 	\send_1, ~ef_reverb,
-	\send_1_level, 0.15,
+	\send_1_level, 0.05,
 	\pitchOp_mod_1, 0.55,
 	\pitchOp_mod_2, 0.1,
-	\oscillator_mod_1, 0.3,
+	\oscillator_mod_1, 0.03,
 	\oscillator_mod_2, 0,
 	\fx_mod_1, 0,
 	\fx_mod_2, 0,
-	\filter_mod_1, 0.15,
-	\filter_mod_2, 0.1,
+	\filter_mod_1, 0.01,
+	\filter_mod_2, 0.2,
 	\envelope_mod, 1,
-	\envCurve, 7,
+	\envCurve, 10,
 	\vol, 1,
-	\amp, 0.2,
+	\amp, 1.5,
 	\pitchOp_mod_1_macro_channel, 0,
 	\pitchOp_mod_2_macro_channel, 0,
 	\oscillator_mod_1_macro_channel, 0,
@@ -34,5 +35,5 @@
 	\envelope_mod_macro_channel, 0,
 	\vol_macro_channel, 0,
 ];
-~callInstrumentPreset.(\noiseSwoosh);
+~callInstrumentPreset.(\tonalSwoosh);
 )

@@ -1,4 +1,156 @@
-~modularSynthdefCreator = { |mod1TargetLine|
+~testidef = {|
+	mod1Target = ""
+	|
+
+	var testiname, mod1TargetLine = "";
+
+	testiname = "testi" ++ "_" ++
+	mod1Target.asString;
+
+	if (mod1Target.isEmpty,
+		{mod1TargetLine = "dummy".asString},
+		{mod1TargetLine = "% = % + (% * mod1)".format(mod1Target, mod1Target, mod1Target).asString}
+	);
+
+	if(SynthDescLib.match(testiname).isNil){
+
+		SynthDef.new(testiname,
+			{
+				arg gate = 1,
+				freq = 440,
+				mod1Amount = 2,
+				mod1Rate = 3,
+				amp = 1;
+
+				var dummy, mod1, envelope;
+
+				mod1 = SinOsc.ar(mod1Rate, 0, mod1Amount);
+
+				"mod1TargetPlaceholder";
+
+				envelope = EnvGen.kr(Env.perc(0.01,1),	gate: gate,	doneAction:2);
+
+				Out.ar(0, envelope * amp * SinOsc.ar(freq, 0, 0.25));
+
+			}
+		)
+		.asCompileString.replace("\"mod1TargetPlaceholder\"", replace: mod1TargetLine)
+		.interpretPrint
+		.add;
+
+	};
+	testiname.postln;
+};
+
+
+Pbindef(\test,
+	\mod1Amount, 0.4,
+	\type, \on,
+	\dur, Pseq([3,2,1], inf),
+	\mod1Target, "freq",
+	\freq, 440,
+	\instrument, Pfunc { |ev|
+				~testidef.valueWithEnvir(ev)
+			},
+).play
+
+SynthDef.new(\testi,
+	{arg gate,
+		freq = 440,
+
+		mod1Amount = 2,
+		mod1Rate = 3,
+		mod1Target,
+		amp;
+
+		var modulator;
+
+		modulator = SinOsc.ar(mod1Rate, 0, mod1Amount);
+
+		freq.poll;
+
+		mod1Target = mod1Target + (mod1Target * modulator); // in this line I want to replace mod1Target with freq, as specified in the Pbindef below, so it looks like freq = freq + (freq * modulator);
+
+		freq.poll; // here the freq should be modulated
+
+		Out.ar(0, SinOsc.ar(freq, 0, 0.25));
+
+}).add
+
+
+
+
+~makeSyn = {|str|
+
+	SynthDef.new(\testi,
+		{arg gate,
+			freq,
+			controlbus,
+			out,
+
+			oscillator_mod_1,
+			oscillator_mod_2,
+
+			mod1Amount = 1,
+			mod1Rate = 1,
+			amp;
+
+			"mod1target Input: ".postln;
+			mod1target.postln;
+
+			freq = 440;
+			freq.postln;
+			"replaceMe";
+
+			freq.poll;
+
+			Select.kr([thisFunction.argNames].flat.indexOf(mod1target.asSymbol),[thisFunction.argNames].flat); //entweder in der ausführung, oder irgendwie als variabler textbaustein, um die modulationsmatrix für den synth beim erstellen zu generieren.
+
+			// Out.ar(0, SinOsc.ar(440,0,0.5));
+
+	}).asCompileString.replace("\"replaceMe\"", replace: str).interpret.add
+}
+
+~makeSyn.("freq = freq * mod1Amount").add
+
+Pbindef(\test,
+	\mod1Amount, 5,
+	\mod1Target, \freq,
+	\freq, 440,
+	\instrument, \testi
+).play
+
+SynthDef.new(\testi,
+	{arg gate,
+		freq = 440,
+
+		mod1Amount = 2,
+		mod1Rate = 3,
+		mod1Target,
+		amp;
+
+		var modulator;
+
+		modulator = SinOsc.ar(mod1Rate, 0, mod1Amount);
+
+		freq.poll;
+
+		mod1Target = mod1Target + (mod1Target * modulator); // in this line I want to replace mod1Target with freq, as specified in the Pbindef below, so it looks like freq = freq + (freq * modulator);
+
+		freq.poll; // here the freq should be modulated
+
+		Out.ar(0, SinOsc.ar(freq, 0, 0.25));
+
+}).add
+
+Pbindef(\test,
+	\mod1Amount, 5,
+	\mod1Target, \freq,
+	\freq, 440,
+	\instrument, \testi
+).play
+
+~replaceModTarget = { |str|
 	SynthDef.new(synthDefName,
 		{
 			arg gate = 1,
@@ -99,7 +251,7 @@
 			macro_3 = macro_controls[2],
 			fader = macro_controls[3];
 
-			var dummy, envelope, mod1, pitchOp_freq, pitchOp_freq_2, oscillator, oscillator_2, fx, fx_2, filter, filter_2, drum, drum_2, vca;
+			var envelope, mod1, pitchOp_freq, pitchOp_freq_2, oscillator, oscillator_2, fx, fx_2, filter, filter_2, drum, drum_2, vca;
 
 			pitchOp_mod_1 = Select.kr(pitchOp_mod_1_macro_channel,
 				[pitchOp_mod_1, macro_1, macro_2, macro_3]);
@@ -129,8 +281,12 @@
 				prependArgs: [gate, beatDuration, syncMultiplier, mod1Amount, mod1Rate, mod1attack, mod1decay, mod1sustain, mod1release],
 			);
 
-			"mod1TargetPlaceholder";
-
+			"replaceModTarget";
+			/*mod1Targets = SynthDef.wrap(
+			mod1Targets_function,
+			prependArgs: [mod1, oscillator_mod_2],
+			);
+			*/
 			envelope = SynthDef.wrap(
 				envelope_function,
 				prependArgs: [gate, envelope_mod, beatDuration, syncMultiplier, envCurve],
@@ -219,90 +375,5 @@
 			Out.ar(send_1, vca * send_1_level);
 			//Out.ar(send_2, vca * send_2_level);
 
-	}).asCompileString.replace("\"mod1TargetPlaceholder\"", replace: mod1TargetLine).interpret.add
-};
-
-~makeModularSynthDef = {|
-	adsrType = \noEnv,
-	pitchOpType = \noPitchOp,
-	oscillatorType = \noOscillator,
-	fxType = \noFx,
-	filterType = \noFilter,
-	pitchOpType_2 = \noPitchOp,
-	oscillatorType_2 = \noOscillator,
-	fxType_2 = \noFx,
-	filterType_2 = \noFilter,
-	drumType = \noDrum,
-	drumType_2 = \noDrum,
-	mod1Type = \noMod,
-	mod1Target = \noModTarget
-	|
-
-	var synthDefName;
-
-	synthDefName =
-	adsrType.asString ++ "_" ++
-	pitchOpType.asString ++ "_" ++
-	pitchOpType_2.asString ++ "_" ++
-	oscillatorType.asString ++ "_" ++
-	oscillatorType_2.asString ++ "_" ++
-	drumType.asString ++ "_" ++
-	drumType_2.asString ++ "_" ++
-	fxType.asString ++ "_" ++
-	fxType_2.asString ++ "_" ++
-	filterType.asString ++ "_" ++
-	filterType_2.asString ++ "_" ++
-	mod1Type ++ "-" ++ "to" ++ "-" ++
-	mod1Target;
-
-	if(SynthDescLib.match(synthDefName).isNil){
-		var envelope_function = ~adsrTypes[adsrType];
-		var oscillator_function = ~oscillatorTypes[oscillatorType];
-		var pitchOp_function = ~pitchOpTypes[pitchOpType];
-		var fx_function = ~fxTypes[fxType];
-		var filter_function = ~filterTypes[filterType];
-		var oscillator_function_2 = ~oscillatorTypes[oscillatorType_2];
-		var pitchOp_function_2 = ~pitchOpTypes[pitchOpType_2];
-		var fx_function_2 = ~fxTypes[fxType_2];
-		var filter_function_2 = ~filterTypes[filterType_2];
-		var drum_function = ~drumTypes[drumType];
-		var drum_function_2 = ~drumTypes[drumType_2];
-		var mod1_function = ~modSources[mod1Type];
-
-		if(mod1Type == \noMod){
-			~replaceModTarget.("dummy",
-				envelope_function,
-				pitchOp_function,
-				oscillator_function,
-				fx_function,
-				filter_function,
-				pitchOp_function_2,
-				oscillator_function_2,
-				fx_function_2,
-				filter_function_2,
-				drum_function,
-				drum_function_2,
-				mod1_function
-			)
-		}{
-			~replaceModTarget.("% = % + (% * mod1)".format(mod1Target, mod1Target, mod1Target),
-				envelope_function,
-				pitchOp_function,
-				oscillator_function,
-				fx_function,
-				filter_function,
-				pitchOp_function_2,
-				oscillator_function_2,
-				fx_function_2,
-				filter_function_2,
-				drum_function,
-				drum_function_2,
-				mod1_function
-			)
-		};
-
-	};
-	synthDefName
-};
-
-"make modular synthdef function loaded".postln;
+	})
+}
