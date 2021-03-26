@@ -1,6 +1,6 @@
 (
 ~instrumentPresetsDictionary[\simpleBass] = [
-	\octave, 2,
+	\octave, 3,
 	\adsrType, \lead,
 	\sendGate, true,
 	\pitchOpType, \slide,
@@ -20,7 +20,7 @@
 	\filter_mod_2, 0.5,
 	\envelope_mod, 0.2,
 	\vol, 1,
-	\amp, 0.15,
+	\amp, 0.25,
 	\pitchOp_mod_1_macro_channel, 0,
 	\pitchOp_mod_2_macro_channel, 0,
 	\oscillator_mod_1_macro_channel, 0,

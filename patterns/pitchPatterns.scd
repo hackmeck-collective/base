@@ -1,6 +1,13 @@
 "loading pitch patterns".postln;
 
-/////////////////// ev funktioniert nicht?
+
+Pbindef(\rawPitches,
+	\upperLimit, 36,
+	\lowerLimit, -36,
+	\transpositionHarmonics, 1,
+	\chordTranspositions, 0,
+	\note, Pfunc { |ev| ~chord.([0,1,2,3,4,5,6,7,8,9,10,11], ev.lowerLimit, ev.upperLimit) },
+);
 
 ///////////////////////////////// TONES
 

@@ -2,10 +2,11 @@ Document.open(thisProcess.nowExecutingPath.dirname +/+ "pitchPatterns.scd");
 Document.open(thisProcess.nowExecutingPath.dirname +/+ "rhythmicPatterns.scd");
 Document.open(thisProcess.nowExecutingPath.dirname +/+ "patternFunctions.scd");
 
-~instrPreset.create(\crash)
-~instrPreset.edit(\boom)
+~instrPreset.create(\laash)
+~instrPreset.edit(\detuneLead);
 
-
+// root note und drums mit phillip klären
+// reboot  funktion problematik mit vincent klären
 
 (Pdef(\sd3) <> ~quarterFills).play(~linkClock, quant: 1);
 (Pdef(\sd3) <> ~halfFills).play(~linkClock, quant: 2);
@@ -53,17 +54,15 @@ Document.open(thisProcess.nowExecutingPath.dirname +/+ "patternFunctions.scd");
 
 ~longSwoosh.stop;
 ~longSwoosh =  ( Pdef(\noiseSwoosh) <> Pbindef(\root) <> Pbindef(\pulse, \stretch, 8) ).play(~linkClock, quant: 4);
-Pdef(\noiseSwoosh).source
-
 
 
 ~pluck.stop;
-~pluck = ( Pdef(\srrPluck) <> Pn(Psync(Pbindef(\triad, \upperLimit, 24, \lowerLimit, 12),maxdur:4)) <> Pbindef(\pulse_4_ob)).play(~linkClock, quant: 8);
+~pluck = ( Pdef(\srrPluck) <> Pn(Psync(Pbindef(\triad, \upperLimit, 24, \lowerLimit, 12),maxdur:4)) <> Pbindef(\pulse_4_ob)).play(~linkClock, quant: 4);
 
-~pluck_op.stop;
-~pluck_ob = ( Pdef(\srrPluck) <> Pn(Psync(Pbindef(\xSus4, \upperLimit, 24, \lowerLimit, 12),maxdur:4)) <> Pbindef(\pulse_8_ob)).play(~linkClock, quant: 8);
+~pluck_ob.stop;
+~pluck_ob = ( Pdef(\srrPluck) <> Pn(Psync(Pbindef(\xSus4, \upperLimit, 24, \lowerLimit, 12),maxdur:4)) <> Pbindef(\pulse_8_ob)).play(~linkClock, quant: 4);
 
-
+(
 ~pluck.stop;
 ~pluck = ( Pdef(\srrPluck) <> Pn(Psync(Pbindef(\arp,
 	\upperLimit, 0,
@@ -71,39 +70,77 @@ Pdef(\noiseSwoosh).source
 	\transpositionHarmonics, 1,
 	\chordTranspositions, 10),maxdur:8))
 <> Pbindef(\pulse_16)).play(~linkClock, quant: 8);
+);
 
-
+(
 ~pluckRev.stop;
-~pluckrev = ( Pdef(\simplePluckReverse) <> Pn(Psync(Pbindef(\arp,
+~pluckRev = ( Pdef(\simplePluckReverse) <> Pn(Psync(Pbindef(\arp,
 	\upperLimit, 36,
 	\lowerLimit, 0,
 	\transpositionHarmonics,1,
 	\chordTranspositions, 10),maxdur:16))
 <> Pbindef(\pulse_16)).play(~linkClock, quant: 8);
+);
 
-
+(
 ~pluckRev.stop;
 ~pluckRev = ( Pdef(\simplePluckReverse)
 	<> Pn(Psync(Pbindef(\pat_332_downUp,
 		\upperLimit, 0,
 		\lowerLimit, -12,),maxdur:32)) <> Pbindef(\pulse_8) ).play(~linkClock, quant: 4);
+);
+~simpleBass.stop;
+~simpleBass = ( Pdef(\simpleBass) <> Pbindef(\root) <> Pbindef(\pulse) ).play(~linkClock, quant: 4);
+
+Pdef(\pluckRevLong).stop;
+Pdef(\pluckRevLong, Pdef(\simplePluckReverse) <> Pn(Psync(Pbindef(\rawPitches, \upperLimit, 48, \lowerLimit, -36,),maxdur:32)) <> Pbindef(\pulse, \stretch, 8) ).play(~linkClock, quant: 4);
+
+~pluck.stop;
+~pluck = ( Pdef(\srrPluck)	<> Pn(Psync(Pbindef(\rawPitches, \upperLimit, 48, \lowerLimit, -36,),maxdur:32)) <> Pbindef(\pulse) ).play(~linkClock, quant: 4);
 
 
 ~pluck2.stop;
-~pluck2 = ( Pdef(\simplePluck) <> Ptsym(Pseq([\xSus4, \triad, \x7sus4, \tensionsArp], inf),dur: Pseq([2], inf)) <> Pbindef(\euclidean_16th_rng) ).play(~linkClock, quant: 4);
+~pluck2 = ( Pdef(\simplePluck) <> Ptsym(Pseq([\xSus4, \triad, \x7sus4, \tensionsArp], inf),dur: Pseq([2], inf)) <> Pbindef(\pulse_8_ob) ).play(~linkClock, quant: 4);
 
 
 ~pluck3.stop;
-~pluck3 = ( Pdef(\variedPlucks) <> Pbindef(\root) <> Pbindef(\pulse_16)  ).play(~linkClock, quant: 4);
+~pluck3 = ( Pdef(\variedPlucks) <> Pbindef(\triad) <> Pbindef(\pulse_8_ob)  ).play(~linkClock, quant: 4);
 
 ~lfoTest.stop;
-~lfoTest = ( Pdef(\lfoTest) <> Pbindef(\arp, \upperLimit, -12, \lowerLimit, -36) <> Pbindef(\pulse)  ).play(~linkClock, quant: 4);
+~lfoTest = ( Pdef(\lfoTest) <> Pbindef(\arp, \upperLimit, 24, \lowerLimit, -24) <> Pbindef(\pulse)  ).play(~linkClock, quant: 4);
 
 ~source_group.release;
-Pdef.all.stop
+Pdef.all.do{ |item| Pdef(item).stop}
 
 
 
+~sd2.stop;
+~sd2 = ( Pdef(\sd2) <> Pbindef(\fifth) <> Pbindef(\pulse_4_ob)  ).play(~linkClock, quant: 4);
+~bd2.stop;
+~bd2 = ( Pdef(\bd1) <> Pbindef(\root) <> Pbindef(\pulse_2) ).play(~linkClock, quant: 4);
+~hh_rng.stop;
+~hh_rng = ( Pdef(\hh3) <> Pbindef(\root) <> Pbindef(\hh_rng) ).play(~linkClock, quant: 4);
+~pluck3.stop;
+~pluck3 = ( Pdef(\variedPlucks) <> Pbindef(\root) <> Pbindef(\pulse_4_ob)  ).play(~linkClock, quant: 4);
+~sdSwoosh.stop;
+~sdSwoosh = ( Pdef(\tonalSwoosh) <> Pbindef(\fifth) <> Pbindef(\pulse_4_ob)  ).play(~linkClock, quant: 4);
+
+
+
+(
+~bd.stop;
+~bd = ( Pdef(\bdThump) <> Pbindef(\root) <> Pbindef(\bd_pattern_8th_rng) ).play(~linkClock, quant: 4);
+~bd2.stop;
+~bd2 = ( Pdef(\bd1) <> Pbindef(\root) <> Pbindef(\pulse_2) ).play(~linkClock, quant: 4);
+~sd.stop;
+~sd = ( Pdef(\sd1) <> Pbindef(\fifth) <> Pbindef(\sd_pattern_1)  ).play(~linkClock, quant: 4);
+~hh1.stop;
+~hh1 = ( Pdef(\hh1) <> Pbindef(\root) <> Pbindef(\euclidean_8th_rng) ).play(~linkClock, quant: 4);
+~hh2.stop;
+~hh2 = ( Pdef(\hh2) <> Pbindef(\root) <> Pbindef(\euclidean_16th_rng) ).play(~linkClock, quant: 4);
+~hh_rng.stop;
+~hh_rng = ( Pdef(\hh3) <> Pbindef(\root) <> Pbindef(\hh_rng) ).play(~linkClock, quant: 4);
+);
 
 
 

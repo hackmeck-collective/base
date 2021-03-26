@@ -8,7 +8,7 @@
 	\controlbus, ~launchcontrol_xl_row_4,
 	\out, ~melody_bus,
 	\send_1, ~ef_reverb,
-	\send_1_level, 0.2,
+	\send_1_level, 0.25,
 	\pitchOp_mod_1, 0.6,
 	\pitchOp_mod_2, 0,
 	\oscillator_mod_1, 0.35,

@@ -1,5 +1,5 @@
 (
-var waitForPeers = false;
+var waitForPeers = true;
 var loadStuff = {
 	"loading signal flow".postln;
 	"Synthese_Sounddesign/signal_flow/groups_setup.scd".loadRelative;
@@ -11,7 +11,6 @@ var loadStuff = {
 	"loading instruments".postln;
 	"Synthese_Sounddesign/instruments/modules/0_load_modules.scd".loadRelative;
 	"Synthese_Sounddesign/instruments/makeModularSynthDef.scd".loadRelative;
-	//	"Synthese_Sounddesign/instruments/makeModularDrum.scd".loadRelative;
 
 	"loading presets".postln;
 	"Presets/InstrumentPresetFunctions.scd".loadRelative;
@@ -26,7 +25,7 @@ var loadStuff = {
 	"loading control interfaces".postln;
 	"control_interfaces/midi_defs_launchcontrol-xl.scd".loadRelative;
 
-	~localSetup = false; // hier und bei globals ist das relevant
+	~localSetup = waitForPeers.not; // hier und bei globals ist das relevant
 
 	if(~localSetup){
 		"Lsysteme/resources/globals.scd".loadRelative;
@@ -79,10 +78,16 @@ s.waitForBoot {
 };
 )
 
+~instrPreset.keys.do.postln;
 
-
-
-
+(
+~instrPreset.loadAll;
+~routing[\sourceGroup] = ~source_group.nodeID;
+~routing[\melodyBus] = ~melody_bus.index;
+~routing[\chordsBus] = ~chords_bus.index;
+~routing[\drumsBus] = ~drums_bus.index;
+~routing[\auxBus] = ~aux_bus.index;
+);
 /*
 ~switchRows.(\bank_1);
 

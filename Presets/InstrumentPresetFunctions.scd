@@ -35,7 +35,7 @@
 			"Preset % already exists, use method edit".format(name).warn
 		}{
 			File.use(filePath, "w", { |f|
-				f.write(self.defaults.asString)
+				f.write(self.defaults(name))
 			});
 			Document.open(filePath)
 		};
@@ -51,43 +51,45 @@
 	loadAll: { |self|
 		self.path.files.do {|f| f.fullPath.load }
 	},
-	defaults: "(
-~instrumentPresetsDictionary[\\simplePluck] = [
-	\\adsrType, \\pluck,
-	\\sendGate, false,
-	\\pitchOpType, \\slide,
-	\\oscillatorType, \\fm,
-	\\oscillatorType_2, \\fm,
-	\\controlbus, ~launchcontrol_xl_row_4,
-	\\out, ~melody_bus,
-	\\send_1, ~ef_reverb,
-	\\send_1_level, 0.25,
-	\\pitchOp_mod_1, 0.55,
-	\\pitchOp_mod_2, 0.1,
-	\\oscillator_mod_1, 0.45,
-	\\oscillator_mod_2, 0.001,
-	\\oscillator_2_mod_1, 0.15,
-	\\oscillator_2_mod_2, 0.01,
-	\\fx_mod_1, 1,
-	\\fx_mod_2, 1,
-	\\filter_mod_1, 0.75,
-	\\filter_mod_2, 0.4,
-	\\envelope_mod, 0.7,
-	\\vol, 1,
-	\\amp, 0.2,
-	\\pitchOp_mod_1_macro_channel, 0,
-	\\pitchOp_mod_2_macro_channel, 0,
-	\\oscillator_mod_1_macro_channel, 0,
-	\\oscillator_mod_2_macro_channel, 0,
-	\\fx_mod_1_macro_channel, 0,
-	\\fx_mod_2_macro_channel, 0,
-	\\filter_mod_1_macro_channel, 0,
-	\\filter_mod_2_macro_channel, 0,
-	\\envelope_mod_macro_channel, 0,
-	\\vol_macro_channel, 0,
+	defaults: { |self, name|
+		"(
+~instrumentPresetsDictionary[%] = [
+\\adsrType, \\pluck,
+\\sendGate, false,
+\\pitchOpType, \\slide,
+\\oscillatorType, \\fm,
+\\oscillatorType_2, \\fm,
+\\controlbus, ~launchcontrol_xl_row_4,
+\\out, ~melody_bus,
+\\send_1, ~ef_reverb,
+\\send_1_level, 0.25,
+\\pitchOp_mod_1, 0.55,
+\\pitchOp_mod_2, 0.1,
+\\oscillator_mod_1, 0.45,
+\\oscillator_mod_2, 0.001,
+\\oscillator_2_mod_1, 0.15,
+\\oscillator_2_mod_2, 0.01,
+\\fx_mod_1, 1,
+\\fx_mod_2, 1,
+\\filter_mod_1, 0.75,
+\\filter_mod_2, 0.4,
+\\envelope_mod, 0.7,
+\\vol, 1,
+\\amp, 0.2,
+\\pitchOp_mod_1_macro_channel, 0,
+\\pitchOp_mod_2_macro_channel, 0,
+\\oscillator_mod_1_macro_channel, 0,
+\\oscillator_mod_2_macro_channel, 0,
+\\fx_mod_1_macro_channel, 0,
+\\fx_mod_2_macro_channel, 0,
+\\filter_mod_1_macro_channel, 0,
+\\filter_mod_2_macro_channel, 0,
+\\envelope_mod_macro_channel, 0,
+\\vol_macro_channel, 0,
 ];
-~callInstrumentPreset.(\\simplePluck);
-)"
-)
+~callInstrumentPreset.(%);
+)".format(name.asCompileString, name.asCompileString);
+	}
+);
 //
 // ~instrPreset.create(\blaaaaa)
