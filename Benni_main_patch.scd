@@ -11,7 +11,7 @@ var loadStuff = {
 	"loading instruments".postln;
 	"Synthese_Sounddesign/instruments/modules/0_load_modules.scd".loadRelative;
 	"Synthese_Sounddesign/instruments/makeModularSynthDef.scd".loadRelative;
-//	"Synthese_Sounddesign/instruments/makeModularDrum.scd".loadRelative;
+	//	"Synthese_Sounddesign/instruments/makeModularDrum.scd".loadRelative;
 
 	"loading presets".postln;
 	"Presets/InstrumentPresetFunctions.scd".loadRelative;
@@ -28,10 +28,12 @@ var loadStuff = {
 
 	~localSetup = false; // hier und bei globals ist das relevant
 
-	"Lsysteme/resources/globals.scd".loadRelative;
-	"Lsysteme/resources/lsysCreator_noDaemon.scd".loadRelative;
-	"Lsysteme/resources/pdefCreator.scd".loadRelative; // load pdef which will play back lsystems
-	"Lsysteme/resources/lsys_dict_text_replace.scd".loadRelative;
+	if(~localSetup){
+		"Lsysteme/resources/globals.scd".loadRelative;
+		"Lsysteme/resources/lsysCreator_noDaemon.scd".loadRelative;
+		"Lsysteme/resources/pdefCreator.scd".loadRelative; // load pdef which will play back lsystems
+		"Lsysteme/resources/lsys_dict_text_replace.scd".loadRelative;
+	};
 
 	Pdef(\rest, Pbind(\dur, Pn(Rest())));
 
