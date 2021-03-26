@@ -45,6 +45,11 @@
 		mod1Type.asString ++ "-" ++ "to" ++ "-" ++
 		mod1Target;
 
+		/*if (mod1Target.isEmpty,
+			{mod1TargetLine = "dummy".asString},
+			{mod1TargetLine = "% = % + (% * mod1)".format(mod1Target, mod1Target, mod1Target).asString}
+		);*/
+
 		if(SynthDescLib.match(synthDefName).isNil){
 			var envelope_function = ~adsrTypes[adsrType];
 			var oscillator_function = ~oscillatorTypes[oscillatorType];
@@ -261,13 +266,9 @@
 			).add;
 		};
 		synthDefName;
-	}.asCompileString
-	.replace("\"mod1TargetPlaceholder\"",
-		if(mod1Target.isEmpty){
-			mod1Target = "dummy"
-		}{
-			"% = % + (% * mod1)".format(mod1Target, mod1Target, mod1Target)
-		}
+	}.asCompileString.replace(
+		"\"mod1TargetPlaceholder\"",
+		replace: "% = % + (% * mod1)".format(mod1Target, mod1Target, mod1Target)
 	).interpret;
 	newFunc.(adsrType,
 		pitchOpType,

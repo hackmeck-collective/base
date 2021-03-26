@@ -10,14 +10,12 @@ var loadStuff = {
 
 	"loading instruments".postln;
 	"Synthese_Sounddesign/instruments/modules/0_load_modules.scd".loadRelative;
-	"Synthese_Sounddesign/instruments/makeModularSynthDef2.scd".loadRelative;
+	"Synthese_Sounddesign/instruments/makeModularSynthDef.scd".loadRelative;
 //	"Synthese_Sounddesign/instruments/makeModularDrum.scd".loadRelative;
 
 	"loading presets".postln;
 	"Presets/InstrumentPresetFunctions.scd".loadRelative;
 	~instrPreset.loadAll;
-//	"Synthese_Sounddesign/instruments/presets/instrument_presets.scd".loadRelative;
-//	"Synthese_Sounddesign/instruments/presets/drum_presets.scd".loadRelative;
 
 	"loading patternfunctions".postln;
 	"patterns/patternFunctions.scd".loadRelative;
@@ -28,7 +26,7 @@ var loadStuff = {
 	"loading control interfaces".postln;
 	"control_interfaces/midi_defs_launchcontrol-xl.scd".loadRelative;
 
-	~localSetup = true; // hier und bei globals ist das relevant
+	~localSetup = false; // hier und bei globals ist das relevant
 
 	"Lsysteme/resources/globals.scd".loadRelative;
 	"Lsysteme/resources/lsysCreator_noDaemon.scd".loadRelative;

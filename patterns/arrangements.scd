@@ -94,9 +94,13 @@ Pdef(\noiseSwoosh).source
 
 
 ~pluck3.stop;
-~pluck3 = ( Pdef(\variedPlucks) <> Pbindef(\fifth) <> Pbindef(\pulse_16)  ).play(~linkClock, quant: 4);
+~pluck3 = ( Pdef(\variedPlucks) <> Pbindef(\root) <> Pbindef(\pulse_16)  ).play(~linkClock, quant: 4);
 
+~lfoTest.stop;
+~lfoTest = ( Pdef(\lfoTest) <> Pbindef(\arp, \upperLimit, -12, \lowerLimit, -36) <> Pbindef(\pulse)  ).play(~linkClock, quant: 4);
 
+~source_group.release;
+Pdef.all.stop
 
 
 
