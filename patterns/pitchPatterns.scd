@@ -20,17 +20,23 @@ Pbindef(\third,
 
 
 Pbindef(\seventh,
-	\note, Pfunc { ~chord.([10,11])},
+	\upperLimit, 12,
+	\lowerLimit, 0,
+	\note, Pfunc { |ev| ~chord.([10,11], ev.lowerLimit, ev.upperLimit) },
 );
 
 ///////////////////////////////// INTERVALS
 
 Pbindef(\powerchord,
-	\note, Pfunc { ~chord.([0,7])},
+	\upperLimit, 12,
+	\lowerLimit, 0,
+	\note, Pfunc { |ev| ~chord.([0,7], ev.lowerLimit, ev.upperLimit) },
 );
 
 Pbindef(\xOmit5,
-	\note, Pfunc { ~chord.([3,4,10,11])},
+	\upperLimit, 12,
+	\lowerLimit, 0,
+	\note, Pfunc { |ev| ~chord.([3,4,10,11], ev.lowerLimit, ev.upperLimit) },
 );
 
 
@@ -38,42 +44,60 @@ Pbindef(\xOmit5,
 ///////////////////////////////// TRIADS
 
 Pbindef(\triad,
-	\note, Pn(Plazy{ |ev| ~chord.([0,3,4,7])}),
+	\upperLimit, 12,
+	\lowerLimit, 0,
+	\note, Pfunc { |ev| ~chord.([0,3,4,7], ev.lowerLimit, ev.upperLimit)},
 );
 
 Pbindef(\xSus2,
-	\note, Pn(Plazy{ |ev| ~chord.([0,2,7])}),
+	\upperLimit, 12,
+	\lowerLimit, 0,
+	\note, Pfunc { |ev| ~chord.([0,2,7], ev.lowerLimit, ev.upperLimit)},
 );
 
 Pbindef(\xSus4,
-	\note, Pn(Plazy{ |ev| ~chord.([0,5,7])}),
+	\upperLimit, 12,
+	\lowerLimit, 0,
+	\note, Pfunc { |ev| ~chord.([0,5,7], ev.lowerLimit, ev.upperLimit)},
 );
 
 
 ///////////////////////////////// Tetrachords
 
 Pbindef(\tetra,
-	\note, Pn(Plazy{ |ev| ~chord.([0,3,4,7,10,11])}),
+	\upperLimit, 12,
+	\lowerLimit, 0,
+	\note, Pfunc { |ev| ~chord.([0,3,4,7,10,11], ev.lowerLimit, ev.upperLimit)},
 );
 
 Pbindef(\x7sus2,
-	\note, Pn(Plazy{ |ev| ~chord.([0,2,7,10,11])}),
+	\upperLimit, 12,
+	\lowerLimit, 0,
+	\note, Pfunc { |ev| ~chord.([0,2,7,10,11], ev.lowerLimit, ev.upperLimit)},
 );
 
 Pbindef(\x7sus4,
-	\note, Pn(Plazy{ |ev| ~chord.([0,5,7,10,11])}),
+	\upperLimit, 12,
+	\lowerLimit, 0,
+	\note, Pfunc { |ev| ~chord.([0,5,7,10,11], ev.lowerLimit, ev.upperLimit)},
 );
 
 Pbindef(\xAdd9,
-	\note, Pn(Plazy{ |ev| ~chord.([0,1,2,3,4,7 ])}),
+	\upperLimit, 12,
+	\lowerLimit, 0,
+	\note, Pfunc { |ev| ~chord.([0,1,2,3,4,7], ev.lowerLimit, ev.upperLimit)},
 );
 
 Pbindef(\xAdd11,
-	\note, Pn(Plazy{ |ev| ~chord.([0,3,4,5,6,7 ])}),
+	\upperLimit, 12,
+	\lowerLimit, 0,
+	\note, Pfunc { |ev| ~chord.([0,3,4,5,6,7], ev.lowerLimit, ev.upperLimit)},
 );
 
 Pbindef(\xAdd13,
-	\note, Pn(Plazy{ |ev| ~chord.([0,3,4,7,8,9])}),
+	\upperLimit, 12,
+	\lowerLimit, 0,
+	\note, Pfunc { |ev| ~chord.([0,3,4,7,8,9], ev.lowerLimit, ev.upperLimit)},
 );
 
 
@@ -81,47 +105,69 @@ Pbindef(\xAdd13,
 
 
 Pbindef(\x9,
-	\note, Pn(Plazy{ |ev| ~chord.([0,1,2,3,4,7,10,11 ])}),
+	\upperLimit, 12,
+	\lowerLimit, 0,
+	\note, Pfunc { |ev| ~chord.([0,1,2,3,4,7,10,11], ev.lowerLimit, ev.upperLimit)},
 );
 
 Pbindef(\x11,
-	\note, Pn(Plazy{ |ev| ~chord.([0,1,2,3,4,5,6,7,10,11 ])}),
+	\upperLimit, 12,
+	\lowerLimit, 0,
+	\note, Pfunc { |ev| ~chord.([0,1,2,3,4,5,6,7,10,11], ev.lowerLimit, ev.upperLimit)},
 );
 
 Pbindef(\all,
-	\note, Pn(Plazy{ |ev| ~chord.([0,1,2,3,4,5,6,7,8,9,10,11 ])}),
+	\upperLimit, 12,
+	\lowerLimit, 0,
+	\note, Pfunc { |ev| ~chord.([0,1,2,3,4,5,6,7,8,9,10,11], ev.lowerLimit, ev.upperLimit)},
 );
 
 Pbindef(\xAdd9_11,
-	\note, Pn(Plazy{ |ev| ~chord.([0,1,2,3,4,5,6,7 ])}),
+	\upperLimit, 12,
+	\lowerLimit, 0,
+	\note, Pfunc { |ev| ~chord.([0,1,2,3,4,5,6,7], ev.lowerLimit, ev.upperLimit)},
 );
 
 Pbindef(\xAdd9_13,
-	\note, Pn(Plazy{ |ev| ~chord.([0,1,2,3,4,7,8,9 ])}),
+	\upperLimit, 12,
+	\lowerLimit, 0,
+	\note, Pfunc { |ev| ~chord.([0,1,2,3,4,7,8,9], ev.lowerLimit, ev.upperLimit)},
 );
 
 Pbindef(\xAdd11_13,
-	\note, Pn(Plazy{ |ev| ~chord.([0,3,4,5,6,7,8,9 ])}),
+	\upperLimit, 12,
+	\lowerLimit, 0,
+	\note, Pfunc { |ev| ~chord.([0,3,4,5,6,7,8,9], ev.lowerLimit, ev.upperLimit)},
 );
 
 Pbindef(\x7add11,
-	\note, Pn(Plazy{ |ev| ~chord.([0,3,4,5,6,7,10,11 ])}),
+	\upperLimit, 12,
+	\lowerLimit, 0,
+	\note, Pfunc { |ev| ~chord.([0,3,4,5,6,7,10,11], ev.lowerLimit, ev.upperLimit)},
 );
 
 Pbindef(\x7add13,
-	\note, Pn(Plazy{ |ev| ~chord.([0,3,4,7,8,9,10,11 ])}),
+	\upperLimit, 12,
+	\lowerLimit, 0,
+	\note, Pfunc { |ev| ~chord.([0,3,4,7,8,9,10,11], ev.lowerLimit, ev.upperLimit)},
 );
 
 Pbindef(\x7add9_11,
-	\note, Pn(Plazy{ |ev| ~chord.([0,1,2,3,4,5,6,7,10,11 ])}),
+	\upperLimit, 12,
+	\lowerLimit, 0,
+	\note, Pfunc { |ev| ~chord.([0,1,2,3,4,5,6,7,10,11], ev.lowerLimit, ev.upperLimit)},
 );
 
 Pbindef(\x7add9_13,
-	\note, Pn(Plazy{ |ev| ~chord.([0,1,2,3,4,7,8,9,10,11 ])}),
+	\upperLimit, 12,
+	\lowerLimit, 0,
+	\note, Pfunc { |ev| ~chord.([0,1,2,3,4,7,8,9,10,11], ev.lowerLimit, ev.upperLimit)},
 );
 
 Pbindef(\xAdd11_13,
-	\note, Pn(Plazy{ |ev| ~chord.([0,3,4,5,6,7,8,9 ])}),
+	\upperLimit, 12,
+	\lowerLimit, 0,
+	\note, Pfunc { |ev| ~chord.([0,3,4,5,6,7,8,9], ev.lowerLimit, ev.upperLimit)},
 );
 
 
@@ -131,7 +177,9 @@ Pbindef(\xAdd11_13,
 
 
 Pbindef(\tensions,
-		\note, Pn(Plazy{ |ev| ~chord.([1,2,5,6,8,9])}),
+	\upperLimit, 12,
+	\lowerLimit, 0,
+	\note, Pfunc { |ev| ~chord.([1,2,5,6,8,9], ev.lowerLimit, ev.upperLimit)},
 );
 
 /////////////////////////////////
@@ -144,54 +192,92 @@ Pbindef(\tensions,
 ///////////////////////////////// ARPS
 
 Pbindef(\rawArp,
-	\note, Pn(Plazy{ Pseq(~pitchesRootDissonance[\pitches], 1)}),
+	\upperLimit, 36,
+	\lowerLimit, -36,
+	\transpositionHarmonics, 1,
+	\chordTranspositions, 0,
+	\note, Pn(Plazy{ |ev|
+		Pseq(~chord.([0,1,2,3,4,5,6,7,8,9,10,11], ev.lowerLimit, ev.upperLimit, ev.transpositionHarmonics, ev.chordTranspositions),
+			1)}),
 );
 
-Pbindef(\allOctavesArp,
-	\note, Pn(Plazy{ Pseq(
-		~pitchesAndOctaves.(
-			~pitchesRootDissonance[\pitches], -36, 36), 1)}),
+Pbindef(\arp,
+	\upperLimit, 36,
+	\lowerLimit, -36,
+	\transpositionHarmonics, 1,
+	\chordTranspositions, 10,
+	\note, Pn(Plazy{ |ev|
+		Pseq(~chord.([0,1,2,3,4,5,6,7,8,9,10,11], ev.lowerLimit, ev.upperLimit, ev.transpositionHarmonics, ev.chordTranspositions),
+			1)}),
 );
 
-Pbindef(\allOctavesTriadArp,
-	\note, Pn(Plazy{ Pseq(
-		~intervalFilter.(
-			~pitchesAndOctaves.(~pitchesRootDissonance[\pitches], -36, 36),
-			~pitchesRootDissonance[\root],
-			[0,3,4,7]),
-		1)}),
+Pbindef(\triadArp,
+	\upperLimit, 36,
+	\lowerLimit, -36,
+	\transpositionHarmonics, 1,
+	\chordTranspositions, 10,
+	\note, Pn(Plazy{ |ev|
+		Pseq(~chord.([0,3,4,7], ev.lowerLimit, ev.upperLimit, ev.transpositionHarmonics, ev.chordTranspositions),
+			1)}),
 );
 
-Pbindef(\allOctavesSeventhArp,
-	\note, Pn(Plazy{ Pseq(
-		~intervalFilter.(
-			~pitchesAndOctaves.(~pitchesRootDissonance[\pitches], -36, 36),
-			~pitchesRootDissonance[\root],
-			[0,3,4,7,10,11]),
-		1)}),
+Pbindef(\tetraArp,
+	\upperLimit, 36,
+	\lowerLimit, -36,
+	\transpositionHarmonics, 1,
+	\chordTranspositions, 10,
+	\note, Pn(Plazy{ |ev|
+		Pseq(~chord.([0,3,4,7,10,11], ev.lowerLimit, ev.upperLimit, ev.transpositionHarmonics, ev.chordTranspositions),
+			1)}),
 );
 
-Pbindef(\allOctavesTensionsArp,
-	\note, Pn(Plazy{ Pseq(
-		~intervalFilter.(
-			~pitchesAndOctaves.(~pitchesRootDissonance[\pitches], -36, 36),
-			~pitchesRootDissonance[\root],
-			[1,2,5,6,8,9]),
-		1)}),
+Pbindef(\tensionsArp,
+	\upperLimit, 36,
+	\lowerLimit, -36,
+	\transpositionHarmonics, 1,
+	\chordTranspositions, 10,
+	\note, Pn(Plazy{ |ev|
+		Pseq(~chord.([1,2,5,6,8,9], ev.lowerLimit, ev.upperLimit, ev.transpositionHarmonics, ev.chordTranspositions),
+			1)}),
 );
-
-Pbindef(\midArp,
-	\note, Pn(Plazy{ Pseq(~pitchesAndOctaves.(~pitchesRootDissonance[\pitches],0 ,12), 1)}) + 12,
-);
-
-
-
 
 
 ///////////////////////////////// PATTERNS
 
-Pbindef(\pat_332,
-	\note, Plazy { ~pitchTriggerRepeat.(~pitchesRootDissonance[\pitches].mod(12), [3, 3, 2], [2, 1, 0]) }
+Pbindef(\pat_332_up,
+	\upperLimit, 12,
+	\lowerLimit, 0,
+	\transpositionHarmonics, 1,
+	\chordTranspositions, 10,
+	\patternScale, Pfunc { |ev| ~chord.([0,1,2,3,4,5,6,7,8,9,10,11], ev.lowerLimit, ev.upperLimit, ev.transpositionHarmonics, ev.chordTranspositions)},
+	\note, Plazy { |ev| ~pitchTriggerRepeat.(ev.patternScale, [3, 3, 2], (0..(ev.patternScale.size-1)) ) }
+);
+
+Pbindef(\pat_332_upDown,
+	\upperLimit, 12,
+	\lowerLimit, 0,
+	\transpositionHarmonics, 1,
+	\chordTranspositions, 10,
+	\patternScale, Pfunc { |ev| ~chord.([0,1,2,3,4,5,6,7,8,9,10,11], ev.lowerLimit, ev.upperLimit, ev.transpositionHarmonics, ev.chordTranspositions)},
+	\note, Plazy { |ev| ~pitchTriggerRepeat.(ev.patternScale, [3, 3, 2], (0..(ev.patternScale.size-1)) ++ ((ev.patternScale.size-2)..1) ) }
+);
+
+Pbindef(\pat_332_down,
+	\upperLimit, 12,
+	\lowerLimit, 0,
+	\transpositionHarmonics, 1,
+	\chordTranspositions, 10,
+	\patternScale, Pfunc { |ev| ~chord.([0,1,2,3,4,5,6,7,8,9,10,11], ev.lowerLimit, ev.upperLimit, ev.transpositionHarmonics, ev.chordTranspositions)},
+	\note, Plazy { |ev| ~pitchTriggerRepeat.(ev.patternScale, [3, 3, 2], ((ev.patternScale.size-1..0)) ) }
+);
+
+Pbindef(\pat_332_downUp,
+	\upperLimit, 12,
+	\lowerLimit, 0,
+	\transpositionHarmonics, 1,
+	\chordTranspositions, 10,
+	\patternScale, Pfunc { |ev| ~chord.([0,1,2,3,4,5,6,7,8,9,10,11], ev.lowerLimit, ev.upperLimit, ev.transpositionHarmonics, ev.chordTranspositions)},
+	\note, Plazy { |ev| ~pitchTriggerRepeat.(ev.patternScale, [3, 3, 2], ((ev.patternScale.size-1)..0) ++ (1..(ev.patternScale.size-2)) ) }
 );
 
 Pbindef(\pat_332_mid,
@@ -210,33 +296,6 @@ Pbindef(\pat_332_allArp,
 			(0..(~pitchesRootDissonance[\pitches].size-1))
 	)},
 );
-
-
-Pbindef(\third_OT_JI,
-	\note, Pn(Plazy{ |ev|
-		Pseq([~intervalFilter.(
-			~pitchesAnd8OvertonesJI.(~pitchesRootDissonance[\pitches],0 ,12),
-			~pitchesRootDissonance[\root],
-			[0,1,2,3,4,5,6,7,8,9,10,11]),
-	], 1)}),
-);
-
-Pbindef(\third_OT_JI,
-	\note, Pn(Plazy{ |ev|
-		Pseq([~intervalFilter.(
-			~pitchesAnd8OvertonesJI.(~pitchesRootDissonance[\pitches],0 ,12),
-			~pitchesRootDissonance[\root],
-			[3,4]),
-	], 1)}),
-);
-
-
-//
-// Pbindef(\melTestDuration,
-// 	\note, Plazy { ~pitchTriggerDuration.(~pitchesRootDissonance[\pitches].mod(12), [3, 3, 2], [2, 1, 0]) }
-// );
-//
-
 
 "pitch patterns loaded".postln;
 

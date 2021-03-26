@@ -23,6 +23,7 @@ var loadStuff = {
 	"patterns/patternFunctions.scd".loadRelative;
 	"patterns/rhythmicPatterns.scd".loadRelative;
 	"patterns/pitchPatterns.scd".loadRelative;
+	"patterns/drumFills.scd".loadRelative;
 
 	"loading control interfaces".postln;
 	"control_interfaces/midi_defs_launchcontrol-xl.scd".loadRelative;

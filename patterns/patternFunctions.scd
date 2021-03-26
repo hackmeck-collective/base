@@ -54,13 +54,17 @@
 	transposedBack;
 };
 
-~chord = { |chordtones, lowerLimit = 0, upperLimit = 12, harmonics = 1|
+~chord = { |chordtones, lowerLimit = 0, upperLimit = 12, harmonics = 1, transpositions = 10|
 	~intervalFilter.(
-		~pitchesAndOctaves.(~pitchesRootDissonance[\pitches], lowerLimit, upperLimit, harmonics),
+		~pitchesAndOctaves.(~pitchesRootDissonance[\pitches], lowerLimit, upperLimit, harmonics, transpositions),
 		~pitchesRootDissonance[\root],
 		chordtones)
 };
 
+
+
 ~pitchPerDuration = { |pitchArray, durations|
 	Ptsym(Pseq(pitchArray, inf),dur: Pseq(durations, inf))
 };
+
+//~chord.([0,1,2,3,4,5,6,7,8,9,10,11],-36,36,1,0);

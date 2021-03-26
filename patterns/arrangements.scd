@@ -2,10 +2,14 @@ Document.open(thisProcess.nowExecutingPath.dirname +/+ "pitchPatterns.scd");
 Document.open(thisProcess.nowExecutingPath.dirname +/+ "rhythmicPatterns.scd");
 Document.open(thisProcess.nowExecutingPath.dirname +/+ "patternFunctions.scd");
 
-/////////////////// ev funktioniert nicht?
+~instrPreset.create(\crash)
+~instrPreset.edit(\boom)
 
-~instrPreset.create(\tonalSwoosh)
-~instrPreset.edit(\noiseSwoosh)
+
+
+(Pdef(\sd3) <> ~quarterFills).play(~linkClock, quant: 1);
+(Pdef(\sd3) <> ~halfFills).play(~linkClock, quant: 2);
+
 
 //////// RHYTHMEN mit INSTRUMENTEN verketten
 
@@ -46,59 +50,67 @@ Document.open(thisProcess.nowExecutingPath.dirname +/+ "patternFunctions.scd");
 ~boom.stop;
 ~boom =  ( Pdef(\boom) <> Pbindef(\root) <> Pbindef(\pulse, \stretch, 16) ).play(~linkClock, quant: 4);
 
+
 ~longSwoosh.stop;
 ~longSwoosh =  ( Pdef(\noiseSwoosh) <> Pbindef(\root) <> Pbindef(\pulse, \stretch, 8) ).play(~linkClock, quant: 4);
 Pdef(\noiseSwoosh).source
 
 
-~pluck = ( Pdef(\srrPluck) <> Pn(Psync(Pbindef(\third,),maxdur:4)) <> Pbindef(\pulse_4_ob)).play(~linkClock, quant: 8);
 
-~pluck_ob = ( Pdef(\srrPluck) <> Pn(Psync(Pbindef(\tensions),maxdur:4)) <> Pbindef(\pulse_8_ob)).play(~linkClock, quant: 8);
+~pluck.stop;
+~pluck = ( Pdef(\srrPluck) <> Pn(Psync(Pbindef(\triad, \upperLimit, 24, \lowerLimit, 12),maxdur:4)) <> Pbindef(\pulse_4_ob)).play(~linkClock, quant: 8);
 
-~pluck = ( Pdef(\srrPluck) <> Pn(Psync(Pbindef(\rawArp),maxdur:4)) <> Pbindef(\pulse_16)).play(~linkClock, quant: 8);
+~pluck_op.stop;
+~pluck_ob = ( Pdef(\srrPluck) <> Pn(Psync(Pbindef(\xSus4, \upperLimit, 24, \lowerLimit, 12),maxdur:4)) <> Pbindef(\pulse_8_ob)).play(~linkClock, quant: 8);
 
-~pluck = ( Pdef(\simplePluck) <> Pn(Psync(Pbindef(\allOctavesArp),maxdur:4)) <> Pbindef(\pulse_16)).play(~linkClock, quant: 8);
-~pluck_ob.stop
-~pluck = ( Pdef(\simplePluck) <> Pn(Psync(Pbindef(\allOctavesTriadArp),maxdur:4)) <> Pbindef(\pulse_16)).play(~linkClock, quant: 8);
 
-~pluck = ( Pdef(\simplePluck) <> Pn(Psync(Pbindef(\allOctavesTetraArp),maxdur:4)) <> Pbindef(\pulse_16)).play(~linkClock, quant: 8);
+~pluck.stop;
+~pluck = ( Pdef(\srrPluck) <> Pn(Psync(Pbindef(\arp,
+	\upperLimit, 0,
+	\lowerLimit, -36,
+	\transpositionHarmonics, 1,
+	\chordTranspositions, 10),maxdur:8))
+<> Pbindef(\pulse_16)).play(~linkClock, quant: 8);
 
-~pluck = ( Pdef(\simplePluck) <> Pn(Psync(Pbindef(\allOctavesTensionsArp),maxdur:4)) <> Pbindef(\pulse_16)).play(~linkClock, quant: 8);
 
-~pluck = ( Pdef(\srrPluck) <> Pn(Psync(Pbindef(\midArp),maxdur:4)) <> Pbindef(\pulse_16)).play(~linkClock, quant: 8);
+~pluckRev.stop;
+~pluckrev = ( Pdef(\simplePluckReverse) <> Pn(Psync(Pbindef(\arp,
+	\upperLimit, 36,
+	\lowerLimit, 0,
+	\transpositionHarmonics,1,
+	\chordTranspositions, 10),maxdur:16))
+<> Pbindef(\pulse_16)).play(~linkClock, quant: 8);
 
-~pluckRev = ( Pdef(\simplePluckReverse) <> Pn(Psync(Pbindef(\pat_332),maxdur:8)) <> Pbindef(\pulse_8) ).play(~linkClock, quant: 4);
 
-~pluck2 = ( Pdef(\simplePluck) <> (strum: -0.02) <> Ptsym(Pseq([\xSus4, \triad, \x7sus4, \allOctavesTensionsArp], inf),dur: Pseq([2], inf)) <> Pbindef(\euclidean_16th_rng) ).play(~linkClock, quant: 4);
+~pluckRev.stop;
+~pluckRev = ( Pdef(\simplePluckReverse)
+	<> Pn(Psync(Pbindef(\pat_332_downUp,
+		\upperLimit, 0,
+		\lowerLimit, -12,),maxdur:32)) <> Pbindef(\pulse_8) ).play(~linkClock, quant: 4);
+
+
+~pluck2.stop;
+~pluck2 = ( Pdef(\simplePluck) <> Ptsym(Pseq([\xSus4, \triad, \x7sus4, \tensionsArp], inf),dur: Pseq([2], inf)) <> Pbindef(\euclidean_16th_rng) ).play(~linkClock, quant: 4);
 
 
 ~pluck3.stop;
-~pluck3 = ( Pdef(\variedPlucks) <> ~chord.( <> Pbindef(\pulse_16)  ).play(~linkClock, quant: 4);
+~pluck3 = ( Pdef(\variedPlucks) <> Pbindef(\fifth) <> Pbindef(\pulse_16)  ).play(~linkClock, quant: 4);
 
 
 
 
 
 
-
-~pluck.stop
-~pluck_ob.stop
-~pluckRev.stop
-
-~bd.stop
-
-~instrPreset.edit(\simplePluck)
-~instrPreset.create(\srrPluck)
 
 
 
 (
-Pbindef(\guitarCloud,
-	\dur, Pseq([4], inf),
-	\note, Pfunc {~pitchesRootDissonance[\root]} + Pseq([[-12, 0]], inf),
-	\harmonic, Ptuple([1] ++ (Pwhite(1, 8).round ! 3), inf),
-	\filter_mod_1, 0,
-).play(~linkClock, quant: 4);
+	Pbindef(\guitarCloud,
+		\dur, Pseq([4], inf),
+		\note, Pfunc {~pitchesRootDissonance[\root]} + Pseq([[-12, 0]], inf),
+		\harmonic, Ptuple([1] ++ (Pwhite(1, 8).round ! 3), inf),
+		\filter_mod_1, 0,
+	).play(~linkClock, quant: 4);
 )
 
 Pbindef(\guitarCloud).stop(quant: 4);

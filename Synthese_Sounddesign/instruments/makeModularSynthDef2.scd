@@ -250,8 +250,8 @@
 				//Out.ar(send_2, vca * send_2_level);
 			}
 		)
-		.asCompileString.replace("\"mod1TargetPlaceholder\"", replace: mod1TargetLine)
-		.interpret
+		// .asCompileString.replace("\"mod1TargetPlaceholder\"", replace: mod1TargetLine)
+		// .interpret
 		.add;
 	};
 	synthDefName;
