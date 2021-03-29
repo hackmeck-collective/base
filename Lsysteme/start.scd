@@ -29,7 +29,4 @@ s.waitForBoot {
 }
 )
 
-Pspawner flexibler als Ptsym?
-// vorschlag: vol durch amp ersetzen
-
 ~ctl.scale  = 4.collect { |i| ~objSpace_philipp[\pitches] + (i * 12) }.flat.sort
