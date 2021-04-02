@@ -47,9 +47,10 @@ if (~port.isNil) {
 
 
 (
-
-"GUI Hindemith LaunchControl.scd".loadRelative;
-
+var hoehe, breite;
+var platz;
+var fontsize;
+var string;
 
 //Message-Parsing
 MIDIdef.cc(\launchControlKnobs, {
@@ -77,6 +78,8 @@ MIDIdef.cc(\launchControlKnobs, {
 				~sendWithHail.((list: ~listAndParameters.list, rootNote: ~listAndParameters.rootNote));
 			}
 		}
+
+
 	}
 	{ num == 22 } { //Drehknopf 2 oben
 		//rootNote
@@ -89,6 +92,8 @@ MIDIdef.cc(\launchControlKnobs, {
 			~listAndParameters.list = ~listAndParameters.list + diffRootNotes;
 			~listAndParameters.rootNote = newRootValue;
 
+
+			//aktualisieren der GUI
 			~actualizeGUI.value;
 
 			~sendWithHail.((list: ~listAndParameters.list, rootNote: ~listAndParameters.rootNote));
@@ -101,8 +106,10 @@ MIDIdef.cc(\launchControlKnobs, {
 		var newNumberOfNotes = val.linlin(0,127,3,5).round.asInteger; //3 bis 5
 		if (~listAndParameters.numNotes != newNumberOfNotes && (~gateOpen[3] == true))
 		{
+
 			~listAndParameters.numNotes = newNumberOfNotes;
 			~arrayOfEventsWithLists = ~getArrayOfEventsWithLists.value;
+
 
 			if (~arrayOfEventsWithLists.notNil) {
 				var diffRootNotes; //Variable zum Erhalt der aktuellen Root Note.
@@ -112,6 +119,7 @@ MIDIdef.cc(\launchControlKnobs, {
 				diffRootNotes = ~listAndParameters.rootNote - ~eventWithListAndRoot.rootNote.mod(12); //Alt minus neu
 				~listAndParameters.list = ~eventWithListAndRoot.list + diffRootNotes;
 
+				//aktualisieren der GUI
 				~actualizeGUI.value;
 
 				~sendWithHail.((list: ~listAndParameters.list, rootNote: ~listAndParameters.rootNote))
@@ -150,46 +158,45 @@ MIDIdef.noteOn(\launchControlButtonsON, {
 	case
 	{ num == 9 } { // Button -1-
 		if (~gateOpen[1] == false)
-		{ ~gateOpen[1] = true; ~toLaunchControl.noteOn(0, 9, 63); //Macht Button 1 (note 9) bernsteingelb (veloc 63)
-			{~button1.value = 1;}.defer; //Buttonfarbe in der Gui setzen
-		}
-		{ ~gateOpen[1] = false; ~toLaunchControl.noteOn(0, 9, 12);
-			{~button1.value = 0;}.defer; //Buttonfarbe in der Gui setzen
-		}; //Macht Button 1 (note 9) aus. (veloc 12)
+		{ ~gateOpen[1] = true; ~toLaunchControl.noteOn(0, 9, 63);} //Macht Button 1 (note 9) bernsteingelb (veloc 63)
+		{ ~gateOpen[1] = false; ~toLaunchControl.noteOn(0, 9, 12);}; //Macht Button 1 (note 9) aus. (veloc 12)
 
+		{~bn.value = 1;}.defer; //Buttonfarbe in der Gui setzen
 	}
 	{ num == 10 } { // Button -2-
 		if (~gateOpen[2] == false)
-		{ ~gateOpen[2] = true; ~toLaunchControl.noteOn(0, 10, 63); //Macht Button 2 (note 10) bernsteingelb (veloc 63)
-			{~button2.value = 1;}.defer; //Buttonfarbe in der Gui setzen
-		}
-		{ ~gateOpen[2] = false; ~toLaunchControl.noteOn(0, 10, 12);
-			{~button2.value = 0;}.defer; //Buttonfarbe in der Gui setzen
-		}; //Macht Button 1 (note 9) aus. (veloc 12)
+		{ ~gateOpen[2] = true; ~toLaunchControl.noteOn(0, 10, 63);} //Macht Button 2 (note 9) bernsteingelb (veloc 63)
+		{ ~gateOpen[2] = false; ~toLaunchControl.noteOn(0, 10, 12);}; //Macht Button 2 (note 9) aus. (veloc 12)
 	}
 	{ num == 11 } { // Button -3-
 		if (~gateOpen[3] == false)
-		{ ~gateOpen[3] = true; ~toLaunchControl.noteOn(0, 11, 63); {~button3.value = 1}.defer}
-		{ ~gateOpen[3] = false; ~toLaunchControl.noteOn(0, 11, 12); {~button3.value = 0}.defer};
+		{ ~gateOpen[3] = true; ~toLaunchControl.noteOn(0, 11, 63);}
+		{ ~gateOpen[3] = false; ~toLaunchControl.noteOn(0, 11, 12);};
 	}
 	{ num == 12 } { //Button -4-
 		if (~gateOpen[4] == false)
-		{ ~gateOpen[4] = true; ~toLaunchControl.noteOn(0, 12, 63); {~button4.value = 1}.defer}
-		{ ~gateOpen[4] = false; ~toLaunchControl.noteOn(0, 12, 12); {~button4.value = 0}.defer};
+		{ ~gateOpen[4] = true; ~toLaunchControl.noteOn(0, 12, 63);}
+		{ ~gateOpen[4] = false; ~toLaunchControl.noteOn(0, 12, 12);};
 	}
 	{ num == 25 } { //Button -5-
 		if (~gateOpen[5] == false)
-		{ ~gateOpen[5] = true; ~toLaunchControl.noteOn(0, 25, 63); {~button5.value = 1}.defer}
-		{ ~gateOpen[5] = false; ~toLaunchControl.noteOn(0, 25, 12); {~button5.value = 0}.defer};
+		{ ~gateOpen[5] = true; ~toLaunchControl.noteOn(0, 25, 63);}
+		{ ~gateOpen[5] = false; ~toLaunchControl.noteOn(0, 25, 12);};
 	}
 	{ num == 26 } { //Button -6-
-
+		if (~gateOpen[5] == false)
+		{ ~gateOpen[5] = true; ~toLaunchControl.noteOn(0, 26, 63);}
+		{ ~gateOpen[5] = false; ~toLaunchControl.noteOn(0, 26, 12);};
 	}
 	{ num == 27 } { // Button -7-
-
+		if (~gateOpen[6] == false)
+		{ ~gateOpen[6] = true; ~toLaunchControl.noteOn(0, 27, 63);}
+		{ ~gateOpen[6] = false; ~toLaunchControl.noteOn(0, 27, 12);};
 	}
 	{ num == 28 } { // Button -8-
-
+		if (~gateOpen[7] == false)
+		{ ~gateOpen[7] = true; ~toLaunchControl.noteOn(0, 28, 63);}
+		{ ~gateOpen[7] = false; ~toLaunchControl.noteOn(0, 28, 12);};
 	}
 	;
 });
@@ -200,15 +207,79 @@ MIDIdef.noteOff(\launchControlButtonsOff, {
 	//[val, num].postln;
 	case
 	{ num == 9 } { //Button -1-
+		{~bn.value = 0;}.defer;  //Buttonfarbe setzen
 	}
 	{ num == 12 } { //Button -4-
+		{~bdg.value = 0;}.defer; //Buttonfarbe setzen
 	}
 	{ num == 25 } { //Button -5-
+		{~bda.value = 0;}.defer; //Buttonfarbe setzen
 	}
 	{ num == 26 } { //Button -6-
+		{~bdh.value = 0;}.defer; //Buttonfarbe setzen
 	}
 	;
 });
+
+//GUI
+
+breite = 120;
+hoehe = 50;
+platz = 10;
+fontsize = 15;
+
+w = Window.new(bounds: Rect(0, 300, 1100, 600)).front;
+//w.fullScreen;
+
+~td = StaticText(w, Rect(platz, platz, breite, 40));
+~td.string ="1 DISS.GRADE";
+~td.align=\center;
+~td.font = Font("Monaco", fontsize);
+~nd = NumberBox(w, Rect(platz + 50, hoehe + platz, 50, 50));
+~nd.font = Font("Monaco", fontsize);
+
+~tRoot = StaticText(w, Rect(2 * platz + breite, platz, breite, 40));
+~tRoot.string = "2 ROOT";
+~tRoot.align=\center;
+~tRoot.font = Font("Monaco", fontsize);
+~tRoot2 = TextField(w, Rect(2*platz + breite + 50, 1 * hoehe + platz, 50, 50));
+~tRoot2.font = Font("Monaco", fontsize);
+
+~tn = StaticText(w, Rect(4*platz + (2*breite), platz, breite, 40));
+~tn.string = "3 NUMBER \n NOTES";
+~tn.align=\center;
+~tn.font = Font("Monaco", fontsize);
+~nn = NumberBox(w, Rect(4*platz + (2*breite) + 50, 1 * hoehe + platz, 50, 50));
+~nn.font = Font("Monaco", fontsize);
+
+~bn = Button(w, Rect(platz, 6 * hoehe + platz, 100, 100))
+.states_([ ["push!", Color.black, Color.white], ["push!", Color.black, Color.gray] ]);
+
+~bnr = Button(w, Rect( 2* platz + breite,  6 * hoehe + platz, 100, 100))
+.states_([ ["2", Color.black, Color.white], ["2", Color.black, Color.gray] ]);
+
+~bNoR = Button(w, Rect( 4* platz + (2*breite),  6 * hoehe + platz, 100, 100))
+.states_([ ["3", Color.black, Color.white], ["3", Color.black, Color.gray] ]);
+
+~bdg = Button(w, Rect(6 * platz + (3 * breite), 6 * hoehe + platz, 100, 100))
+.states_([ ["-> AA on G", Color.black, Color.white], ["-> AA on G", Color.black, Color.gray] ]);
+
+~bda = Button(w, Rect(8 * platz + (4 * breite), 6 * hoehe + platz, 100, 100))
+.states_([ ["-> AA on A", Color.black, Color.white], ["-> AA on A", Color.black, Color.gray] ]);
+
+~bdh = Button(w, Rect(10 * platz + (5 * breite), 6 * hoehe + platz, 100, 100))
+.states_([ ["->  AA on H", Color.black, Color.white], ["->  AA on H", Color.black, Color.gray] ]);
+
+~bSc = Button(w, Rect(12 * platz + (6 * breite), 6 * hoehe + platz, 100, 100))
+.states_([ ["7", Color.black, Color.white], ["7", Color.black, Color.gray] ]);
+
+~bSo = Button(w, Rect(14 * platz + (7 * breite), 6 * hoehe + platz, 100, 100))
+.states_([ ["8", Color.black, Color.white], ["8", Color.black, Color.gray] ]);
+
+~tlist = TextField(w, Rect(breite, 8 * hoehe + ( 8 * platz), 1100 - breite - (2*platz), 40));
+~tlist.font = Font(size: 20);
+
+
 )
 
 
