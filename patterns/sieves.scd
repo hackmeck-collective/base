@@ -17,7 +17,7 @@ Pbindef(\sieveSD, \dur, PSVunion_i([Pseq([4,6],inf), Pseq([5,6],inf)]) / 8) // 1
 // bd dazu
 (
 ~hh = ( Pdef(\hh1) <> Pbind(\dur, 1/4) <> Pbindef(\root)  ).play(~linkClock, quant: 4);
-~sd = ( Pdef(\sd3) <> Pbindef(\sieveSD, \dur,PSVunion_i([Pseq([3, 2],inf), Pseq([2, 4, 3],inf)]) / 4) <> Pbindef(\fifth) ).play(~linkClock, quant: 4);
+~sd = ( Pdef(\sd2) <> Pbindef(\sieveSD, \dur,PSVunion_i([Pseq([3, 2],inf)]) / 4) <> Pbindef(\fifth) ).play(~linkClock, quant: 4);
 ~bd = ( Pdef(\bdThump) <> Pbindef(\sieveBD, \dur, PSVunion_i([Pseq([6, 2],inf), 9]) / 2)  <> Pbindef(\root)  ).play(~linkClock, quant: 4);
 )
 

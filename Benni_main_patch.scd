@@ -1,8 +1,15 @@
 (
-var waitForPeers = true;
+var waitForPeers = false;
+var multicoreSetup = false;
 var loadStuff = {
 	"loading signal flow".postln;
-	"Synthese_Sounddesign/signal_flow/groups_setup.scd".loadRelative;
+	if(multicoreSetup)
+{"Synthese_Sounddesign/signal_flow/groups_setup_multicore.scd".loadRelative;
+	"groups for multicore use created".postln;}
+{"Synthese_Sounddesign/signal_flow/groups_setup.scd".loadRelative;
+	"groups created".postln;
+	};
+
 	"Synthese_Sounddesign/signal_flow/controlbus_setup.scd".loadRelative;
 	"Synthese_Sounddesign/signal_flow/audiobus_setup.scd".loadRelative;
 	"Synthese_Sounddesign/signal_flow/sendFX_setup.scd".loadRelative;
@@ -10,7 +17,7 @@ var loadStuff = {
 
 	"loading instruments".postln;
 	"Synthese_Sounddesign/instruments/modules/0_load_modules.scd".loadRelative;
-	"Synthese_Sounddesign/instruments/makeModularSynthDef.scd".loadRelative;
+	"Synthese_Sounddesign/instruments/makeModularSynthDef2.scd".loadRelative;
 
 	"loading presets".postln;
 	"Presets/InstrumentPresetFunctions.scd".loadRelative;
@@ -49,7 +56,12 @@ var loadStuff = {
 
 Server.killAll;
 "reading audio server options".postln;
-"audio_server_options.scd".loadRelative;
+if(multicoreSetup)
+{"audio_server_options_multicore.scd".loadRelative;
+	"multicore server options loaded".postln;}
+{"audio_server_options.scd".loadRelative;
+	"server options loaded".postln;};
+
 "booting server".postln;
 s.waitForBoot {
 	if(MIDIClient.initialized.not){

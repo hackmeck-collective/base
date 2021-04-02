@@ -115,32 +115,32 @@
 	},
 
 	/*grainCloudGuitar: {arg freq = 440,
-		gate = 1,
-		oscillator_mod_1 = 0,
-		oscillator_mod_2 = 0;
+	gate = 1,
+	oscillator_mod_1 = 0,
+	oscillator_mod_2 = 0;
 
-		var grain_density = oscillator_mod_1.lincurve(0,1,1,10,3),
-		grain_rate = (freq.cpsmidi-69).midiratio * 15.midiratio,
-		grain_length_ratio = (2/grain_density) * oscillator_mod_2.lincurve(0,1,2,0.1,3);
+	var grain_density = oscillator_mod_1.lincurve(0,1,1,10,3),
+	grain_rate = (freq.cpsmidi-69).midiratio * 15.midiratio,
+	grain_length_ratio = (2/grain_density) * oscillator_mod_2.lincurve(0,1,2,0.1,3);
 
-		var grain_trigger, grain_position;
+	var grain_trigger, grain_position;
 
-		grain_trigger = Dust.ar(grain_density);
-		grain_position = 0.1 + Latch.ar(WhiteNoise.ar().abs/2,grain_trigger);
+	grain_trigger = Dust.ar(grain_density);
+	grain_position = 0.1 + Latch.ar(WhiteNoise.ar().abs/2,grain_trigger);
 
-		GrainBuf.ar(
-			1,
-			grain_trigger,
-			grain_length_ratio,
-			~grainCloudRecord_buffer,
-			grain_rate,
-			grain_position,
-			4,
-			Latch.ar(WhiteNoise.ar(),grain_trigger),
-			-1,
-			16,
-			0.5
-		);
+	GrainBuf.ar(
+	1,
+	grain_trigger,
+	grain_length_ratio,
+	~grainCloudRecord_buffer,
+	grain_rate,
+	grain_position,
+	4,
+	Latch.ar(WhiteNoise.ar(),grain_trigger),
+	-1,
+	16,
+	0.5
+	);
 	},*/
 
 	modal: {arg freq = 440,
@@ -194,6 +194,19 @@
 
 	},
 
+	ping: {arg freq = 440,
+		gate = 1,
+		oscillator_mod_1 = 0,
+		oscillator_mod_2 = 0;
+
+		var sig;
+
+		sig = LeakDC.ar(
+			EnvGen.ar(
+				Env.perc(0, 0.02, 2, 0),
+				gate) - 1,
+			);
+	},
 
 );
 );

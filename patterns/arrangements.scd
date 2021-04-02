@@ -2,8 +2,10 @@ Document.open(thisProcess.nowExecutingPath.dirname +/+ "pitchPatterns.scd");
 Document.open(thisProcess.nowExecutingPath.dirname +/+ "rhythmicPatterns.scd");
 Document.open(thisProcess.nowExecutingPath.dirname +/+ "patternFunctions.scd");
 
-~instrPreset.create(\laash)
-~instrPreset.edit(\detuneLead);
+~instrPreset.create(\template_default)
+~instrPreset.create_d(\template_drum)
+~instrPreset.create_o(\template_synth)
+~instrPreset.edit(\sd2);
 
 // root note und drums mit phillip klären
 // reboot  funktion problematik mit vincent klären
@@ -13,6 +15,18 @@ Document.open(thisProcess.nowExecutingPath.dirname +/+ "patternFunctions.scd");
 
 
 //////// RHYTHMEN mit INSTRUMENTEN verketten
+
+
+~lfoTest.stop;
+~lfoTest = ( Pdef(\template_drum) <> Pbindef(\arp, \upperLimit, 24, \lowerLimit, -24) <> Pbindef(\pulse)  ).play(~linkClock, quant: 4);
+
+
+
+~loop1 = {( Pdef(\bdThump) <> Pbindef(\root) <> Pbindef(\bd_pattern_8th_rng) ).play(~linkClock, quant: 4);
+	( Pdef(\bd1) <> Pbindef(\root) <> Pbindef(\pulse_2) ).play(~linkClock, quant: 4);
+	( Pdef(\sd1) <> Pbindef(\fifth) <> Pbindef(\sd_pattern_1)  ).play(~linkClock, quant: 4);}
+
+~loop1.
 
 
 ~bd.stop;
@@ -42,7 +56,7 @@ Document.open(thisProcess.nowExecutingPath.dirname +/+ "patternFunctions.scd");
 ~bd2.stop;
 ~bd2 = ( Pdef(\bd1) <> Pbindef(\root) <> Pbindef(\pulse_2) ).play(~linkClock, quant: 4);
 ~sd.stop;
-~sd = ( Pdef(\sd1) <> Pbindef(\fifth) <> Pbindef(\pulse_2_ob)  ).play(~linkClock, quant: 4);
+~sd = ( Pdef(\sd2) <> Pbindef(\fifth) <> Pbindef(\pulse_2_ob)  ).play(~linkClock, quant: 4);
 ~sd2.stop;
 ~sd2 = ( Pdef(\sd2) <> Pbindef(\fifth) <> Pbindef(\pulse_4_ob)  ).play(~linkClock, quant: 4);
 ~sdSwoosh.stop;
@@ -106,9 +120,6 @@ Pdef(\pluckRevLong, Pdef(\simplePluckReverse) <> Pn(Psync(Pbindef(\rawPitches, \
 ~pluck3.stop;
 ~pluck3 = ( Pdef(\variedPlucks) <> Pbindef(\triad) <> Pbindef(\pulse_8_ob)  ).play(~linkClock, quant: 4);
 
-~lfoTest.stop;
-~lfoTest = ( Pdef(\lfoTest) <> Pbindef(\arp, \upperLimit, 24, \lowerLimit, -24) <> Pbindef(\pulse)  ).play(~linkClock, quant: 4);
-
 ~source_group.release;
 Pdef.all.do{ |item| Pdef(item).stop}
 
@@ -146,12 +157,12 @@ Pdef.all.do{ |item| Pdef(item).stop}
 
 
 (
-	Pbindef(\guitarCloud,
-		\dur, Pseq([4], inf),
-		\note, Pfunc {~pitchesRootDissonance[\root]} + Pseq([[-12, 0]], inf),
-		\harmonic, Ptuple([1] ++ (Pwhite(1, 8).round ! 3), inf),
-		\filter_mod_1, 0,
-	).play(~linkClock, quant: 4);
+Pbindef(\guitarCloud,
+	\dur, Pseq([4], inf),
+	\note, Pfunc {~pitchesRootDissonance[\root]} + Pseq([[-12, 0]], inf),
+	\harmonic, Ptuple([1] ++ (Pwhite(1, 8).round ! 3), inf),
+	\filter_mod_1, 0,
+).play(~linkClock, quant: 4);
 )
 
 Pbindef(\guitarCloud).stop(quant: 4);

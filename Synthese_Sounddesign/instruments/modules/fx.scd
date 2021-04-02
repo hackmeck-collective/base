@@ -24,12 +24,12 @@
 		in * LFPulse.ar(speed, mul: depth, add: (1 - depth));
 	},
 
-/*	tremoloSaw: {arg in, gate, freq = 440, fx_mod_1, fx_mod_2, beatDuration, syncMultiplier;
+	/*	tremoloSaw: {arg in, gate, freq = 440, fx_mod_1, fx_mod_2, beatDuration, syncMultiplier;
 
-		var depth = fx_mod_1.lincurve(0,1,0,1,3),
-		speed = 1 / (beatDuration * 4 * fx_mod_2);
+	var depth = fx_mod_1.lincurve(0,1,0,1,3),
+	speed = 1 / (beatDuration * 4 * fx_mod_2);
 
-		in * Clip.ar((depth - LFSaw.ar(speed, mul: depth, add: (1 - depth))).neg);
+	in * Clip.ar((depth - LFSaw.ar(speed, mul: depth, add: (1 - depth))).neg);
 	},*/
 
 	tremoloRamp: {arg in, gate, freq = 440, fx_mod_1, fx_mod_2, beatDuration, syncMultiplier;
@@ -136,6 +136,26 @@
 			Latch.ar(
 				in, Impulse.ar(freq * sample_rate_ratio)
 		), freq * 0.5);
+	},
+
+	bitcrush: {arg in, gate, freq = 440, fx_mod_1 = 0, fx_mod_2 = 0;
+
+		var sig, bits = fx_mod_1.lincurve(0,1,1,16,3), steps;
+
+		steps = (2**bits).round;
+
+		sig = (in).round(steps.reciprocal);
+
+	},
+
+	bitcrush: {arg in, gate, freq = 440, fx_mod_1 = 0, fx_mod_2 = 0;
+
+		var sig, bits = fx_mod_1.lincurve(0,1,1,16,3), steps;
+
+		steps = (2**bits).round;
+
+		sig = (in).round(steps.reciprocal);
+
 	},
 
 	noFx: {arg in;

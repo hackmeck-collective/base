@@ -1,6 +1,11 @@
 "initializing send effects".postln;
 
 ~ef_reverb ?? {~ef_reverb = Bus.audio(s,2)};
+/*~simpleDelay_4 ?? {~simpleDelay_4 = Bus.audio(s,2)};
+~simpleDelay_4d ?? {~simpleDelay_4d = Bus.audio(s,2)};
+~simpleDelay_8 ?? {~simpleDelay_8 = Bus.audio(s,2)};*/
+~simpleDelay_8d ?? {~simpleDelay_8d = Bus.audio(s,2)};
+
 
 SynthDef(\ef_reverb, {
 	arg in = ~ef_reverb,
@@ -34,7 +39,7 @@ SynthDef(\ef_reverb, {
 
 	var duck_verb = EnvGen.ar(Env([1,sidechain_amount,1],[0.01, 0.99], -2),sidechain_trigger, timeScale: beatDurNow);
 
-	temp = In.ar(~ef_reverb, 2);
+	temp = InFeedback.ar(~ef_reverb, 2);
 
 	wet=0;
 
@@ -54,12 +59,105 @@ SynthDef(\ef_reverb, {
 
 }).add;
 
+
+
+SynthDef(\simpleDelay_8d, {
+	arg in = ~simpleDelay_8d,
+	beatDurNow = 1;
+
+	var input, inputDelay, feedback, delay;
+
+	input = In.ar(~simpleDelay_8d, 2);
+
+	inputDelay = DelayL.ar(input, delaytime: ControlRate.ir.reciprocal);
+
+	feedback = LocalIn.ar(2) * 0.5;
+
+	delay = HPF.ar(DelayL.ar((inputDelay + feedback), 4, (beatDurNow * 0.75) - ControlRate.ir.reciprocal), 500);
+
+	LocalOut.ar(delay);
+
+	Out.ar(~effect_bus, delay);
+	Out.ar(~ef_reverb, delay * 0.25);
+
+
+}).add;
+
+
+/*
+SynthDef(\simpleDelay_4, {
+	arg in = ~simpleDelay_4,
+	beatDurNow = 1;
+
+	var input, inputDelay, feedback, delay;
+
+	input = In.ar(~simpleDelay_4, 2);
+
+	inputDelay = DelayL.ar(input, delaytime: ControlRate.ir.reciprocal);
+
+	feedback = LocalIn.ar(2) * 0.5;
+
+	delay = HPF.ar(DelayL.ar((inputDelay + feedback), 4, beatDurNow - ControlRate.ir.reciprocal), 500);
+
+	LocalOut.ar(delay);
+
+	Out.ar(~effect_bus, delay);
+
+}).add;
+
+SynthDef(\simpleDelay_4d, {
+	arg in = ~simpleDelay_4d,
+	beatDurNow = 1;
+
+	var input, inputDelay, feedback, delay;
+
+	input = In.ar(~simpleDelay_4d, 2);
+
+	inputDelay = DelayL.ar(input, delaytime: ControlRate.ir.reciprocal);
+
+	feedback = LocalIn.ar(2) * 0.5;
+
+	delay = HPF.ar(DelayL.ar((inputDelay + feedback), 4, (beatDurNow * 1.5) - ControlRate.ir.reciprocal), 500);
+
+	LocalOut.ar(delay);
+
+	Out.ar(~effect_bus, delay);
+
+}).add;
+
+SynthDef(\simpleDelay_8, {
+	arg in = ~simpleDelay_8,
+	beatDurNow = 1;
+
+	var input, inputDelay, feedback, delay;
+
+	input = In.ar(~simpleDelay_8, 2);
+
+	inputDelay = DelayL.ar(input, delaytime: ControlRate.ir.reciprocal);
+
+	feedback = LocalIn.ar(2) * 0.5;
+
+	delay = HPF.ar(DelayL.ar((inputDelay + feedback), 4, (beatDurNow * 0.5) - ControlRate.ir.reciprocal), 500);
+
+	LocalOut.ar(delay);
+
+	Out.ar(~effect_bus, delay);
+
+}).add;
+
+*/
+
 "starting send effects".postln;
 
 s.sync;
 ~startSendFX = {
 	~sendFX = ();
-	~sendFX.ef_reverb = Synth.new(\ef_reverb,target: ~effect_group); //kann ich das hier auslagern????
+	~sendFX.ef_reverb = Synth.new(\ef_reverb, target: ~effect_group);
+/*	~sendFX.simpleDelay_4 = Synth.new(\simpleDelay_4, target: ~effect_group);
+	~sendFX.simpleDelay_4d = Synth.new(\simpleDelay_4d, target: ~effect_group);
+	~sendFX.simpleDelay_8 = Synth.new(\simpleDelay_8, target: ~effect_group);*/
+	~sendFX.simpleDelay_8d = Synth.new(\simpleDelay_8d, target: ~effect_group);
+	//kann ich das hier auslagern????
 };
 
 ServerTree.add({ ~startSendFX.value });
