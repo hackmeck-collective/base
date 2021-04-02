@@ -1,7 +1,7 @@
 (
 "initialize adressbook".postln;
 ~addrBook ?? ~addrBook = AddrBook.new;
-~addrBook.addMe(\Benni);
+~addrBook.addMe;
 ~hail = Hail.new(~addrBook);
 
 "initialize OSC Object Spaces".postln;
