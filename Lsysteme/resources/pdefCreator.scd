@@ -1,40 +1,54 @@
 ~makePdef = { |name, lsys|
 	Pdef((name.asString ++ "Inf").asSymbol, Pn(Pdef(name)));
 	Pdef(name,
-		Pdef((name.asString ++ "_filter").asSymbol, Pbind());
+		// filter fuer das komplette lsys
+		Pdef((name.asString ++ "_filter").asSymbol).source ?? {
+			Pdef((name.asString ++ "_filter").asSymbol, Pbind())
+		};
+		// filter fuer die einzelnen branches
+		lsys.maxKey.do {|i|
+			Pdef((name.asString ++ "_filter" ++ i).asSymbol).source ?? {
+				Pdef((name.asString ++ "_filter" ++ i).asSymbol, Pbind())
+			}
+		};
+
 		Pdef((name.asString ++ "_innerPdef").asSymbol, {
 			var top = topEnvironment;
 			var startOffsets = lsys.startTimes * ~baseTempo;
 			var voices = lsys.stream.collect { |voiceEvent|
 				var myKey = voiceEvent.myKey.asInteger,
 				noFirstPoint = true,
+				muteMe = ~mute.asArray.wrapAt(myKey).next,
 				firstPoint,
 				lastPoint,
 				addPitch = if(~useGlobalPitch){top[\lsys].globalPitch + top[\lsys].globalPitchBalance}{0};
-				PmonoArtic2() <> Pdef((name.asString ++ "_filter").asSymbol) <> Pbind(
+				PmonoArtic2() <>
+				Pdef((name.asString ++ "_filter" ++ myKey).asSymbol) <>
+				Pdef((name.asString ++ "_filter").asSymbol) <>
+				Pbind(
+					\branchTotalDur, ~baseTempo * (voiceEvent.lastTime - voiceEvent.firstTime),
 					\dur, ~baseTempo,
-/*					\pats, List.new,
-					\getPreset, Pfunc{|ev|
-						ev.pats.clear;
-						top[\instrumentPresetsDictionary][ev.presetName].keysValuesDo { |k, v|
-							if(v.isKindOf(Pattern)){
-								ev.pats.add([k, v])
-							}{
-								ev[k] = v
-							}
-						};
-						ev
-					},*/
 					\server, top[\targetServer],
-					\instrument, Pfunc {|ev| top[\makeModularSynthDef].(ev.adsrType, ev.pitchOp, ev.osc, ev.fx, ev.filter).asSymbol},
+					\instrument, Pfunc {|ev|
+						top[\makeModularSynthDef].valueWithEnvir(ev)
+					},
 					\group, Pfunc { top[\routing][\sourceGroup] },
 					\out, Pfunc { top[\routing][\melodyBus] },
 					\pitches, Pseq(voiceEvent.pitches),
 					\charNow, Pseq(voiceEvent.chars),
-					\legato, Pfunc {|ev| if(ev.sendGate){ev.legatoArr[myKey]}{ev.legatoArr[myKey].clip2(0.99)}},
-					\vol, Pfunc {|ev| ev.vol * ev.vols[myKey]},
+					\scale, Pfunc { top[\philipp_pitches] },
+					\legatoArr, Pn(Plazy {|ev| ev.legatoArr.asArray.wrapAt(myKey)}),
+					\legato, Pfunc {|ev|
+						if(ev.sendGate){
+							ev.legatoArr
+						}{
+							ev.legatoArr.clip2(0.99)
+						}
+					},
+					\vols, Pn(Plazy {|ev| ev.vols.asArray.wrapAt(myKey)}),
+					\vol, Pfunc {|ev| ev.vol * ev.vols * muteMe},
 					\degree, Pfunc {|ev|
-						(ev.pitches * ev.stepInterval) + (myKey * ev.branchInterval) + addPitch
+						(ev.pitches * ev.stepInterval) + (myKey * ev.branchInterval) + addPitch + ev.noteOffset
 					},
 					\checkPause, Pfunc { |ev|
 						if(ev.charNow == $G){Rest(ev.dur)}{0}
@@ -53,7 +67,7 @@
 						[lastPoint, firstPoint]
 					},
 					\draw, Pfunc { |ev|
-						if(ev.amp > 0){ // muesste vol testen damit es wie gewuenscht funktioniert
+						if(ev.vol > 0){ // muesste vol testen damit es wie gewuenscht funktioniert
 							if((ev.checkPause.class != Rest) || (ev.legato >= 1)){
 								top[\gui].points.add([
 									ev.calcPoint,
@@ -63,16 +77,18 @@
 						};
 						0
 					},
+					\wrapLo, Pn(Plazy {|ev| ev.wrapLo.asArray.wrapAt(myKey)}),
+					\wrapHi, Pn(Plazy {|ev| ev.wrapHi.asArray.wrapAt(myKey)}),
 					\finish, { |ev|
 						if(myKey == 0){top[\lsys].globalPitch = ev.pitches + addPitch};
-						ev.midinote = ev.midinote.wrap(~wrapLo[myKey], ~wrapHi[myKey]);
+						ev.midinote = ev.midinote.wrap(~wrapLo, ~wrapHi);
 						ev
 					}
-				) <> top[\instrumentPresetsDictionary][~presetName[myKey]]
+				) <> Pbind(*(top[\instrumentPresetsDictionary][~instr.asArray.wrapAt(myKey)])) //
 			};
-			top[\lsys][\presets][name].nextFinish = (thisThread.beats + (~maxPatDur * ~baseTempo)).roundUp(~quant);
-			top[\lsys][\presets][name].startOffsets = startOffsets; // fuer drum struktur?
-			Psync(Ptpar([startOffsets, voices].flop.flat), ~quant, ~maxPatDur )//ev.quant, ev.maxPatDur.postln
+			//top[\lsys][\presets][name].nextFinish = (thisThread.beats + (~maxPatDur * ~baseTempo)).roundUp(~quant);
+			//top[\lsys][\presets][name].startOffsets = startOffsets; // fuer drum struktur?
+			Psync(Ptpar([startOffsets, voices].flop.flat), ~quant, ~maxPatDur )
 		}) <> ~lsys.presets[name]
 	)
 }

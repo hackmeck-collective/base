@@ -45,7 +45,9 @@
 			},
 			$]: {
 				voices[cur].data.lastTime = voices[cur].timeStep;
-				collectVoices[cur].add(voices[cur].data);
+				if(voices[cur].data.chars.notEmpty){
+					collectVoices[cur].add(voices[cur].data);
+				};
 				cur = cur - 1;
 				voices[cur] = prevVoices[cur].pop;
 			},
@@ -81,7 +83,9 @@
 
 		// die root stimme hinzufuegen
 		voices[0].data.lastTime = voices[0].timeStep;
-		collectVoices[0].add(voices[0].data);
+		if(voices[0].data.chars.notEmpty){
+			collectVoices[0].add(voices[0].data);
+		};
 
 		collectVoices.reject(_.isEmpty)
 	};

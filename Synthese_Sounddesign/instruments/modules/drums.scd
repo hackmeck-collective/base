@@ -1,5 +1,10 @@
 (
 ~drumTypes = (
+	noDrum: {var sig;
+
+		sig = 0;
+	},
+
 	bodyTimbreTransientTail: {arg freq = 440,
 		gate = 1,
 		timbre_ratio = 0.2,

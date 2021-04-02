@@ -1,48 +1,56 @@
 (
-var waitForPeers = false;
+var waitForPeers = true;
 var loadStuff = {
 	"loading signal flow".postln;
 	"Synthese_Sounddesign/signal_flow/groups_setup.scd".loadRelative;
 	"Synthese_Sounddesign/signal_flow/controlbus_setup.scd".loadRelative;
 	"Synthese_Sounddesign/signal_flow/audiobus_setup.scd".loadRelative;
-	"Synthese_Sounddesign/signal_flow/sendFx_setup.scd".loadRelative;
+	"Synthese_Sounddesign/signal_flow/sendFX_setup.scd".loadRelative;
 	"Synthese_Sounddesign/signal flow loaded".postln;
 
 	"loading instruments".postln;
 	"Synthese_Sounddesign/instruments/modules/0_load_modules.scd".loadRelative;
 	"Synthese_Sounddesign/instruments/makeModularSynthDef.scd".loadRelative;
-	"Synthese_Sounddesign/instruments/makeModularDrum.scd".loadRelative;
 
 	"loading presets".postln;
-	"Synthese_Sounddesign/instruments/presets/instrument_presets.scd".loadRelative;
-	"Synthese_Sounddesign/instruments/presets/drum_presets.scd".loadRelative;
+	"Presets/InstrumentPresetFunctions.scd".loadRelative;
+	~instrPreset.loadAll;
 
 	"loading patternfunctions".postln;
-	"patterns/patterndynamics.scd".loadRelative;
+	"patterns/patternFunctions.scd".loadRelative;
+	"patterns/rhythmicPatterns.scd".loadRelative;
+	"patterns/pitchPatterns.scd".loadRelative;
+	"patterns/drumFills.scd".loadRelative;
 
 	"loading control interfaces".postln;
 	"control_interfaces/midi_defs_launchcontrol-xl.scd".loadRelative;
 
-	~localSetup = true; // hier und bei globals ist das relevant
+	~localSetup = waitForPeers.not; // hier und bei globals ist das relevant
 
-	"Lsysteme/resources/globals.scd".loadRelative;
-	"Lsysteme/resources/lsysCreator_noDaemon.scd".loadRelative;
-	"Lsysteme/resources/pdefCreator.scd".loadRelative; // load pdef which will play back lsystems
-	"Lsysteme/resources/lsys_dict_text_replace.scd".loadRelative;
+	if(~localSetup){
+		"Lsysteme/resources/globals.scd".loadRelative;
+		"Lsysteme/resources/lsysCreator_noDaemon.scd".loadRelative;
+		"Lsysteme/resources/pdefCreator.scd".loadRelative; // load pdef which will play back lsystems
+		"Lsysteme/resources/lsys_dict_text_replace.scd".loadRelative;
+	};
 
 	Pdef(\rest, Pbind(\dur, Pn(Rest())));
 
-	if (~pitchesRootDissonance[\pitches] == nil ) {~pitchesRootDissonance[\pitches] = [0,3,5,7,10]};
+	if (~pitchesRootDissonance[\pitches] == nil ) {~pitchesRootDissonance[\pitches] = [-36,-9,5,-17,10]};
 	if (~pitchesRootDissonance[\root] == nil ) {~pitchesRootDissonance[\root] = [0]};
 
 	~linkClock = LinkClock.new(1).latency_(s.latency).enableMeterSync.permanent_(true);
 	CmdPeriod.run;
+
+	Document.open(thisProcess.nowExecutingPath.dirname +/+ "patterns" +/+ "arrangements.scd");
+
 	"ready".postln;
 };
 
 Server.killAll;
-"booting server".postln;
+"reading audio server options".postln;
 "audio_server_options.scd".loadRelative;
+"booting server".postln;
 s.waitForBoot {
 	if(MIDIClient.initialized.not){
 		MIDIClient.init;
@@ -69,8 +77,23 @@ s.waitForBoot {
 	}
 };
 )
+
+~instrPreset.keys.do.postln;
+
+(
+~instrPreset.loadAll;
+~routing[\sourceGroup] = ~source_group.nodeID;
+~routing[\melodyBus] = ~melody_bus.index;
+~routing[\chordsBus] = ~chords_bus.index;
+~routing[\drumsBus] = ~drums_bus.index;
+~routing[\auxBus] = ~aux_bus.index;
+);
 /*
 ~switchRows.(\bank_1);
+
+~ass = {|nice, ass,| var str = "";  thisFunction.argNames.do {|name| str = str ++ name ++ ", "}; str}
+
+~ass.().postcs
 
 
 ~adsrTypes.keys;

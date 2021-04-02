@@ -1,5 +1,10 @@
 (
 ~adsrTypes = (
+	noEnv: {var sig;
+
+		sig = 1;
+	},
+
 	pluck: {arg gate = 0, envelope_mod = 0, beatDuration, syncMultiplier, envCurve = 3;
 
 		var amp_a = envelope_mod.lincurve(0,1,0.001,0.02,3),
@@ -59,8 +64,6 @@
 		amp_r = beatDuration * syncMultiplier * (1 - envelope_mod),
 		amp_c = envCurve;
 
-		beatDuration.postln;
-		syncMultiplier.postln;
 		amp_a.postln;
 		amp_r.postln;
 
