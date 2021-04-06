@@ -11,6 +11,5 @@
 "fx.scd".loadRelative;
 "filter.scd".loadRelative;
 "modSources.scd".loadRelative;
-"modTargets.scd".loadRelative;
 
 "modules loaded".postln;
