@@ -152,11 +152,15 @@ SynthDef(\simpleDelay_8, {
 s.sync;
 ~startSendFX = {
 	~sendFX = ();
-	~sendFX.ef_reverb = Synth.new(\ef_reverb, target: ~effect_group);
+	~sendFX.ef_reverb = Synth.new(\ef_reverb,
+		args:[\controlbus, ~launchcontrol_xl_row_7],
+		target: ~effect_group);
 /*	~sendFX.simpleDelay_4 = Synth.new(\simpleDelay_4, target: ~effect_group);
 	~sendFX.simpleDelay_4d = Synth.new(\simpleDelay_4d, target: ~effect_group);
 	~sendFX.simpleDelay_8 = Synth.new(\simpleDelay_8, target: ~effect_group);*/
-	~sendFX.simpleDelay_8d = Synth.new(\simpleDelay_8d, target: ~effect_group);
+	~sendFX.simpleDelay_8d = Synth.new(\simpleDelay_8d,
+		args:[\controlbus, ~launchcontrol_xl_row_7],
+		target: ~effect_group);
 	//kann ich das hier auslagern????
 };
 

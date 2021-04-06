@@ -1,4 +1,4 @@
-~oneShot = { |path|
+/*~oneShot = { |path|
 	OSCFunc({ |msg|
 		var nextEventBeat = msg[1].postln;
 		~linkClock.sched(nextEventBeat - 1,{
@@ -9,19 +9,19 @@
 }
 
 
-~oneShot.("/trigger1")
+~oneShot.("/trigger1")*/
 
-~repeatOsc = { |path|
-	OSCFunc({ |msg|
-		var nextEventBeat = msg[1].postln;
-		~linkClock.sched(nextEventBeat - 1,{
-			(Pfindur(1.01, Pdef(\simplePluckReverse,
-				\dur, 1,
-				\note, ~pitchesRootDissonance[\pitches],
-			))).play(~linkClock, quant: 1);
-			nil
-		})
-	}, path)
-}
 
-~oscFunc = ~repeatOsc.("/trigger1")
+OSCdef(\repeatFill, { |msg|
+	var nextEventBeat = msg[1].postln;
+	~linkClock.sched(nextEventBeat - ~cueData[\fillLength],{
+		Pfindur(~cueData[\fillLength] + 0.01, Pdef(\fill)).play(~linkClock, quant: 1);
+		nil
+	})
+}, "/trigger1").permanent_(true);
+
+
+/*Pdef(\simplePluckReverse,
+	\dur, 1,
+	\note, ~pitchesRootDissonance[\pitches],
+)*/

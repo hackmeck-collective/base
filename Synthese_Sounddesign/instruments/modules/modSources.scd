@@ -11,7 +11,7 @@
 
 	},
 
-	////////////////////////////// EXTERNAL CONTROL INTERFACES
+/*	////////////////////////////// EXTERNAL CONTROL INTERFACES
 
 	external: {arg gate, beatDuration, syncMultiplier, mod1Amount, mod1Rate, attack, decay, sustain, release, envCurve, syncEnvRatio, controlbus, controlbusChannel;
 
@@ -25,7 +25,7 @@
 
 		output;
 
-	},
+	},*/
 
 	////////////////////////////// ENVs
 

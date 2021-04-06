@@ -5,29 +5,72 @@ Document.open(thisProcess.nowExecutingPath.dirname +/+ "patternFunctions.scd");
 ~instrPreset.create(\template_default)
 ~instrPreset.create_d(\template_drum)
 ~instrPreset.create_o(\template_synth)
-~instrPreset.edit(\sd2);
+~instrPreset.edit(\lfoTest);
 
 // root note und drums mit phillip klären
 // reboot  funktion problematik mit vincent klären
 
 (Pdef(\sd3) <> ~quarterFills).play(~linkClock, quant: 1);
 (Pdef(\sd3) <> ~halfFills).play(~linkClock, quant: 2);
-
+Pdef(\fill, (Pdef(\sd3) <> ~quarterFills));
 
 //////// RHYTHMEN mit INSTRUMENTEN verketten
 
 
 ~lfoTest.stop;
-~lfoTest = ( Pdef(\template_drum) <> Pbindef(\arp, \upperLimit, 24, \lowerLimit, -24) <> Pbindef(\pulse)  ).play(~linkClock, quant: 4);
+~lfoTest = ( Pdef(\lfoTest,) <> Pbindef(\arp, \upperLimit, 24, \lowerLimit, -24) <> Pbindef(\pulse)  ).play(~linkClock, quant: 4);
+~modSources.keys
 
 
+Pdef(\loop1,
+	Ppar([
+		( Pdef(\bdThump) <> Pbindef(\root) <> Pbindef(\bd_pattern_8th_rng) ),
+		( Pdef(\bd1).collect {|ev| ~scMel.play; ev} <> Pbindef(\root) <> Pbindef(\pulse_2) ),
+		( Pdef(\sd1) <> Pbindef(\fifth) <> Pbindef(\sd_pattern_1))
+	])
+)
 
-~loop1 = {( Pdef(\bdThump) <> Pbindef(\root) <> Pbindef(\bd_pattern_8th_rng) ).play(~linkClock, quant: 4);
-	( Pdef(\bd1) <> Pbindef(\root) <> Pbindef(\pulse_2) ).play(~linkClock, quant: 4);
-	( Pdef(\sd1) <> Pbindef(\fifth) <> Pbindef(\sd_pattern_1)  ).play(~linkClock, quant: 4);}
+Pdef(\loop1,
+	Ppar([
+		( Pdef(\bdThump) <> Pbindef(\root) <> Pbindef(\bd_pattern_8th_rng) ),
+		( Pdef(\bd1).collect {|ev| ~scMel.play; ev} <> Pbindef(\root) <> Pbindef(\pulse_2) ),
+		( Pdef(\sd3) <> Pbindef(\fifth) <> Pbindef(\sd_pattern_1))
+	])
+)
 
-~loop1.
+Pdef(\loop1).play(~linkClock, quant: 4);
 
+
+Pdef(\loop1).stop
+
+~scMel = (
+	\type: \set,
+	\id: Pfunc { ~audioBusses.melodyBus },
+	\args: #[\beatDurNow, \sidechain_trigger_long],
+	\beatDurNow: {TempoClock.default.beatDur},
+	\sidechain_trigger_long: 1
+);
+
+
+Pbind(
+	\type, \set,
+	\id, ~audioBusses.melodyBus,
+	\dur, Pseq([1/4, 1/4], inf),
+	\stretch, 4,
+	\args, #[\beatDurNow, \sidechain_trigger_long],
+	\beatDurNow, {TempoClock.default.beatDur},
+	\sidechain_trigger_long, 1
+).play(~linkClock, quant: 4);
+
+Pbind(
+	\type, \set,
+	\id, ~sendFX.ef_reverb,
+	\dur, Pseq([1/8, 1/8], inf),
+	\stretch, 4,
+	\args, #[\beatDurNow, \sidechain_trigger_verb],
+	\beatDurNow, {TempoClock.default.beatDur},
+	\sidechain_trigger_verb, 1
+).play(~linkClock, quant: 4);
 
 ~bd.stop;
 ~bd = ( Pdef(\bdThump) <> Pbindef(\root) <> Pbindef(\bd_pattern_8th_rng) ).play(~linkClock, quant: 4);

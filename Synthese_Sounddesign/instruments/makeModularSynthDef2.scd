@@ -17,7 +17,11 @@
 	mod3Type = \noMod,
 	mod3Target = "",
 	mod4Type = \noMod,
-	mod4Target = ""
+	mod4Target = "",
+	external1Target = "",
+	external2Target = "",
+	external3Target = "",
+	external4Target = ""
 	|
 
 	var newFunc = {|
@@ -39,7 +43,11 @@
 		mod3Type = \noMod,
 		mod3Target = "",
 		mod4Type = \noMod,
-		mod4Target = ""
+		mod4Target = "",
+		external1Target = "",
+		external2Target = "",
+		external3Target = "",
+		external4Target = ""
 		|
 
 		var synthDefName, mod1TargetLine = "";
@@ -63,7 +71,12 @@
 		mod3Type.asString ++ "-" ++ "to" ++ "-" ++
 		mod3Target ++ "_" ++
 		mod4Type.asString ++ "-" ++ "to" ++ "-" ++
-		mod4Target;
+		mod4Target ++ "_" ++
+		"controlbus-to-" ++
+		external1Target ++ "-" ++
+		external2Target ++ "-" ++
+		external3Target ++ "-" ++
+		external4Target;
 
 		if(SynthDescLib.match(synthDefName).isNil){
 			var envelope_function = ~adsrTypes[adsrType];
@@ -162,6 +175,11 @@
 					time_factor_macro_channel,
 					time_factor_macro_channel_2,
 
+					external1Amount,
+					external2Amount,
+					external3Amount,
+					external4Amount,
+
 					mod1Amount,
 					mod1Rate,
 					mod1attack = 1,
@@ -210,6 +228,12 @@
 
 					var note = \note.kr(60,0);
 
+					var external = Lag.kr(
+						In.kr(
+							controlbus,
+							4),
+						0.1);
+
 					var dummy,
 					envelope,
 					mod1, mod2, mod3, mod4,
@@ -221,6 +245,11 @@
 					vca;
 
 					vol = vol.lincurve(0,1,0,0.5,3);
+
+					"external1TargetPlaceholder";
+					"externa21TargetPlaceholder";
+					"externa31TargetPlaceholder";
+					"externa41TargetPlaceholder";
 
 					mod1 = SynthDef.wrap(
 						mod1_function,
@@ -352,7 +381,31 @@
 		};
 		synthDefName;
 	}.asCompileString
-	.replace("\"mod1TargetPlaceholder\"",
+	.replace("\"external1TargetPlaceholder\"",
+		if(external1Target.isEmpty){
+			external1Target = "dummy"
+		}{
+			"% = % + (% * external[0] * external1Amount)".format(external1Target, external1Target, external1Target)
+		}
+	).replace("\"external2TargetPlaceholder\"",
+		if(external2Target.isEmpty){
+			external2Target = "dummy"
+		}{
+			"% = % + (% * external[1] * external2Amount)".format(external2Target, external2Target, external2Target)
+		}
+	).replace("\"external3TargetPlaceholder\"",
+		if(external3Target.isEmpty){
+			external3Target = "dummy"
+		}{
+			"% = % + (% * external[2] * external3Amount)".format(external3Target, external3Target, external3Target)
+		}
+	).replace("\"external4TargetPlaceholder\"",
+		if(external4Target.isEmpty){
+			external4Target = "dummy"
+		}{
+			"% = % + (% * external[3] * external4Amount)".format(external4Target, external4Target, external4Target)
+		}
+	).replace("\"mod1TargetPlaceholder\"",
 		if(mod1Target.isEmpty){
 			mod1Target = "dummy"
 		}{
