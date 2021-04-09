@@ -41,37 +41,20 @@ var row_busses = Array.newClear(8);
 "creating event triggers on launchcontrol xl".postln;
 
 ~launchControlButtonHistoryEnabled = true;
-~launchControlButtonHistory = Array.newClear(2);
+~launchControlButtonHistory = 0!2;
 
 MIDIdef.noteOn(\launchControlButtonHistory, {
 	|val, num|
 	var rotation;
+
 	rotation = ~launchControlButtonHistory.rotate;
 	rotation.put(1, num);
 	~launchControlButtonHistory = rotation;
 	if(~launchControlButtonHistoryEnabled){
-		case
-		{ ~launchControlButtonHistory.at(0) == 41 && ~launchControlButtonHistory.at(1) == 73 }
-		{ ~launchControlEvents[\launchControlXlEvent_0_0].value; }
-		{ ~launchControlButtonHistory.at(0) == 41 && ~launchControlButtonHistory.at(1) == 74 }
-		{ ~launchControlEvents[\launchControlXlEvent_0_1].value; }
-		{ ~launchControlButtonHistory.at(0) == 41 && ~launchControlButtonHistory.at(1) == 75 }
-		{ ~launchControlEvents[\launchControlXlEvent_0_2].value; }
-		{ ~launchControlButtonHistory.at(0) == 41 && ~launchControlButtonHistory.at(1) == 76 }
-		{ ~launchControlEvents[\launchControlXlEvent_0_3].value; }
-		{ ~launchControlButtonHistory.at(0) == 41 && ~launchControlButtonHistory.at(1) == 77 }
-		{ ~launchControlEvents[\launchControlXlEvent_0_4].value; }
-		{ ~launchControlButtonHistory.at(0) == 41 && ~launchControlButtonHistory.at(1) == 78 }
-		{ ~launchControlEvents[\launchControlXlEvent_0_5].value; }
-		{ ~launchControlButtonHistory.at(0) == 41 && ~launchControlButtonHistory.at(1) == 79 }
-		{ ~launchControlEvents[\launchControlXlEvent_0_6].value; }
-		{ ~launchControlButtonHistory.at(0) == 41 && ~launchControlButtonHistory.at(1) == 80 }
-		{ ~launchControlEvents[\launchControlXlEvent_0_7].value; }
-		{ ~launchControlButtonHistory.at(0) == 42 && ~launchControlButtonHistory.at(1) == 73 }
-		{~launchControlEvents[\launchControlXlEvent_1_0].value;}
-		{ ~launchControlButtonHistory.at(0) == 42 && ~launchControlButtonHistory.at(1) == 74 }
-		{~launchControlEvents[\launchControlXlEvent_1_1].value;}
-		{true} {nil};
+		var midiCCoffsetRow = ~launchControlButtonHistory.at(0) - 41;
+		var midiCCoffsetRow2 = ~launchControlButtonHistory.at(1) - 73;
+		~launchControlEvents["launchControlXlEvent_%_%".format(midiCCoffsetRow,
+			midiCCoffsetRow2).asSymbol].value;
 	}{num.postln};
 }).permanent_(true);
 

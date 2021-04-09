@@ -8,7 +8,7 @@
 			( Pdef(\sd1)/*.collect {|ev| ~scM8.play; ev}*/ <> Pbindef(\root) <> Pbindef(\pulse_4_ob)),
 			( Pdef(\hh1) <> Pbindef(\fifth) <> Pbindef(\pulse_8))
 		])
-	);
+	).quant_(4);
 	Pdef(\drums).play(~linkClock, quant: 4);
 	"lc1_1".postln;}
 );
@@ -21,7 +21,7 @@
 			( Pdef(\sd1).collect {|ev| ~scM8.play; ev} <> Pbindef(\fifth) <> Pbindef(\sd_pattern_1)),
 			( Pdef(\hh1) <> Pbindef(\fifth) <> Pbindef(\pulse_8))
 		])
-	);
+	).quant_(4);
 	Pdef(\drums).play(~linkClock, quant: 4);
 	"lc1_2".postln;}
 );
@@ -35,7 +35,7 @@
 			( Pdef(\hh1) <> Pbindef(\root) <> Pbindef(\euclidean_8th_rng) ),
 			( Pdef(\hh2) <> Pbindef(\root) <> Pbindef(\euclidean_16th_rng) ),
 		])
-	);
+	).quant_(4);
 	Pdef(\drums).play(~linkClock, quant: 4);
 	"lc1_3".postln;}
 );
@@ -50,7 +50,7 @@
 			( Pdef(\hh2) <> Pbindef(\root) <> Pbindef(\euclidean_16th_rng) ),
 			( Pdef(\hh3) <> Pbindef(\root) <> Pbindef(\hh_rng) )
 		])
-	);
+	).quant_(4);
 	Pdef(\drums).play(~linkClock, quant: 4);
 	"lc1_4".postln;}
 );
@@ -71,7 +71,7 @@
 					\chordTranspositions, 10),maxdur:8))
 				<> Pbindef(\pulse_16))
 		])
-	);
+	).quant_(4);
 	Pdef(\loop).play(~linkClock, quant: 4);
 	"lc2_1".postln;}
 );
@@ -96,7 +96,7 @@
 					\chordTranspositions, 10),maxdur:8))
 				<> Pbindef(\pulse_16))
 		])
-	);
+	).quant_(4);
 	Pdef(\loop).play(~linkClock, quant: 4);
 	"lc2_2".postln;}
 );
