@@ -1,9 +1,10 @@
 (
 s.waitForBoot {
 	var benniPath = "../Synthese_Sounddesign/";
-	~localSetup = true; // hier und bei globals ist das relevant
+	~localSetup = false; // hier und bei globals ist das relevant
+	("../network/address_book.scd").loadRelative;
+
 	if(~localSetup){
-		("../network/address_book.scd").loadRelative;
 		(benniPath ++ "signal_flow/groups_setup.scd").loadRelative;
 		(benniPath ++ "signal_flow/controlbus_setup.scd").loadRelative;
 		(benniPath ++ "signal_flow/audiobus_setup.scd").loadRelative;
@@ -13,10 +14,10 @@ s.waitForBoot {
 		"../Presets/InstrumentPresetFunctions.scd".loadRelative;
 		~instrPreset.loadAll;
 	};
+
 	"resources/globals.scd".loadRelative;
 	"resources/lsysCreator_noDaemon.scd".loadRelative;
 	"resources/pdefCreator.scd".loadRelative; // load pdef which will play back lsystems
-	"resources/lsys_dict_text_replace.scd".loadRelative;
 	"../Presets/LsystemPresetFunctions.scd".loadRelative;
 	~lsysPreset.loadAll;
 
@@ -28,5 +29,7 @@ s.waitForBoot {
 	"ready".postln
 }
 )
+
+~hail.free
 
 ~ctl.scale  = 4.collect { |i| ~objSpace_philipp[\pitches] + (i * 12) }.flat.sort

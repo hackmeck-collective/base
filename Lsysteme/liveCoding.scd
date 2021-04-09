@@ -1,12 +1,13 @@
+Pdef(\play).play(~linkClock, quant:4)
+Pdef(\play, Pn(Pdef(\basicL)))
+
+~lsysPreset.edit(\simpleRhythm)
+
+~lsysPreset.saveCurrent(\simpleRhythmPerc)
+
 ~lsysPreset.edit(\basicL)
-
-~lsysPreset.saveCurrent(\maze)
-
-~lsysPreset.create(\pausen)
 ~lsys.presets.carpet.baseTempo = 1/6;
 ~lsys.presets.dense.legatoArr =  0.1
-~lsys.presets.basicL.legatoArr = 1
-
 
 // jeder branch gibt seine playdur in einen key, der kann vom filter benutzt werden
 ~lsys.newPattern.stream.collect {|st| st.myKey.postln}
@@ -23,25 +24,60 @@ Pdef(\basicL_filter1, Pbind(
 
 Pdef(\basicL_filter1, Pbind(\vol, Pkey(\vol) * Pn(Plazy{|ev| Pseg([1,0],ev.branchTotalDur,2)})))
 
-Pdefn(\filtAll, Pseq([0,0,1,1],inf).asStream)
-Pdef(\basicL_filter, Pbind(\oscillator_mod_2, Pdefn(\filtAll)))
+Pdefn(\filtAll, Pseq([0],inf).asStream)
+Pdef(\basicL_filter, Pbind(\midinote, Pkey(\midinote) + Pdefn(\filtAll)))
 
 Pdefn(\filtAllPitch, Pseq([0,12,0,12],inf).asStream)
 Pdef(\basicL_filter, Pbind(\midinote, Pdefn(\filtAllPitch) + Pkey(\midinote)))
 
-~lsys.presets.motiv.putAll((
+~lsys.presets.basicL.baseTempo = 0.25;
+~lsys.presets.basicL.branchInterval = 7;
+~lsys.presets.basicL.instr = [ 'simplePluck', 'simplePluck', 'simplePluck' ];
+~lsys.presets.basicL.legatoArr = [ 0.95, 0.95, 0.95 ];
+~lsys.presets.basicL.maxPatDur = 13;
+~lsys.presets.basicL.mute = [ 1, 1, 1 ];
+~lsys.presets.basicL.noteOffset = 24;
+~lsys.presets.basicL.numBranches = 3;
+~lsys.presets.basicL.quant = 4;
+~lsys.presets.basicL.rootPitchDrift = 0;
+~lsys.presets.basicL.stepInterval = 1;
+~lsys.presets.basicL.theta = 51.45;
+~lsys.presets.basicL.useGlobalPitch = true;
+~lsys.presets.basicL.vols = [ 1, 1, 1 ];
+~lsys.presets.basicL.wrapHi = [ 96, 96, 96 ];
+~lsys.presets.basicL.wrapLo = [ 36.0, 46.0, 36 ];
+
+
+~lsys.presets.simpleRhythm.maxPatDur * ~lsys.presets.simpleRhythm.baseTempo
+Pdef(\simpleRhythm_filter,
+	Pbind()
+)
+
+Pdef(\simpleRhythm_filter0, Pbind(\note,Pseries(0,-1)))
+Pdef(\simpleRhythm_filter1, Pbind(\note,Pseries(0,-1)))
+Pdef(\simpleRhythm_filter2, Pbind(\note,Pseries(0,-1)))
+Pdef(\simpleRhythm_filter3, Pbind(\note,Pseries(0,-1)))
+
+~lsys.presets.simpleRhythm.quant = 4
+~lsys.presets.motiv.numBranches
+~lsys.presets.motiv.instr[3] = \srrLead
+~lsys.presets.dense.vols = 0.6
+Pdef(\penrose).play(~linkClock, quant: 4)
+Pdef.all.clear
+Pdef(\penrose).stop
+Pdef(\play, Pn(Pdef(\basicL)))
+Pdef(\simplePluck)
+~lsys.presets.basicL.putAll((
 	'baseTempo': 0.25,
 	'branchInterval': 7,
-	'instr': [ 'detuneLead', 'detuneLead', 'detuneLead' ],
-	'legatoArr': [ 1, 1, 1 ],
-	'maxPatDur': 39,
+	'instr': [ 'simplePluck', 'simplePluck', 'simplePluck' ],
+	'legatoArr': [ 0.95, 0.95, 0.95 ],
+	'maxPatDur': 13,
 	'mute': [ 1, 1, 1 ],
-	'nextFinish': 36.0,
 	'noteOffset': 24,
 	'numBranches': 3,
-	'quant': 1,
-	'rootPitchDrift': -4,
-	'startOffsets': [ 0.0, 0.5, 2.5, 3.25, 5.75, 8.0 ],
+	'quant': 4,
+	'rootPitchDrift': 0,
 	'stepInterval': 1,
 	'theta': 51.45,
 	'useGlobalPitch': true,
@@ -49,19 +85,42 @@ Pdef(\basicL_filter, Pbind(\midinote, Pdefn(\filtAllPitch) + Pkey(\midinote)))
 	'wrapHi': [ 96, 96, 96 ],
 	'wrapLo': [ 36, 36, 36 ],
 ))
-~lsys.presets.motiv.vols[0] = 0
-~lsys.presets.motiv.numBranches
-~lsys.presets.motiv.instr[3] = \srrLead
-~lsys.presets.dense.vols = 0.6
-Pdef(\penrose).play(~linkClock, quant: 4)
-Pdef.all.clear
-Pdef(\penrose).stop
-Pdef(\play, Pn(Pdef(\motiv)))
+Pdef(\play, Pn(
+	Pspawner({|sp|
+		sp.par(Pdef(\basicL));
+		sp.wait((~lsys.presets.basicL.maxPatDur - 2) / ~lsys.presets.basicL.baseTempo );
+		sp(~addrBook.at(\Admin).sendMsg("/trigger1", 1));
+	})
+))
 
-Pdef(\play, Pn(Pdef(\maze)))
+
+Pdef(\play, Pn(
+	Pspawner({|sp|
+		sp.par(Pdef(\simplePluckReverse) <> Pbind(
+			\dur,Pseq(~starts[2..],inf),
+			\amp,0.05,
+			\scale, Scale.harmonicMinor,
+			\degree,Pseq(~pchs[1..] + (~oct[1..] * 7),inf).trace + ~lsys.globalPitch)
+		);
+		~lsys.presets.simpleRhythm.vols = [1,1,1,1] * 0.35;
+		sp.seq(Pdef(\simpleRhythm));
+		/*~lsys.presets.simpleRhythm.vols = [1,0,0,0];
+		sp.seq(Pdef(\simpleRhythm));
+		~lsys.presets.simpleRhythm.vols = [1,1,0,0];
+		sp.seq(Pdef(\simpleRhythm));
+		~lsys.presets.simpleRhythm.vols = [1,1,1,0];
+		sp.seq(Pdef(\simpleRhythm));
+		~lsys.presets.simpleRhythm.vols = [1,1,1,1];
+		sp.seq(Pdef(\simpleRhythm));*/
+	})
+))
+~oct = ~lsys.newPattern.stream.collect{|str|str.myKey}
+(Pdef(\hh1) <> (dur: 1)).play(~linkClock, quant: 4)
+Pdef(\hh1).stop
+Pdef(\play, Pn(Pdef(\basicL)))
 Pdef(\play).stop
 Pdef(\play).play(~linkClock, quant:4)
-
+~linkClock.tempo = 1.5
 Pdef(\play, Pn(
 	Pspawner({|sp|
 		sp.par(Psync(Pn(Pdef(\basicL)),1,12));
@@ -70,7 +129,7 @@ Pdef(\play, Pn(
 		sp.wait(8);
 	})
 ))
-
+~lsys.globalPitch = 0
 Pdef(\play).quant = 4
 Pdef(\play).fadeTime = 2
 Pdef(\play, Pn(
@@ -87,7 +146,7 @@ Pdef(\play, Pn(
 
 Pspawner
 
-Pdef(\play).release
+Pdef(\play).stop
 Pdef(\play, Psym(Pseq([\dragon, \snowFlake, \penrose], inf)))
 Pdef(\playVisuals).stop
 ~routing.getPairs
@@ -116,7 +175,7 @@ Pdef(\play, Ptsym(
 	Pseq([\snowFlakeInf], inf),
 	dur: Pfunc{ |i|
 		var nextFinish = thisThread.beats + i;
-		~addrBook.at(\Benni).sendMsg("/trigger1", i, ~lsys.globalPitch);
+		~addrBook.at(\Admin).sendMsg("/trigger1", i, ~lsys.globalPitch);
 		"playing for % beats".format(i).postln;
 		thisThread.clock.schedAbs(nextFinish, {
 			"finished playing for % beats".format(i).postln;
@@ -140,7 +199,7 @@ Pdef(\basicL).envir
 
 ~lsys.presets.basicL.theta = 25
 
-~lsys.globalPitchBalance = 4// hiermit kann man die dingers lenken. fuer die gui sachen muss das noch hinzugezogen werden??
+~lsys.globalPitchBalance = 0// hiermit kann man die dingers lenken. fuer die gui sachen muss das noch hinzugezogen werden??
 ~lsys.globalPitch // dieser wert wird von den spielenden lsys geaendert
 Pdef(\down).play(l)
 
@@ -175,10 +234,10 @@ Pdef(\play).quant = 4;
 
 ~lsys.presets.pausen2.instr = \srrPluck
 ~lsys.presets.pausen2.baseTempo = 1/8
-~lsys.presets.chaosFugue.theta = 12
-
+~lsys.presets.simpleRhythm.theta = 90
+~gui.scale = 30
 ~gui.toProcessing.sendMsg('/reset')
-
+~gui.toProcessing.sendMsg('/scale', 1)
 ~gui.toProcessing.sendMsg('/lerpFactor', 0.1)
 ~gui.toProcessing.sendMsg('/linesMax',500)
 // ~presetSpace = OSCObjectSpace(~addrBook, oscPath:'/presets').acceptEvents_(true);

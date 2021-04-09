@@ -30,25 +30,25 @@
 ~gui.scale = 10;
 ~gui.lastPoints = ();
 
+/*~addrBook = AddrBook.new;
+~addrBook.addMe;
+~hail = Hail.new(~addrBook);
+~synthDescRel = SynthDescRelay(~addrBook);
+~instrumentPresetsDictionary = OSCObjectSpace(~addrBook, oscPath:'/instrumentPresets').acceptEvents_(true);
+~routing = OSCObjectSpace(~addrBook, oscPath:'/routing').acceptEvents_(true);*/
+
 if(~localSetup){
 	~targetServer = Server.default;
 	~gui.toProcessing = NetAddr("127.0.0.1", 12000);
 }{
-	~addrBook = AddrBook.new;
-	~addrBook.addMe;
-	~hail = Hail.new(~addrBook);
-	~synthDescRel = SynthDescRelay(~addrBook);
-	~instrumentPresetsDictionary = OSCObjectSpace(~addrBook, oscPath:'/instrumentPresets').acceptEvents_(true);
-	~routing = OSCObjectSpace(~addrBook, oscPath:'/routing').acceptEvents_(true);
-
 	block {|break|
 		inf.do {
 			1.wait;
 			("utopia peers: " ++ ~addrBook.names).postln;
-			if(~addrBook.names.includes(\Benni)){ //~addrBook.names.includes(\Philipp) &&
+			if(~addrBook.names.includes(\Admin)){ //~addrBook.names.includes(\Philipp) &&
 
-				// ~gui.toProcessing = NetAddr("127.0.0.1", 12000);
-				~gui.toProcessing = NetAddr(~addrBook.at(\Philipp).addr.ip, 12000);
+				 ~gui.toProcessing = NetAddr("127.0.0.1", 12000);
+				//~gui.toProcessing = NetAddr(~addrBook.at(\Philipp).addr.ip, 12000);
 
 				~objSpace_philipp = OSCObjectSpace(~addrBook, oscPath:'/pitches').acceptEvents_(true);
 				~objSpace_philipp.addDependant({|objectSpace, what, key, val|
@@ -56,18 +56,15 @@ if(~localSetup){
 						~philipp_pitches = Scale.new(val.mod(12))
 					};
 					//4.collect { |i| ~objSpace_philipp[\pitches] + (i * 12) }.flat.sort;
-				//~ctl.branchInterval = ~ctl.scale.size;
+					//~ctl.branchInterval = ~ctl.scale.size;
 				});
 
 				~targetServer = Server.remote(
 					\benni,
-					NetAddr(~addrBook.at(\Benni).addr.ip, 57110),
+					NetAddr(~addrBook.at(\Admin).addr.ip, 57110),
 					ServerOptions.new().maxLogins_(2),
 					1
 				);
-
-
-
 				break.value;
 			};
 		};
@@ -110,7 +107,7 @@ Pdef(\playVisuals,
 					wp2 = (p[0][1]) * ~gui.scale,
 					branchLevel = p[1],
 					oscMsg = (wp1.asArray ++ wp2.asArray).asInteger ++ branchLevel;
-					{~gui.toProcessing.sendMsg('/lines', *oscMsg)}.defer(~targetServer.latency - 0.125) // damit es mit server latency zusammen kommt
+					{~gui.toProcessing.sendMsg('/lines', *oscMsg)}.defer(~targetServer.latency - 0.18) // damit es mit server latency zusammen kommt
 				};
 				~gui.points.clear;
 			};

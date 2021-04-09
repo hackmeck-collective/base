@@ -39,7 +39,7 @@
 					\scale, Pfunc { top[\philipp_pitches] },
 					\legatoArr, Pn(Plazy {|ev| ev.legatoArr.asArray.wrapAt(myKey)}),
 					\legato, Pfunc {|ev|
-						if(ev.sendGate){
+						if(ev.sendGate ? true){
 							ev.legatoArr
 						}{
 							ev.legatoArr.clip2(0.99)
