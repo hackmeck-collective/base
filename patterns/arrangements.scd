@@ -1,90 +1,37 @@
 Document.open(thisProcess.nowExecutingPath.dirname +/+ "pitchPatterns.scd");
 Document.open(thisProcess.nowExecutingPath.dirname +/+ "rhythmicPatterns.scd");
 Document.open(thisProcess.nowExecutingPath.dirname +/+ "patternFunctions.scd");
+Document.open(thisProcess.nowExecutingPath.dirname +/+ "drumFills.scd");
+Document.open(thisProcess.nowExecutingPath.dirname +/+ "launchControlXlTrigger.scd");
 
-~instrPreset.create(\template_default)
+~instrPreset.create(\click)
 ~instrPreset.create_d(\template_drum)
 ~instrPreset.create_o(\template_synth)
-~instrPreset.edit(\lfoTest);
+~instrPreset.edit(\sd3);
 
 // root note und drums mit phillip klären
-// reboot  funktion problematik mit vincent klären
 
 (Pdef(\sd3) <> ~quarterFills).play(~linkClock, quant: 1);
 (Pdef(\sd3) <> ~halfFills).play(~linkClock, quant: 2);
 Pdef(\fill, (Pdef(\sd3) <> ~quarterFills));
 
+Pdef(\fill).stop
+
+thisProcess.openPorts
+
 //////// RHYTHMEN mit INSTRUMENTEN verketten
-
-
-~lfoTest.stop;
-~lfoTest = ( Pdef(\lfoTest,) <> Pbindef(\arp, \upperLimit, 24, \lowerLimit, -24) <> Pbindef(\pulse)  ).play(~linkClock, quant: 4);
-~modSources.keys
-
-
-Pdef(\loop1,
-	Ppar([
-		( Pdef(\bdThump) <> Pbindef(\root) <> Pbindef(\bd_pattern_8th_rng) ),
-		( Pdef(\bd1).collect {|ev| ~scMel.play; ev} <> Pbindef(\root) <> Pbindef(\pulse_2) ),
-		( Pdef(\sd1) <> Pbindef(\fifth) <> Pbindef(\sd_pattern_1))
-	])
-)
-
-Pdef(\loop1,
-	Ppar([
-		( Pdef(\bdThump) <> Pbindef(\root) <> Pbindef(\bd_pattern_8th_rng) ),
-		( Pdef(\bd1).collect {|ev| ~scMel.play; ev} <> Pbindef(\root) <> Pbindef(\pulse_2) ),
-		( Pdef(\sd3) <> Pbindef(\fifth) <> Pbindef(\sd_pattern_1))
-	])
-)
-
-Pdef(\loop1).play(~linkClock, quant: 4);
-
-
-Pdef(\loop1).stop
-
-~scMel = (
-	\type: \set,
-	\id: Pfunc { ~audioBusses.melodyBus },
-	\args: #[\beatDurNow, \sidechain_trigger_long],
-	\beatDurNow: {TempoClock.default.beatDur},
-	\sidechain_trigger_long: 1
+(
+( Pdef(\simplePluck) <>
+Pbindef(\arpAll
+) <>
+Pbindef(\fib,
+	\dur,Pseq(Array.fib(exprand(2,4).round,1/32,exprand(1/32,1/4).round(1/32)).reverse.mirror,inf))
+).play
 );
 
 
-Pbind(
-	\type, \set,
-	\id, ~audioBusses.melodyBus,
-	\dur, Pseq([1/4, 1/4], inf),
-	\stretch, 4,
-	\args, #[\beatDurNow, \sidechain_trigger_long],
-	\beatDurNow, {TempoClock.default.beatDur},
-	\sidechain_trigger_long, 1
-).play(~linkClock, quant: 4);
+( Psym1(~pitchTriggerRepeat.([\sd1, \sd2, \sd3], [1])) <> Pbindef(\fifth) <> Pbindef(\pulse_4_ob)).play
 
-Pbind(
-	\type, \set,
-	\id, ~sendFX.ef_reverb,
-	\dur, Pseq([1/8, 1/8], inf),
-	\stretch, 4,
-	\args, #[\beatDurNow, \sidechain_trigger_verb],
-	\beatDurNow, {TempoClock.default.beatDur},
-	\sidechain_trigger_verb, 1
-).play(~linkClock, quant: 4);
-
-~bd.stop;
-~bd = ( Pdef(\bdThump) <> Pbindef(\root) <> Pbindef(\bd_pattern_8th_rng) ).play(~linkClock, quant: 4);
-~bd2.stop;
-~bd2 = ( Pdef(\bd1) <> Pbindef(\root) <> Pbindef(\pulse_2) ).play(~linkClock, quant: 4);
-~sd.stop;
-~sd = ( Pdef(\sd1) <> Pbindef(\fifth) <> Pbindef(\sd_pattern_1)  ).play(~linkClock, quant: 4);
-
-~hh1.stop;
-~hh1 = ( Pdef(\hh1) <> Pbindef(\root) <> Pbindef(\euclidean_8th_rng) ).play(~linkClock, quant: 4);
-~hh2.stop;
-~hh2 = ( Pdef(\hh2) <> Pbindef(\root) <> Pbindef(\euclidean_16th_rng) ).play(~linkClock, quant: 4);
-~hh_rng.stop;
-~hh_rng = ( Pdef(\hh3) <> Pbindef(\root) <> Pbindef(\hh_rng) ).play(~linkClock, quant: 4);
 
 ~perc.stop;
 ~perc = ( Pdef(\sd2) <> Pbindef(\pat_332) <> Pbindef(\euclidean_4th_rng) ).play(~linkClock, quant: 4);
@@ -122,7 +69,7 @@ Pbind(
 (
 ~pluck.stop;
 ~pluck = ( Pdef(\srrPluck) <> Pn(Psync(Pbindef(\arp,
-	\upperLimit, 0,
+	\upperLimit, -12,
 	\lowerLimit, -36,
 	\transpositionHarmonics, 1,
 	\chordTranspositions, 10),maxdur:8))
@@ -143,8 +90,8 @@ Pbind(
 ~pluckRev.stop;
 ~pluckRev = ( Pdef(\simplePluckReverse)
 	<> Pn(Psync(Pbindef(\pat_332_downUp,
-		\upperLimit, 0,
-		\lowerLimit, -12,),maxdur:32)) <> Pbindef(\pulse_8) ).play(~linkClock, quant: 4);
+		\upperLimit, 24,
+		\lowerLimit, 0,),maxdur:32)) <> Pbindef(\pulse_8) ).play(~linkClock, quant: 4);
 );
 ~simpleBass.stop;
 ~simpleBass = ( Pdef(\simpleBass) <> Pbindef(\root) <> Pbindef(\pulse) ).play(~linkClock, quant: 4);
@@ -209,4 +156,3 @@ Pbindef(\guitarCloud,
 )
 
 Pbindef(\guitarCloud).stop(quant: 4);
-

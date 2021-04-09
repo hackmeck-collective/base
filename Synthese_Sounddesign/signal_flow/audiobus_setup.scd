@@ -21,8 +21,11 @@ SynthDef(\melody_bus, {
 	arg beatDurNow = 1,
 	controlbus = ~launchcontrol_xl_row_8;
 
-	var sidechain_trigger = \sidechain_trigger_long.tr(0),
-	macro_controls = Lag.kr(
+	var sidechain_trigger_4 = \sidechain_trigger_4_melody.tr(0),
+	sidechain_trigger_8 = \sidechain_trigger_8_melody.tr(0);
+
+
+	var macro_controls = Lag.kr(
 		In.kr(
 			controlbus ?? {controlbus = Bus.control(Server.default, 4)},
 			4),
@@ -33,11 +36,12 @@ SynthDef(\melody_bus, {
 
 	var melody_bus_in, sidechain;
 
-	var duck_long = EnvGen.ar(Env([1,sidechain_amount,1],[0.01, 0.99], -2),sidechain_trigger, timeScale: beatDurNow);
+	var duck_4 = EnvGen.ar(Env([1,sidechain_amount,1],[0.01, 0.99], -2),sidechain_trigger_4, timeScale: beatDurNow),
+	duck_8 = EnvGen.ar(Env([1,sidechain_amount,1],[0.01, 0.99], -1),sidechain_trigger_8, timeScale: (beatDurNow/2));
 
-	melody_bus_in = In.ar(~melody_bus, 2);
+	melody_bus_in = In.ar(~melody_bus, 2) * \on.kr(1, 0.001);
 
-	sidechain = melody_bus_in * duck_long;
+	sidechain = melody_bus_in * duck_4 * duck_8;
 
 	Out.ar(~instruments_bus, sidechain);
 
@@ -47,8 +51,11 @@ SynthDef(\chords_bus, {
 	arg beatDurNow = 1,
 	controlbus = ~launchcontrol_xl_row_8;
 
-	var sidechain_trigger = \sidechain_trigger_long.tr(0),
-	macro_controls = Lag.kr(
+		var sidechain_trigger_4 = \sidechain_trigger_4_chords.tr(0),
+	sidechain_trigger_8 = \sidechain_trigger_8_chords.tr(0);
+
+
+	var macro_controls = Lag.kr(
 		In.kr(
 			controlbus ?? {controlbus = Bus.control(Server.default, 4)},
 			4),
@@ -59,11 +66,12 @@ SynthDef(\chords_bus, {
 
 	var chords_bus_in, sidechain;
 
-	var duck_long = EnvGen.ar(Env([1,sidechain_amount,1],[0.01, 0.99], -2),sidechain_trigger, timeScale: beatDurNow);
+	var duck_4 = EnvGen.ar(Env([1,sidechain_amount,1],[0.01, 0.99], -2),sidechain_trigger_4, timeScale: beatDurNow),
+	duck_8 = EnvGen.ar(Env([1,sidechain_amount,1],[0.01, 0.99], -1),sidechain_trigger_8, timeScale: (beatDurNow/2));
 
-	chords_bus_in = In.ar(~chords_bus, 2);
+	chords_bus_in = In.ar(~chords_bus, 2) * \on.kr(1, 0.001);
 
-	sidechain = chords_bus_in * duck_long;
+	sidechain = chords_bus_in * duck_4 * duck_8;
 
 	Out.ar(~instruments_bus, sidechain);
 
@@ -72,7 +80,7 @@ SynthDef(\chords_bus, {
 SynthDef(\drums_bus, {
 	var drums_bus_in;
 
-	drums_bus_in = In.ar(~drums_bus, 2);
+	drums_bus_in = In.ar(~drums_bus, 2) * \on.kr(1, 0.001);
 
 	Out.ar(~instruments_bus, drums_bus_in);
 
@@ -81,7 +89,7 @@ SynthDef(\drums_bus, {
 SynthDef(\aux_bus, {
 	var aux_bus_in;
 
-	aux_bus_in = In.ar(~aux_bus, 2);
+	aux_bus_in = In.ar(~aux_bus, 2) * \on.kr(1, 0.001);
 
 	Out.ar(~instruments_bus, aux_bus_in);
 

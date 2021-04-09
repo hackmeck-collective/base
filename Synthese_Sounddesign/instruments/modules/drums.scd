@@ -27,18 +27,18 @@
 		body, timbre, transient, tail, volume_compensation,
 		mix;
 
-		timbre_ratio = timbre_ratio.lincurve(0,1,0,48,0).midiratio;
-		body_sweep_ratio = body_sweep_ratio.lincurve(0,1,0,48,0).midiratio;
-		timbre_sweep_ratio = timbre_sweep_ratio.lincurve(0,1,0,48,0).midiratio;
-		body_time = body_time.lincurve(0,1,0,2,3);
-		timbre_time = timbre_time.lincurve(0,1,0,1,3);
-		transient_time = transient_time.lincurve(0,1,0.005,0.25,3);
-		tail_time = tail_time.lincurve(0,1,0,1,3);
-		body_vol = body_vol.lincurve(0,1,0,1,3);
-		timbre_vol = timbre_vol.lincurve(0,1,0,1,3);
-		transient_vol = transient_vol.lincurve(0,1,0,1,3);
-		tail_vol = tail_vol.lincurve(0,1,0,1,3);
-		time_factor = time_factor.lincurve(0,1,0.25,2,3);
+		timbre_ratio = timbre_ratio.lincurve(0,1,0,48,0,nil).midiratio;
+		body_sweep_ratio = body_sweep_ratio.lincurve(0,1,0,48,0,nil).midiratio;
+		timbre_sweep_ratio = timbre_sweep_ratio.lincurve(0,1,0,48,0,nil).midiratio;
+		body_time = body_time.lincurve(0,1,0,2,3,nil);
+		timbre_time = timbre_time.lincurve(0,1,0,1,3,nil);
+		transient_time = transient_time.lincurve(0,1,0.005,0.25,3,nil);
+		tail_time = tail_time.lincurve(0,1,0,1,3,nil);
+		body_vol = body_vol.lincurve(0,1,0,1,3,nil);
+		timbre_vol = timbre_vol.lincurve(0,1,0,1,3,nil);
+		transient_vol = transient_vol.lincurve(0,1,0,1,3,nil);
+		tail_vol = tail_vol.lincurve(0,1,0,1,3,nil);
+		time_factor = time_factor.lincurve(0,1,0.25,2,3,nil);
 
 		body_time = body_time * time_factor;
 		timbre_time = timbre_time * time_factor;
@@ -125,18 +125,18 @@
 		carrier, modulator, transient, tail, volume_compensation,
 		mix;
 
-		modulator_ratio = modulator_ratio.lincurve(0,1,-24,24,0).midiratio;
-		carrier_sweep_ratio = carrier_sweep_ratio.lincurve(0,1,0,48,0).midiratio;
-		modulator_sweep_ratio = modulator_sweep_ratio.lincurve(0,1,0,48,0).midiratio;
-		carrier_time = carrier_time.lincurve(0,1,0,2,3);
-		modulator_time = modulator_time.lincurve(0,1,0,1,3);
-		transient_time = transient_time.lincurve(0,1,0.005,0.25,3);
-		tail_time = tail_time.lincurve(0,1,0,1,3);
-		carrier_vol = carrier_vol.lincurve(0,1,0,1,3);
-		modulator_vol = modulator_vol.lincurve(0,1,0,1,3);
-		transient_vol = transient_vol.lincurve(0,1,0,1,3);
-		tail_vol = tail_vol.lincurve(0,1,0,1,3);
-		time_factor = time_factor.lincurve(0,1,0.25,2,3);
+		modulator_ratio = modulator_ratio.lincurve(0,1,-24,24,0,nil).midiratio;
+		carrier_sweep_ratio = carrier_sweep_ratio.lincurve(0,1,0,48,0,nil).midiratio;
+		modulator_sweep_ratio = modulator_sweep_ratio.lincurve(0,1,0,48,0,nil).midiratio;
+		carrier_time = carrier_time.lincurve(0,1,0,2,3,nil);
+		modulator_time = modulator_time.lincurve(0,1,0,1,3,nil);
+		transient_time = transient_time.lincurve(0,1,0.005,0.25,3,nil);
+		tail_time = tail_time.lincurve(0,1,0,1,3,nil);
+		carrier_vol = carrier_vol.lincurve(0,1,0,1,3,nil);
+		modulator_vol = modulator_vol.lincurve(0,1,0,1,3,nil);
+		transient_vol = transient_vol.lincurve(0,1,0,1,3,nil);
+		tail_vol = tail_vol.lincurve(0,1,0,1,3,nil);
+		time_factor = time_factor.lincurve(0,1,0.25,2,3,nil);
 
 		carrier_time = carrier_time * time_factor;
 		modulator_time = modulator_time * time_factor;
@@ -225,18 +225,18 @@
 		carrier, modulator, transient, tail, volume_compensation,
 		mix;
 
-		modulator_ratio = modulator_ratio.lincurve(0,1,-24,24,0).midiratio;
-		carrier_sweep_ratio = carrier_sweep_ratio.lincurve(0,1,0,48,0).midiratio;
-		modulator_sweep_ratio = modulator_sweep_ratio.lincurve(0,1,0,48,0).midiratio;
-		carrier_time = carrier_time.lincurve(0,1,0,2,3);
-		modulator_time = modulator_time.lincurve(0,1,0,1,3);
-		transient_time = transient_time.lincurve(0,1,0.005,0.25,3);
-		tail_time = tail_time.lincurve(0,1,0,1,3);
-		carrier_vol = carrier_vol.lincurve(0,1,0,1,3);
-		modulator_vol = modulator_vol.lincurve(0,1,0,1,3);
-		transient_vol = transient_vol.lincurve(0,1,0,1,3);
-		tail_vol = tail_vol.lincurve(0,1,0,1,3);
-		time_factor = time_factor.lincurve(0,1,0.25,2,3);
+		modulator_ratio = modulator_ratio.lincurve(0,1,-24,24,0,nil).midiratio;
+		carrier_sweep_ratio = carrier_sweep_ratio.lincurve(0,1,0,48,0,nil).midiratio;
+		modulator_sweep_ratio = modulator_sweep_ratio.lincurve(0,1,0,48,0,nil).midiratio;
+		carrier_time = carrier_time.lincurve(0,1,0,2,3,nil);
+		modulator_time = modulator_time.lincurve(0,1,0,1,3,nil);
+		transient_time = transient_time.lincurve(0,1,0.005,0.25,3,nil);
+		tail_time = tail_time.lincurve(0,1,0,1,3,nil);
+		carrier_vol = carrier_vol.lincurve(0,1,0,1,3,nil);
+		modulator_vol = modulator_vol.lincurve(0,1,0,1,3,nil);
+		transient_vol = transient_vol.lincurve(0,1,0,1,3,nil);
+		tail_vol = tail_vol.lincurve(0,1,0,1,3,nil);
+		time_factor = time_factor.lincurve(0,1,0.25,2,3,nil);
 
 		carrier_time = carrier_time * time_factor;
 		modulator_time = modulator_time * time_factor;
@@ -325,18 +325,18 @@
 		carrier, modulator, transient, tail, volume_compensation,
 		mix;
 
-		modulator_ratio = modulator_ratio.lincurve(0,1,-24,24,0).midiratio;
-		carrier_sweep_ratio = carrier_sweep_ratio.lincurve(0,1,0,48,0).midiratio;
-		modulator_sweep_ratio = modulator_sweep_ratio.lincurve(0,1,0,48,0).midiratio;
-		carrier_time = carrier_time.lincurve(0,1,0,2,3);
-		modulator_time = modulator_time.lincurve(0,1,0,1,3);
-		transient_time = transient_time.lincurve(0,1,0.005,0.25,3);
-		tail_time = tail_time.lincurve(0,1,0,1,3);
-		carrier_vol = carrier_vol.lincurve(0,1,0,1,3);
-		modulator_vol = modulator_vol.lincurve(0,1,0,1,3);
-		transient_vol = transient_vol.lincurve(0,1,0,1,3);
-		tail_vol = tail_vol.lincurve(0,1,0,1,3);
-		time_factor = time_factor.lincurve(0,1,0.25,2,3);
+		modulator_ratio = modulator_ratio.lincurve(0,1,-24,24,0,nil).midiratio;
+		carrier_sweep_ratio = carrier_sweep_ratio.lincurve(0,1,0,48,0,nil).midiratio;
+		modulator_sweep_ratio = modulator_sweep_ratio.lincurve(0,1,0,48,0,nil).midiratio;
+		carrier_time = carrier_time.lincurve(0,1,0,2,3,nil);
+		modulator_time = modulator_time.lincurve(0,1,0,1,3,nil);
+		transient_time = transient_time.lincurve(0,1,0.005,0.25,3,nil);
+		tail_time = tail_time.lincurve(0,1,0,1,3,nil);
+		carrier_vol = carrier_vol.lincurve(0,1,0,1,3,nil);
+		modulator_vol = modulator_vol.lincurve(0,1,0,1,3,nil);
+		transient_vol = transient_vol.lincurve(0,1,0,1,3,nil);
+		tail_vol = tail_vol.lincurve(0,1,0,1,3,nil);
+		time_factor = time_factor.lincurve(0,1,0.25,2,3,nil);
 
 		carrier_time = carrier_time * time_factor;
 		modulator_time = modulator_time * time_factor;
@@ -409,5 +409,3 @@
 
 "drums: ".post;
 ~drumTypes.keys.postln;
-
-0.midiratio

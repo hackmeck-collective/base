@@ -1,85 +1,85 @@
 (
 ~filterTypes = (
-	lpf_moog: {arg in, gate, freq = 440, filter_mod_1 = 0, filter_mod_2 = 0;
+	lpf_moog: {arg in, gate, freq = 440, filter_mod_1 = 0, filter_mod_2 = 0, filter_hz_offset = 0;
 
-		var filter_freq = freq * filter_mod_1.lincurve(0,1,1,64,3),
+		var filter_freq = freq * filter_mod_1.lincurve(0,1,1,64,3,nil),
 		filter_resonance = filter_mod_2.lincurve(0,1,0,7,3);
 
-		MoogFF.ar(in, filter_freq, filter_resonance);
+		MoogFF.ar(in, filter_freq + filter_hz_offset, filter_resonance);
 
 	},
 
-	lpf_12: {arg in, gate, freq = 440, filter_mod_1 = 0, filter_mod_2 = 0;
+	lpf_12: {arg in, gate, freq = 440, filter_mod_1 = 0, filter_mod_2 = 0, filter_hz_offset = 0;
 
-		var filter_freq = freq * filter_mod_1.lincurve(0,1,1,64,3),
+		var filter_freq = freq * filter_mod_1.lincurve(0,1,1,64,3,nil),
 		filter_resonance = filter_mod_2.lincurve(0,1,1,4,3);
 
-		BLowPass.ar(in, filter_freq, filter_resonance) * filter_resonance;
+		BLowPass.ar(in, filter_freq + filter_hz_offset, filter_resonance) * filter_resonance;
 
 	},
 
-	lpf_24: {arg in, gate, freq = 440, filter_mod_1 = 0, filter_mod_2 = 0;
+	lpf_24: {arg in, gate, freq = 440, filter_mod_1 = 0, filter_mod_2 = 0, filter_hz_offset = 0;
 
-		var filter_freq = freq * filter_mod_1.lincurve(0,1,1,64,3),
+		var filter_freq = freq * filter_mod_1.lincurve(0,1,1,64,3,nil),
 		filter_resonance = filter_mod_2.lincurve(0,1,1,4,3);
 
-		BLowPass4.ar(in, filter_freq, filter_resonance) * filter_resonance;
+		BLowPass4.ar(in, filter_freq + filter_hz_offset, filter_resonance) * filter_resonance;
 
 	},
 
-	bpf:  {arg in, gate, freq = 440, filter_mod_1 = 0, filter_mod_2 = 0;
+	bpf:  {arg in, gate, freq = 440, filter_mod_1 = 0, filter_mod_2 = 0, filter_hz_offset = 0;
 
-		var filter_freq = freq * filter_mod_1.lincurve(0,1,1,64,3),
+		var filter_freq = freq * filter_mod_1.lincurve(0,1,1,64,3,nil),
 		filter_resonance = filter_mod_2.lincurve(0,1,4,0.25,3);
 
-		BBandPass.ar(in, filter_freq, filter_resonance);
+		BBandPass.ar(in, filter_freq + filter_hz_offset, filter_resonance);
 
 	},
 
-	notch:  {arg in, gate, freq = 440, filter_mod_1 = 0, filter_mod_2 = 0;
+	notch:  {arg in, gate, freq = 440, filter_mod_1 = 0, filter_mod_2 = 0, filter_hz_offset = 0;
 
-		var filter_freq = freq * filter_mod_1.lincurve(0,1,1,64,3),
+		var filter_freq = freq * filter_mod_1.lincurve(0,1,1,64,3,nil),
 		filter_resonance = filter_mod_2.lincurve(0,1,0.25,4,3);
 
-		BBandStop.ar(in, filter_freq, filter_resonance);
+		BBandStop.ar(in, filter_freq + filter_hz_offset, filter_resonance);
 
 	},
 
-	hpf_12:  {arg in, gate, freq = 440, filter_mod_1 = 0, filter_mod_2 = 0;
+	hpf_12:  {arg in, gate, freq = 440, filter_mod_1 = 0, filter_mod_2 = 0, filter_hz_offset = 0;
 
-		var filter_freq = freq * filter_mod_1.lincurve(0,1,1,64,3),
+		var filter_freq = freq * filter_mod_1.lincurve(0,1,1,64,3,nil),
 		filter_resonance = filter_mod_2.lincurve(0,1,1,4,3);
 
-		BHiPass.ar(in, filter_freq, filter_resonance) * filter_resonance;
+		BHiPass.ar(in, filter_freq + filter_hz_offset, filter_resonance) * filter_resonance;
 
 	},
 
-	hpf_24:  {arg in, gate, freq = 440, filter_mod_1 = 0, filter_mod_2 = 0;
+	hpf_24:  {arg in, gate, freq = 440, filter_mod_1 = 0, filter_mod_2 = 0, filter_hz_offset = 0;
 
-		var filter_freq = freq * filter_mod_1.lincurve(0,1,1,64,3),
+		var filter_freq = freq * filter_mod_1.lincurve(0,1,1,64,3,nil),
 		filter_resonance = filter_mod_2.lincurve(0,1,1,4,3);
 
-		BHiPass4.ar(in, filter_freq, filter_resonance) * filter_resonance;
+		BHiPass4.ar(in, filter_freq + filter_hz_offset, filter_resonance) * filter_resonance;
 
 	},
 
-	hi_shelf:  {arg in, gate, freq = 440, filter_mod_1 = 0, filter_mod_2 = 0;
+	hi_shelf:  {arg in, gate, freq = 440, filter_mod_1 = 0, filter_mod_2 = 0, filter_hz_offset = 0;
 
-		var filter_freq = freq * filter_mod_1.lincurve(0,1,1,64,3),
+		var filter_freq = freq * filter_mod_1.lincurve(0,1,1,64,3,nil),
 		filter_resonance = filter_mod_2.lincurve(0,1,1,2,3),
 		db = filter_mod_2.lincurve(0,1,0,-12,3);
 
-		BHiShelf.ar(in, filter_freq, filter_resonance, db);
+		BHiShelf.ar(in, filter_freq + filter_hz_offset, filter_resonance, db);
 
 	},
 
-	lo_shelf:  {arg in, gate, freq = 440, filter_mod_1 = 0, filter_mod_2 = 0;
+	lo_shelf:  {arg in, gate, freq = 440, filter_mod_1 = 0, filter_mod_2 = 0, filter_hz_offset = 0;
 
-		var filter_freq = freq * filter_mod_1.lincurve(0,1,1,64,3),
+		var filter_freq = freq * filter_mod_1.lincurve(0,1,1,64,3,nil),
 		filter_resonance = filter_mod_2.lincurve(0,1,1,2,3),
 		db = filter_mod_2.lincurve(0,1,0,-12,3);
 
-		BLowShelf.ar(in, filter_freq, filter_resonance, db);
+		BLowShelf.ar(in, filter_freq + filter_hz_offset, filter_resonance, db);
 	},
 
 	noFilter:  {arg in;

@@ -85,22 +85,24 @@
 \\envCurve, 3,
 
 \\pitchOpType, \\noPitchOp, // \\noPitchOp, \\vibrato, \\slide, \\unisonoDetune, \\fm, \\vibratoSync, \\slideVibrato, \\rectArpSync, \\rectArp
-\\pitchOp_mod_1, 0.55,
-\\pitchOp_mod_2, 0.1,
+\\pitchOp_1_interval, 0,
+\\pitchOp_1_amount, 0.1,
 
 \\pitchOpType, \\noPitchOp,
-\\pitchOp_2_mod_1, 0.55,
-\\pitchOp_2_mod_2, 0.1,
+\\pitchOp_2_interval, 12,
+\\pitchOp_2_amount, 0.1,
 
 \\oscillatorType, \\basic, // \\noOscillator, \\basic, \\fm, \\formant, \\filteredNoise, \\modal, \\pulsar, \\ping, \\grainCloudGuitar
 \\oscillator_mod_1, 0.45,
 \\oscillator_mod_2, 0.001,
 \\oscillator_1_level, 1,
+\\oscillator_1_transpose, 0,
 
 \\oscillatorType_2, \\noOscillator,
 \\oscillator_2_mod_1, 0.15,
 \\oscillator_2_mod_2, 0.01,
 \\oscillator_2_level, 1,
+\\oscillator_1_transpose, -12,
 
 \\drumType, \\noDrum, // \\noDrum, \\bodyTimbreTransientTail, \\fmTransientTail, \\noiseFmTransientTail, \\amTransientTail
 \\timbre_ratio, 0.45,
@@ -151,8 +153,8 @@
 
 
 \\filterType, \\noFilter, // \\noFilter, \\lpf_moog, \\lpf_24, \\lpf_12, \\hpf_24, \\hpf_12, \\bpf, \\notch, \\lo_shelf, \\hi_shelf,
-\\filter_mod_1, 1,
-\\filter_mod_2, 0.25,
+\\filter_1_mod_1, 1,
+\\filter_1_mod_2, 0.25,
 
 \\filterType_2, \\noFilter,
 \\filter_2_mod_1, 1,
@@ -214,6 +216,25 @@
 \\mod4EnvCurve, 2,
 \\mod4syncEnvRatio, 0,
 \\mod4ControlbusChannel, 3,
+
+\\external1Target, \"\",
+\\external1Amount, 1,
+\\external2Target, \"\",
+\\external2Amount, 1,
+\\external3Target, \"\",
+\\external3Amount, 1,
+\\external4Target, \"\",
+\\external4Amount, 1,
+
+\\pattern1Target, \"\",
+\\pattern1Amount, 1,
+\\pattern2Target, \"\",
+\\pattern2Amount, 1,
+\\pattern3Target, \"\",
+\\pattern3Amount, 1,
+\\pattern4Target, \"\",
+\\pattern4Amount, 1,
+
 ];
 ~callInstrumentPreset.(%);
 )".format(name.asCompileString, name.asCompileString);
@@ -228,22 +249,24 @@
 \\envCurve, 3,
 
 \\pitchOpType, \\noPitchOp, // \\noPitchOp, \\vibrato, \\slide, \\unisonoDetune, \\fm, \\vibratoSync, \\slideVibrato, \\rectArpSync, \\rectArp
-\\pitchOp_mod_1, 0.55,
-\\pitchOp_mod_2, 0.1,
+\\pitchOp_1_interval, 0,
+\\pitchOp_1_amount, 0.1,
 
 \\pitchOpType, \\noPitchOp,
-\\pitchOp_2_mod_1, 0.55,
-\\pitchOp_2_mod_2, 0.1,
+\\pitchOp_2_interval, 12,
+\\pitchOp_2_amount, 0.1,
 
 \\oscillatorType, \\basic, // \\noOscillator, \\basic, \\fm, \\formant, \\filteredNoise, \\modal, \\pulsar, \\ping, \\grainCloudGuitar
 \\oscillator_mod_1, 0.45,
 \\oscillator_mod_2, 0.001,
 \\oscillator_1_level, 1,
+\\oscillator_1_transpose, 0,
 
 \\oscillatorType_2, \\noOscillator,
 \\oscillator_2_mod_1, 0.15,
 \\oscillator_2_mod_2, 0.01,
 \\oscillator_2_level, 1,
+\\oscillator_2_transpose, -12,
 
 // \\noFx,
 // \\overdriveSoft, \\overdriveMid, \\overdriveHard,
@@ -262,8 +285,8 @@
 
 
 \\filterType, \\noFilter, // \\noFilter, \\lpf_moog, \\lpf_24, \\lpf_12, \\hpf_24, \\hpf_12, \\bpf, \\notch, \\lo_shelf, \\hi_shelf,
-\\filter_mod_1, 1,
-\\filter_mod_2, 0.25,
+\\filter_1_mod_1, 1,
+\\filter_1_mod_2, 0.25,
 
 \\filterType_2, \\noFilter,
 \\filter_2_mod_1, 1,
@@ -325,6 +348,24 @@
 \\mod4EnvCurve, 2,
 \\mod4syncEnvRatio, 0,
 \\mod4ControlbusChannel, 3,
+
+\\external1Target, \"\",
+\\external1Amount, 1,
+\\external2Target, \"\",
+\\external2Amount, 1,
+\\external3Target, \"\",
+\\external3Amount, 1,
+\\external4Target, \"\",
+\\external4Amount, 1,
+
+\\pattern1Target, \"\",
+\\pattern1Amount, 1,
+\\pattern2Target, \"\",
+\\pattern2Amount, 1,
+\\pattern3Target, \"\",
+\\pattern3Amount, 1,
+\\pattern4Target, \"\",
+\\pattern4Amount, 1,
 ];
 ~callInstrumentPreset.(%);
 )".format(name.asCompileString, name.asCompileString);
@@ -339,12 +380,12 @@
 \\envCurve, 3,
 
 \\pitchOpType, \\noPitchOp, // \\noPitchOp, \\vibrato, \\slide, \\unisonoDetune, \\fm, \\vibratoSync, \\slideVibrato, \\rectArpSync, \\rectArp
-\\pitchOp_mod_1, 0.55,
-\\pitchOp_mod_2, 0.1,
+\\pitchOp_1_interval, 0,
+\\pitchOp_1_amount, 0.1,
 
 \\pitchOpType, \\noPitchOp,
-\\pitchOp_2_mod_1, 0.55,
-\\pitchOp_2_mod_2, 0.1,
+\\pitchOp_2_interval, 12,
+\\pitchOp_2_amount, 0.1,
 
 \\drumType, \\bodyTimbreTransientTail, // \\noDrum, \\bodyTimbreTransientTail, \\fmTransientTail, \\noiseFmTransientTail, \\amTransientTail
 \\timbre_ratio, 0.45,
@@ -395,8 +436,8 @@
 
 
 \\filterType, \\noFilter, // \\noFilter, \\lpf_moog, \\lpf_24, \\lpf_12, \\hpf_24, \\hpf_12, \\bpf, \\notch, \\lo_shelf, \\hi_shelf,
-\\filter_mod_1, 1,
-\\filter_mod_2, 0.25,
+\\filter_1_mod_1, 1,
+\\filter_1_mod_2, 0.25,
 
 \\filterType_2, \\noFilter,
 \\filter_2_mod_1, 1,
@@ -458,6 +499,24 @@
 \\mod4EnvCurve, 2,
 \\mod4syncEnvRatio, 0,
 \\mod4ControlbusChannel, 3,
+
+\\external1Target, \"\",
+\\external1Amount, 1,
+\\external2Target, \"\",
+\\external2Amount, 1,
+\\external3Target, \"\",
+\\external3Amount, 1,
+\\external4Target, \"\",
+\\external4Amount, 1,
+
+\\pattern1Target, \"\",
+\\pattern1Amount, 1,
+\\pattern2Target, \"\",
+\\pattern2Amount, 1,
+\\pattern3Target, \"\",
+\\pattern3Amount, 1,
+\\pattern4Target, \"\",
+\\pattern4Amount, 1,
 ];
 ~callInstrumentPreset.(%);
 )".format(name.asCompileString, name.asCompileString);

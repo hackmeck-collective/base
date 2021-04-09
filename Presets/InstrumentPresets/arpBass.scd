@@ -10,27 +10,19 @@
 	\out, ~chords_bus,
 	\send_1, ~ef_reverb,
 	\send_1_level, 0.1,
-	\pitchOp_mod_1, 0.5,
-	\pitchOp_mod_2, 1/32,
+
+	\pitchOp_1_interval, 12,
+	\pitchOp_1_amount, 1/32,
+
 	\oscillator_mod_1, 0.5,
 	\oscillator_mod_2, 0.35,
+
 	\fx_mod_1, 0.5,
 	\fx_mod_2, 0.2,
-	\filter_mod_1, 0,
-	\filter_mod_2, 0.5,
+
 	\envelope_mod, 0.1,
 	\vol, 1,
 	\amp, 0.15,
-	\pitchOp_mod_1_macro_channel, 0,
-	\pitchOp_mod_2_macro_channel, 0,
-	\oscillator_mod_1_macro_channel, 0,
-	\oscillator_mod_2_macro_channel, 0,
-	\fx_mod_1_macro_channel, 0,
-	\fx_mod_2_macro_channel, 0,
-	\filter_mod_1_macro_channel, 0,
-	\filter_mod_2_macro_channel, 0,
-	\envelope_mod_macro_channel, 0,
-	\vol_macro_channel, 0,
 ];
 ~callInstrumentPreset.(\arpBass);
 )

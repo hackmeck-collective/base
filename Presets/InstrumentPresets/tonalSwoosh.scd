@@ -12,28 +12,24 @@
 	\out, ~melody_bus,
 	\send_1, ~ef_reverb,
 	\send_1_level, 0.05,
-	\pitchOp_mod_1, 0.55,
-	\pitchOp_mod_2, 0.1,
+
+	\pitchOp_1_interval, 0.55,
+	\pitchOp_1_amount, 0.1,
+
 	\oscillator_mod_1, 0.03,
 	\oscillator_mod_2, 0,
+
 	\fx_mod_1, 0,
 	\fx_mod_2, 0,
-	\filter_mod_1, 0.01,
-	\filter_mod_2, 0.2,
+
+	\filter_1_mod_1, 0.01,
+	\filter_1_mod_2, 0.2,
+
 	\envelope_mod, 1,
 	\envCurve, 10,
+
 	\vol, 1,
 	\amp, 1.5,
-	\pitchOp_mod_1_macro_channel, 0,
-	\pitchOp_mod_2_macro_channel, 0,
-	\oscillator_mod_1_macro_channel, 0,
-	\oscillator_mod_2_macro_channel, 0,
-	\fx_mod_1_macro_channel, 0,
-	\fx_mod_2_macro_channel, 0,
-	\filter_mod_1_macro_channel, 0,
-	\filter_mod_2_macro_channel, 0,
-	\envelope_mod_macro_channel, 0,
-	\vol_macro_channel, 0,
 ];
 ~callInstrumentPreset.(\tonalSwoosh);
 )

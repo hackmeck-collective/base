@@ -2,12 +2,13 @@
 ~instrumentPresetsDictionary[\sd1] = [
 	\octave, 4,
 	\drumType, \bodyTimbreTransientTail,
-	\fxType, \shelvedOverdriveSoft,
+	\fxType, \overdriveSoft,
 	\type, \on,
 	\controlbus, ~launchcontrol_xl_row_1,
 	\out, ~drums_bus,
 	\send_1, ~ef_reverb,
 	\send_1_level, 0,
+
 	\timbre_ratio, 0.4,
 	\body_sweep_ratio, 1,
 	\timbre_sweep_ratio, 1,
@@ -21,18 +22,14 @@
 	\tail_vol, 0.5,
 	\time_factor, 0.01,
 	\punch_factor, 6,
+
 	\fx_mod_1, 0.2,
 	\fx_mod_2, 0.7,
-	\filter_mod_1, 0,
-	\filter_mod_2, 0,
+	\filter_1_mod_1, 1,
+	\filter_1_mod_2, 0,
+
 	\vol, 1,
 	\amp, 0.8,
-	\time_factor_macro_channel, 0,
-	\fx_mod_1_macro_channel, 0,
-	\fx_mod_2_macro_channel, 0,
-	\filter_mod_1_macro_channel, 0,
-	\filter_mod_2_macro_channel, 0,
-	\vol_macro_channel, 0,
 ];
 ~callInstrumentPreset.(\sd1);
 )

@@ -17,7 +17,7 @@ var loadStuff = {
 
 	"loading instruments".postln;
 	"Synthese_Sounddesign/instruments/modules/0_load_modules.scd".loadRelative;
-	"Synthese_Sounddesign/instruments/makeModularSynthDef2.scd".loadRelative;
+	"Synthese_Sounddesign/instruments/makeModularSynthDef.scd".loadRelative;
 
 	"loading presets".postln;
 	"Presets/InstrumentPresetFunctions.scd".loadRelative;
@@ -28,13 +28,15 @@ var loadStuff = {
 	"patterns/rhythmicPatterns.scd".loadRelative;
 	"patterns/pitchPatterns.scd".loadRelative;
 	"patterns/drumFills.scd".loadRelative;
+	"patterns/launchControlXlTrigger.scd".loadRelative;
 
 	"loading control interfaces".postln;
 	"control_interfaces/midi_defs_launchcontrol-xl.scd".loadRelative;
 
-	~localSetup = waitForPeers.not; // hier und bei globals ist das relevant
+	~localSetup = waitForPeers.not;
 
 	if(~localSetup){
+		"loading L-Systems".postln;
 		"Lsysteme/resources/globals.scd".loadRelative;
 		"Lsysteme/resources/lsysCreator_noDaemon.scd".loadRelative;
 		"Lsysteme/resources/pdefCreator.scd".loadRelative; // load pdef which will play back lsystems
@@ -46,7 +48,14 @@ var loadStuff = {
 	if (~pitchesRootDissonance[\pitches] == nil ) {~pitchesRootDissonance[\pitches] = [-36,-9,5,-17,10]};
 	if (~pitchesRootDissonance[\root] == nil ) {~pitchesRootDissonance[\root] = [0]};
 
+	"initializing LinkClock".postln;
+
 	~linkClock = LinkClock.new(1).latency_(s.latency).enableMeterSync.permanent_(true);
+
+	"loading cue functions".postln;
+	"cues/cues.scd".loadRelative;
+	"cues/launchcontrolPolymer.scd".loadRelative;
+
 	CmdPeriod.run;
 
 	Document.open(thisProcess.nowExecutingPath.dirname +/+ "patterns" +/+ "arrangements.scd");
@@ -100,13 +109,8 @@ s.waitForBoot {
 ~routing[\drumsBus] = ~drums_bus.index;
 ~routing[\auxBus] = ~aux_bus.index;
 );
+
 /*
-~switchRows.(\bank_1);
-
-~ass = {|nice, ass,| var str = "";  thisFunction.argNames.do {|name| str = str ++ name ++ ", "}; str}
-
-~ass.().postcs
-
 
 ~adsrTypes.keys;
 ~oscillatorTypes.keys;
@@ -114,12 +118,6 @@ s.waitForBoot {
 ~fxTypes.keys;
 ~filterTypes.keys;
 ~drumTypes.keys;
-
-SynthDef
-
-lpf_freq = macro_3.lincurve(0,1,60,18000,3);
-
-TempoClock.default.tempo = 1
 
 s.record
 

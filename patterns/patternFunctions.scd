@@ -1,3 +1,8 @@
+//scMCh funktioniert nicht
+// wie hole ich dur in sidecain rein?
+
+//////////////////////////////// RHYTHM
+
 ~euclid = { |hits, length, offset, pulse|
 	Pbjorklund2(hits,length,inf,offset.asStream) * pulse;
 };
@@ -18,6 +23,7 @@
 };
 
 ~pitchTriggerRepeat = { |noteArray, repeats, notes|
+	notes = notes ?? {(0..noteArray.size - 1)};
 	Pindex(
 		noteArray,
 		Pclutch(
@@ -31,6 +37,7 @@
 	)
 };
 
+//////////////////////////////// PITCHES
 
 ~pitchesAndOctaves = { |noteArray, lowerLimit = 0, upperLimit = 12, harmonics = 1, transpositions = 10|
 
@@ -66,5 +73,71 @@
 ~pitchPerDuration = { |pitchArray, durations|
 	Ptsym(Pseq(pitchArray, inf),dur: Pseq(durations, inf))
 };
+
+//////////////////////////////// SIDECHAIN
+
+~scM4 = (
+	\type: \set,
+	\id: Pfunc { ~audioBusses.melodyBus },
+	\args: #[\beatDurNow, \sidechain_trigger_4_melody],
+	\beatDurNow: {TempoClock.default.beatDur},
+	\sidechain_trigger_4_melody: 1
+);
+
+~scM8 = (
+	\type: \set,
+	\id: Pfunc { ~audioBusses.melodyBus },
+	\args: #[\beatDurNow, \sidechain_trigger_8_melody],
+	\beatDurNow: {TempoClock.default.beatDur},
+	\sidechain_trigger_8_melody: 1
+);
+
+~scCh4 = (
+	\type: \set,
+	\id: Pfunc { ~audioBusses.chordsBus },
+	\args: #[\beatDurNow, \sidechain_trigger_4_chords],
+	\beatDurNow: {TempoClock.default.beatDur},
+	\sidechain_trigger_4_chords: 1
+);
+
+~scCh8 = (
+	\type: \set,
+	\id: Pfunc { ~audioBusses.chordsBus },
+	\args: #[\beatDurNow, \sidechain_trigger_8_chords],
+	\beatDurNow: {TempoClock.default.beatDur},
+	\sidechain_trigger_8_chords: 1
+);
+
+~scMCh4 = ((
+	\type: \set,
+	\id: Pfunc { ~audioBusses.melodyBus },
+	\args: #[\beatDurNow, \sidechain_trigger_4_melody],
+	\beatDurNow: {TempoClock.default.beatDur},
+	\sidechain_trigger_4_melody: 1
+);
+(
+	\type: \set,
+	\id: Pfunc { ~audioBusses.chordsBus },
+	\args: #[\beatDurNow, \sidechain_trigger_4_chords],
+	\beatDurNow: {TempoClock.default.beatDur},
+	\sidechain_trigger_4_chords: 1
+);
+);
+
+~scMCh8 = ((
+	\type: \set,
+	\id: Pfunc { ~audioBusses.melodyBus },
+	\args: #[\beatDurNow, \sidechain_trigger_8_melody],
+	\beatDurNow: {TempoClock.default.beatDur},
+	\sidechain_trigger_8_melody: 1
+);
+(
+	\type: \set,
+	\id: Pfunc { ~audioBusses.chordsBus },
+	\args: #[\beatDurNow, \sidechain_trigger_8_chords],
+	\beatDurNow: {TempoClock.default.beatDur},
+	\sidechain_trigger_8_chords: 1
+);
+);
 
 //~chord.([0,1,2,3,4,5,6,7,8,9,10,11],-36,36,1,0);

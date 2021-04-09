@@ -7,9 +7,9 @@
 
 	pluck: {arg gate = 0, envelope_mod = 0, beatDuration, syncMultiplier, envCurve = 3;
 
-		var amp_a = envelope_mod.lincurve(0,1,0.001,0.02,3),
-		amp_r = envelope_mod.lincurve(0,1,0.05,3,3),
-		amp_c = envelope_mod.lincurve(0,1,1,-4,3);
+		var amp_a = envelope_mod.lincurve(0,1,0.001,0.02,3,nil),
+		amp_r = envelope_mod.lincurve(0,1,0.05,3,3,nil),
+		amp_c = envelope_mod.lincurve(0,1,1,-4,3,nil);
 		EnvGen.kr(
 			Env.perc(
 				attackTime: amp_a,
@@ -22,11 +22,11 @@
 
 	lead: {arg gate = 0, envelope_mod = 0, beatDuration, syncMultiplier, envCurve = 3;
 
-		var amp_a = envelope_mod.lincurve(0,1,0.01,0.25,3),
-		amp_d = envelope_mod.lincurve(0,1,0.5,0.1,3),
-		amp_s = envelope_mod.lincurve(0,1,0.7,1,3),
-		amp_r = envelope_mod.lincurve(0,1,0.1,1,3),
-		amp_c = envelope_mod.lincurve(0,1,3,-4,3);
+		var amp_a = envelope_mod.lincurve(0,1,0.01,0.25,3,nil),
+		amp_d = envelope_mod.lincurve(0,1,0.5,0.1,3,nil),
+		amp_s = envelope_mod.lincurve(0,1,0.7,1,3,nil),
+		amp_r = envelope_mod.lincurve(0,1,0.1,1,3,nil),
+		amp_c = envelope_mod.lincurve(0,1,3,-4,3,nil);
 		EnvGen.kr(
 			Env.adsr(
 				attackTime: amp_a,
@@ -41,10 +41,10 @@
 
 	pad: {arg gate = 0, envelope_mod = 0, beatDuration, syncMultiplier, envCurve = 3;
 
-		var amp_a = envelope_mod.lincurve(0,1,0.3,3,3),
-		amp_d = envelope_mod.lincurve(0,1,0.5,3,3),
-		amp_s = envelope_mod.lincurve(0,1,0.7,1,3),
-		amp_r = envelope_mod.lincurve(0,1,1,3,3),
+		var amp_a = envelope_mod.lincurve(0,1,0.3,3,3,nil),
+		amp_d = envelope_mod.lincurve(0,1,0.5,3,3,nil),
+		amp_s = envelope_mod.lincurve(0,1,0.7,1,3,nil),
+		amp_r = envelope_mod.lincurve(0,1,1,3,3,nil),
 		amp_c = 3;
 		EnvGen.kr(
 			Env.adsr(

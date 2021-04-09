@@ -22,6 +22,20 @@ G - rest
 [] - new branch
 | - play no rule
 */
+(
+~newLsys.(
+	name: \rabbitSeq,
+	axiom: "F",
+	rules: ( $F: "+F-G--F++GFG", $G: "F[F]" ),
+	gen: 8.0
+);
+)
+
+Pdef(\rabbitSeq).play(1)
+~lsys.presets.rabbitSeq.instr = \blip
+~lsys.presets.rabbitSeq.baseTempo = 1/8
+~lsys.presets.rabbitSeq.quant = 0
+Pdef(\play, Psym(Pseq([\rabbitSeq], inf))).play(~linkClock, quant: 4)
 
 (
 ~newLsys.(

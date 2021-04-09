@@ -18,7 +18,7 @@
 
 	tremoloRect: {arg in, gate, freq = 440, fx_mod_1, fx_mod_2, beatDuration, syncMultiplier;
 
-		var depth = fx_mod_1.lincurve(0,1,0,1,3),
+		var depth = fx_mod_1.lincurve(0,1,0,1,3,nil),
 		speed = 1 / (beatDuration * 4 * fx_mod_2);
 
 		in * LFPulse.ar(speed, mul: depth, add: (1 - depth));
@@ -34,7 +34,7 @@
 
 	tremoloRamp: {arg in, gate, freq = 440, fx_mod_1, fx_mod_2, beatDuration, syncMultiplier;
 
-		var depth = fx_mod_1.lincurve(0,1,0,1,3),
+		var depth = fx_mod_1.lincurve(0,1,0,1,3,nil),
 		speed = 1 / (beatDuration * 4 * fx_mod_2);
 
 		in * Clip.ar(LFSaw.ar(speed, mul: depth, add: (1 - depth)));
@@ -42,7 +42,7 @@
 
 	tremoloSine: {arg in, gate, freq = 440, fx_mod_1, fx_mod_2, beatDuration, syncMultiplier;
 
-		var depth = fx_mod_1.lincurve(0,1,0,1,3),
+		var depth = fx_mod_1.lincurve(0,1,0,1,3,nil),
 		speed = 1 / (beatDuration * 4 * fx_mod_2);
 
 		in * Clip.ar(SinOsc.ar(speed, mul: depth, add: (1 - depth)));
@@ -50,15 +50,15 @@
 
 	overdriveSoft: {arg in, gate, freq = 440, fx_mod_1, fx_mod_2;
 
-		var overdrive = fx_mod_1.lincurve(0,1,1,20,3);
+		var overdrive = fx_mod_1.lincurve(0,1,1,20,3,nil);
 
 		Shaper.ar(~overdrive_fuction_1_buf, in * overdrive);
 	},
 
 	shelvedOverdriveSoft: {arg in, gate, freq = 440, fx_mod_1, fx_mod_2;
 
-		var overdrive = fx_mod_1.lincurve(0,1,1,20,3),
-		shelving = fx_mod_2.lincurve(0,1,-6,6,0);
+		var overdrive = fx_mod_1.lincurve(0,1,1,20,3,nil),
+		shelving = fx_mod_2.lincurve(0,1,-6,6,0,nil);
 
 		in = BLowShelf.ar(in, freq * 3, db: shelving);
 		in = BHiShelf.ar(in, freq * 3, db: shelving.neg);
@@ -69,15 +69,15 @@
 
 	overdriveMid: {arg in, gate, freq = 440, fx_mod_1 = 0, fx_mod_2 = 0;
 
-		var overdrive = fx_mod_1.lincurve(0,1,1,20,3);
+		var overdrive = fx_mod_1.lincurve(0,1,1,20,3,nil);
 
 		Shaper.ar(~overdrive_fuction_2_buf, in * overdrive);
 	},
 
 	shelvedOverdriveMid: {arg in, gate, freq = 440, fx_mod_1 = 0, fx_mod_2 = 0;
 
-		var overdrive = fx_mod_1.lincurve(0,1,1,20,3),
-		shelving = fx_mod_2.lincurve(0,1,-6,6,0);
+		var overdrive = fx_mod_1.lincurve(0,1,1,20,3,nil),
+		shelving = fx_mod_2.lincurve(0,1,-6,6,0,nil);
 
 		in = BLowShelf.ar(in, freq * 3, db: shelving);
 		in = BHiShelf.ar(in, freq * 3, db: shelving.neg);
@@ -88,15 +88,15 @@
 
 	overdriveHard: {arg in, gate, freq = 440, fx_mod_1 = 0, fx_mod_2 = 0;
 
-		var overdrive = fx_mod_1.lincurve(0,1,1,20,3);
+		var overdrive = fx_mod_1.lincurve(0,1,1,20,3,nil);
 
 		Shaper.ar(~overdrive_fuction_3_buf, in * overdrive);
 	},
 
 	shelvedOverdriveHard: {arg in, gate, freq = 440, fx_mod_1 = 0, fx_mod_2 = 0;
 
-		var overdrive = fx_mod_1.lincurve(0,1,1,20,3),
-		shelving = fx_mod_2.lincurve(0,1,-6,6,0);
+		var overdrive = fx_mod_1.lincurve(0,1,1,20,3,nil),
+		shelving = fx_mod_2.lincurve(0,1,-6,6,0,nil);
 
 		in = BLowShelf.ar(in, freq * 3, db: shelving);
 		in = BHiShelf.ar(in, freq * 3, db: shelving.neg);
@@ -107,7 +107,7 @@
 
 	rectifier: {arg in, gate, freq = 440, fx_mod_1 = 0, fx_mod_2 = 0;
 
-		var offset = fx_mod_1.lincurve(0,1,-1,1,0);
+		var offset = fx_mod_1.lincurve(0,1,-1,1,0,nil);
 
 		in = Fold.ar(in + offset, -1, 1);
 
@@ -116,36 +116,26 @@
 
 	fold: {arg in, gate, freq = 440, fx_mod_1 = 0, fx_mod_2 = 0;
 
-		var gain = fx_mod_1.lincurve(0,1,1,10,3);
+		var gain = fx_mod_1.lincurve(0,1,1,10,3,nil);
 
 		Fold.ar(in * gain, -0.999, 0.999);
 	},
 
 	wrap: {arg in, gate, freq = 440, fx_mod_1 = 0, fx_mod_2 = 0;
 
-		var gain = fx_mod_1.lincurve(0,1,1,7,3);
+		var gain = fx_mod_1.lincurve(0,1,1,7,3,nil);
 
 		Wrap.ar(in * gain, -0.999, 0.999);
 	},
 
 	sampleRateReduction: {arg in, gate, freq = 440, fx_mod_1 = 0, fx_mod_2 = 0;
 
-		var sample_rate_ratio = fx_mod_1.lincurve(0,1,1,64,3);
+		var sample_rate_ratio = fx_mod_1.lincurve(0,1,1,64,3,nil);
 
 		BHiPass.ar(
 			Latch.ar(
 				in, Impulse.ar(freq * sample_rate_ratio)
 		), freq * 0.5);
-	},
-
-	bitcrush: {arg in, gate, freq = 440, fx_mod_1 = 0, fx_mod_2 = 0;
-
-		var sig, bits = fx_mod_1.lincurve(0,1,1,16,3), steps;
-
-		steps = (2**bits).round;
-
-		sig = (in).round(steps.reciprocal);
-
 	},
 
 	bitcrush: {arg in, gate, freq = 440, fx_mod_1 = 0, fx_mod_2 = 0;

@@ -8,6 +8,7 @@
 	\out, ~drums_bus,
 	\send_1, ~ef_reverb,
 	\send_1_level, 0.2,
+
 	\timbre_ratio, 0.45,
 	\body_sweep_ratio, 1,
 	\timbre_sweep_ratio, 0.25,
@@ -21,18 +22,12 @@
 	\tail_vol, 0.65,
 	\time_factor, 0.01,
 	\punch_factor, 2,
+
 	\fx_mod_1, 1,
 	\fx_mod_2, 0.7,
-	\filter_mod_1, 0,
-	\filter_mod_2, 0,
+
 	\vol, 1,
 	\amp, 3,
-	\time_factor_macro_channel, 0,
-	\fx_mod_1_macro_channel, 0,
-	\fx_mod_2_macro_channel, 0,
-	\filter_mod_1_macro_channel, 0,
-	\filter_mod_2_macro_channel, 0,
-	\vol_macro_channel, 0,
 ];
 ~callInstrumentPreset.(\sd2);
 )

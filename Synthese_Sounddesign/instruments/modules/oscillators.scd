@@ -21,7 +21,7 @@
 		oscillator_mod_2 = 0;
 
 		var feedback = oscillator_mod_1,
-		gain = oscillator_mod_2.lincurve(0,1,1,20,3);
+		gain = oscillator_mod_2.lincurve(0,1,1,20,3,nil);
 
 		Clip.ar(SinOscFB.ar(freq,feedback) * gain, -1, 1);
 
@@ -32,8 +32,8 @@
 		oscillator_mod_1 = 0,
 		oscillator_mod_2 = 0;
 
-		var rq = oscillator_mod_1.lincurve(0,1,0.0005,5,3),
-		gain = oscillator_mod_1.lincurve(0,1,135,0.75,3);
+		var rq = oscillator_mod_1.lincurve(0,1,0.0005,5,3,nil),
+		gain = oscillator_mod_1.lincurve(0,1,135,0.75,3,nil);
 
 		BPF.ar(PinkNoise.ar(), freq, rq, gain);
 
@@ -44,8 +44,8 @@
 		oscillator_mod_1 = 0,
 		oscillator_mod_2 = 0;
 
-		var amount = freq * oscillator_mod_1.lincurve(0,1,0,20,3),
-		ratio = freq * oscillator_mod_2.lincurve(0,1,1,5,3);
+		var amount = freq * oscillator_mod_1.lincurve(0,1,0,20,3,nil),
+		ratio = freq * oscillator_mod_2.lincurve(0,1,1,5,3,nil);
 
 		SinOsc.ar(freq + SinOsc.ar(ratio,Rand(),amount));
 	},
@@ -55,8 +55,8 @@
 		oscillator_mod_1 = 0,
 		oscillator_mod_2 = 0;
 
-		var formantFrequency = freq * oscillator_mod_1.lincurve(0,1,1,64,3),
-		bandwidth = (formantFrequency - freq) * oscillator_mod_2.lincurve(0,1,1,64,3);
+		var formantFrequency = freq * oscillator_mod_1.lincurve(0,1,1,64,3,nil),
+		bandwidth = (formantFrequency - freq) * oscillator_mod_2.lincurve(0,1,1,64,3,nil);
 
 		Formant.ar(freq, formantFrequency, bandwidth);
 
@@ -67,8 +67,8 @@
 		oscillator_mod_1 = 0,
 		oscillator_mod_2 = 0,
 		grain_position = 0.5;
-		var grain_rate = oscillator_mod_1.lincurve(0,1,0.25,4,0),
-		grain_length_ratio = oscillator_mod_2.lincurve(0,1,1,0.1,0);
+		var grain_rate = oscillator_mod_1.lincurve(0,1,0.25,4,0,nil),
+		grain_length_ratio = oscillator_mod_2.lincurve(0,1,1,0.1,0,nil);
 
 		GrainBuf.ar(
 			1,
@@ -90,9 +90,9 @@
 		oscillator_mod_1 = 0,
 		oscillator_mod_2 = 0;
 
-		var grain_density = oscillator_mod_1.lincurve(0,1,1,10,3),
+		var grain_density = oscillator_mod_1.lincurve(0,1,1,10,3,nil),
 		grain_rate = (freq.cpsmidi-69).midiratio * 15.midiratio,
-		grain_length_ratio = (2/grain_density) * oscillator_mod_2.lincurve(0,1,2,0.1,3);
+		grain_length_ratio = (2/grain_density) * oscillator_mod_2.lincurve(0,1,2,0.1,3,nil);
 
 		var grain_trigger, grain_position;
 
@@ -149,11 +149,11 @@
 		oscillator_mod_2 = 0,
 		harmonics_array = (1..3);
 
-		var d2_dimension = oscillator_mod_1.lincurve(0,1,1.5,2,0),
-		d3_dimension = oscillator_mod_1.lincurve(0,1,1,3.3,0),
-		tan_ot_vol = oscillator_mod_2.lincurve(0,1,0.01,0.5,3),
-		oblique_ot_vol = oscillator_mod_2.lincurve(0,1,0.25,0.5,3),
-		amp_r = oscillator_mod_2.lincurve(0,1,0.05,1,3);
+		var d2_dimension = oscillator_mod_1.lincurve(0,1,1.5,2,0,nil),
+		d3_dimension = oscillator_mod_1.lincurve(0,1,1,3.3,0,nil),
+		tan_ot_vol = oscillator_mod_2.lincurve(0,1,0.01,0.5,3,nil),
+		oblique_ot_vol = oscillator_mod_2.lincurve(0,1,0.25,0.5,3,nil),
+		amp_r = oscillator_mod_2.lincurve(0,1,0.05,1,3,nil);
 
 		var tan_env, obl_env, overtones_array, d1, d2, d3, tan12, tan13, tan23, oblique,
 		axial_modes, tangential_modes, oblique_modes;
@@ -210,7 +210,6 @@
 
 );
 );
-
 
 "oscillators: ".post;
 ~oscillatorTypes.keys.postln;
