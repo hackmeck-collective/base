@@ -235,10 +235,10 @@ Pdef(\play).quant = 4;
 ~lsys.presets.pausen2.instr = \srrPluck
 ~lsys.presets.pausen2.baseTempo = 1/8
 ~lsys.presets.simpleRhythm.theta = 90
-~gui.scale = 30
+~gui.scale = 25
 ~gui.toProcessing.sendMsg('/reset')
 ~gui.toProcessing.sendMsg('/scale', 1)
-~gui.toProcessing.sendMsg('/lerpFactor', 0.1)
-~gui.toProcessing.sendMsg('/linesMax',500)
+~gui.toProcessing.sendMsg('/lerpFactor', 0.4)
+~gui.toProcessing.sendMsg('/linesMax',20)
 // ~presetSpace = OSCObjectSpace(~addrBook, oscPath:'/presets').acceptEvents_(true);
 

@@ -54,6 +54,7 @@
 			$-: { voices[cur].decPitch },
 			$+: { voices[cur].incPitch },
 			$F: { voices[cur].addData(charNow) },
+			$f: { voices[cur].addData(charNow) },
 			$G: { voices[cur].addData(charNow) },
 			$|: { voices[cur].addData(charNow) }
 		);
