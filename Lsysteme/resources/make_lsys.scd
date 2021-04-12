@@ -25,17 +25,18 @@
 	};
 
 	var searchStr = { |str|
-		var searchIndex = 0, cur = 0, maxCur = 0;
-		var voices = nil!100;
-		var collectVoices = (List.new)!100;
-		var prevVoices = (List.new)!100;
+		var maxVoices = 15; // 100
+		var searchIndex = 0, cur = 0;//, maxCur = 0;
+		var voices = nil ! maxVoices;
+		var collectVoices = (List.new) ! maxVoices;
+		var prevVoices = (List.new) ! maxVoices;
 		var charNow;
 		var commands = (
 			$[: {
 				var oldVoice = voices[cur];
 				prevVoices[cur].add(voices[cur]);
 				cur = cur + 1;
-				maxCur = maxCur.max(cur);
+				//maxCur = maxCur.max(cur);
 				voices[cur] = newVoice.(
 					oldVoice.timeStep,
 					oldVoice.pitch,
@@ -53,10 +54,10 @@
 			},
 			$-: { voices[cur].decPitch },
 			$+: { voices[cur].incPitch },
-			$F: { voices[cur].addData(charNow) },
+			$|: { voices[cur].addData(charNow) } // keep for legacy reasons
+			/*$F: { voices[cur].addData(charNow) },
 			$f: { voices[cur].addData(charNow) },
-			$G: { voices[cur].addData(charNow) },
-			$|: { voices[cur].addData(charNow) }
+			$G: { voices[cur].addData(charNow) },*/
 		);
 
 		// make root voice
@@ -77,7 +78,11 @@
 				n = 1;
 			};
 			n.do {
-				commands[charNow].value;
+				if(charNow.isAlpha){
+					voices[cur].addData(charNow)
+				}{
+					commands[charNow].value;
+				}
 			};
 			searchIndex = searchIndex + 1;
 		});
