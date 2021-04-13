@@ -54,7 +54,7 @@ MIDIdef.noteOn(\launchControlButtonHistory, {
 		var midiCCoffsetRow = ~launchControlButtonHistory.at(0) - 41;
 		var midiCCoffsetRow2 = ~launchControlButtonHistory.at(1) - 73;
 		~launchControlEvents["launchControlXlEvent_%_%".format(midiCCoffsetRow,
-			midiCCoffsetRow2).asSymbol].value;
+			midiCCoffsetRow2).asSymbol.postln;].value;
 	}{num.postln};
 }).permanent_(true);
 

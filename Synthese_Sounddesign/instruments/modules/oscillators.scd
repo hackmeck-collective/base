@@ -39,6 +39,15 @@
 
 	},
 
+	crackles: {arg freq = 440,
+		gate = 1,
+		oscillator_mod_1 = 0,
+		oscillator_mod_2 = 0;
+
+		Dust2.ar(freq);
+
+	},
+
 	fm: {arg freq = 440,
 		gate = 1,
 		oscillator_mod_1 = 0,

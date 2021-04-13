@@ -55,6 +55,26 @@
 	"lc1_4".postln;}
 );
 
+~launchControlEvents.add(\launchControlXlEvent_0_6 -> {
+	Pdef(\drums,
+		Ppar([
+
+			( Psym1(~pitchTriggerRepeat.([\bdThump, \sd2, \bdThump], [1])).collect {|ev| ~scM8.play; ev} <> Pbindef(\root) <> Pbindef(\euclidean_lsys_2) );
+			( Psym1(~pitchTriggerRepeat.([\hh1, \hh2], [1])) <> Pbindef(\root) <> Pbindef(\euclidean_lsys_5) );
+
+		])
+	).quant_(4);
+	Pdef(\drums).play(~linkClock, quant: 4);
+	"lc1_7".postln;}
+);
+
+
+~launchControlEvents.add(\launchControlXlEvent_0_7 -> {
+
+	Pdef(\drums).pause(~linkClock, quant: 4);
+	"lc1_8".postln;}
+);
+
 ~launchControlEvents.add(\launchControlXlEvent_1_0 -> {
 	Pdef(\loop,
 		Ppar([

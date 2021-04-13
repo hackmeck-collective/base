@@ -7,6 +7,32 @@
 	Pbjorklund2(hits,length,inf,offset.asStream) * pulse;
 };
 
+~acc = { |events, unit|
+
+Array.fib(events, unit * 4, unit * 4).reverse;
+
+};
+
+~accPulse = { |events, unit, pulse|
+
+	Pclutch(Pseq(~acc.(events, unit)),
+		Pfunc { |ev| ev.time.mod( pulse * 4 ) == 0 }
+	);
+}
+
+~rit = { |events, unit|
+
+	(Array.fib(events, unit * 4, unit * 4));
+
+};
+
+~ritPulse = { |events, unit, pulse|
+
+	Pclutch(Pseq(~rit.(events, unit)),
+		Pfunc { |ev| ev.time.mod( pulse * 4 ) == 0 }
+	);
+}
+
 ~metreDynamics_4_4 = {
 	arg time,
 	factor = 0.3,

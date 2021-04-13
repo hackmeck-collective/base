@@ -1,6 +1,39 @@
 "loading rhythm patterns".postln;
 "limited rng patterns".postln;
 
+Pbindef(\ritPulse1,
+	\time, Ptime(),
+	\dur, Plazy { ~ritPulse.(7, 1/32, 1/16) }
+);
+
+Pbindef(\accPulse1,
+	\time, Ptime(),
+	\dur, Plazy { ~accPulse.(7, 1/32, 1/16) }
+);
+
+Pbindef(\euclidean_lsys_2,
+	\dur,Plazy {|ev| ~euclid.((~cueData[\lsysBeats1] * 2).round, ~cueData[\lsysBeats1] * 8, 0, 1/8).trace },
+	\stretch, 1,
+	\time, Ptime(),
+	\vol, Pfunc {|ev| ~metreDynamics_4_4.(ev.time, 0.3, 0.05, 0.6)} * Pfunc {|ev| ev.hh1_dyn ? 1 },
+	\time_factor, Pfunc {|ev| ~metreDynamics_4_4.(ev.time, 0.5, 0.05, 0.1)},
+	\punch_factor, Pfunc {|ev| ~metreDynamics_4_4.(ev.time, 0.5, 0.05, 0.1)},
+	\beatDuration, Pfunc { ~linkClock.tempo },
+	\syncMultiplier, Pfunc {|ev| (ev.dur * ev.stretch);},
+);
+
+Pbindef(\euclidean_lsys_5,
+	\dur,Plazy {|ev| ~euclid.((~cueData[\lsysBeats1] * 5).round, ~cueData[\lsysBeats1] * 8, 0, 1/8) },
+	\stretch, 1,
+	\time, Ptime(),
+	\vol, Pfunc {|ev| ~metreDynamics_4_4.(ev.time, 0.3, 0.05, 0.6)} * Pfunc {|ev| ev.hh1_dyn ? 1 },
+	\time_factor, Pfunc {|ev| ~metreDynamics_4_4.(ev.time, 0.5, 0.05, 0.1)},
+	\punch_factor, Pfunc {|ev| ~metreDynamics_4_4.(ev.time, 0.5, 0.05, 0.1)},
+	\beatDuration, Pfunc { ~linkClock.tempo },
+	\syncMultiplier, Pfunc {|ev| (ev.dur * ev.stretch);},
+);
+
+
 Pbindef(\bd_pattern_8th_rng,
 	\dur, Pseq([2,
 		Prand([

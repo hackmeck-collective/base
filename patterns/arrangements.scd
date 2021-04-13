@@ -3,11 +3,12 @@ Document.open(thisProcess.nowExecutingPath.dirname +/+ "rhythmicPatterns.scd");
 Document.open(thisProcess.nowExecutingPath.dirname +/+ "patternFunctions.scd");
 Document.open(thisProcess.nowExecutingPath.dirname +/+ "drumFills.scd");
 Document.open(thisProcess.nowExecutingPath.dirname +/+ "launchControlXlTrigger.scd");
-
+~cueData[\lsysBeats1]
 ~instrPreset.create(\click)
 ~instrPreset.create_d(\template_drum)
 ~instrPreset.create_o(\template_synth)
 ~instrPreset.edit(\sd3);
+
 
 // root note und drums mit phillip klären
 
@@ -20,6 +21,7 @@ Pdef(\fill).stop
 thisProcess.openPorts
 
 //////// RHYTHMEN mit INSTRUMENTEN verketten
+
 (
 ( Pdef(\simplePluck) <>
 Pbindef(\arpAll
@@ -42,7 +44,7 @@ Pbindef(\fib,
 
 
 ~bd.stop;
-~bd = ( Pdef(\bdThump) <> Pbindef(\root) <> Pbindef(\pulse_4) ).play(~linkClock, quant: 4);
+
 ~bd2.stop;
 ~bd2 = ( Pdef(\bd1) <> Pbindef(\root) <> Pbindef(\pulse_2) ).play(~linkClock, quant: 4);
 ~sd.stop;
