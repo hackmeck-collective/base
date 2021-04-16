@@ -9,16 +9,18 @@
 
 ~acc = { |events, unit|
 
-Array.fib(events, unit * 4, unit * 4).reverse;
+	Array.fib(events, unit * 4, unit * 4).reverse;
 
 };
 
 ~accPulse = { |events, unit, pulse|
-
-	Pclutch(Pseq(~acc.(events, unit)),
-		Pfunc { |ev| ev.time.mod( pulse * 4 ) == 0 }
-	);
-}
+	Pbind(
+		\time, Ptime(),
+		\dur, Pclutch(Pseq(~acc.(events, unit)),
+			Pfunc { |ev| ev.time.mod( pulse * 4 ) == 0 }
+		);
+	)
+};
 
 ~rit = { |events, unit|
 
@@ -28,10 +30,19 @@ Array.fib(events, unit * 4, unit * 4).reverse;
 
 ~ritPulse = { |events, unit, pulse|
 
-	Pclutch(Pseq(~rit.(events, unit)),
-		Pfunc { |ev| ev.time.mod( pulse * 4 ) == 0 }
+	Pbind(
+		\time, Ptime(),
+		\dur, Pclutch(Pseq(~rit.(events, unit)),
+			Pfunc { |ev| ev.time.mod( pulse * 4 ) == 0 }
+		);
+	)
+};
+
+~brownianDurations = { |stepsize = 1|
+	Pbind(\choice, Pn( Plazy ( { |ev| Pbrown(0, ev.durations.size, stepsize).round } ) ),
+		\dur, Pindex(Pkey(\durations, inf), Pkey(\choice, inf), inf)
 	);
-}
+};
 
 ~metreDynamics_4_4 = {
 	arg time,
@@ -94,11 +105,17 @@ Array.fib(events, unit * 4, unit * 4).reverse;
 		chordtones)
 };
 
-
-
 ~pitchPerDuration = { |pitchArray, durations|
 	Ptsym(Pseq(pitchArray, inf),dur: Pseq(durations, inf))
 };
+
+(
+~brownianPitches = { |stepsize = 2|
+	Pbind(\choice, Pn( Plazy ( { |ev| Pbrown(0, ev.pitches.size, stepsize).round } ) ),
+		\note, Pindex(Pkey(\pitches, inf), Pkey(\choice, inf), inf)
+	);
+}
+);
 
 //////////////////////////////// SIDECHAIN
 
@@ -142,11 +159,11 @@ Array.fib(events, unit * 4, unit * 4).reverse;
 	\sidechain_trigger_4_melody: 1
 );
 (
-	\type: \set,
-	\id: Pfunc { ~audioBusses.chordsBus },
-	\args: #[\beatDurNow, \sidechain_trigger_4_chords],
-	\beatDurNow: {TempoClock.default.beatDur},
-	\sidechain_trigger_4_chords: 1
+\type: \set,
+\id: Pfunc { ~audioBusses.chordsBus },
+\args: #[\beatDurNow, \sidechain_trigger_4_chords],
+\beatDurNow: {TempoClock.default.beatDur},
+\sidechain_trigger_4_chords: 1
 );
 );
 
@@ -158,11 +175,11 @@ Array.fib(events, unit * 4, unit * 4).reverse;
 	\sidechain_trigger_8_melody: 1
 );
 (
-	\type: \set,
-	\id: Pfunc { ~audioBusses.chordsBus },
-	\args: #[\beatDurNow, \sidechain_trigger_8_chords],
-	\beatDurNow: {TempoClock.default.beatDur},
-	\sidechain_trigger_8_chords: 1
+\type: \set,
+\id: Pfunc { ~audioBusses.chordsBus },
+\args: #[\beatDurNow, \sidechain_trigger_8_chords],
+\beatDurNow: {TempoClock.default.beatDur},
+\sidechain_trigger_8_chords: 1
 );
 );
 

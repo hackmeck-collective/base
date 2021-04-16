@@ -1,15 +1,6 @@
 "loading rhythm patterns".postln;
 "limited rng patterns".postln;
 
-Pbindef(\ritPulse1,
-	\time, Ptime(),
-	\dur, Plazy { ~ritPulse.(7, 1/32, 1/16) }
-);
-
-Pbindef(\accPulse1,
-	\time, Ptime(),
-	\dur, Plazy { ~accPulse.(7, 1/32, 1/16) }
-);
 
 Pbindef(\euclidean_lsys_2,
 	\dur,Plazy {|ev| ~euclid.((~cueData[\lsysBeats1] * 2).round, ~cueData[\lsysBeats1] * 8, 0, 1/8).trace },

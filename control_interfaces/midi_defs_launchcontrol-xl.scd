@@ -1,4 +1,23 @@
+
+
+/*
+~toLaunchControlXl.noteOn(0, 41, 12); //aus
+~toLaunchControlXl.noteOn(0, 41, 13); //rot dunkel
+~toLaunchControlXl.noteOn(0, 41, 15); //rot hell
+~toLaunchControlXl.noteOn(0, 41, 29); //bernstein dunkel
+~toLaunchControlXl.noteOn(0, 41, 63); //bernstein hell
+~toLaunchControlXl.noteOn(0, 41, 62); //gelb hell
+~toLaunchControlXl.noteOn(0, 41, 28); //grün dunkel
+~toLaunchControlXl.noteOn(0, 41, 60); //grün hell
+~toLaunchControlXl.noteOn(0, 41, 12); //aus
+*/
+
+
+
 (
+
+var buttonMidiNoteoffsetRow1 = 41;
+var buttonMidiNoteoffsetRow2 = 73;
 
 var knob_a_start = 13,
 knob_b_start = 29,
@@ -38,25 +57,111 @@ var row_busses = Array.newClear(8);
 
 ~switchRows.(\bank_1);
 
-"creating event triggers on launchcontrol xl".postln;
+if (~launchcontrol_xl_port.isNil) {
+	~launchcontrol_xl_port = MIDIClient.destinations.detectIndex({|item| item.asString.contains("Launch Control XL")});
+	~toLaunchControlXl = MIDIOut.new(~launchcontrol_xl_port);
+	~toLaunchControlXl.connect(~launchcontrol_xl_port);
+	"launchControlXl connected"
+};
 
-~launchControlButtonHistoryEnabled = true;
-~launchControlButtonHistory = 0!2;
+"creating event triggers on launchControlXl select buttons".postln;
 
-MIDIdef.noteOn(\launchControlButtonHistory, {
+~launchControlXlSelectButtons = 0!4;
+
+
+~launchControlXlUpdateSelectButtons = {
+	4.do { |i|
+		var buttonsOffset = 104;
+
+		switch (~launchControlXlSelectButtons[i],
+			0, { ~toLaunchControlXl.control(0, buttonsOffset + i, 0)},
+			1, { ~toLaunchControlXl.control(0, buttonsOffset + i, 127) },
+			1.1, { ~toLaunchControlXl.control(0, buttonsOffset + i, 62) },
+		);
+	};
+};
+
+
+MIDIdef.cc(\trackSelectButtons, {
 	|val, num|
-	var rotation;
+	var buttonsOffset = 104;
+	var buttonID = num - buttonsOffset;
 
-	rotation = ~launchControlButtonHistory.rotate;
-	rotation.put(1, num);
-	~launchControlButtonHistory = rotation;
-	if(~launchControlButtonHistoryEnabled){
-		var midiCCoffsetRow = ~launchControlButtonHistory.at(0) - 41;
-		var midiCCoffsetRow2 = ~launchControlButtonHistory.at(1) - 73;
-		~launchControlEvents["launchControlXlEvent_%_%".format(midiCCoffsetRow,
-			midiCCoffsetRow2).asSymbol.postln;].value;
-	}{num.postln};
+	switch (val,
+		127, {
+			switch (~launchControlXlSelectButtons[buttonID],
+				0, { ~launchControlXlSelectButtons.put(buttonID, 1);
+					("event button " ++ buttonID ++ " on").postln;
+				},
+				1, { ~launchControlXlSelectButtons.put(buttonID, 0);
+					("event button " ++ buttonID ++ " off").postln; },
+			);
+
+			switch (~launchControlXlSelectButtons[[2,3]],
+				[0,0], { ~instrumentationPresets[\farbklaenge].value },
+				[0,1], { ~instrumentationPresets[\ausschwingKlaenge].value },
+				[1,0], { ~instrumentationPresets[\einschwingKlaenge].value },
+				[1,1], { ~instrumentationPresets[\einUndAusschwingKlaenge].value },
+			);
+	});
+
+	~launchControlXlUpdateSelectButtons.value;
 }).permanent_(true);
+
+
+"creating event triggers on launchControlXl buttons".postln;
+
+~launchControlXlBank = 0;
+~launchControlXlButton;
+~launchControlXlBottomLEDs = 0!64;
+~launchControlXlUpdateBottomLEDs = {
+	8.do { |i|
+		var bankIndex = i + (~launchControlXlBank*8);
+
+		switch (~launchControlXlBottomLEDs[bankIndex],
+			0, { ~toLaunchControlXl.noteOn(0, buttonMidiNoteoffsetRow2 + i, 12)},
+			1, { ~toLaunchControlXl.noteOn(0, buttonMidiNoteoffsetRow2 + i, 60)},
+			2, { ~toLaunchControlXl.noteOn(0, buttonMidiNoteoffsetRow2 + i, 63) },
+			3, { ~toLaunchControlXl.noteOn(0, buttonMidiNoteoffsetRow2 + i, 15) },
+			4, { ~toLaunchControlXl.noteOn(0, buttonMidiNoteoffsetRow2 + i, 62) },
+			1.1, { ~toLaunchControlXl.noteOn(0, buttonMidiNoteoffsetRow2 + i, 28) },
+			2.1, { ~toLaunchControlXl.noteOn(0, buttonMidiNoteoffsetRow2 + i, 29) },
+			3.1, { ~toLaunchControlXl.noteOn(0, buttonMidiNoteoffsetRow2 + i, 13) },
+		);
+	};
+};
+
+MIDIdef.noteOn(\launchControlBank, {
+	|val, num|
+
+	case
+	{(num >= 41) && (num <=48)}	{
+		~launchControlXlBank = num - buttonMidiNoteoffsetRow1;
+		"lcXl_bank: ".post;
+		(~launchControlXlBank+1).postln;
+
+		8.do({|i|
+			var buttonMidiNoteoffsetRow1 = 41;
+			~toLaunchControlXl.noteOn(0, buttonMidiNoteoffsetRow1 + i, 12);
+		});
+		~toLaunchControlXl.noteOn(0, num, 63); //bernstein hell
+		~launchControlXlUpdateBottomLEDs.value;
+
+	}
+	{(num >= 73) && (num <=80)}	{
+		~launchControlXlButton = num - buttonMidiNoteoffsetRow2;
+		"lcXl_button: ".post;
+		(~launchControlXlButton + 1).postln;
+
+		if ( ((~launchControlXlBank.isNil || ~launchControlXlButton.isNil).not ) || ((num >= 41) && (num <=48)) )
+		{~launchControlEvents["launchControlXlEvent_%_%".format((~launchControlXlBank + 1),
+			(~launchControlXlButton + 1)).asSymbol.postln;].value;};
+
+		~launchControlXlUpdateBottomLEDs.value;
+	}
+	{true} {nil};
+}).permanent_(true);
+
 
 "mapping knobs and faders on launchcontrol xl".postln;
 

@@ -27,7 +27,7 @@
 	\punch_factor, 2,
 
 	\vol, 1,
-	\amp, 2.5,
+	\amp, 2,
 ];
 ~callInstrumentPreset.(\bd1);
 )

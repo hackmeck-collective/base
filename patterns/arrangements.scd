@@ -6,8 +6,8 @@ Document.open(thisProcess.nowExecutingPath.dirname +/+ "launchControlXlTrigger.s
 ~cueData[\lsysBeats1]
 ~instrPreset.create(\click)
 ~instrPreset.create_d(\template_drum)
-~instrPreset.create_o(\template_synth)
-~instrPreset.edit(\sd3);
+~instrPreset.create_o(\simpleLead)
+~instrPreset.edit(\syncWub);
 
 
 // root note und drums mit phillip klären
@@ -19,20 +19,42 @@ Pdef(\fill, (Pdef(\sd3) <> ~quarterFills));
 Pdef(\fill).stop
 
 thisProcess.openPorts
+(
+(Pn(Pdef(\looper, {
+		var events = List.new;
+		Pseq([
+			(Psync(~loopPattern,1,~loopDur)).collect{|ev| events.add(ev);ev},
+			Pn(Plazy{Pseq(events)}, ~loopRepeats - 1)
+		])
+	})
+) <> (
+	loopPattern: Pbind(\dur, Prand([1/3,1/4,1/2],inf), \degree, Pwhite(-7,3)),
+	loopRepeats: 2,
+	loopDur: Pn(Plazy {|ev| ev.loopDurKey })
+) <> (Pbind(\loopDurKey, Pn(Plazy { 2 ** (~launchcontrol_xl_row_6.getnSynchronous(4).at(2).lincurve(0,1,3,-1,2).round) }.trace)
+)
+)).play(quant: 1);
+
+// metronom
+Pbind(\dur, 1, \note,24, \legato, 0.1).play(quant: 1)
+);
+
+2**4
 
 //////// RHYTHMEN mit INSTRUMENTEN verketten
 
+
 (
-( Pdef(\simplePluck) <>
-Pbindef(\arpAll
-) <>
-Pbindef(\fib,
-	\dur,Pseq(Array.fib(exprand(2,4).round,1/32,exprand(1/32,1/4).round(1/32)).reverse.mirror,inf))
+( Psym1(Pxrand([\simplePluck, \srrPluck, \noisyPluck],inf)) <>
+Pbindef(\root) <>
+Pbindef(\accPulse1)
 ).play
 );
 
+( Pdef(\simpleLead) <> Pbindef(\root) <> Pbindef(\pulse_8) ).play(~linkClock, quant: 4);
 
-( Psym1(~pitchTriggerRepeat.([\sd1, \sd2, \sd3], [1])) <> Pbindef(\fifth) <> Pbindef(\pulse_4_ob)).play
+
+( {Psym1(Pxrand([\simplePluckReverse, \tonalSwoosh], inf))} <> Pbindef(\fifth) <> Pbindef(\pulse_4_ob)).play
 
 
 ~perc.stop;

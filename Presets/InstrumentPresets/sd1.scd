@@ -29,7 +29,7 @@
 	\filter_1_mod_2, 0,
 
 	\vol, 1,
-	\amp, 0.8,
+	\amp, 0.3,
 ];
 ~callInstrumentPreset.(\sd1);
 )
