@@ -31,15 +31,17 @@ if (~port.isNil) {
 };
 
 "prepare Session.scd".loadRelative; //fills ~routineWithListComprehension
+"getClosest.scd".loadRelative;
 
 )
 
 
+// fuer alle dissdegrees kdtrees und dann rectsearch mit dem von dem man ausgeht
+
 
 (
 
-"Hindemith Akkord Generator GUI LaunchControl.scd".loadRelative;
-
+"Hindemith Akkord Generator GUI mit LaunchControl.scd".loadRelative;
 //Message-Parsing
 MIDIdef.cc(\launchControlKnobs, {
 	arg val, num, chan, src;
@@ -47,24 +49,30 @@ MIDIdef.cc(\launchControlKnobs, {
 	{ num == 21 } { //Drehknopf  1  oben
 		//Soll Dissonanzgrad steuern. Mit Anzahl Töne wird eine Liste erstellt.
 		var newDissDegree = val.linlin(0,127,0,11).round.asInteger;//0 bis 11
-		var arrayOfEventsWithLists = [];
 		if (~listAndParameters.dissDegree != newDissDegree && (~gateOpen[1] == true)) //Nur wenn was neues kommt, mach was.
 		{
+			var diffRootNotes; //Variable zum Erhalt der aktuellen Root Note.
+			var closestList;
 			~listAndParameters.dissDegree = newDissDegree;
-			~arrayOfEventsWithLists = ~getArrayOfEventsWithLists.value;
-			if (~arrayOfEventsWithLists.notNil) {
-				var diffRootNotes; //Variable zum Erhalt der aktuellen Root Note.
+			//~arrayOfEventsWithLists = ~getArrayOfEventsWithLists.value;
+			closestList = ~getClosest.value(~listAndParameters.list, ~listAndParameters.dissDegree, 2);
+			//~eventWithListAndRoot =
 
-				~eventWithListAndRoot = ~arrayOfEventsWithLists.choose;
+			if(closestList.notNil){
+				~listAndParameters.list = closestList;
+				//~listAndParameters.rootNote = ~rootNote.value(closestList);
 
 				//folgerichtiges aktualisieren der Parameter
-				diffRootNotes = ~listAndParameters.rootNote - ~eventWithListAndRoot.rootNote.mod(12); //Alt minus neu
-				~listAndParameters.list = ~eventWithListAndRoot.list + diffRootNotes;
+				//diffRootNotes = ~listAndParameters.rootNote - ~eventWithListAndRoot.rootNote.mod(12); //Alt minus neu
+				//~listAndParameters.list = ~eventWithListAndRoot.list + diffRootNotes;
 
 				~actualizeGUI.value;
 
 				~sendWithHail.((list: ~listAndParameters.list, rootNote: ~listAndParameters.rootNote));
+			}{
+				"no new list".postln
 			}
+
 		}
 	}
 	{ num == 22 } { //Drehknopf 2 oben

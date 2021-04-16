@@ -1,3 +1,5 @@
+
+
 ~dissDegreeConstraints = (
 	0: (
 		excludeAll: Set[1, 2, 6, 10, 11],
@@ -178,187 +180,8 @@ var intervals = ~intervals.(%),".format(noteStringArray.last, noteStringArray.wr
 	str.interpret
 };
 
-
-
 ~getArrayOfEventsWithLists = {
-
-	case
-
-	{~listAndParameters.dissDegree == 0} {
-		// DissDegree 0
-		// A Ohne Tritonus I Ohne Sekunden und Septimen 1 Grundton und Basston sind derselbe
-		~getListComprehension.(
-			numNotes: ~listAndParameters.numNotes, // >= 3
-			excludeAll: Set[1, 2, 6, 10, 11],
-			//includeAll: Set[],
-			//includeOneOf: Set[0,1,2,3,4,5,6,7,8,9,10,11],
-			maxUpperNoteWhenBaseIs0: (~listAndParameters.maxUpperNote - ~listAndParameters.minLowerNote),
-			rootNoteEqual: "==" // == != oder nil
-		).all //hiernach müsste dann das Schreiben in das Dictionary geschehen.
-	}
-
-
-
-
-
-	{~listAndParameters.dissDegree == 1} {
-		// DissDegree 1
-		// A ohne tritonus I Ohne Sekunden und Septimen 2 Grundton liegt hoeher im Akkord
-		~getListComprehension.(
-			numNotes: ~listAndParameters.numNotes, // >= 3
-			excludeAll: Set[1, 2, 6, 10, 11],
-			//includeAll: Set[],
-			//includeOneOf: Set[0,1,2,3,4,5,6,7,8,9,10,11],
-			maxUpperNoteWhenBaseIs0: (~listAndParameters.maxUpperNote - ~listAndParameters.minLowerNote),
-			rootNoteEqual: "!=" // == != oder nil
-		).all
-	}
-
-
-
-	{~listAndParameters.dissDegree == 2}
-	{
-		// DissDegree 2
-		// B mit tritonus II ohne kleine Sekunden und große Septimen. Tritonus untergeordnet a) Nur mit kleiner Septime (ohne gr. Sekunde) Grundton Und Basston sind derselbe
-
-		~getListComprehension.(
-			numNotes: ~listAndParameters.numNotes, // >= 3
-			excludeAll: Set[1, 2, 11],
-			includeAll: Set[6, 10],
-			includeOneOf: Set[7, 5, 4, 8],
-			maxUpperNoteWhenBaseIs0: (~listAndParameters.maxUpperNote - ~listAndParameters.minLowerNote),
-			rootNoteEqual: "==" // == != oder nil
-		).all
-	}
-
-
-	{~listAndParameters.dissDegree == 3} {
-		// DissDegree 3
-		// B mit Tritonus II ohne kleine Sekunden und große Septimen. Tritonus untergeordnet b mit großer Sekunde ODER(!)  kleiner Septime 1. Grundton Und Basston sind derselbe
-
-		~getListComprehension.(
-			numNotes: ~listAndParameters.numNotes, // >= 3
-			excludeAll: Set[1, 11],
-			includeAll: Set[6],
-			includeOneOf: Set[7, 5, 4, 8],
-			includeOneOf2: Set[2, 10],
-			maxUpperNoteWhenBaseIs0: (~listAndParameters.maxUpperNote - ~listAndParameters.minLowerNote),
-			rootNoteEqual: "==" // == != oder nil
-		).all
-	}
-
-
-	{~listAndParameters.dissDegree == 4} {
-		// DissDegree 4
-		// B mit Tritonus II ohne kleine Sekunden und große Septimen. Tritonus untergeordnet b mit großer Sekunde ODER(!) kleiner Septime 2. Grundton liegt höher im Akkord
-
-		~getListComprehension.(
-			numNotes: ~listAndParameters.numNotes, // >= 3
-			excludeAll: Set[1, 11],
-			includeAll: Set[6],
-			includeOneOf: Set[7, 5, 4, 8],
-			includeOneOf2: Set[2, 10],
-			maxUpperNoteWhenBaseIs0: (~listAndParameters.maxUpperNote - ~listAndParameters.minLowerNote),
-			rootNoteEqual: "==" // == != oder nil
-		).all
-	}
-
-	{~listAndParameters.dissDegree == 5} {
-		// DissDegree 5
-		// B mit Tritonus II ohne kleine Sekunden und große Septimen. Tritonus untergeordnet b mit großer Sekunde ODER(!) kleiner Septime 3. Mit mehreren Tritoni
-		~getListComprehension.(
-			numNotes: ~listAndParameters.numNotes, // >= 3
-			excludeAll: Set[1, 11],
-			includeAll: Set[6],
-			includeOneOf: Set[7, 5, 4, 8],
-			includeOneOf2: Set[2, 10],
-			mehrereTritoni: true,
-			maxUpperNoteWhenBaseIs0: (~listAndParameters.maxUpperNote - ~listAndParameters.minLowerNote)
-		).all
-	}
-
-
-
-	{~listAndParameters.dissDegree == 6} {
-		// DissDegree 6
-		// A ohne Tritonus III Mit Sekunden ODER Septimen 1 Grundton und Basston sind derselbe
-
-		~getListComprehension.(
-			numNotes: ~listAndParameters.numNotes,
-			excludeAll: Set[6],
-			//includeAll: Set[6],
-			includeOneOf: Set[1,2,10,11],
-			maxUpperNoteWhenBaseIs0: (~listAndParameters.maxUpperNote - ~listAndParameters.minLowerNote),
-			rootNoteEqual: "=="
-		).all
-	}
-	//{z.next}.bench //dauert 0.006 Sekunden
-	//{z.all}.bench //dauert 6 Sekunden
-
-
-	{~listAndParameters.dissDegree == 7} {
-		// DissDegree 7
-		// A ohne Tritonus III Mit Sekunden ODER Septimen 2 Grundton liegt höher im Akkord
-		~getListComprehension.(
-			numNotes: ~listAndParameters.numNotes, // >= 3
-			excludeAll: Set[6],
-			//includeAll: Set[6],
-			includeOneOf: Set[1,2,10,11],
-			maxUpperNoteWhenBaseIs0: (~listAndParameters.maxUpperNote - ~listAndParameters.minLowerNote),
-			rootNoteEqual: "!="  // == != oder nil
-		).all
-	}
-	//z.all.size
-
-
-	{~listAndParameters.dissDegree == 8} {
-		// DissDegree 8
-		// B mit Tritonus IV Mt kleinen Sekunden ODER großen Septimen. Ein Tritonus oder mehrere untergeordnet 1. Grundton Und Basston sind derselbe
-		~getListComprehension.(
-			numNotes: ~listAndParameters.numNotes, // >= 3
-			//excludeAll: Set[6],
-			includeAll: Set[6],
-			includeOneOf: Set[1,11],
-			includeOneOf2: Set[7, 5, 4, 8],
-			maxUpperNoteWhenBaseIs0: (~listAndParameters.maxUpperNote - ~listAndParameters.minLowerNote),
-			rootNoteEqual: "=="  // == != oder nil
-		).all
-	}
-	//z.all.size
-
-
-	{~listAndParameters.dissDegree == 9} {
-		// DissDegree 9
-		// B mit Tritonus IV Mt kleinen Sekunden ODER großen Septimen. Ein Tritonus oder mehrere untergeordnet 2. Grundton liegt höher im Akkord
-		~getListComprehension.(
-			numNotes: ~listAndParameters.numNotes, // >= 3
-			underlyingScale: (0..11).asSet,
-			//excludeAll: Set[6],
-			includeAll: Set[6],
-			includeOneOf: Set[1,11],
-			includeOneOf2: Set[7, 5, 4, 8],
-			maxUpperNoteWhenBaseIs0: (~listAndParameters.maxUpperNote - ~listAndParameters.minLowerNote),
-			rootNoteEqual: "!="  // == != oder nil
-		).all
-	}
-
-	{~listAndParameters.dissDegree == 10}
-	// DissDegree 10
-	//A ohne Tritonus V Unbestimmbar
-	{
-		var numNotes = ~listAndParameters.numNotes; //3-5
-		var interval = [4,5].choose;
-		var list = Array.series(numNotes, 0, interval);
-		var rootNote;
-
-		if (interval == 5) {rootNote = list.last.mod(12)} {rootNote = 0} ;
-		[(list: list, rootNote: rootNote)]
-	}
-
-	{~listAndParameters.dissDegree == 11}
-	// DissDegree 11
-	// B mit Tritonus VI Unbestimmbar Tritonus übergeordnet
-	{
+	if(~listAndParameters.dissDegree == 11){
 		var numNotes = ~listAndParameters.numNotes; //3-5
 		var ambitus = (~listAndParameters.maxUpperNote - ~listAndParameters.minLowerNote);
 		var timesThree = Array.series((ambitus / 3).trunc.asInteger + 1, 0, 3);
@@ -371,9 +194,211 @@ var intervals = ~intervals.(%),".format(noteStringArray.last, noteStringArray.wr
 			arrayOfEventsWithLists = arrayOfEventsWithLists.acontraintsdd((list: item, rootNote: 0))
 		});
 		arrayOfEventsWithLists
+	}{
+		var inputs = merge(~dissDegreeConstraints[~listAndParameters.dissDegree],(
+			numNotes: ~listAndParameters.numNotes,
+			maxUpperNoteWhenBaseIs0: (~listAndParameters.maxUpperNote - ~listAndParameters.minLowerNote)
+		));
+		~getListComprehension.(inputs).all
 	};
+};
+
+/*
+~getArrayOfEventsWithLists = {
+
+case
+
+{~listAndParameters.dissDegree == 0} {
+// DissDegree 0
+// A Ohne Tritonus I Ohne Sekunden und Septimen 1 Grundton und Basston sind derselbe
+~getListComprehension.(
+numNotes: ~listAndParameters.numNotes, // >= 3
+excludeAll: Set[1, 2, 6, 10, 11],
+//includeAll: Set[],
+//includeOneOf: Set[0,1,2,3,4,5,6,7,8,9,10,11],
+maxUpperNoteWhenBaseIs0: (~listAndParameters.maxUpperNote - ~listAndParameters.minLowerNote),
+rootNoteEqual: "==" // == != oder nil
+).all //hiernach müsste dann das Schreiben in das Dictionary geschehen.
+}
+
+
+
+
+
+{~listAndParameters.dissDegree == 1} {
+// DissDegree 1
+// A ohne tritonus I Ohne Sekunden und Septimen 2 Grundton liegt hoeher im Akkord
+~getListComprehension.(
+numNotes: ~listAndParameters.numNotes, // >= 3
+excludeAll: Set[1, 2, 6, 10, 11],
+//includeAll: Set[],
+//includeOneOf: Set[0,1,2,3,4,5,6,7,8,9,10,11],
+maxUpperNoteWhenBaseIs0: (~listAndParameters.maxUpperNote - ~listAndParameters.minLowerNote),
+rootNoteEqual: "!=" // == != oder nil
+).all
+}
+
+
+
+{~listAndParameters.dissDegree == 2}
+{
+// DissDegree 2
+// B mit tritonus II ohne kleine Sekunden und große Septimen. Tritonus untergeordnet a) Nur mit kleiner Septime (ohne gr. Sekunde) Grundton Und Basston sind derselbe
+
+~getListComprehension.(
+numNotes: ~listAndParameters.numNotes, // >= 3
+excludeAll: Set[1, 2, 11],
+includeAll: Set[6, 10],
+includeOneOf: Set[7, 5, 4, 8],
+maxUpperNoteWhenBaseIs0: (~listAndParameters.maxUpperNote - ~listAndParameters.minLowerNote),
+rootNoteEqual: "==" // == != oder nil
+).all
+}
+
+
+{~listAndParameters.dissDegree == 3} {
+// DissDegree 3
+// B mit Tritonus II ohne kleine Sekunden und große Septimen. Tritonus untergeordnet b mit großer Sekunde ODER(!)  kleiner Septime 1. Grundton Und Basston sind derselbe
+
+~getListComprehension.(
+numNotes: ~listAndParameters.numNotes, // >= 3
+excludeAll: Set[1, 11],
+includeAll: Set[6],
+includeOneOf: Set[7, 5, 4, 8],
+includeOneOf2: Set[2, 10],
+maxUpperNoteWhenBaseIs0: (~listAndParameters.maxUpperNote - ~listAndParameters.minLowerNote),
+rootNoteEqual: "==" // == != oder nil
+).all
+}
+
+
+{~listAndParameters.dissDegree == 4} {
+// DissDegree 4
+// B mit Tritonus II ohne kleine Sekunden und große Septimen. Tritonus untergeordnet b mit großer Sekunde ODER(!) kleiner Septime 2. Grundton liegt höher im Akkord
+
+~getListComprehension.(
+numNotes: ~listAndParameters.numNotes, // >= 3
+excludeAll: Set[1, 11],
+includeAll: Set[6],
+includeOneOf: Set[7, 5, 4, 8],
+includeOneOf2: Set[2, 10],
+maxUpperNoteWhenBaseIs0: (~listAndParameters.maxUpperNote - ~listAndParameters.minLowerNote),
+rootNoteEqual: "==" // == != oder nil
+).all
+}
+
+{~listAndParameters.dissDegree == 5} {
+// DissDegree 5
+// B mit Tritonus II ohne kleine Sekunden und große Septimen. Tritonus untergeordnet b mit großer Sekunde ODER(!) kleiner Septime 3. Mit mehreren Tritoni
+~getListComprehension.(
+numNotes: ~listAndParameters.numNotes, // >= 3
+excludeAll: Set[1, 11],
+includeAll: Set[6],
+includeOneOf: Set[7, 5, 4, 8],
+includeOneOf2: Set[2, 10],
+mehrereTritoni: true,
+maxUpperNoteWhenBaseIs0: (~listAndParameters.maxUpperNote - ~listAndParameters.minLowerNote)
+).all
+}
+
+
+
+{~listAndParameters.dissDegree == 6} {
+// DissDegree 6
+// A ohne Tritonus III Mit Sekunden ODER Septimen 1 Grundton und Basston sind derselbe
+
+~getListComprehension.(
+numNotes: ~listAndParameters.numNotes,
+excludeAll: Set[6],
+//includeAll: Set[6],
+includeOneOf: Set[1,2,10,11],
+maxUpperNoteWhenBaseIs0: (~listAndParameters.maxUpperNote - ~listAndParameters.minLowerNote),
+rootNoteEqual: "=="
+).all
+}
+//{z.next}.bench //dauert 0.006 Sekunden
+//{z.all}.bench //dauert 6 Sekunden
+
+
+{~listAndParameters.dissDegree == 7} {
+// DissDegree 7
+// A ohne Tritonus III Mit Sekunden ODER Septimen 2 Grundton liegt höher im Akkord
+~getListComprehension.(
+numNotes: ~listAndParameters.numNotes, // >= 3
+excludeAll: Set[6],
+//includeAll: Set[6],
+includeOneOf: Set[1,2,10,11],
+maxUpperNoteWhenBaseIs0: (~listAndParameters.maxUpperNote - ~listAndParameters.minLowerNote),
+rootNoteEqual: "!="  // == != oder nil
+).all
+}
+//z.all.size
+
+
+{~listAndParameters.dissDegree == 8} {
+// DissDegree 8
+// B mit Tritonus IV Mt kleinen Sekunden ODER großen Septimen. Ein Tritonus oder mehrere untergeordnet 1. Grundton Und Basston sind derselbe
+~getListComprehension.(
+numNotes: ~listAndParameters.numNotes, // >= 3
+//excludeAll: Set[6],
+includeAll: Set[6],
+includeOneOf: Set[1,11],
+includeOneOf2: Set[7, 5, 4, 8],
+maxUpperNoteWhenBaseIs0: (~listAndParameters.maxUpperNote - ~listAndParameters.minLowerNote),
+rootNoteEqual: "=="  // == != oder nil
+).all
+}
+//z.all.size
+
+
+{~listAndParameters.dissDegree == 9} {
+// DissDegree 9
+// B mit Tritonus IV Mt kleinen Sekunden ODER großen Septimen. Ein Tritonus oder mehrere untergeordnet 2. Grundton liegt höher im Akkord
+~getListComprehension.(
+numNotes: ~listAndParameters.numNotes, // >= 3
+underlyingScale: (0..11).asSet,
+//excludeAll: Set[6],
+includeAll: Set[6],
+includeOneOf: Set[1,11],
+includeOneOf2: Set[7, 5, 4, 8],
+maxUpperNoteWhenBaseIs0: (~listAndParameters.maxUpperNote - ~listAndParameters.minLowerNote),
+rootNoteEqual: "!="  // == != oder nil
+).all
+}
+
+{~listAndParameters.dissDegree == 10}
+// DissDegree 10
+//A ohne Tritonus V Unbestimmbar
+{
+var numNotes = ~listAndParameters.numNotes; //3-5
+var interval = [4,5].choose;
+var list = Array.series(numNotes, 0, interval);
+var rootNote;
+
+if (interval == 5) {rootNote = list.last.mod(12)} {rootNote = 0} ;
+[(list: list, rootNote: rootNote)]
+}
+
+{~listAndParameters.dissDegree == 11}
+// DissDegree 11
+// B mit Tritonus VI Unbestimmbar Tritonus übergeordnet
+{
+var numNotes = ~listAndParameters.numNotes; //3-5
+var ambitus = (~listAndParameters.maxUpperNote - ~listAndParameters.minLowerNote);
+var timesThree = Array.series((ambitus / 3).trunc.asInteger + 1, 0, 3);
+var arrayOfLists = timesThree.powerset.select({
+arg item;
+item.size == numNotes && ((item.mod(12).asSet.size >= 3) && item.includes(0))
+});
+var arrayOfEventsWithLists = [];
+arrayOfLists.do({ arg item;
+arrayOfEventsWithLists = arrayOfEventsWithLists.acontraintsdd((list: item, rootNote: 0))
+});
+arrayOfEventsWithLists
+};
 
 };
+*/
 
 ~actualizeGUI = {
 	{~numberboxDissDegree.value =  ~listAndParameters.dissDegree}.defer; //set NumberBox DissDegree
@@ -383,11 +408,11 @@ var intervals = ~intervals.(%),".format(noteStringArray.last, noteStringArray.wr
 };
 
 ~listAndParameters = (
-	list: [60],
+	list: [ 0, 4, 7, 12],
 	dissDegree: 0,
-	numNotes: 3,
+	numNotes: 4,
 	rootNote: 0,
-	minLowerNote: 48,
-	maxUpperNote: 60
+	minLowerNote: 0,
+	maxUpperNote: 12
 );
 
