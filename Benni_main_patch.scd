@@ -1,5 +1,5 @@
 (
-var waitForPeers = false;
+var waitForPeers = true;
 var multicoreSetup = false;
 var loadStuff = {
 	"loading signal flow".postln;
