@@ -1,3 +1,66 @@
+~dissDegreeConstraints = (
+	0: (
+		excludeAll: Set[1, 2, 6, 10, 11],
+		rootNoteEqual: "==" // == != oder nil
+	),
+
+	1: (
+		excludeAll: Set[1, 2, 6, 10, 11],
+		rootNoteEqual: "!="
+	),
+	2: (
+		excludeAll: Set[1, 2, 11],
+		includeAll: Set[6, 10],
+		includeOneOf: Set[7, 5, 4, 8],
+		rootNoteEqual: "=="
+	),
+	3: (
+		excludeAll: Set[1, 11],
+		includeAll: Set[6],
+		includeOneOf: Set[7, 5, 4, 8],
+		includeOneOf2: Set[2, 10],
+		rootNoteEqual: "=="
+	),
+	4: (
+		excludeAll: Set[1, 11],
+		includeAll: Set[6],
+		includeOneOf: Set[7, 5, 4, 8],
+		includeOneOf2: Set[2, 10],
+		rootNoteEqual: "==" // == != oder nil
+	),
+	5: (
+		excludeAll: Set[1, 11],
+		includeAll: Set[6],
+		includeOneOf: Set[7, 5, 4, 8],
+		includeOneOf2: Set[2, 10],
+		mehrereTritoni: true
+	),
+	6: (
+		excludeAll: Set[6],
+		includeOneOf: Set[1,2,10,11],
+		rootNoteEqual: "=="
+	),
+	7: (
+		excludeAll: Set[6],
+		includeOneOf: Set[1,2,10,11],
+		rootNoteEqual: "!="
+	),
+	8: (
+		includeAll: Set[6],
+		includeOneOf: Set[1,11],
+		includeOneOf2: Set[7, 5, 4, 8],
+		rootNoteEqual: "=="
+	),
+	9: (
+		//underlyingScale: (0..11).asSet,
+		includeAll: Set[6],
+		includeOneOf: Set[1,11],
+		includeOneOf2: Set[7, 5, 4, 8],
+		rootNoteEqual: "!="
+	),
+	10: (),
+	11: ()
+);
 
 ~intervals = { |chord|
 	//chord.postln;
@@ -64,21 +127,23 @@
 	}
 };
 
-~getListComprehension = { |numNotes, underlyingScale, excludeAll, includeAll, includeOneOf, includeOneOf2, mehrereTritoni, maxUpperNote, rootNoteEqual|
+
+
+~getListComprehension = { |numNotes, underlyingScale, excludeAll, includeAll, includeOneOf, includeOneOf2, mehrereTritoni, maxUpperNoteWhenBaseIs0, rootNoteEqual|
 	var noteStringArray = (numNotes - 1).collect {|i| "n%".format(i + 1) };
 	var noteString = ("[0" ++ (numNotes - 1).collect {|i| ", n%".format(i + 1) }.reduce{|a b| a ++ b}  ++ "]");
 	var str = "
 {: (list: %, rootNote: rootNote), \n
-var maxUpperNote = %, \n
+var maxUpperNoteWhenBaseIs0 = %, \n
 
-n1 <- (1..(maxUpperNote-%)),".format(noteString, maxUpperNote, numNotes - 2)
+n1 <- (1..(maxUpperNoteWhenBaseIs0-%)),".format(noteString, maxUpperNoteWhenBaseIs0, numNotes - 2)
 	++ (if(excludeAll.notNil){"%.includes(n1.mod(12)).not,".format(excludeAll)} {""})
 	++ (if(underlyingScale.notNil){"%.includes(n1.mod(12)),".format(underlyingScale)}{""}) ++ "\n"
 
 	++
 	(if(numNotes==3){""}{
 		(numNotes - 3).collect { |nn|
-			"% <- ((%+1)..(maxUpperNote-%)),".format("n" ++ (nn + 2), "n" ++ (nn + 1), numNotes - nn - 3)
+			"% <- ((%+1)..(maxUpperNoteWhenBaseIs0-%)),".format("n" ++ (nn + 2), "n" ++ (nn + 1), numNotes - nn - 3)
 			++ (if(excludeAll.notNil){"(% & ~intervals.([0, %]).asSet).isEmpty,".format(
 				excludeAll, noteStringArray[0..(nn + 1)].reduce{|a b| a ++ ", " ++ b}
 			)}{""})
@@ -89,7 +154,7 @@ n1 <- (1..(maxUpperNote-%)),".format(noteString, maxUpperNote, numNotes - 2)
 
 		}.reduce{|a b| a ++ b}
 	})
-	++ "% <- ((%+1)..maxUpperNote), \n
+	++ "% <- ((%+1)..maxUpperNoteWhenBaseIs0), \n
 
 var intervals = ~intervals.(%),".format(noteStringArray.last, noteStringArray.wrapAt(-2), noteString)  ++ "\n"
 
@@ -105,7 +170,11 @@ var intervals = ~intervals.(%),".format(noteStringArray.last, noteStringArray.wr
 
 	++ (if(mehrereTritoni.notNil){"(intervals.count({|item| item.mod(12) == 6}) >= 2),"}{""}) ++ "\n"
 
-	++ "var rootNote = ~rootNote.(%)".format(noteString) ++ (if(rootNoteEqual.notNil){", (rootNote % 0) && (rootNote.notNil)}".format(rootNoteEqual)}{"}"});
+	++ "var rootNote = ~rootNote.(%)".format(noteString)
+
+	++ (if(rootNoteEqual.notNil){", (rootNote % 0) && (rootNote.notNil)}".format(rootNoteEqual)}{"}"});
+
+	str.asCompileString.postln;
 	str.interpret
 };
 
@@ -123,7 +192,7 @@ var intervals = ~intervals.(%),".format(noteStringArray.last, noteStringArray.wr
 			excludeAll: Set[1, 2, 6, 10, 11],
 			//includeAll: Set[],
 			//includeOneOf: Set[0,1,2,3,4,5,6,7,8,9,10,11],
-			maxUpperNote: (~listAndParameters.maxUpperNote - ~listAndParameters.minLowerNote),
+			maxUpperNoteWhenBaseIs0: (~listAndParameters.maxUpperNote - ~listAndParameters.minLowerNote),
 			rootNoteEqual: "==" // == != oder nil
 		).all //hiernach müsste dann das Schreiben in das Dictionary geschehen.
 	}
@@ -140,7 +209,7 @@ var intervals = ~intervals.(%),".format(noteStringArray.last, noteStringArray.wr
 			excludeAll: Set[1, 2, 6, 10, 11],
 			//includeAll: Set[],
 			//includeOneOf: Set[0,1,2,3,4,5,6,7,8,9,10,11],
-			maxUpperNote: (~listAndParameters.maxUpperNote - ~listAndParameters.minLowerNote),
+			maxUpperNoteWhenBaseIs0: (~listAndParameters.maxUpperNote - ~listAndParameters.minLowerNote),
 			rootNoteEqual: "!=" // == != oder nil
 		).all
 	}
@@ -157,7 +226,7 @@ var intervals = ~intervals.(%),".format(noteStringArray.last, noteStringArray.wr
 			excludeAll: Set[1, 2, 11],
 			includeAll: Set[6, 10],
 			includeOneOf: Set[7, 5, 4, 8],
-			maxUpperNote: (~listAndParameters.maxUpperNote - ~listAndParameters.minLowerNote),
+			maxUpperNoteWhenBaseIs0: (~listAndParameters.maxUpperNote - ~listAndParameters.minLowerNote),
 			rootNoteEqual: "==" // == != oder nil
 		).all
 	}
@@ -173,7 +242,7 @@ var intervals = ~intervals.(%),".format(noteStringArray.last, noteStringArray.wr
 			includeAll: Set[6],
 			includeOneOf: Set[7, 5, 4, 8],
 			includeOneOf2: Set[2, 10],
-			maxUpperNote: (~listAndParameters.maxUpperNote - ~listAndParameters.minLowerNote),
+			maxUpperNoteWhenBaseIs0: (~listAndParameters.maxUpperNote - ~listAndParameters.minLowerNote),
 			rootNoteEqual: "==" // == != oder nil
 		).all
 	}
@@ -189,7 +258,7 @@ var intervals = ~intervals.(%),".format(noteStringArray.last, noteStringArray.wr
 			includeAll: Set[6],
 			includeOneOf: Set[7, 5, 4, 8],
 			includeOneOf2: Set[2, 10],
-			maxUpperNote: (~listAndParameters.maxUpperNote - ~listAndParameters.minLowerNote),
+			maxUpperNoteWhenBaseIs0: (~listAndParameters.maxUpperNote - ~listAndParameters.minLowerNote),
 			rootNoteEqual: "==" // == != oder nil
 		).all
 	}
@@ -204,8 +273,7 @@ var intervals = ~intervals.(%),".format(noteStringArray.last, noteStringArray.wr
 			includeOneOf: Set[7, 5, 4, 8],
 			includeOneOf2: Set[2, 10],
 			mehrereTritoni: true,
-			maxUpperNote: (~listAndParameters.maxUpperNote - ~listAndParameters.minLowerNote),
-			//rootNoteEqual: "!="  // == != oder nil
+			maxUpperNoteWhenBaseIs0: (~listAndParameters.maxUpperNote - ~listAndParameters.minLowerNote)
 		).all
 	}
 
@@ -216,12 +284,12 @@ var intervals = ~intervals.(%),".format(noteStringArray.last, noteStringArray.wr
 		// A ohne Tritonus III Mit Sekunden ODER Septimen 1 Grundton und Basston sind derselbe
 
 		~getListComprehension.(
-			numNotes: ~listAndParameters.numNotes, // >= 3
+			numNotes: ~listAndParameters.numNotes,
 			excludeAll: Set[6],
 			//includeAll: Set[6],
 			includeOneOf: Set[1,2,10,11],
-			maxUpperNote: (~listAndParameters.maxUpperNote - ~listAndParameters.minLowerNote),
-			rootNoteEqual: "=="  // == != oder nil
+			maxUpperNoteWhenBaseIs0: (~listAndParameters.maxUpperNote - ~listAndParameters.minLowerNote),
+			rootNoteEqual: "=="
 		).all
 	}
 	//{z.next}.bench //dauert 0.006 Sekunden
@@ -236,7 +304,7 @@ var intervals = ~intervals.(%),".format(noteStringArray.last, noteStringArray.wr
 			excludeAll: Set[6],
 			//includeAll: Set[6],
 			includeOneOf: Set[1,2,10,11],
-			maxUpperNote: (~listAndParameters.maxUpperNote - ~listAndParameters.minLowerNote),
+			maxUpperNoteWhenBaseIs0: (~listAndParameters.maxUpperNote - ~listAndParameters.minLowerNote),
 			rootNoteEqual: "!="  // == != oder nil
 		).all
 	}
@@ -252,7 +320,7 @@ var intervals = ~intervals.(%),".format(noteStringArray.last, noteStringArray.wr
 			includeAll: Set[6],
 			includeOneOf: Set[1,11],
 			includeOneOf2: Set[7, 5, 4, 8],
-			maxUpperNote: (~listAndParameters.maxUpperNote - ~listAndParameters.minLowerNote),
+			maxUpperNoteWhenBaseIs0: (~listAndParameters.maxUpperNote - ~listAndParameters.minLowerNote),
 			rootNoteEqual: "=="  // == != oder nil
 		).all
 	}
@@ -269,17 +337,10 @@ var intervals = ~intervals.(%),".format(noteStringArray.last, noteStringArray.wr
 			includeAll: Set[6],
 			includeOneOf: Set[1,11],
 			includeOneOf2: Set[7, 5, 4, 8],
-			maxUpperNote: (~listAndParameters.maxUpperNote - ~listAndParameters.minLowerNote),
+			maxUpperNoteWhenBaseIs0: (~listAndParameters.maxUpperNote - ~listAndParameters.minLowerNote),
 			rootNoteEqual: "!="  // == != oder nil
 		).all
 	}
-	/*
-	{z.all.size}.bench
-
-	{z.all.size.postln}.bench //dauert 0.5 Sekunden für maxUpperNote=24 & underlyingScale=Set[0,1,3,4,6,7,9,10]
-	{z.all.size.postln}.bench //dauert 0.6 Sekuknden für maxUpperNote=24 & underlyingScale=Set[0,2,3,4,6,7,8,10,11] (Messiaen3)
-	//Hier am Besten maxUpperNote>11 in Verbund mit underlyingScale=[0,1,2,3,4,5,6,7,8,9,10,11](chromatisch) verbieten!
-	*/
 
 	{~listAndParameters.dissDegree == 10}
 	// DissDegree 10
@@ -294,22 +355,20 @@ var intervals = ~intervals.(%),".format(noteStringArray.last, noteStringArray.wr
 		[(list: list, rootNote: rootNote)]
 	}
 
-
-
 	{~listAndParameters.dissDegree == 11}
 	// DissDegree 11
 	// B mit Tritonus VI Unbestimmbar Tritonus übergeordnet
 	{
 		var numNotes = ~listAndParameters.numNotes; //3-5
-		var maxUpperNote = (~listAndParameters.maxUpperNote - ~listAndParameters.minLowerNote);
-		var timesThree = Array.series((maxUpperNote / 3).trunc.asInteger + 1, 0, 3);
+		var ambitus = (~listAndParameters.maxUpperNote - ~listAndParameters.minLowerNote);
+		var timesThree = Array.series((ambitus / 3).trunc.asInteger + 1, 0, 3);
 		var arrayOfLists = timesThree.powerset.select({
 			arg item;
 			item.size == numNotes && ((item.mod(12).asSet.size >= 3) && item.includes(0))
 		});
 		var arrayOfEventsWithLists = [];
 		arrayOfLists.do({ arg item;
-			arrayOfEventsWithLists = arrayOfEventsWithLists.add((list: item, rootNote: 0))
+			arrayOfEventsWithLists = arrayOfEventsWithLists.acontraintsdd((list: item, rootNote: 0))
 		});
 		arrayOfEventsWithLists
 	};
@@ -317,11 +376,18 @@ var intervals = ~intervals.(%),".format(noteStringArray.last, noteStringArray.wr
 };
 
 ~actualizeGUI = {
-
-				{~numberboxDissDegree.value =  ~listAndParameters.dissDegree}.defer; //set NumberBox DissDegree
-				{~textfieldList.value = ~listAndParameters.list}.defer; //set TextField list
-				{~textfieldRoot.value = ~listAndParameters.rootNote}.defer; //set TextField RootNote
-				{~numberboxNumberNotes.value = ~listAndParameters.numNotes}.defer;  // set NumberBox NumNotes
+	{~numberboxDissDegree.value =  ~listAndParameters.dissDegree}.defer; //set NumberBox DissDegree
+	{~textfieldList.value = ~listAndParameters.list}.defer; //set TextField list
+	{~textfieldRoot.value = ~listAndParameters.rootNote}.defer; //set TextField RootNote
+	{~numberboxNumberNotes.value = ~listAndParameters.numNotes}.defer;  // set NumberBox NumNotes
 };
 
+~listAndParameters = (
+	list: [60],
+	dissDegree: 0,
+	numNotes: 3,
+	rootNote: 0,
+	minLowerNote: 48,
+	maxUpperNote: 60
+);
 
