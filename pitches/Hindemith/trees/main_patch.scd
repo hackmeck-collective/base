@@ -14,7 +14,7 @@ var path = PathName(thisProcess.nowExecutingPath).pathOnly +/+ "calc/hindemithTr
 
 // query the tree
 ~trees[\numNotes, 3, \rootNote, 8, \dissDegrees, 3].asArray
-
+~trees[\numNotes, 5, \rootNote, \noRootNote] // selten
 
 
 "piano_gui.scd".loadRelative;

@@ -56,13 +56,6 @@
 				(rootNote: ev.rootNote !? {(ev.rootNote + i) % 12}, list: ev.list + i)
 			};
 			result[i].putAtPath(lf, eventArrOffset)
-			/*			var eventArrOffset = eventArr.collect {|ev|
-			ev !? {(rootNote: (ev.rootNote + i) % 12, list: ev.list + i)}
-			};
-			var removeNil = eventArrOffset.reject(_.isNil);
-			if(removeNil.notEmpty){
-			result[i].putAtPath(lf, removeNil)
-			}*/
 		})
 	};
 	~rootOffsets = result;
@@ -73,14 +66,14 @@
 (
 {
 	var numNotes = ~numNotesAll;
-	var rootNotes = (0..11);
+	var rootNotes = (0..11) ++ [\noRootNote];
 	var dissDegrees = ~dissDegreesAll;
 	var kdTrees = MultiLevelIdentityDictionary.new;
 	"create empty lists for kdtrees".postln;
 	numNotes.do {|nn|
 		rootNotes.do {|rn|
 			dissDegrees.do {|deg|
-				kdTrees.put(\numNotes, nn, \rootNote, rn, \dissDegrees, deg, List.new); // KDTree.new([0 ! nn])
+				kdTrees.put(\numNotes, nn, \rootNote, rn, \dissDegrees, deg, List.new);
 			}
 		}
 	};
@@ -89,7 +82,7 @@
 		// lf.postcs;
 		eventArr.do {|ev|
 			ev !? {
-				kdTrees.at(\numNotes, lf[1], \rootNote, ev.rootNote, \dissDegrees, lf[3]).add(ev.list);
+				kdTrees.at(\numNotes, lf[1], \rootNote, ev.rootNote ? \noRootNote, \dissDegrees, lf[3]).add(ev.list);
 			}
 		}
 	});
@@ -99,7 +92,7 @@
 		res.treeDo({}, {|lf eventArr|
 			eventArr.do {|ev|
 				ev !? {
-					kdTrees.at(\numNotes, lf[1], \rootNote, ev.rootNote, \dissDegrees, lf[3]).add(ev.list);
+					kdTrees.at(\numNotes, lf[1], \rootNote, ev.rootNote ? \noRootNote, \dissDegrees, lf[3]).add(ev.list);
 				}
 			}
 		});
