@@ -11,6 +11,8 @@
 ~dissDegreesAll = (0..9);
 ~numNotesAll = [3, 4, 5];
 ~maxUpper = 36; // 36 dauert schon ein weilchen
+// beachten: da alle ergebnisse nochmal mit den offsets (1..11) vervielfacht werden
+// ist der tatsaechliche wert fuer maxUpper 11 hoeher
 )
 
 
