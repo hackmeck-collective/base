@@ -15,25 +15,21 @@
 // ist der tatsaechliche wert fuer maxUpper 11 hoeher
 )
 
-
-
 // calculate all dissDegrees for all different number of notes
 (
 {
-	var calcDegrees = ~dissDegreesAll;
-	var calcNumNotes = ~numNotesAll;
 	var result = MultiLevelIdentityDictionary.new;
 	"calculate all list comprehesions".postln;
-	calcNumNotes.do { |nn|
+	~numNotesAll.do { |nn|
 		("\tnumNotes " ++ nn).postln;
-		calcDegrees.do { |deg|
+		~dissDegreesAll.do { |deg|
 			var newCalc = ~calcAll.(
 				dissDegree: deg,
 				numNotes: nn,
 				maxUpper: ~maxUpper
 			);
 			result.put(\numNotes, nn, \dissDegrees, deg, newCalc);
-			("\t\tdissDegree: " ++ deg ++ " size " ++ newCalc.size).postln;
+			("\t\tdissDegree: " ++ deg ++ " size " ++ newCalc.size ++ " ...").postln;
 		}
 	};
 	~res = result;
@@ -49,7 +45,7 @@
 	var offset = (1..11);
 	var result = ();
 	offset.do { |i|
-		("copy with offset " ++ i).postln;
+		("copy with offset ..." ++ i).postln;
 		result[i] = ~res.deepCopy;
 		result[i].treeDo({}, {|lf eventArr|
 			var eventArrOffset = eventArr.collect {|ev|
@@ -65,45 +61,25 @@
 // make kdtrees for all numNotes and all rootNote and all dissDegree
 (
 {
-	var numNotes = ~numNotesAll;
-	var rootNotes = (0..11) ++ [\noRootNote];
-	var dissDegrees = ~dissDegreesAll;
 	var kdTrees = MultiLevelIdentityDictionary.new;
-	"create empty lists for kdtrees".postln;
-	numNotes.do {|nn|
-		rootNotes.do {|rn|
-			dissDegrees.do {|deg|
-				kdTrees.put(\numNotes, nn, \rootNote, rn, \dissDegrees, deg, List.new);
-			}
-		}
-	};
-	"fill lists with values from ~res".postln;
-	~res.treeDo({}, {|lf eventArr|
-		// lf.postcs;
-		eventArr.do {|ev|
-			ev !? {
-				kdTrees.at(\numNotes, lf[1], \rootNote, ev.rootNote ? \noRootNote, \dissDegrees, lf[3]).add(ev.list);
-			}
-		}
-	});
 
-	"fill lists with values from ~rootOffsets".postln;
-	~rootOffsets.do { |res|
+	"fill lists with values from ~res and ~rootOffsets ...".postln;
+	([~res] ++ ~rootOffsets).do { |res|
 		res.treeDo({}, {|lf eventArr|
 			eventArr.do {|ev|
-				ev !? {
-					kdTrees.at(\numNotes, lf[1], \rootNote, ev.rootNote ? \noRootNote, \dissDegrees, lf[3]).add(ev.list);
-				}
+				var addr = [\numNotes, lf[1], \rootNote, ev.rootNote ? \noRootNote, \dissDegrees, lf[3]];
+				kdTrees.at(*addr) ?? {
+					kdTrees.putAtPath(addr, List.new);
+				};
+				kdTrees.at(*addr).add(ev.list);
 			}
 		});
 	};
 
-	"create kdtrees from lists, remove duplicates".postln;
+	"create kdtrees from lists, remove duplicates ...".postln;
 	kdTrees.treeDo({}, {|lf list|
-		if(list.notEmpty){
-			var removeDuplicates = list.as(Set).as(List);
-			kdTrees.putAtPath(lf, KDTree.new(removeDuplicates))
-		}
+		var removeDuplicates = list.as(Set).as(List);
+		kdTrees.putAtPath(lf, KDTree.new(removeDuplicates))
 	});
 	~trees = kdTrees;
 }.bench
@@ -113,11 +89,8 @@
 (
 {
 	var path = PathName(thisProcess.nowExecutingPath).pathOnly +/+ "hindemithTrees.archiv";
-	// var archive = ZArchive.write(path);
-	("saving to " ++ path).postln;
+	("saving to " ++ path ++ " ...").postln;
 	~trees.writeBinaryArchive(path);
-	// archive.writeItem(~trees);
-	// archive.writeClose;
 }.bench
 )
 // Laut ZArchive: The binary archives written by Object.writeBinaryArchive will break if the instance variables change in any of the classes you have archived.

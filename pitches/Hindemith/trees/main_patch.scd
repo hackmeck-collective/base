@@ -17,11 +17,13 @@ var path = PathName(thisProcess.nowExecutingPath).pathOnly +/+ "calc/hindemithTr
 ~trees[\numNotes, 5, \rootNote, \noRootNote] // selten
 
 
+
 "piano_gui.scd".loadRelative;
 
-~startPiano.init([0,3,7,14]);
+~chordNow = [0,3,7,14];
+~startPiano.init(~chordNow);
 (
-var res = ~searchTree.(chord: ~chordNow, rootNote: 7, dissDegree: 3, offset: 2);
+var res = ~searchTree.(chord: ~chordNow, rootNote: 2, dissDegree: 1, offset: 2);
 res !? {
 	~chordNow = res.choose.postln;
 	~startPiano.showKeys(~chordNow)
@@ -30,7 +32,7 @@ res !? {
 
 ~chordNow = [0, 4, 7, 11];
 (
-var res = ~searchTreeNearest.(chord: ~chordNow, rootNote: 3, dissDegree: 6);
+var res = ~searchTreeNearest.(chord: ~chordNow, rootNote: 4, dissDegree: 2);
 res !? {
 	~chordNow = res.postln;
 	~startPiano.showKeys(~chordNow)
