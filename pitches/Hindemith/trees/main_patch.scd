@@ -7,10 +7,10 @@ var path = PathName(thisProcess.nowExecutingPath).pathOnly +/+ "calc/hindemithTr
 )
 
 // result might be same as input at the moment
-~searchTree.(chord: [1, 4, 9, 12, 24], rootNote: 3, dissDegree: 0, offset: 3)
+~searchTree.(chord: [1, 4, 9, 12, 24], rootNote: 3, dissDegree: 2, offset: 3)
 ~searchTreeRadius.(chord: [0,4,10,15], rootNote: 0, dissDegree: 1, offset: 4)
 // der radius offset entspricht der distance von search nearest
-~searchTreeNearest.(chord: [0,4,10,15], rootNote: 0, dissDegree: 1)
+~searchTreeNearest.(chord: [0,4,10,12], rootNote: 7, dissDegree: 1)
 
 // query the tree
 ~trees[\numNotes, 3, \rootNote, 8, \dissDegrees, 3].asArray
