@@ -44,11 +44,31 @@
 		oscillator_mod_1 = 0,
 		oscillator_mod_2 = 0;
 
-		Dust2.ar(freq);
+		var envelope = EnvGen.kr(
+			Env.new(
+				levels: [ 0, 1, 0 ],
+				times: [ 0, oscillator_mod_2 ],
+				curve: 'sin'
+			),
+			gate: Dust.ar(freq * oscillator_mod_1)
+		);
+
+		ClipNoise.ar(envelope);
 
 	},
 
 	fm: {arg freq = 440,
+		gate = 1,
+		oscillator_mod_1 = 0,
+		oscillator_mod_2 = 0;
+
+		var amount = freq * oscillator_mod_1,
+		ratio = freq * oscillator_mod_2;
+
+		SinOsc.ar(freq + SinOsc.ar(ratio,Rand(),amount));
+	},
+
+	fmScaled: {arg freq = 440,
 		gate = 1,
 		oscillator_mod_1 = 0,
 		oscillator_mod_2 = 0;
@@ -214,7 +234,7 @@
 			EnvGen.ar(
 				Env.perc(0, 0.02, 2, 0),
 				gate) - 1,
-			);
+		);
 	},
 
 );

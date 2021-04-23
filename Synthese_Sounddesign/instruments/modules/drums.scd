@@ -21,7 +21,7 @@
 		time_factor = 1,
 		punch_factor = 0;
 
-		var doneActionSwitch, body_envelope, timbre_envelope, transient_envelope, tail_envelope,
+		var body_envelope, timbre_envelope, transient_envelope, tail_envelope,
 		body_punch_envelope, timbre_punch_envelope, transient_punch_envelope, tail_punch_envelope,
 		timbre_freq, body_sweep, timbre_sweep,
 		body, timbre, transient, tail, volume_compensation,
@@ -44,14 +44,6 @@
 		timbre_time = timbre_time * time_factor;
 		transient_time = transient_time * time_factor;
 		tail_time = tail_time * time_factor;
-
-		doneActionSwitch = EnvGen.kr(
-			Env.new(
-				levels: [1,0],
-				times: [2*time_factor],
-			),
-			gate: gate,
-			doneAction: 2);
 
 		body_envelope = EnvGen.kr(
 			Env.perc(
@@ -119,7 +111,7 @@
 		time_factor = 1,
 		punch_factor = 0;
 
-		var doneActionSwitch, carrier_envelope, modulator_envelope, transient_envelope, tail_envelope,
+		var carrier_envelope, modulator_envelope, transient_envelope, tail_envelope,
 		carrier_punch_envelope, modulator_punch_envelope, transient_punch_envelope, tail_punch_envelope,
 		modulator_freq, carrier_sweep, modulator_sweep,
 		carrier, modulator, transient, tail, volume_compensation,
@@ -143,13 +135,6 @@
 		transient_time = transient_time * time_factor;
 		tail_time = tail_time * time_factor;
 
-		doneActionSwitch = EnvGen.kr(
-			Env.new(
-				levels: [1,0],
-				times: [2*time_factor],
-			),
-			gate: gate,
-			doneAction: 2);
 
 		carrier_envelope = EnvGen.kr(
 			Env.perc(
@@ -157,8 +142,7 @@
 				releaseTime: carrier_time,
 				curve: -4
 			),
-			gate: gate,
-			doneAction:2);
+			gate: gate);
 
 		modulator_envelope = EnvGen.kr(
 			Env.perc(
@@ -182,8 +166,7 @@
 				releaseTime: tail_time,
 				curve: -6
 			),
-			gate: gate,
-			doneAction:2);
+			gate: gate);
 
 		carrier_punch_envelope = Clip.kr(carrier_envelope * (1 + punch_factor), 0, 1);
 		modulator_punch_envelope = Clip.kr(modulator_envelope * (1 + punch_factor), 0, 1);
@@ -219,7 +202,7 @@
 		time_factor = 1,
 		punch_factor = 0;
 
-		var doneActionSwitch, carrier_envelope, modulator_envelope, transient_envelope, tail_envelope,
+		var carrier_envelope, modulator_envelope, transient_envelope, tail_envelope,
 		carrier_punch_envelope, modulator_punch_envelope, transient_punch_envelope, tail_punch_envelope,
 		modulator_freq, carrier_sweep, modulator_sweep,
 		carrier, modulator, transient, tail, volume_compensation,
@@ -243,22 +226,13 @@
 		transient_time = transient_time * time_factor;
 		tail_time = tail_time * time_factor;
 
-		doneActionSwitch = EnvGen.kr(
-			Env.new(
-				levels: [1,0],
-				times: [2*time_factor],
-			),
-			gate: gate,
-			doneAction: 2);
-
 		carrier_envelope = EnvGen.kr(
 			Env.perc(
 				attackTime: 0.001,
 				releaseTime: carrier_time,
 				curve: -4
 			),
-			gate: gate,
-			doneAction:2);
+			gate: gate);
 
 		modulator_envelope = EnvGen.kr(
 			Env.perc(
@@ -282,8 +256,7 @@
 				releaseTime: tail_time,
 				curve: -6
 			),
-			gate: gate,
-			doneAction:2);
+			gate: gate);
 
 		carrier_punch_envelope = Clip.kr(carrier_envelope * (1 + punch_factor), 0, 1);
 		modulator_punch_envelope = Clip.kr(modulator_envelope * (1 + punch_factor), 0, 1);
@@ -319,7 +292,7 @@
 		time_factor = 1,
 		punch_factor = 0;
 
-		var doneActionSwitch, carrier_envelope, modulator_envelope, transient_envelope, tail_envelope,
+		var carrier_envelope, modulator_envelope, transient_envelope, tail_envelope,
 		carrier_punch_envelope, modulator_punch_envelope, transient_punch_envelope, tail_punch_envelope,
 		modulator_freq, carrier_sweep, modulator_sweep,
 		carrier, modulator, transient, tail, volume_compensation,
@@ -343,22 +316,13 @@
 		transient_time = transient_time * time_factor;
 		tail_time = tail_time * time_factor;
 
-		doneActionSwitch = EnvGen.kr(
-			Env.new(
-				levels: [1,0],
-				times: [2*time_factor],
-			),
-			gate: gate,
-			doneAction: 2);
-
 		carrier_envelope = EnvGen.kr(
 			Env.perc(
 				attackTime: 0.001,
 				releaseTime: carrier_time,
 				curve: -4
 			),
-			gate: gate,
-			doneAction:2);
+			gate: gate);
 
 		modulator_envelope = EnvGen.kr(
 			Env.perc(
@@ -382,8 +346,7 @@
 				releaseTime: tail_time,
 				curve: -6
 			),
-			gate: gate,
-			doneAction:2);
+			gate: gate);
 
 		carrier_punch_envelope = Clip.kr(carrier_envelope * (1 + punch_factor), 0, 1);
 		modulator_punch_envelope = Clip.kr(modulator_envelope * (1 + punch_factor), 0, 1);

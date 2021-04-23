@@ -1,5 +1,6 @@
+
 (
-var waitForPeers = true;
+var waitForPeers = false;
 var multicoreSetup = false;
 var loadStuff = {
 	"loading signal flow".postln;
@@ -22,6 +23,7 @@ var loadStuff = {
 	"loading presets".postln;
 	"Presets/InstrumentPresetFunctions.scd".loadRelative;
 	~instrPreset.loadAll;
+	"Presets/instrumentationPresets.scd".loadRelative;
 
 	"loading patternfunctions".postln;
 	"patterns/patternFunctions.scd".loadRelative;
@@ -112,12 +114,13 @@ s.waitForBoot {
 
 /*
 
-~adsrTypes.keys;
-~oscillatorTypes.keys;
-~pitchOpTypes.keys;
-~fxTypes.keys;
-~filterTypes.keys;
-~drumTypes.keys;
+~adsrTypes.keys.asArray.flat;
+~oscillatorTypes.keys.asArray.flat;
+~pitchOpTypes.keys.asArray.flat;
+~fxTypes.keys.asArray.flat;
+~filterTypes.keys.asArray.flat;
+~drumTypes.keys.asArray.flat;
+~modSources.keys.asArray.flat;
 
 s.record
 
