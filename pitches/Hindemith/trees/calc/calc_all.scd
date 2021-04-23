@@ -1,3 +1,6 @@
+//Macht Listen mit Events, die RootNote und Listen haben.
+//MultiLevelIdentityDictionary macht hier den Unterschied
+
 (
 "resources.scd".loadRelative;
 ~calcAll = { |dissDegree, numNotes, maxUpper|
@@ -9,8 +12,8 @@
 };
 
 ~dissDegreesAll = (0..9);
-~numNotesAll = [3, 4, 5];
-~maxUpper = 36; // 36 dauert schon ein weilchen
+~numNotesAll = [3, 4, 5]; //Chordsize
+~maxUpper = 36; // Ambitus, 36 dauert ca. 3 Min
 // beachten: da alle ergebnisse nochmal mit den offsets (1..11) vervielfacht werden
 // ist der tatsaechliche wert fuer maxUpper 11 hoeher
 )
@@ -37,7 +40,7 @@
 )
 
 // inspection
-~res[\numNotes, 3, \dissDegrees, 1]
+~res[\numNotes, 4, \dissDegrees, 3]; //rootNote doesn’t work here
 
 // copy and offset rootnote and list for every note
 (
@@ -58,7 +61,11 @@
 }.bench
 )
 
+//inspection: ~rootOffsets[rootNote][\key, value, \key, value]
+~rootOffsets[1][\numNotes, 4, \dissDegrees, 3];
+
 // make kdtrees for all numNotes and all rootNote and all dissDegree
+//Die Idee ist jetzt die Rootnote in die Adresse mit hineinzubringen. Aus den Listen mit den Events werden Objekte (mit Namen kdtree). Der Vorteil ist, dass man schnell darin suchen kann.
 (
 {
 	var kdTrees = MultiLevelIdentityDictionary.new;
@@ -67,7 +74,7 @@
 	([~res] ++ ~rootOffsets).do { |res|
 		res.treeDo({}, {|lf eventArr|
 			eventArr.do {|ev|
-				var addr = [\numNotes, lf[1], \rootNote, ev.rootNote ? \noRootNote, \dissDegrees, lf[3]];
+				var addr = [\numNotes, lf[1], \rootNote, ev.rootNote ? \noRootNote, \dissDegrees, lf[3]]; //weil nil als key in nem Dictionary nicht geht
 				kdTrees.at(*addr) ?? {
 					kdTrees.putAtPath(addr, List.new);
 				};
@@ -94,3 +101,4 @@
 }.bench
 )
 // Laut ZArchive: The binary archives written by Object.writeBinaryArchive will break if the instance variables change in any of the classes you have archived.
+//Jetzt kann in Main_patch.scd geguckt werden.

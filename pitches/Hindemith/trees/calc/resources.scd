@@ -25,7 +25,7 @@
 		includeAll: Set[6],
 		includeOneOf: Set[7, 5, 4, 8],
 		includeOneOf2: Set[2, 10],
-		rootNoteEqual: "==" // == != oder nil
+		rootNoteEqual: "!=" // == != oder nil
 	),
 	5: (
 		excludeAll: Set[1, 11],

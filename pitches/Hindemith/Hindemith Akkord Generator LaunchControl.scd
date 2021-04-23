@@ -8,8 +8,14 @@ if (~gateOpen.isNil) {~gateOpen = Array.fill(8, {|item| if (item != 0){false} {n
 
 
 if (MIDIClient.initialized.not){
+	"initializing MIDI ...".postln;
+
+
 	MIDIClient.init;
+	"MIDI initialized".postln;
+	"connecting MIDIIn ...".postln;
 	MIDIIn.connectAll;
+	"MIDIIn connected".postln;
 };
 
 if (~port.isNil) {
@@ -18,30 +24,31 @@ if (~port.isNil) {
 	~toLaunchControl.connect(~port);
 };
 
+
+~addrBookUserName = \philipp;
+"../../network/address_book_all.scd".loadRelative;
 // Hail-Init for Networking
-~addrBook = AddrBook.new;
-~addrBook.addMe(Peer(\Philipp, NetAddr("192.168.178.21", 57120)));
-~hail = Hail.new(~addrBook);
-~addrBook.peers;
-~addrBook.names;
-~objSpace = OSCObjectSpace(~addrBook, true, '/pitches');
+// ~addrBook = AddrBook.new;
+// ~addrBook.addMe(Peer(\Philipp, NetAddr("192.168.178.21", 57120)));
+// ~hail = Hail.new(~addrBook);
+// ~addrBook.peers;
+// ~addrBook.names;
+// ~objSpace = OSCObjectSpace(~addrBook, true, '/pitches');
 ~sendWithHail = {arg event; //Funktion, die das event inklusive liste versendet.
-	~objSpace[\pitches] = (event.list + 12).postln;
-	~objSpace[\root] = event.rootNote;
+	~pitchesRootDissonance[\pitches] = event.list;
+	~pitchesRootDissonance[\root] = event.rootNote;
 };
 
-"prepare Session.scd".loadRelative; //fills ~routineWithListComprehension
-"getClosest.scd".loadRelative;
+"prepare Session.scd".loadRelative;
+
 
 )
-
-
-// fuer alle dissdegrees kdtrees und dann rectsearch mit dem von dem man ausgeht
 
 
 (
 
 "Hindemith Akkord Generator GUI mit LaunchControl.scd".loadRelative;
+~actualizeGUI.value;
 //Message-Parsing
 MIDIdef.cc(\launchControlKnobs, {
 	arg val, num, chan, src;
@@ -51,28 +58,21 @@ MIDIdef.cc(\launchControlKnobs, {
 		var newDissDegree = val.linlin(0,127,0,11).round.asInteger;//0 bis 11
 		if (~listAndParameters.dissDegree != newDissDegree && (~gateOpen[1] == true)) //Nur wenn was neues kommt, mach was.
 		{
-			var diffRootNotes; //Variable zum Erhalt der aktuellen Root Note.
-			var closestList;
-			~listAndParameters.dissDegree = newDissDegree;
-			//~arrayOfEventsWithLists = ~getArrayOfEventsWithLists.value;
-			closestList = ~getClosest.value(~listAndParameters.list, ~listAndParameters.dissDegree, 2);
-			//~eventWithListAndRoot =
-
+			var closestList = ~searchTreeNearest.(
+				numNotes: ~listAndParameters.numNotes,
+				chord: ~listAndParameters.list,
+				rootNote: ~listAndParameters.rootNote,
+				dissDegree: newDissDegree
+			);
 			if(closestList.notNil){
 				~listAndParameters.list = closestList;
-				//~listAndParameters.rootNote = ~rootNote.value(closestList);
-
-				//folgerichtiges aktualisieren der Parameter
-				//diffRootNotes = ~listAndParameters.rootNote - ~eventWithListAndRoot.rootNote.mod(12); //Alt minus neu
-				//~listAndParameters.list = ~eventWithListAndRoot.list + diffRootNotes;
-
+				~listAndParameters.dissDegree = newDissDegree;
+				"dissDegree: ".post; ~listAndParameters.dissDegree.postln;
 				~actualizeGUI.value;
-
 				~sendWithHail.((list: ~listAndParameters.list, rootNote: ~listAndParameters.rootNote));
 			}{
 				"no new list".postln
 			}
-
 		}
 	}
 	{ num == 22 } { //Drehknopf 2 oben
@@ -80,38 +80,44 @@ MIDIdef.cc(\launchControlKnobs, {
 		var newRootValue = val.linlin(0,127,0,11).round.asInteger; // 0 bis 11
 		if (newRootValue != ~listAndParameters.rootNote && (~gateOpen[2] == true))
 		{
-			var diffRootNotes = newRootValue - ~listAndParameters.rootNote; //Variable zum Erhalt der aktuellen Root Note. Neu Minus alt.
-
-			//folgerichtiges aktualisieren der Parameter
-			~listAndParameters.list = ~listAndParameters.list + diffRootNotes;
-			~listAndParameters.rootNote = newRootValue;
-
-			~actualizeGUI.value;
-
-			~sendWithHail.((list: ~listAndParameters.list, rootNote: ~listAndParameters.rootNote));
+			var closestList = ~searchTreeNearest.(
+				numNotes: ~listAndParameters.numNotes,
+				chord: ~listAndParameters.list,
+				rootNote: newRootValue,
+				dissDegree: ~listAndParameters.dissDegree
+			);
+			if(closestList.notNil){
+				~listAndParameters.list = closestList;
+				~listAndParameters.rootNote = newRootValue;
+				"rootNote: ".post; ~listAndParameters.rootNote.postln;
+				~actualizeGUI.value;
+				~sendWithHail.((list: ~listAndParameters.list, rootNote: ~listAndParameters.rootNote));
+			}{
+				"no new list".postln
+			}
 
 		}
 	}
-
 	{ num == 23 } { //Drehknopf 3 oben
 		//Soll Anzahl Töne steuern. Mit Dissonanzgrad wird eine Liste erstellt.
 		var newNumberOfNotes = val.linlin(0,127,3,5).round.asInteger; //3 bis 5
+		newNumberOfNotes.postln;
 		if (~listAndParameters.numNotes != newNumberOfNotes && (~gateOpen[3] == true))
 		{
-			~listAndParameters.numNotes = newNumberOfNotes;
-			~arrayOfEventsWithLists = ~getArrayOfEventsWithLists.value;
-
-			if (~arrayOfEventsWithLists.notNil) {
-				var diffRootNotes; //Variable zum Erhalt der aktuellen Root Note.
-				~eventWithListAndRoot = ~arrayOfEventsWithLists.choose;
-
-				//folgerichtiges aktualisieren der Parameter
-				diffRootNotes = ~listAndParameters.rootNote - ~eventWithListAndRoot.rootNote.mod(12); //Alt minus neu
-				~listAndParameters.list = ~eventWithListAndRoot.list + diffRootNotes;
-
+			var closestList = ~searchTreeNearest.(
+				numNotes: 3,
+				chord: ~listAndParameters.list,
+				rootNote: ~listAndParameters.rootNote,
+				dissDegree: ~listAndParameters.dissDegree
+			);
+			if(closestList.notNil){
+				~listAndParameters.list = closestList;
+				~listAndParameters.numNotes = newNumberOfNotes;
+				"numNotes: ".post; ~listAndParameters.numNotes.postln;
 				~actualizeGUI.value;
-
-				~sendWithHail.((list: ~listAndParameters.list, rootNote: ~listAndParameters.rootNote))
+				~sendWithHail.((list: ~listAndParameters.list, rootNote: ~listAndParameters.rootNote));
+			}{
+				"no new list".postln
 			}
 		}
 	}
