@@ -1,21 +1,21 @@
 (
 ~pitchOpTypes = (
-	noPitchOp: {arg freq = 440;
+	noPitchOp: {arg pitchOp_freq = 440;
 
-		freq;
+		pitchOp_freq;
 	},
 
-	unisonoDetune: {arg freq = 440,
+	unisonoDetune: {arg pitchOp_freq = 440,
 		gate = 0,
 		interval = 0;
 
 		var detune_amount = [interval.midiratio,interval.midiratio.reciprocal],
-		detune_array = freq * detune_amount;
+		detune_array = pitchOp_freq * detune_amount;
 
-		freq = freq + detune_array;
+		pitchOp_freq = pitchOp_freq + detune_array;
 	},
 
-	slide: {arg freq = 440,
+	slide: {arg pitchOp_freq = 440,
 		gate = 0,
 		interval = 0,
 		amount = 0;
@@ -24,7 +24,7 @@
 
 		interval = interval.midiratio;
 
-		freq = freq * EnvGen.kr(
+		pitchOp_freq = pitchOp_freq * EnvGen.kr(
 			Env.new([interval,1],
 				time,
 				curve: -4),

@@ -11,21 +11,7 @@
 
 	},
 
-/*	////////////////////////////// EXTERNAL CONTROL INTERFACES
 
-	external: {arg gate, beatDuration, syncMultiplier, mod1Amount, mod1Rate, attack, decay, sustain, release, envCurve, syncEnvRatio, controlbus, controlbusChannel;
-
-		var input = Lag.kr(
-			In.kr(
-				controlbus,
-				4),
-			0.1);
-
-		var output = input[controlbusChannel];
-
-		output;
-
-	},*/
 
 	////////////////////////////// ENVs
 
@@ -91,6 +77,13 @@
 		);
 	},
 
+	rampLFO: {arg gate, beatDuration, syncMultiplier, mod1Amount, mod1Rate, attack, decay, sustain, release;
+
+		LFSaw.ar(mod1Rate,
+			// mul: mod1Amount, add: (1 - mod1Amount)
+		);
+	},
+
 	sawLFO: {arg gate, beatDuration, syncMultiplier, mod1Amount, mod1Rate, attack, decay, sustain, release;
 
 		LFSaw.ar(mod1Rate,
@@ -105,13 +98,6 @@
 		LFSaw.ar(speed,
 			// mul: mod1Amount, add: (1 - mod1Amount)
 		).neg;
-	},
-
-	rampLFO: {arg gate, beatDuration, syncMultiplier, mod1Amount, mod1Rate, attack, decay, sustain, release;
-
-		LFSaw.ar(mod1Rate,
-			// mul: mod1Amount, add: (1 - mod1Amount)
-		);
 	},
 
 	triSyncLFO: {arg gate, beatDuration, syncMultiplier, mod1Amount, mod1Rate, attack, decay, sustain, release;
@@ -144,6 +130,11 @@
 		LFPulse.ar(mod1Rate,
 			mul: 2, add: -1
 		);
+	},
+
+	sampleAndHold: {arg gate, beatDuration, syncMultiplier, mod1Amount, mod1Rate, attack, decay, sustain, release;
+
+		Latch.ar(WhiteNoise.ar(),gate)
 	},
 
 );

@@ -38,9 +38,9 @@
 	)
 };
 
-~brownianDurations = { |stepsize = 1|
-	Pbind(\choice, Pn( Plazy ( { |ev| Pbrown(0, ev.durations.size, stepsize).round } ) ),
-		\dur, Pindex(Pkey(\durations, inf), Pkey(\choice, inf), inf)
+~brownianDurations = { |stepsize = 1, voices = 1|
+	Pbind(\durChoice, Pn( Plazy({ |ev| Pbrown(0, ev.durations.size, stepsize).round }) ),
+		\dur, Pindex(Pkey(\durations, inf), Pkey(\durChoice, inf), inf)
 	);
 };
 
@@ -111,8 +111,8 @@
 
 (
 ~brownianPitches = { |stepsize = 2|
-	Pbind(\choice, Pn( Plazy ( { |ev| Pbrown(0, ev.pitches.size, stepsize).round } ) ),
-		\note, Pindex(Pkey(\pitches, inf), Pkey(\choice, inf), inf)
+	Pbind(\noteChoice, Pn( Plazy ( { |ev| Pbrown(0, ev.pitches.size, stepsize).round } ) ),
+		\note, Pindex(Pkey(\pitches, inf), Pkey(\noteChoice, inf), inf)
 	);
 }
 );

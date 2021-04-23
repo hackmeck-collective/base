@@ -4,11 +4,13 @@ Document.open(thisProcess.nowExecutingPath.dirname +/+ "patternFunctions.scd");
 Document.open(thisProcess.nowExecutingPath.dirname +/+ "drumFills.scd");
 Document.open(thisProcess.nowExecutingPath.dirname +/+ "launchControlXlTrigger.scd");
 ~cueData[\lsysBeats1]
-~instrPreset.create(\click)
+~instrPreset.create(\metalPerc2)
 ~instrPreset.create_d(\template_drum)
-~instrPreset.create_o(\simpleLead)
-~instrPreset.edit(\syncWub);
+~instrPreset.create_o(\simpleSine)
+~instrPreset.edit(\metalPerc2);
 
+
+( Pdef(\metalPerc) <> Pbindef(\root) <> Pbindef(\pulse_16) ).play(~linkClock, quant: 4);
 
 // root note und drums mit phillip klären
 
@@ -47,11 +49,9 @@ Pbind(\dur, 1, \note,24, \legato, 0.1).play(quant: 1)
 (
 ( Psym1(Pxrand([\simplePluck, \srrPluck, \noisyPluck],inf)) <>
 Pbindef(\root) <>
-Pbindef(\accPulse1)
+Pbindef(\pulse_4)
 ).play
 );
-
-( Pdef(\simpleLead) <> Pbindef(\root) <> Pbindef(\pulse_8) ).play(~linkClock, quant: 4);
 
 
 ( {Psym1(Pxrand([\simplePluckReverse, \tonalSwoosh], inf))} <> Pbindef(\fifth) <> Pbindef(\pulse_4_ob)).play

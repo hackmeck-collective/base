@@ -79,20 +79,26 @@
 	defaults: { |self, name|
 		"(
 ~instrumentPresetsDictionary[%] = [
-\\adsrType, \\pluck, // \\noEnv, \\pluck, \\lead, \\pad, \\sync
+// %
+
+\\adsrType, \\pluck,
 \\sendGate, false,
 \\envelope_mod, 0.5,
 \\envCurve, 3,
 
-\\pitchOpType, \\noPitchOp, // \\noPitchOp, \\vibrato, \\slide, \\unisonoDetune, \\fm, \\vibratoSync, \\slideVibrato, \\rectArpSync, \\rectArp
+// %
+
+\\pitchOpType, \\noPitchOp,
 \\pitchOp_1_interval, 0,
 \\pitchOp_1_amount, 0.1,
 
-\\pitchOpType, \\noPitchOp,
+\\pitchOpType_2, \\noPitchOp,
 \\pitchOp_2_interval, 12,
 \\pitchOp_2_amount, 0.1,
 
-\\oscillatorType, \\basic, // \\noOscillator, \\basic, \\fm, \\formant, \\filteredNoise, \\modal, \\pulsar, \\ping, \\grainCloudGuitar
+// %
+
+\\oscillatorType, \\basic,
 \\oscillator_mod_1, 0.45,
 \\oscillator_mod_2, 0.001,
 \\oscillator_1_level, 1,
@@ -104,7 +110,9 @@
 \\oscillator_2_level, 1,
 \\oscillator_1_transpose, -12,
 
-\\drumType, \\noDrum, // \\noDrum, \\bodyTimbreTransientTail, \\fmTransientTail, \\noiseFmTransientTail, \\amTransientTail
+// %
+
+\\drumType, \\noDrum,
 \\timbre_ratio, 0.45,
 \\body_sweep_ratio, 1,
 \\timbre_sweep_ratio, 0.25,
@@ -136,11 +144,7 @@
 \\punch_factor_2, 2,
 \\drum_2_level, 1,
 
-// \\noFx,
-// \\overdriveSoft, \\overdriveMid, \\overdriveHard,
-// \\shelvedOverdriveSoft, \\shelvedOverdriveMid, \\shelvedOverdriveHard,
-// \\sampleRateReduction, \\fold, \\wrap, \\rectifier,
-// \\tremoloRect, \\tremoloSine, \\tremoloRamp,
+// %
 
 \\fxType, \\noFx,
 \\fx_1_input_gain, 1,
@@ -151,14 +155,22 @@
 \\fx_2_mod_1, 0.25,
 \\fx_2_mod_2, 0.25,
 
+// %
 
-\\filterType, \\noFilter, // \\noFilter, \\lpf_moog, \\lpf_24, \\lpf_12, \\hpf_24, \\hpf_12, \\bpf, \\notch, \\lo_shelf, \\hi_shelf,
+\\filterIn_preFxLevel, 0,
+\\filterIn_FxLevel, 1,
+
+\\filterType, \\noFilter,
 \\filter_1_mod_1, 1,
 \\filter_1_mod_2, 0.25,
 
 \\filterType_2, \\noFilter,
 \\filter_2_mod_1, 1,
 \\filter_2_mod_2, 0.25,
+
+\\vca_filterLevel, 1,
+\\vca_preFilterLevel, 0,
+\\vca_preFxLevel, 0,
 
 \\vol, 1,
 \\amp, 0.2,
@@ -168,6 +180,8 @@
 \\send_1_level, 0.25,
 \\send_2, ~simpleDelay_8d,
 \\send_2_level, 0,
+
+// %
 
 \\mod1Type, \\noMod,
 \\mod1Target, \"\",
@@ -225,6 +239,14 @@
 \\external3Amount, 1,
 \\external4Target, \"\",
 \\external4Amount, 1,
+\\external1Target2, \"\",
+\\external1Amount2, 1,
+\\external2Target2, \"\",
+\\external2Amount2, 1,
+\\external3Target2, \"\",
+\\external3Amount2, 1,
+\\external4Target2, \"\",
+\\external4Amount2, 1,
 
 \\pattern1Target, \"\",
 \\pattern1Amount, 1,
@@ -237,26 +259,32 @@
 
 ];
 ~callInstrumentPreset.(%);
-)".format(name.asCompileString, name.asCompileString);
+)".format(name.asCompileString, ~adsrTypes.keys.asArray.flat, ~pitchOpTypes.keys.asArray.flat, ~oscillatorTypes.keys.asArray.flat, ~drumTypes.keys.asArray.flat, ~fxTypes.keys.asArray.flat, ~filterTypes.keys.asArray.flat, ~modSources.keys.asArray.flat, name.asCompileString);
 	},
 
 	default_o: { |self, name|
 		"(
 ~instrumentPresetsDictionary[%] = [
-\\adsrType, \\pluck, // \\noEnv, \\pluck, \\lead, \\pad, \\sync
+// %
+
+\\adsrType, \\pluck,
 \\sendGate, false,
 \\envelope_mod, 0.5,
 \\envCurve, 3,
 
-\\pitchOpType, \\noPitchOp, // \\noPitchOp, \\vibrato, \\slide, \\unisonoDetune, \\fm, \\vibratoSync, \\slideVibrato, \\rectArpSync, \\rectArp
+// %
+
+\\pitchOpType, \\noPitchOp,
 \\pitchOp_1_interval, 0,
 \\pitchOp_1_amount, 0.1,
 
-\\pitchOpType, \\noPitchOp,
+\\pitchOpType_2, \\noPitchOp,
 \\pitchOp_2_interval, 12,
 \\pitchOp_2_amount, 0.1,
 
-\\oscillatorType, \\basic, // \\noOscillator, \\basic, \\fm, \\formant, \\filteredNoise, \\modal, \\pulsar, \\ping, \\grainCloudGuitar
+// %
+
+\\oscillatorType, \\basic,
 \\oscillator_mod_1, 0.45,
 \\oscillator_mod_2, 0.001,
 \\oscillator_1_level, 1,
@@ -268,11 +296,7 @@
 \\oscillator_2_level, 1,
 \\oscillator_2_transpose, -12,
 
-// \\noFx,
-// \\overdriveSoft, \\overdriveMid, \\overdriveHard,
-// \\shelvedOverdriveSoft, \\shelvedOverdriveMid, \\shelvedOverdriveHard,
-// \\sampleRateReduction, \\fold, \\wrap, \\rectifier,
-// \\tremoloRect, \\tremoloSine, \\tremoloRamp,
+// %
 
 \\fxType, \\noFx,
 \\fx_1_input_gain, 1,
@@ -283,14 +307,22 @@
 \\fx_2_mod_1, 0.25,
 \\fx_2_mod_2, 0.25,
 
+// %
 
-\\filterType, \\noFilter, // \\noFilter, \\lpf_moog, \\lpf_24, \\lpf_12, \\hpf_24, \\hpf_12, \\bpf, \\notch, \\lo_shelf, \\hi_shelf,
+\\filterIn_preFxLevel, 0,
+\\filterIn_FxLevel, 1,
+
+\\filterType, \\noFilter,
 \\filter_1_mod_1, 1,
 \\filter_1_mod_2, 0.25,
 
 \\filterType_2, \\noFilter,
 \\filter_2_mod_1, 1,
 \\filter_2_mod_2, 0.25,
+
+\\vca_filterLevel, 1,
+\\vca_preFilterLevel, 0,
+\\vca_preFxLevel, 0,
 
 \\vol, 1,
 \\amp, 0.2,
@@ -300,6 +332,8 @@
 \\send_1_level, 0.25,
 \\send_2, ~simpleDelay_8d,
 \\send_2_level, 0,
+
+// %
 
 \\mod1Type, \\noMod,
 \\mod1Target, \"\",
@@ -357,6 +391,14 @@
 \\external3Amount, 1,
 \\external4Target, \"\",
 \\external4Amount, 1,
+\\external1Target2, \"\",
+\\external1Amount2, 1,
+\\external2Target2, \"\",
+\\external2Amount2, 1,
+\\external3Target2, \"\",
+\\external3Amount2, 1,
+\\external4Target2, \"\",
+\\external4Amount2, 1,
 
 \\pattern1Target, \"\",
 \\pattern1Amount, 1,
@@ -368,26 +410,34 @@
 \\pattern4Amount, 1,
 ];
 ~callInstrumentPreset.(%);
-)".format(name.asCompileString, name.asCompileString);
+)".format(name.asCompileString, ~adsrTypes.keys.asArray.flat, ~pitchOpTypes.keys.asArray.flat, ~oscillatorTypes.keys.asArray.flat, ~fxTypes.keys.asArray.flat, ~filterTypes.keys.asArray.flat, ~modSources.keys.asArray.flat, name.asCompileString);
 	},
+
+
 
 	default_d: { |self, name|
 		"(
 ~instrumentPresetsDictionary[%] = [
-\\adsrType, \\pluck, // \\noEnv, \\pluck, \\lead, \\pad, \\sync
+// %
+
+\\adsrType, \\pluck,
 \\sendGate, false,
 \\envelope_mod, 0.5,
 \\envCurve, 3,
 
-\\pitchOpType, \\noPitchOp, // \\noPitchOp, \\vibrato, \\slide, \\unisonoDetune, \\fm, \\vibratoSync, \\slideVibrato, \\rectArpSync, \\rectArp
+// %
+
+\\pitchOpType, \\noPitchOp,
 \\pitchOp_1_interval, 0,
 \\pitchOp_1_amount, 0.1,
 
-\\pitchOpType, \\noPitchOp,
+\\pitchOpType_2, \\noPitchOp,
 \\pitchOp_2_interval, 12,
 \\pitchOp_2_amount, 0.1,
 
-\\drumType, \\bodyTimbreTransientTail, // \\noDrum, \\bodyTimbreTransientTail, \\fmTransientTail, \\noiseFmTransientTail, \\amTransientTail
+// %
+
+\\drumType, \\bodyTimbreTransientTail,
 \\timbre_ratio, 0.45,
 \\body_sweep_ratio, 1,
 \\timbre_sweep_ratio, 0.25,
@@ -419,11 +469,7 @@
 \\punch_factor_2, 2,
 \\drum_2_level, 1,
 
-// \\noFx,
-// \\overdriveSoft, \\overdriveMid, \\overdriveHard,
-// \\shelvedOverdriveSoft, \\shelvedOverdriveMid, \\shelvedOverdriveHard,
-// \\sampleRateReduction, \\fold, \\wrap, \\rectifier,
-// \\tremoloRect, \\tremoloSine, \\tremoloRamp,
+// %
 
 \\fxType, \\noFx,
 \\fx_1_input_gain, 1,
@@ -434,14 +480,22 @@
 \\fx_2_mod_1, 0.25,
 \\fx_2_mod_2, 0.25,
 
+// %
 
-\\filterType, \\noFilter, // \\noFilter, \\lpf_moog, \\lpf_24, \\lpf_12, \\hpf_24, \\hpf_12, \\bpf, \\notch, \\lo_shelf, \\hi_shelf,
+\\filterIn_preFxLevel, 0,
+\\filterIn_FxLevel, 1,
+
+\\filterType, \\noFilter,
 \\filter_1_mod_1, 1,
 \\filter_1_mod_2, 0.25,
 
 \\filterType_2, \\noFilter,
 \\filter_2_mod_1, 1,
 \\filter_2_mod_2, 0.25,
+
+\\vca_filterLevel, 1,
+\\vca_preFilterLevel, 0,
+\\vca_preFxLevel, 0,
 
 \\vol, 1,
 \\amp, 0.2,
@@ -451,6 +505,8 @@
 \\send_1_level, 0.25,
 \\send_2, ~simpleDelay_8d,
 \\send_2_level, 0,
+
+// %
 
 \\mod1Type, \\noMod,
 \\mod1Target, \"\",
@@ -508,6 +564,14 @@
 \\external3Amount, 1,
 \\external4Target, \"\",
 \\external4Amount, 1,
+\\external1Target2, \"\",
+\\external1Amount2, 1,
+\\external2Target2, \"\",
+\\external2Amount2, 1,
+\\external3Target2, \"\",
+\\external3Amount2, 1,
+\\external4Target2, \"\",
+\\external4Amount2, 1,
 
 \\pattern1Target, \"\",
 \\pattern1Amount, 1,
@@ -519,7 +583,7 @@
 \\pattern4Amount, 1,
 ];
 ~callInstrumentPreset.(%);
-)".format(name.asCompileString, name.asCompileString);
+)".format(name.asCompileString, ~adsrTypes.keys.asArray.flat, ~pitchOpTypes.keys.asArray.flat, ~drumTypes.keys.asArray.flat, ~fxTypes.keys.asArray.flat, ~filterTypes.keys.asArray.flat, ~modSources.keys.asArray.flat, name.asCompileString);
 	},
 );
 

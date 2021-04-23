@@ -130,11 +130,11 @@
 
 	sampleRateReduction: {arg in, gate, freq = 440, fx_mod_1 = 0, fx_mod_2 = 0;
 
-		var sample_rate_ratio = fx_mod_1.lincurve(0,1,1,64,3,nil);
+		var sample_rate_ratio = (freq * fx_mod_1.lincurve(0,1,1,64,3,nil)).clip(20,9000);
 
 		BHiPass.ar(
 			Latch.ar(
-				in, Impulse.ar(freq * sample_rate_ratio)
+				in, Impulse.ar(sample_rate_ratio)
 		), freq * 0.5);
 	},
 
@@ -145,6 +145,30 @@
 		steps = (2**bits).round;
 
 		sig = (in).round(steps.reciprocal);
+
+	},
+
+	combfilter: {arg in, gate, freq = 440, fx_mod_1 = 0, fx_mod_2 = 0;
+
+		var sig;
+
+		sig = LeakDC.ar(
+			CombL.ar(in,
+			delaytime: fx_mod_1,
+			decaytime: fx_mod_2,
+		));
+
+	},
+
+		combfilterScaled: {arg in, gate, freq = 440, fx_mod_1 = 0, fx_mod_2 = 0;
+
+		var sig;
+
+		sig = LeakDC.ar(
+			CombL.ar(in,
+				delaytime: (freq.reciprocal * fx_mod_1),
+			decaytime: fx_mod_2,
+		));
 
 	},
 
