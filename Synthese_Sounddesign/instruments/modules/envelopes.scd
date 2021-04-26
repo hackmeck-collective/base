@@ -1,4 +1,12 @@
 (
+~adsrTypesShortcuts = (
+	noEnv: "no",
+	pluck: "pl",
+	lead: "le",
+	pad: "pa",
+	sync: "sy"
+);
+
 ~adsrTypes = (
 	noEnv: {var sig;
 

@@ -3,6 +3,20 @@
 ~grainCloudRecord_buffer ?? {~grainCloudRecord_buffer = Buffer.readChannel(s, thisProcess.nowExecutingPath.dirname +/+ "/buffer_data/Guitar_Note_A.wav", channels: [0])};
 
 (
+~oscillatorTypesShortcuts = (
+	noOscillator: "no",
+	basic: "ba",
+	filteredNoise: "fn",
+	crackles: "cr",
+	fm: "fm",
+	fmScaled: "fs",
+	formant: "fo",
+	pulsar: "pu",
+	grainCloudGuitar: "gc",
+	modal: "mo",
+	ping: "pi"
+);
+
 ~oscillatorTypes = (
 	noOscillator: {arg freq = 440,
 		gate = 1,

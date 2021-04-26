@@ -1,4 +1,15 @@
 (
+~pitchOpTypesShortcuts = (
+	noPitchOp: "no",
+	unisonoDetune: "ud",
+	slide: "sl",
+	fm: "fm",
+	vibrato: "vi",
+	vibratoSync: "vs",
+	rectArp: "ra",
+	rectArpSync: "rs"
+);
+
 ~pitchOpTypes = (
 	noPitchOp: {arg pitchOp_freq = 440;
 

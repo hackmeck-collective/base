@@ -1,4 +1,17 @@
 (
+~filterTypesShortcuts = (
+	noFilter: "no",
+	lpf_moog: "lm",
+	lpf_12: "l2",
+	lpf_24: "l4",
+	bpf: "bp",
+	notch: "nt",
+	hpf_12: "h2",
+	hpf_24: "h4",
+	hi_shelf: "hs",
+	lo_shelf: "ls"
+);
+
 ~filterTypes = (
 	lpf_moog: {arg in, gate, freq = 440, filter_mod_1 = 0, filter_mod_2 = 0, filter_hz_offset = 0;
 

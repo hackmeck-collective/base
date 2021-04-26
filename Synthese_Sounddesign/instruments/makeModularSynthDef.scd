@@ -34,17 +34,17 @@
 	var synthDefName, modNameSum, mod1TargetLine = "";
 
 	synthDefName =
-	adsrType.asString ++ "_" ++
-	pitchOpType.asString ++ "_" ++
-	pitchOpType_2.asString ++ "_" ++
-	oscillatorType.asString ++ "_" ++
-	oscillatorType_2.asString ++ "_" ++
-	drumType.asString ++ "_" ++
-	drumType_2.asString ++ "_" ++
-	fxType.asString ++ "_" ++
-	fxType_2.asString ++ "_" ++
-	filterType.asString ++ "_" ++
-	filterType_2.asString ++ "_";
+	~adsrTypesShortcuts[adsrType] ++
+	~pitchOpTypesShortcuts[pitchOpType] ++
+	~pitchOpTypesShortcuts[pitchOpType_2] ++
+	~oscillatorTypesShortcuts[oscillatorType] ++
+	~oscillatorTypesShortcuts[oscillatorType_2] ++
+	~drumTypesShortcuts[drumType] ++
+	~drumTypesShortcuts[drumType_2] ++
+	~fxTypesShortcuts[fxType] ++
+	~fxTypesShortcuts[fxType_2] ++
+	~filterTypesShortcuts[filterType] ++
+	~filterTypesShortcuts[filterType_2];
 
 	modNameSum =
 	mod1Type.asString ++

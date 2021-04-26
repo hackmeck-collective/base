@@ -1,4 +1,12 @@
 (
+~drumTypesShortcuts = (
+	noDrum: "no",
+	bodyTimbreTransientTail: "bt",
+	fmTransientTail: "ft",
+	noiseFmTransientTail: "nt",
+	amTransientTail: "at"
+);
+
 ~drumTypes = (
 	noDrum: {var sig;
 
