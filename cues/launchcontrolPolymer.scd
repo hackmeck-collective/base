@@ -189,7 +189,7 @@
 				"ausschwingKlaenge".postln;
 				Pbind(\adsrType, \pluck,// \noEnv, \pluck, \lead, \pad, \sync
 					\sendGate, false,
-					\envelope_mod, 0.5,
+					\envelope_mod, 0.75,
 					\envCurve, 4,
 				)
 			},
@@ -230,6 +230,8 @@
 				ev.chordTranspositions) },
 	)
 	};
+
+//	~chord.([0,1,2,3,4,5,6,7,8,9,10,11])
 
 	~texturDurations = {
 		Pbind(\durations,

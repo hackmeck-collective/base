@@ -7,10 +7,10 @@ Document.open(thisProcess.nowExecutingPath.dirname +/+ "launchControlXlTrigger.s
 ~instrPreset.create(\metalPerc2)
 ~instrPreset.create_d(\template_drum)
 ~instrPreset.create_o(\simpleSine)
-~instrPreset.edit(\metalPerc2);
+~instrPreset.edit(\simplePluck);
 
 
-( Pdef(\metalPerc) <> Pbindef(\root) <> Pbindef(\pulse_16) ).play(~linkClock, quant: 4);
+( Pdef(\detunePluck) <> Pbindef(\root) <> Pbindef(\pulse_16) ).play(~linkClock, quant: 4);
 
 // root note und drums mit phillip klären
 
@@ -21,7 +21,7 @@ Pdef(\fill, (Pdef(\sd3) <> ~quarterFills));
 Pdef(\fill).stop
 
 thisProcess.openPorts
-(
+(P
 (Pn(Pdef(\looper, {
 		var events = List.new;
 		Pseq([
