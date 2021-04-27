@@ -68,7 +68,7 @@
 	pattern3Target ++
 	pattern4Target;
 
-	modNameSum = (modNameSum.ascii.sum*(1..modNameSum.ascii.size)/modNameSum.ascii.size).sum.asString;
+	modNameSum = (modNameSum.ascii.sum*(1..modNameSum.ascii.size)/modNameSum.ascii.size).sum.asInteger.asString;
 
 	synthDefName = synthDefName ++ modNameSum;
 

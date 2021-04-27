@@ -1,5 +1,10 @@
 (
 ~instrumentPresetsDictionary[\bdThump] = [
+
+	\adsrType, \pluck,
+	\sendGate, false,
+		\envelope_mod, 0.2,
+
 	\octave, 3,
 	\drumType, \fmTransientTail,
 	\fxType, \shelvedOverdriveSoft,

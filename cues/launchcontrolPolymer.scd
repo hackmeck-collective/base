@@ -395,7 +395,7 @@
 		~texturEnvelopeSelector.value
 		<>
 		Pbind(\pitchChoice,
-			Pfunc { |ev| ~launchcontrol_xl_row_5.getnSynchronous(4).at(0).lincurve(0,1,0,ev.pitches.size,0).round },
+			Pfunc { |ev| ~launchcontrol_xl_row_5.getnSynchronous(4).at(0).lincurve(0,1,0,(ev.pitches.size - 1),0).round },
 			\note,
 			Pindex(Pkey(\pitches, inf), Pkey(\pitchChoice, inf), inf)
 		)
@@ -454,7 +454,7 @@
 		<>
 		Pbind(
 			\pitchChoice,
-			Pfunc { |ev| ~launchcontrol_xl_row_6.getnSynchronous(4).at(0).lincurve(0,1,0,ev.pitches.size,0).round },
+			Pfunc { |ev| ~launchcontrol_xl_row_6.getnSynchronous(4).at(0).lincurve(0,1,0,(ev.pitches.size - 1),0).round },
 			\note,
 			Pindex(Pkey(\pitches, inf), Pkey(\pitchChoice, inf), inf)
 		)

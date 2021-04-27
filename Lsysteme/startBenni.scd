@@ -22,6 +22,149 @@ G - rest
 [] - new branch
 | - play no rule
 */
+
+(
+Pdef(\play).play(~linkClock, quant: 1);
+Pdef(\play2).play(~linkClock, quant: 1);
+Pdef(\play3).play(~linkClock, quant: 1);
+);
+(
+var testArray = (2..12);
+var testName = "hallo";
+var testNameAdd = "_bd";
+var testNameAdd2 = "_sd";
+var baseTempo = 1/6;
+var testSymbols, testSymbols2, testSymbols3;
+
+testArray.do(
+	{ |item|
+		~newLsys.(
+			name: (testName ++ item).asSymbol,
+			axiom: "G",
+			rules: ( $F: "G[G]f" , $f: "G[G]f", $G: "++F----G++" ),
+			gen: item,
+			opts: (
+				useGlobalPitch: false,
+				noteOffset: -12,
+				quant: 0,
+				baseTempo: baseTempo,
+				legatoArr: 0.99,
+				wrapLo: [ 12 ],
+				wrapHi: [ 96 ],
+				instr: \simplePluck,
+				vols: 1
+			)
+		);
+
+		~newLsys.(
+			name: (testName ++ testNameAdd ++ item).asSymbol,
+			axiom: "G",
+			rules: ( $F: "Gf" , $f: "Gf", $G: "FG" ),
+			gen: item,
+			opts: (
+				useGlobalPitch: false,
+				noteOffset: -12,
+				quant: 0,
+				baseTempo: baseTempo,
+				legatoArr: 0.99,
+				wrapLo: [ 24 ],
+				wrapHi: [ 36 ],
+				instr: \bdThump,
+				vols: 1.5
+			)
+		);
+
+		~newLsys.(
+			name: (testName ++ testNameAdd2 ++ item).asSymbol,
+			axiom: "G",
+			rules: ( $F: "Gf" , $f: "GF", $G: "FG" ),
+			gen: item,
+			opts: (
+				useGlobalPitch: false,
+				noteOffset: -12,
+				quant: 0,
+				baseTempo: baseTempo,
+				legatoArr: 0.99,
+				wrapLo: [ 60 ],
+				wrapHi: [ 72 ],
+				instr: \sd3,
+				vols: 0.7
+			)
+		);
+	}
+);
+
+testArray.do(
+	{ |item|
+		Pdef((testName ++ item ++ "_filter").asSymbol,
+			Pbind(\vol, Pfunc {|ev|
+				if(ev.charNow == $F){ev.vol * 1.2}{ev.vol}
+			},
+			\filter_1_mod_1, Pfunc {|ev|
+				if(ev.charNow == $F){ev.filter_1_mod_1 * 1.2}{ev.filter_1_mod_1}
+			},
+			\timingOffset, Pfunc {|ev|
+				if(ev.charNow == $F){0}{0}
+			},
+			)
+			<> (Pbind(\time, Ptime))
+		);
+
+		Pdef((testName ++ testNameAdd  ++ item ++ "_filter").asSymbol,
+			Pbind(\vol, Pfunc {|ev|
+				if(ev.charNow == $F){ev.vol * 1.2}{0}
+			},
+			\filter_1_mod_1, Pfunc {|ev|
+				if(ev.charNow == $F){ev.filter_1_mod_1 * 1.2}{ev.filter_1_mod_1}
+			},
+			\timingOffset, Pfunc {|ev|
+				if(ev.charNow == $F){0}{0}
+			},
+			)
+			<> (Pbind(\time, Ptime))
+		);
+
+		Pdef((testName ++ testNameAdd2  ++ item ++ "_filter").asSymbol,
+			Pbind(\vol, Pfunc {|ev|
+				if(ev.charNow == $F){0}{1}
+			},
+			\filter_1_mod_1, Pfunc {|ev|
+				if(ev.charNow == $F){ev.filter_1_mod_1 * 1.2}{ev.filter_1_mod_1}
+			},
+			\timingOffset, Pfunc {|ev|
+				if(ev.charNow == $F){0}{0}
+			},
+			)
+			<> (Pbind(\time, Ptime))
+		);
+	}
+);
+
+testSymbols = testArray.collect({ |item|
+	(testName ++ item).asSymbol
+});
+
+testSymbols2 = testArray.collect({ |item|
+	(testName ++ testNameAdd ++ item).asSymbol
+});
+
+testSymbols3 = testArray.collect({ |item|
+	(testName ++ testNameAdd2 ++ item).asSymbol
+});
+
+(Pdef(\play, Psym(Pseq(testSymbols)) <> (Pbind(\time, Ptime))));
+(Pdef(\play2, Psym(Pseq(testSymbols2)) <> (Pbind(\time, Ptime))));
+(Pdef(\play3, Psym(Pseq(testSymbols3)) <> (Pbind(\time, Ptime))));
+/*s.sync;*/
+testArray.collect{|num| ~lsys.presets[(testName ++ num).asSymbol].maxPatDur }.sum * baseTempo;
+
+);
+
+
+~lsys.presets.hallo2.maxPatDur
+
+
+
 (
 var gen_all = 10;
 var tempo_all = 1/2;

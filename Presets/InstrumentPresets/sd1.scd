@@ -1,5 +1,9 @@
 (
 ~instrumentPresetsDictionary[\sd1] = [
+	\adsrType, \pluck,
+	\sendGate, false,
+	\envelope_mod, 0.2,
+
 	\octave, 4,
 	\drumType, \bodyTimbreTransientTail,
 	\fxType, \overdriveSoft,
