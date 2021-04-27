@@ -1,29 +1,29 @@
-/*~oneShot = { |path|
-OSCFunc({ |msg|
-var nextEventBeat = msg[1].postln;
-~linkClock.sched(nextEventBeat - 1,{
-(Pfindur(1.01, Pdef(\hh2) <> Pbindef(\pulse_64) <> Pbindef(\root) )).play(~linkClock, quant: 1);
-nil
-})
-}, path).oneShot
-}
+~networkEvents = Dictionary.new;
 
-
-~oneShot.("/trigger1")*/
-
-
-OSCdef(\repeatFill, { |msg|
-	var nextEventBeat = msg[1];
-	//var schedTime = nextEventBeat - ~linkClock.timeToNextBeat(quant: 1);
-	"Next fill in % beats".format(nextEventBeat.postln - ~cueData[\fillLength]).postln;
+~networkEvents.add(\fill1 -> {|nextEventBeat|
 	Routine({
 		(nextEventBeat - ~cueData[\fillLength]).wait;
-		~audioBusses.drumsBus.set(\on, 0.postln);
+		~audioBusses.drumsBus.set(\on, 0);
 		~cueData[\fillLength].wait;
-		~audioBusses.drumsBus.set(\on, 1.postln)
+		~audioBusses.drumsBus.set(\on, 1)
 	}).play(~linkClock, quant: 1);
 	(Pbind(\out, ~aux_bus) <> Pdef(\fill)).play(~linkClock, quant: [1,0, nextEventBeat - ~cueData[\fillLength]] );
+	"network event 1".postln;}
+);
+
+
+OSCdef(\networkEvents, { |msg|
+	var nextEventBeat = msg[1];
+	var eventSymbol = msg[2];
+	//var schedTime = nextEventBeat - ~linkClock.timeToNextBeat(quant: 1);
+	("Next " ++ eventSymbol ++
+		" in % beats".format(nextEventBeat - ~cueData[\fillLength])).postln;
+	~networkEvents[eventSymbol].value(nextEventBeat);
 }, '/trigger1').permanent_(true);
 
 ~linkClock.timeToNextBeat(quant: 1);
 
+OSCdef(\reloadInstruments, { |msg|
+	"reloading instr..".postln;
+	~instrPreset.loadAll;
+}, '/reloadInstruments').permanent_(true);

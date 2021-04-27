@@ -23,13 +23,17 @@ G - rest
 | - play no rule
 */
 
+////////////////// - drums teilweise in 4/4 anstatt mitgehen zu lassen
+Pdef(\play).clear
 (
 Pdef(\play).play(~linkClock, quant: 1);
 Pdef(\play2).play(~linkClock, quant: 1);
 Pdef(\play3).play(~linkClock, quant: 1);
+( Pdef(\sd2) <> Pbindef(\fifth) <> Pbindef(\pulse_4_ob)  ).play(~linkClock, quant: 1);
+( Pdef(\bd1) <> Pbindef(\root) <> Pbindef(\pulse) ).play(~linkClock, quant: 1);
 );
 (
-var testArray = (2..12);
+var testArray = (8..9);
 var testName = "hallo";
 var testNameAdd = "_bd";
 var testNameAdd2 = "_sd";
@@ -48,11 +52,11 @@ testArray.do(
 				noteOffset: -12,
 				quant: 0,
 				baseTempo: baseTempo,
-				legatoArr: 0.99,
+				legatoArr: 1,// ([0.99] ++ ([0.99, 1.1]!9)).flat,
 				wrapLo: [ 12 ],
 				wrapHi: [ 96 ],
-				instr: \simplePluck,
-				vols: 1
+				instr: ([\simplePluck] ++ (\detunePluck!18)).flat,
+				vols: [1, 0, 0.75, 0.75, 0, 0, 0, 0, 0, 0, 0]
 			)
 		);
 
@@ -77,7 +81,7 @@ testArray.do(
 		~newLsys.(
 			name: (testName ++ testNameAdd2 ++ item).asSymbol,
 			axiom: "G",
-			rules: ( $F: "Gf" , $f: "GF", $G: "FG" ),
+			rules: ( $F: "Gf" , $f: "GF", $G: "fG" ),
 			gen: item,
 			opts: (
 				useGlobalPitch: false,
@@ -85,9 +89,9 @@ testArray.do(
 				quant: 0,
 				baseTempo: baseTempo,
 				legatoArr: 0.99,
-				wrapLo: [ 60 ],
-				wrapHi: [ 72 ],
-				instr: \sd3,
+				wrapLo: [ 84 ],
+				wrapHi: [ 96 ],
+				instr: \hh1,
 				vols: 0.7
 			)
 		);
@@ -128,9 +132,9 @@ testArray.do(
 			Pbind(\vol, Pfunc {|ev|
 				if(ev.charNow == $F){0}{1}
 			},
-			\filter_1_mod_1, Pfunc {|ev|
+/*			\filter_1_mod_1, Pfunc {|ev|
 				if(ev.charNow == $F){ev.filter_1_mod_1 * 1.2}{ev.filter_1_mod_1}
-			},
+			},*/
 			\timingOffset, Pfunc {|ev|
 				if(ev.charNow == $F){0}{0}
 			},
@@ -152,9 +156,29 @@ testSymbols3 = testArray.collect({ |item|
 	(testName ++ testNameAdd2 ++ item).asSymbol
 });
 
-(Pdef(\play, Psym(Pseq(testSymbols)) <> (Pbind(\time, Ptime))));
-(Pdef(\play2, Psym(Pseq(testSymbols2)) <> (Pbind(\time, Ptime))));
-(Pdef(\play3, Psym(Pseq(testSymbols3)) <> (Pbind(\time, Ptime))));
+Pdef(\play,
+	Pbind(
+		\stretch, Pfunc {|ev|
+			if(ev.branchLevel.isNil){
+				1
+			}{
+				if(ev.branchLevel > 0){3}{1}
+			}
+		},
+		\time, Ptime(),
+		\beatDuration, Pfunc { ~linkClock.tempo },
+		\syncMultiplier, Pfunc {|ev| (ev.dur * ev.stretch);},
+	) <>
+	Psym(
+		Pfunc{|sym|
+			(~lsys.presets[sym].maxPatDur * baseTempo).postln; // beats, muss noch mit baseTempo
+			"tolles event".postln;
+			sym.postln} <> Pseq(testSymbols)
+	)
+);
+/*(Pdef(\play, Psym(Pseq(testSymbols).trace) <> (Pbind(\time, Ptime))));*/
+Pdef(\play2, Psym(Pseq(testSymbols2)) <> (Pbind(\time, Ptime)));
+Pdef(\play3, Psym(Pseq(testSymbols3)) <> (Pbind(\time, Ptime)));
 /*s.sync;*/
 testArray.collect{|num| ~lsys.presets[(testName ++ num).asSymbol].maxPatDur }.sum * baseTempo;
 

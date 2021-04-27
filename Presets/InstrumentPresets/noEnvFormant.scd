@@ -1,11 +1,5 @@
 (
 ~instrumentPresetsDictionary['noEnvFormant'] = [
-// \noEnv, \pluck, \lead, \pad, \sync
-
-\adsrType, \pluck,
-\sendGate, false,
-\envelope_mod, 0.5,
-\envCurve, 3,
 
 // \noPitchOp, \vibrato, \slide, \unisonoDetune, \fm, \vibratoSync, \slideVibrato, \rectArpSync, \rectArp
 

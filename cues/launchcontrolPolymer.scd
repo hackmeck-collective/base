@@ -130,10 +130,13 @@
 
 "loading TexturKlang Cues".postln;
 
-// ~instrPreset.edit(\noEnvSrr)
+// ~instrPreset.edit(\noEnvFormant)
 // ~instrPreset.create(\noEnvSine)
 
-~launchControlEvents.add(\launchControlXlEvent_6 -> {
+// var bank = 6;
+
+ ~launchControlEvents.add(\launchControlXlEvent_6 -> {
+//~launchControlEvents.add(("launchControlXlEvent_" ++ bank).asSymbol -> {
 
 	~launchControlXlKnobLEDsSetRow.(1,2);
 	~launchControlXlKnobLEDsSetRow.(2,1);
@@ -218,16 +221,27 @@
 	};
 
 	~texturPitches = { Pbind(
-		\upperLimit, Pn(Plazy { ~launchcontrol_xl_row_1.getnSynchronous(4).at(0).lincurve(0,1,-36,29,0) + 7}),
-		\lowerLimit, (Pkey(\upperLimit) - 12),
+		\upperLimit, 36,
+		\lowerLimit, -36,
 		\transpositionHarmonics, 1,
 		\chordTranspositions, 10,
-		\pitches, Pfunc{ |ev|
+		\pitchesRaw, Pfunc{ |ev|
 			~chord.([0,1,2,3,4,5,6,7,8,9,10,11],
 				ev.lowerLimit,
 				ev.upperLimit,
 				ev.transpositionHarmonics,
 				ev.chordTranspositions) },
+		\pitches, Pfunc{ |ev|
+			var selector = ~launchcontrol_xl_row_1.getnSynchronous(4).at(0).lincurve(0,1,0,(ev.pitchesRaw.size - 1),0);
+			var testArray = ev.pitchesRaw[selector + (-5..7)];
+
+			testArray.select({ |item, i|
+				item.isNumber;
+			}).select({ |item, i|
+				((item <= (selector + 7)) && (item >= (selector - 5)));
+			});
+
+		}
 	)
 	};
 
@@ -255,6 +269,8 @@
 
 	("bank " ++ "ready").postln;
 }
+);
+
 );
 
 ~launchControlEvents.add(\launchControlXlEvent_6_1 -> {

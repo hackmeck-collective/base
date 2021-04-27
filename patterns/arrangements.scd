@@ -7,7 +7,7 @@ Document.open(thisProcess.nowExecutingPath.dirname +/+ "launchControlXlTrigger.s
 ~instrPreset.create(\metalPerc2)
 ~instrPreset.create_d(\template_drum)
 ~instrPreset.create_o(\simpleSine)
-~instrPreset.edit(\simplePluck);
+~instrPreset.edit(\metalPerc);
 
 
 ( Pdef(\detunePluck) <> Pbindef(\root) <> Pbindef(\pulse_16) ).play(~linkClock, quant: 4);

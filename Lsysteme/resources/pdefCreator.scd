@@ -26,6 +26,7 @@
 				Pdef((name.asString ++ "_filter" ++ myKey).asSymbol) <>
 				Pdef((name.asString ++ "_filter").asSymbol) <>
 				Pbind(
+					\branchLevel, myKey,
 					\branchTotalDur, ~baseTempo * (voiceEvent.lastTime - voiceEvent.firstTime),
 					\dur, ~baseTempo,
 					\server, top[\targetServer],
