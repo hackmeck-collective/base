@@ -27,3 +27,4 @@ OSCdef(\reloadInstruments, { |msg|
 	"reloading instr..".postln;
 	~instrPreset.loadAll;
 }, '/reloadInstruments').permanent_(true);
+

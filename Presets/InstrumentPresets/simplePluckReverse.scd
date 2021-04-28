@@ -2,11 +2,11 @@
 ~instrumentPresetsDictionary[\simplePluckReverse] = [
 	\adsrType, \sync,
 	\sendGate, false,
+
 	\pitchOpType, \slide,
-	\oscillatorType, \fm,
-	\oscillatorType_2, \fm,
-	\beatDuration, Pfunc { ~linkClock.tempo },
-	\syncMultiplier, Pfunc {|ev| (ev.dur * ev.stretch);},
+	\oscillatorType, \fmScaled,
+	\oscillatorType_2, \fmScaled,
+
 	\controlbus, ~launchcontrol_xl_row_4,
 	\out, ~melody_bus,
 	\send_1, ~ef_reverb,
@@ -24,8 +24,8 @@
 	\fx_mod_1, 1,
 	\fx_mod_2, 1,
 
-	\filter_mod_1, 0.75,
-	\filter_mod_2, 0.4,
+	\filter_1_mod_1, 0.75,
+	\filter_1_mod_2, 0.4,
 
 	\envelope_mod, 1,
 	\envCurve, 4,

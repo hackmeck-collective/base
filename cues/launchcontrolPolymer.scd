@@ -133,10 +133,13 @@
 // ~instrPreset.edit(\noEnvFormant)
 // ~instrPreset.create(\noEnvSine)
 
-// var bank = 6;
+(
+var bank = 5;
+var button;
+var buttonArray;
 
- ~launchControlEvents.add(\launchControlXlEvent_6 -> {
-//~launchControlEvents.add(("launchControlXlEvent_" ++ bank).asSymbol -> {
+//~launchControlEvents.add(\launchControlXlEvent_6 -> {
+~launchControlEvents.add(("launchControlXlEvent_" ++ bank).asSymbol -> {
 
 	~launchControlXlKnobLEDsSetRow.(1,2);
 	~launchControlXlKnobLEDsSetRow.(2,1);
@@ -234,18 +237,17 @@
 		\pitches, Pfunc{ |ev|
 			var selector = ~launchcontrol_xl_row_1.getnSynchronous(4).at(0).lincurve(0,1,0,(ev.pitchesRaw.size - 1),0);
 			var testArray = ev.pitchesRaw[selector + (-5..7)];
-
 			testArray.select({ |item, i|
 				item.isNumber;
 			}).select({ |item, i|
-				((item <= (selector + 7)) && (item >= (selector - 5)));
+				((item <= (ev.pitchesRaw[selector] + 7)) && (item >= (ev.pitchesRaw[selector] - 5)));
 			});
 
 		}
 	)
 	};
 
-//	~chord.([0,1,2,3,4,5,6,7,8,9,10,11])
+	//	~chord.([0,1,2,3,4,5,6,7,8,9,10,11])
 
 	~texturDurations = {
 		Pbind(\durations,
@@ -254,268 +256,140 @@
 	};
 
 	~texturChain = {
-		Psym1(Pxrand(~texturSoundSelector.value,inf)/*.trace*/)
-		<>
-		~texturEnvelopeSelector.value
-		<>
-		~brownianPitches.()
-		<>
-		~texturPitches.value
-		<>
-		~brownianDurations.(2,3)
-		<>
-		~texturDurations.value
+		Pn(
+			Plazy { |ev|
+				var events = List.new;
+				Pseq([
+					(Psync(ev.loopPattern,1,ev.loopDur)).collect{|ev| events.add(ev);ev},
+					Pn(Plazy{Pseq(events)}, ev.loopRepeats - 1)
+				])
+			}
+			<> (
+				loopPattern:
+				(Psym1(Pxrand(~texturSoundSelector.value,inf)/*.trace*/)
+					<>
+					~texturEnvelopeSelector.value
+					<>
+					~brownianPitches.()
+					<>
+					~texturPitches.value
+					<>
+					~brownianDurations.(2,3)
+					<>
+					~texturDurations.value),
+				loopRepeats: inf,
+				loopDur:  (2 ** (~launchcontrol_xl_row_1.getnSynchronous(4).at(2).lincurve(0,1,3,-1,2).round)).postln
+			)
+		)
+
 	};
 
-	("bank " ++ "ready").postln;
+	("LaunchControlXlBank " ++ bank ++ " ready").postln;
 }
 );
 
-);
+buttonArray = [1,2,3,4];
+buttonArray.do({ |button|
+	//~launchControlEvents.add(\launchControlXlEvent_6_1 -> {
+	~launchControlEvents.add(("launchControlXlEvent_" ++ bank ++ "_" ++ button).asSymbol -> {
 
-~launchControlEvents.add(\launchControlXlEvent_6_1 -> {
+		if (~texturKlangLayers.at(button-1) == 0)
 
-	if (~texturKlangLayers.at(0) == 0)
+		{("starting TexturKlang Layer " ++ button).postln;
+			(Pdef(("texturKlangLayer" ++ button).asSymbol,
+				Ppar((Pbind(
+					\controlbus_vol, ~launchcontrol_xl_row_1,
+					\controlbus, ~launchcontrol_xl_row_2,
+				)
+				<>
+				~texturChain.value
+				)!~launchcontrol_xl_row_1.getnSynchronous(4).at(2).lincurve(0,1,1,5,0).round
+				)
+			)).play(~linkClock, quant: 1);
 
-	{"starting TexturKlang Layer 1".postln;
-		(Pdef(\texturKlangLayer1,
-			Ppar((Pbind(
-				\controlbus_vol, ~launchcontrol_xl_row_1,
-				\controlbus, ~launchcontrol_xl_row_2,
+			~launchControlXlBottomLEDs.put( (((bank - 1) * 8) + (button - 1)), 2);
+
+			~texturKlangLayers.put((button - 1),1);}
+
+
+		{"stopping TexturKlang Layer 1".postln;
+
+			Pdef(("texturKlangLayer" ++ button).asSymbol).stop;
+
+			~launchControlXlBottomLEDs.put( (((bank - 1) * 8) + (button - 1)), 0);
+
+			~texturKlangLayers.put((button - 1),0);}
+	}
+	);
+});
+
+buttonArray = [5,6];
+buttonArray.do({ |button|
+
+	// ~launchControlEvents.add(\launchControlXlEvent_6_5 -> {
+	~launchControlEvents.add(("launchControlXlEvent_" ++ bank ++ "_" ++ button).asSymbol -> {
+		("starting Layer " ++ button ++ ": puls").postln;
+
+		Pdef(("texturPulsLayer" ++ button).asSymbol,
+			Pbind(\controlbus, ~launchcontrol_xl_row_2)
+			<>
+			Psym1(Pxrand(~texturSoundSelector.value,inf))
+			<>
+			~texturEnvelopeSelector.value
+			<>
+			Pbind(\pitchChoice,
+				Pfunc { |ev| ~launchcontrol_xl_row_5.getnSynchronous(4).at(0).lincurve(0,1,0,(ev.pitches.size - 1),0).round },
+				\note,
+				Pindex(Pkey(\pitches, inf), Pkey(\pitchChoice, inf), inf)
 			)
 			<>
-			~texturChain.value
-			)!~launchcontrol_xl_row_1.getnSynchronous(4).at(2).lincurve(0,1,1,5,0).round
-			)
-		)).play(~linkClock, quant: 1);
-
-		~launchControlXlBottomLEDs.put( ((~launchControlXlBank * 8) + ~launchControlXlButton), 2);
-
-		~texturKlangLayers.put(0,1);}
-
-
-	{"stopping TexturKlang Layer 1".postln;
-
-		Pdef(\texturKlangLayer1).stop;
-
-		~launchControlXlBottomLEDs.put( ((~launchControlXlBank * 8) + ~launchControlXlButton), 0);
-
-		~texturKlangLayers.put(0,0);}
-}
-);
-
-~launchControlEvents.add(\launchControlXlEvent_6_2 -> {
-
-	if (~texturKlangLayers.at(1) == 0)
-
-	{"starting TexturKlang Layer 2".postln;
-
-		Pdef(\texturKlangLayer2,
-			Ppar(Pbind(
-				\controlbus_vol, ~launchcontrol_xl_row_2,
-				\controlbus, ~launchcontrol_xl_row_2,
+			Pbind(
+				\upperLimit, 36,
+				\lowerLimit, -36,
+				\transpositionHarmonics, 1,
+				\chordTranspositions, 10,
+				\pitches, Pfunc{ |ev|
+					~chord.([0,1,2,3,4,5,6,7,8,9,10,11],
+						ev.lowerLimit,
+						ev.upperLimit,
+						ev.transpositionHarmonics,
+						ev.chordTranspositions) },
 			)
 			<>
-			(~texturChain.value)
-			!~launchcontrol_xl_row_1.getnSynchronous(4).at(2).lincurve(0,1,1,5,0).round
-			)
-		).play(~linkClock, quant: 1);
-
-		~launchControlXlBottomLEDs.put( ((~launchControlXlBank * 8) + ~launchControlXlButton), 2);
-
-		~texturKlangLayers.put(1,1);}
-
-
-	{"stopping TexturKlang Layer 2".postln;
-
-		Pdef(\texturKlangLayer2).stop;
-
-		~launchControlXlBottomLEDs.put( ((~launchControlXlBank * 8) + ~launchControlXlButton), 0);
-
-		~texturKlangLayers.put(1,0);}
-}
-);
-
-~launchControlEvents.add(\launchControlXlEvent_6_3 -> {
-
-	if (~texturKlangLayers.at(2) == 0)
-
-	{"starting TexturKlang Layer 3".postln;
-
-		Pdef(\texturKlangLayer3,
-			Ppar(Pbind(
-				\controlbus_vol, ~launchcontrol_xl_row_3,
-				\controlbus, ~launchcontrol_xl_row_2,
-			)
+			Pbind(\controlbus_vol, ~launchcontrol_xl_row_5)
 			<>
-			(~texturChain.value)
-			!~launchcontrol_xl_row_1.getnSynchronous(4).at(2).lincurve(0,1,1,5,0).round
+			Pbind(\dur,
+				Pfunc { 2 ** (~launchcontrol_xl_row_5.getnSynchronous(4).at(1).lincurve(0,1,3,-5,0).round) }
 			)
-		).play(~linkClock, quant: 1);
-
-		~launchControlXlBottomLEDs.put( ((~launchControlXlBank * 8) + ~launchControlXlButton), 2);
-
-		~texturKlangLayers.put(2,1);}
-
-
-	{"stopping TexturKlang Layer 3".postln;
-
-		Pdef(\texturKlangLayer3).stop;
-
-		~launchControlXlBottomLEDs.put( ((~launchControlXlBank * 8) + ~launchControlXlButton), 0);
-
-		~texturKlangLayers.put(2,0);}
-}
-);
-
-~launchControlEvents.add(\launchControlXlEvent_6_4 -> {
-
-	if (~texturKlangLayers.at(3) == 0)
-
-	{"starting TexturKlang Layer 4".postln;
-
-		Pdef(\texturKlangLayer4,
-			Ppar((Pbind(\controlbus_vol, ~launchcontrol_xl_row_4,
-				\controlbus, ~launchcontrol_xl_row_2,
-			)
-			<>
-			~texturChain.value)
-			!~launchcontrol_xl_row_1.getnSynchronous(4).at(2).lincurve(0,1,1,5,0).round
-			)
-		).play(~linkClock, quant: 1);
-
-		~launchControlXlBottomLEDs.put( ((~launchControlXlBank * 8) + ~launchControlXlButton), 2);
-
-		~texturKlangLayers.put(3,1);}
-
-
-	{"stopping TexturKlang Layer 4".postln;
-
-		Pdef(\texturKlangLayer4).stop;
-
-		~launchControlXlBottomLEDs.put( ((~launchControlXlBank * 8) + ~launchControlXlButton), 0);
-
-		~texturKlangLayers.put(3,0);}
-}
-);
-
-~launchControlEvents.add(\launchControlXlEvent_6_5 -> {
-
-	"starting Puls Layer 1".postln;
-
-	Pdef(\texturPulsLayer1,
-		Pbind(\controlbus, ~launchcontrol_xl_row_2)
-		<>
-		Psym1(Pxrand(~texturSoundSelector.value,inf))
-		<>
-		~texturEnvelopeSelector.value
-		<>
-		Pbind(\pitchChoice,
-			Pfunc { |ev| ~launchcontrol_xl_row_5.getnSynchronous(4).at(0).lincurve(0,1,0,(ev.pitches.size - 1),0).round },
-			\note,
-			Pindex(Pkey(\pitches, inf), Pkey(\pitchChoice, inf), inf)
-		)
-		<>
-		Pbind(
-			\upperLimit, 36,
-			\lowerLimit, -36,
-			\transpositionHarmonics, 1,
-			\chordTranspositions, 10,
-			\pitches, Pfunc{ |ev|
-				~chord.([0,1,2,3,4,5,6,7,8,9,10,11],
-					ev.lowerLimit,
-					ev.upperLimit,
-					ev.transpositionHarmonics,
-					ev.chordTranspositions) },
-		)
-		<>
-		Pbind(\controlbus_vol, ~launchcontrol_xl_row_5)
-		<>
-		Pbind(\dur,
-			Pfunc { 2 ** (~launchcontrol_xl_row_5.getnSynchronous(4).at(1).lincurve(0,1,3,-5,0).round) }
-		)
 
 		).play(~linkClock, quant: 1);
 
-		~launchControlXlBottomLEDs.put( ((~launchControlXlBank * 8) + ~launchControlXlButton), 1);
+		~launchControlXlBottomLEDs.put( (((bank - 1) * 8) + (button - 1)), 1);
 
-		~texturKlangLayers.put(6, 1);
+		~texturKlangLayers.put(bank, 1);
 
 	}
-);
+	);
 
-~launchControlEvents.add(\launchControlXlNoteOffEvent_6_5 -> {
+	~launchControlEvents.add(("launchControlXlNoteOffEvent_" ++ bank ++ "_" ++ button).asSymbol -> {
 
-	"stopping Puls Layer 1".postln;
+		("stopping Layer " ++ button ++ ": puls").postln;
 
-	Pdef(\texturPulsLayer1).stop;
+		Pdef(("texturPulsLayer" ++ button).asSymbol).stop;
 
-	~launchControlXlBottomLEDs.put( ((~launchControlXlBank * 8) + ~launchControlXlButton), 0);
+		~launchControlXlBottomLEDs.put( (((bank - 1) * 8) + (button - 1)), 0);
 
-	~texturKlangLayers.put(6, 0);
-}
-);
+		~texturKlangLayers.put(bank, 0);
+	}
+	);
 
+});
 
-~launchControlEvents.add(\launchControlXlEvent_6_6 -> {
+buttonArray = [7];
 
-	"starting Puls Layer 1".postln;
-
-	Pdef(\texturPulsLayer2,
-		Pbind(\controlbus, ~launchcontrol_xl_row_2)
-		<>
-		Psym1(Pxrand(~texturSoundSelector.value,inf))
-		<>
-		~texturEnvelopeSelector.value
-		<>
-		Pbind(
-			\pitchChoice,
-			Pfunc { |ev| ~launchcontrol_xl_row_6.getnSynchronous(4).at(0).lincurve(0,1,0,(ev.pitches.size - 1),0).round },
-			\note,
-			Pindex(Pkey(\pitches, inf), Pkey(\pitchChoice, inf), inf)
-		)
-		<>
-		Pbind(
-			\upperLimit, 36,
-			\lowerLimit, -36,
-			\transpositionHarmonics, 1,
-			\chordTranspositions, 10,
-			\pitches, Pfunc{ |ev|
-				~chord.([0,1,2,3,4,5,6,7,8,9,10,11],
-					ev.lowerLimit,
-					ev.upperLimit,
-					ev.transpositionHarmonics,
-					ev.chordTranspositions) },
-		)
-		<>
-		Pbind(\controlbus_vol, ~launchcontrol_xl_row_6)
-		<>
-		Pbind(\dur,
-			Pfunc { 2 ** (~launchcontrol_xl_row_6.getnSynchronous(4).at(1).lincurve(0,1,3,-5,0).round) }
-		)
-
-	).play(~linkClock, quant: 1);
-
-	~launchControlXlBottomLEDs.put( ((~launchControlXlBank * 8) + ~launchControlXlButton), 1);
-
-	~texturKlangLayers.put(6, 1);
-
-}
-);
-
-~launchControlEvents.add(\launchControlXlNoteOffEvent_6_6 -> {
-
-	"stopping Puls Layer 1".postln;
-
-	Pdef(\texturPulsLayer2).stop;
-
-	~launchControlXlBottomLEDs.put( ((~launchControlXlBank * 8) + ~launchControlXlButton), 0);
-
-	~texturKlangLayers.put(6, 0);
-}
-);
-
-~launchControlEvents.add(\launchControlXlEvent_6_7 -> {
+buttonArray.do({ |button|
+// ~launchControlEvents.add(\launchControlXlEvent_6_7 -> {
+~launchControlEvents.add(("launchControlXlEvent_" ++ bank ++ "_" ++ button).asSymbol -> {
 
 	var events = 5,
 	unit = 2 ** (~launchcontrol_xl_row_1.getnSynchronous(4).at(1).lincurve(0,1,-1,-6,0).round),
@@ -549,12 +423,10 @@
 		<>
 		Pbind(\controlbus_vol, ~launchcontrol_xl_row_7)
 		<>
-		Pbind(\currentBank, Pn(Plazy ({~launchControlXlBank})),
-			\currentButton, Pn(Plazy ({~launchControlXlButton})),
-			\sendLedData, Pfunc ( { |ev| if (ev.dur == fibArray[0])
-				{~launchControlXlBottomLEDs.put( ((ev.currentBank * 8) + ev.currentButton), 0);
+		Pbind(\sendLedData, Pfunc ( { |ev| if (ev.dur == fibArray[0])
+				{~launchControlXlBottomLEDs.put( (((bank - 1) * 8) + (button - 1)), 0);
 					~launchControlXlUpdateBottomLEDs.value}
-				{~launchControlXlBottomLEDs.put( ((ev.currentBank * 8) + ev.currentButton), 1);
+				{~launchControlXlBottomLEDs.put( (((bank - 1) * 8) + (button - 1)), 1);
 					~launchControlXlUpdateBottomLEDs.value}
 			})
 		)
@@ -564,8 +436,15 @@
 
 }
 );
+});
 
-~launchControlEvents.add(\launchControlXlEvent_6_8 -> {
+buttonArray = [8];
+
+buttonArray.do({ |button|
+
+// ~launchControlEvents.add(\launchControlXlEvent_6_8 -> {
+
+~launchControlEvents.add(("launchControlXlEvent_" ++ bank ++ "_" ++ button).asSymbol -> {
 
 	var events = 5,
 	unit = 2 ** (~launchcontrol_xl_row_1.getnSynchronous(4).at(1).lincurve(0,1,-1,-6,0).round),
@@ -599,12 +478,10 @@
 		<>
 		Pbind(\controlbus_vol, ~launchcontrol_xl_row_8)
 		<>
-		Pbind(\currentBank, Pn(Plazy ({~launchControlXlBank})),
-			\currentButton, Pn(Plazy ({~launchControlXlButton})),
-			\sendLedData, Pfunc ( { |ev| if (ev.dur == fibArray.reverse[0])
-				{~launchControlXlBottomLEDs.put( ((ev.currentBank * 8) + ev.currentButton), 0);
+		Pbind(\sendLedData, Pfunc ( { |ev| if (ev.dur == fibArray.reverse[0])
+				{~launchControlXlBottomLEDs.put( (((bank - 1) * 8) + (button - 1)), 0);
 					~launchControlXlUpdateBottomLEDs.value}
-				{~launchControlXlBottomLEDs.put( ((ev.currentBank * 8) + ev.currentButton), 1);
+				{~launchControlXlBottomLEDs.put( (((bank - 1) * 8) + (button - 1)), 1);
 					~launchControlXlUpdateBottomLEDs.value}
 			})
 		)
@@ -613,4 +490,7 @@
 
 	).play(~linkClock, quant: 1);
 }
+);
+
+})
 );
