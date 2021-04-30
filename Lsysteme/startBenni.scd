@@ -29,7 +29,7 @@ G - rest
 | - play no rule
 */
 ~instrPreset.create(\crackle);
-~instrPreset.edit(\metalPerc);
+~instrPreset.edit(\wub);
 
 ////////////////// simpleSwitch1
 Pdef(\play).clear
@@ -65,7 +65,7 @@ var testName = "simpleSwitchMelody";
 var testNameAdd = "_bd";
 var testNameAdd2 = "_sd";
 var baseTempo = 1/8;
-var leadInstr1 = \detunePluck;
+var leadInstr1 = \simplePluck;
 var branchInstr1 = \simplePluck;
 var percInstr1 = \bdBuzz;
 var percInstr2 = \metalPerc;
@@ -76,7 +76,7 @@ testArray.do(
 		~newLsys.(
 			name: (testName ++ item).asSymbol,
 			axiom: "G",
-			rules: ( $F: "Gf" , $f: "Gf", $G: "++F----G++" ),
+			 rules: ( $F: "Gf" , $f: "Gf", $G: "++F----G++" ),
 			// rules: ( $F: "G[G]f" , $f: "Gf", $G: "++F----G++" ),
 			// rules: ( $F: "G[G]f" , $f: "G[G]f", $G: "++F----G++" ),
 			// rules: ( $F: "G[G]f" , $f: "G[G]f", $G: "++F--[G]--G++" ),
@@ -225,6 +225,7 @@ testArray.collect{|num| ~lsys.presets[(testName ++ num).asSymbol].maxPatDur }.su
 
 Pdef(\play).clear
 (
+
 (Pbind(\controlbus, ~launchcontrol_xl_row_1)
 <> Pdef(\poppe)
 <> Pbind(
@@ -238,15 +239,25 @@ Pdef(\play).clear
 
 (Pbind(\controlbus, ~launchcontrol_xl_row_1)
 <> Pdef(\poppe_2)
-// <> Pbind(\external1Target, "envelope_mod",
-// \external1Amount, 1)
-).play(~linkClock, quant: 1);
+<> Pbind(
+	\external1Target, "filter_1_mod_1",
+	\external1Amount, 0.5,
+	\external1Target2, "fx_mod_1",
+	\external1Amount2, 1,
+	\external2Target, "envelope_mod",
+	\external2Amount, 1,
+)).play(~linkClock, quant: 1);
 
 (Pbind(\controlbus, ~launchcontrol_xl_row_1)
 <> Pdef(\poppe_3)
-// <> Pbind(\external1Target, "envelope_mod",
-// \external1Amount, 1)
-).play(~linkClock, quant: 1);
+<> Pbind(
+	\external1Target, "filter_1_mod_1",
+	\external1Amount, 0.5,
+	\external1Target2, "fx_mod_1",
+	\external1Amount2, 1,
+	\external2Target, "envelope_mod",
+	\external2Amount, 1,
+)).play(~linkClock, quant: 1);
 
 (Pbind(\controlbus, ~launchcontrol_xl_row_1)
 <> Pdef(\poppe_bd)
@@ -273,7 +284,7 @@ var testNameAdd2 = "_3";
 var testNameAdd3 = "_bd";
 var testNameAdd4 = "_sd";
 var baseTempo = 1/4;
-var legato = 0.8;
+var legato = 0.5;
 var volume = 2;
 var leadInstr1 = \simpleLead;
 var branchInstr1 = \simpleLead;
@@ -412,176 +423,90 @@ testArray.do(
 		// );
 	}
 );
+// 6/3  + (6 / 2)
+// ~poppeStretch = Pbind(\stretch, Pseq([4/3, 2/3, Pn(1, 6)], inf));
+// ~poppeStretch = Pbind(\stretch, Pseq([1/2, 1/2, 3/2, 3/2, Pn(1, 8)], inf));
+// ~poppeStretch = Pbind(\stretch, Pseq([2/3,2/3,2/3, 1, 1, 4/3,4/3,4/3, 1, 1], inf));
+
+// ~poppeStretch = Pbind(\stretch, Pseq([2/3, 4/3, 1/2, 1.5,1,1], inf));
+// ~poppeStretch2 = Pbind(\stretch, Pseq([4/3, 2/3, 1.5,1/2,1,1], inf));
+/*~poppeStretch = Pbind(\stretch, Pseq([8/5, 2/5], inf));
+~poppeStretch2 = Pbind(\stretch, Pseq([2/5, 8/5], inf));*/
+
+// ~poppeStretch = Pbind(\stretch, Pseq([3/2, 1/2,1,1, 4/3, 2/3, 1,1,8/5, 2/5, 1,1,12/7, 2/7,1,1], inf));
+// ~poppeStretch = Pbind(\stretch, Prand([Pseq([4/3, 2/3]), Pn(1,2)], inf));
+~poppeStretch = Pbind(\stretch, Pseq([Pseq([Pn(2/3, 6), Pn(2,2)], 3),Pseq([2/3, 4/3, 1/2, 1.5,1,1,1,1])], inf));
+
+
+~poppeFilter = Pbind(\vol, Pfunc {|ev|
+				switch (ev.charNow,
+					$a, {ev.vol * 0.5},
+					$b, {ev.vol * 0.6},
+					$c, {ev.vol * 0.7},
+					$d, {ev.vol * 0.8},
+					$e, {ev.vol * 0.9},
+					$f, {ev.vol * 1}
+				)
+			},
+			\mod1Amount, Pfunc {|ev|
+				switch (ev.charNow,
+					$a, {ev.mod1Amount * 0.5},
+					$b, {ev.mod1Amount * 0.6},
+					$c, {ev.mod1Amount * 0.7},
+					$d, {ev.mod1Amount * 0.8},
+					$e, {ev.mod1Amount * 0.9},
+					$f, {ev.mod1Amount * 1}
+				)
+			},
+			\mod1Rate, Pfunc {|ev|
+				switch (ev.charNow,
+					$a, {ev.mod1Rate * 0.5},
+					$b, {ev.mod1Rate * 0.6},
+					$c, {ev.mod1Rate * 0.7},
+					$d, {ev.mod1Rate * 0.8},
+					$e, {ev.mod1Rate * 0.9},
+					$f, {ev.mod1Rate * 1}
+				)
+			},
+			\mod2Amount, Pfunc {|ev|
+				switch (ev.charNow,
+					$a, {ev.mod2Amount * 0.5},
+					$b, {ev.mod2Amount * 0.6},
+					$c, {ev.mod2Amount * 0.7},
+					$d, {ev.mod2Amount * 0.8},
+					$e, {ev.mod2Amount * 0.9},
+					$f, {ev.mod2Amount * 1}
+				)
+			},
+			\mod3Amount, Pfunc {|ev|
+				switch (ev.charNow,
+					$a, {ev.mod3Amount * 0.1},
+					$b, {ev.mod3Amount * 0.2},
+					$c, {ev.mod3Amount * 0.3},
+					$d, {ev.mod3Amount * 0.4},
+					$e, {ev.mod3Amount * 0.5},
+					$f, {ev.mod3Amount * 0.6}
+				)
+			},
+			)
+	<> (Pbind(\time, Ptime));
 
 testArray.do(
 	{ |item|
 		Pdef((testName ++ item ++ "_filter").asSymbol,
-			Pbind(\vol, Pfunc {|ev|
-				switch (ev.charNow,
-					$a, {ev.vol * 0.5},
-					$b, {ev.vol * 0.6},
-					$c, {ev.vol * 0.7},
-					$d, {ev.vol * 0.8},
-					$e, {ev.vol * 0.9},
-					$f, {ev.vol * 1}
-				)
-			},
-			\mod1Amount, Pfunc {|ev|
-				switch (ev.charNow,
-					$a, {ev.mod1Amount * 0.5},
-					$b, {ev.mod1Amount * 0.6},
-					$c, {ev.mod1Amount * 0.7},
-					$d, {ev.mod1Amount * 0.8},
-					$e, {ev.mod1Amount * 0.9},
-					$f, {ev.mod1Amount * 1}
-				)
-			},
-			\mod1Rate, Pfunc {|ev|
-				switch (ev.charNow,
-					$a, {ev.mod1Rate * 0.5},
-					$b, {ev.mod1Rate * 0.6},
-					$c, {ev.mod1Rate * 0.7},
-					$d, {ev.mod1Rate * 0.8},
-					$e, {ev.mod1Rate * 0.9},
-					$f, {ev.mod1Rate * 1}
-				)
-			},
-			\mod2Amount, Pfunc {|ev|
-				switch (ev.charNow,
-					$a, {ev.mod2Amount * 0.5},
-					$b, {ev.mod2Amount * 0.6},
-					$c, {ev.mod2Amount * 0.7},
-					$d, {ev.mod2Amount * 0.8},
-					$e, {ev.mod2Amount * 0.9},
-					$f, {ev.mod2Amount * 1}
-				)
-			},
-			\mod3Amount, Pfunc {|ev|
-				switch (ev.charNow,
-					$a, {ev.mod3Amount * 0.1},
-					$b, {ev.mod3Amount * 0.2},
-					$c, {ev.mod3Amount * 0.3},
-					$d, {ev.mod3Amount * 0.4},
-					$e, {ev.mod3Amount * 0.5},
-					$f, {ev.mod3Amount * 0.6}
-				)
-			},
-			)
-			<> (Pbind(\time, Ptime))
+			~poppeStretch <>  ~poppeFilter
 		);
 
 		Pdef((testName ++ testNameAdd  ++ item ++ "_filter").asSymbol,
-			Pbind(\vol, Pfunc {|ev|
-				switch (ev.charNow,
-					$a, {ev.vol * 0.5},
-					$b, {ev.vol * 0.6},
-					$c, {ev.vol * 0.7},
-					$d, {ev.vol * 0.8},
-					$e, {ev.vol * 0.9},
-					$f, {ev.vol * 1}
-				)
-			},
-			\mod1Amount, Pfunc {|ev|
-				switch (ev.charNow,
-					$a, {ev.mod1Amount * 0.5},
-					$b, {ev.mod1Amount * 0.6},
-					$c, {ev.mod1Amount * 0.7},
-					$d, {ev.mod1Amount * 0.8},
-					$e, {ev.mod1Amount * 0.9},
-					$f, {ev.mod1Amount * 1}
-				)
-			},
-			\mod1Rate, Pfunc {|ev|
-				switch (ev.charNow,
-					$a, {ev.mod1Rate * 0.5},
-					$b, {ev.mod1Rate * 0.6},
-					$c, {ev.mod1Rate * 0.7},
-					$d, {ev.mod1Rate * 0.8},
-					$e, {ev.mod1Rate * 0.9},
-					$f, {ev.mod1Rate * 1}
-				)
-			},
-			\mod2Amount, Pfunc {|ev|
-				switch (ev.charNow,
-					$a, {ev.mod2Amount * 0.5},
-					$b, {ev.mod2Amount * 0.6},
-					$c, {ev.mod2Amount * 0.7},
-					$d, {ev.mod2Amount * 0.8},
-					$e, {ev.mod2Amount * 0.9},
-					$f, {ev.mod2Amount * 1}
-				)
-			},
-			\mod3Amount, Pfunc {|ev|
-				switch (ev.charNow,
-					$a, {ev.mod3Amount * 0.1},
-					$b, {ev.mod3Amount * 0.2},
-					$c, {ev.mod3Amount * 0.3},
-					$d, {ev.mod3Amount * 0.4},
-					$e, {ev.mod3Amount * 0.5},
-					$f, {ev.mod3Amount * 0.6}
-				)
-			},
-			)
-			<> (Pbind(\time, Ptime))
+			~poppeStretch <>  ~poppeFilter
 		);
 
 		Pdef((testName ++ testNameAdd2  ++ item ++ "_filter").asSymbol,
-			Pbind(\vol, Pfunc {|ev|
-				switch (ev.charNow,
-					$a, {ev.vol * 0.5},
-					$b, {ev.vol * 0.6},
-					$c, {ev.vol * 0.7},
-					$d, {ev.vol * 0.8},
-					$e, {ev.vol * 0.9},
-					$f, {ev.vol * 1}
-				)
-			},
-			\mod1Amount, Pfunc {|ev|
-				switch (ev.charNow,
-					$a, {ev.mod1Amount * 0.5},
-					$b, {ev.mod1Amount * 0.6},
-					$c, {ev.mod1Amount * 0.7},
-					$d, {ev.mod1Amount * 0.8},
-					$e, {ev.mod1Amount * 0.9},
-					$f, {ev.mod1Amount * 1}
-				)
-			},
-			\mod1Rate, Pfunc {|ev|
-				switch (ev.charNow,
-					$a, {ev.mod1Rate * 0.5},
-					$b, {ev.mod1Rate * 0.6},
-					$c, {ev.mod1Rate * 0.7},
-					$d, {ev.mod1Rate * 0.8},
-					$e, {ev.mod1Rate * 0.9},
-					$f, {ev.mod1Rate * 1}
-				)
-			},
-			\mod2Amount, Pfunc {|ev|
-				switch (ev.charNow,
-					$a, {ev.mod2Amount * 0.5},
-					$b, {ev.mod2Amount * 0.6},
-					$c, {ev.mod2Amount * 0.7},
-					$d, {ev.mod2Amount * 0.8},
-					$e, {ev.mod2Amount * 0.9},
-					$f, {ev.mod2Amount * 1}
-				)
-			},
-			\mod3Amount, Pfunc {|ev|
-				switch (ev.charNow,
-					$a, {ev.mod3Amount * 0.1},
-					$b, {ev.mod3Amount * 0.2},
-					$c, {ev.mod3Amount * 0.3},
-					$d, {ev.mod3Amount * 0.4},
-					$e, {ev.mod3Amount * 0.5},
-					$f, {ev.mod3Amount * 0.6}
-				)
-			},
-			)
-			<> (Pbind(\time, Ptime))
+			~poppeStretch <>  ~poppeFilter
 		);
 
 		Pdef((testName ++ testNameAdd3  ++ item ++ "_filter").asSymbol,
-			Pbind(\vol, Pfunc {|ev|
+			~poppeStretch <> Pbind(\vol, Pfunc {|ev|
 				switch (ev.charNow,
 					$a, {ev.vol * 1},
 					$b, {ev.vol * 0},
@@ -596,7 +521,7 @@ testArray.do(
 		);
 
 		Pdef((testName ++ testNameAdd4  ++ item ++ "_filter").asSymbol,
-			Pbind(\vol, Pfunc {|ev|
+			~poppeStretch <> Pbind(\vol, Pfunc {|ev|
 				switch (ev.charNow,
 					$a, {ev.vol * 0},
 					$b, {ev.vol * 0.6},
@@ -782,9 +707,10 @@ testArray.do(
 		~newLsys.(
 			name: (testName ++ item).asSymbol,
 			axiom: "F",
+			rules: ( $F: "+F-G--f++GfG", $f: "+[f]F-G--f++GfG", $G: "F" ),
 			// rules: ( $F: "+F-G--f++GfG", $f: "+F-G--f++GfG", $G: "[f]F" ),
 			// rules: ( $F: "+[f]F-G--f++GfG", $f: "+F-G--f++GfG", $G: "F" ),
-			rules: ( $F: "+F-G--f++GfG", $f: "+[f]F-G--f++GfG", $G: "F" ),
+			// rules: ( $F: "+F-G--f++GfG", $f: "+[f]F-G--f++GfG", $G: "F" ),
 			// rules: ( $F: "+F-G--f++GfG", $f: "+F-G--f++GfG", $G: "F" ),
 			gen: item,
 			opts: (
