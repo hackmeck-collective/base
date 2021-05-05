@@ -26,7 +26,7 @@
 
 	var searchStr = { |str|
 		var maxVoices = 15; // 100
-		var searchIndex = 0, cur = 0;//, maxCur = 0;
+		var searchIndex = 0, cur = 0;//, maxCur = 0;, rootBraceOpen = false
 		var voices = nil ! maxVoices;
 		var collectVoices = (List.new) ! maxVoices;
 		var prevVoices = (List.new) ! maxVoices;
@@ -52,6 +52,33 @@
 				cur = cur - 1;
 				voices[cur] = prevVoices[cur].pop;
 			},
+/*			$(: { // branch only in rootLevel
+				if((cur == 0) && rootBraceOpen.not){
+					var oldVoice = voices[cur];
+					prevVoices[cur].add(voices[cur]);
+					cur = cur + 1;
+					//maxCur = maxCur.max(cur);
+					voices[cur] = newVoice.(
+						oldVoice.timeStep,
+						oldVoice.pitch,
+						cur,
+						oldVoice.data.myId
+					);
+					rootBraceOpen = true
+				};
+			},
+			$): {
+				// only close branch in 1 above rootLevel
+				if(rootBraceOpen){
+					voices[cur].data.lastTime = voices[cur].timeStep;
+					if(voices[cur].data.chars.notEmpty){
+						collectVoices[cur].add(voices[cur].data);
+					};
+					cur = cur - 1;
+					voices[cur] = prevVoices[cur].pop;
+					rootBraceOpen = false
+				}
+			},*/
 			$-: { voices[cur].decPitch },
 			$+: { voices[cur].incPitch },
 			$|: { voices[cur].addData(charNow) } // keep for legacy reasons

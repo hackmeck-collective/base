@@ -29,7 +29,10 @@ s.waitForBoot {
 	"ready".postln
 }
 )
+~addrBook.at(\Admin).sendMsg("/reloadInstruments");
 
-~hail.free
+
 
 ~ctl.scale  = 4.collect { |i| ~objSpace_philipp[\pitches] + (i * 12) }.flat.sort
+
+~instrumentPresetsDictionary[\blip]
