@@ -12,3 +12,6 @@
 
 ~launchcontrol_xl_row_7.set(0.5,0.5,1,1);
 ~launchcontrol_xl_row_8.set(0.5,0,1,1);
+
+~dummybus ?? {~dummybus = Bus.control(Server.default, 16)};
+~dummybus.set(0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5);

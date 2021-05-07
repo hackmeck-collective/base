@@ -1,6 +1,7 @@
 (
 ~adsrTypesShortcuts = (
 	noEnv: "no",
+	rect: "rc",
 	pluck: "pl",
 	lead: "le",
 	pad: "pa",
@@ -11,6 +12,20 @@
 	noEnv: {var sig;
 
 		sig = 1;
+	},
+
+	rect: {arg gate = 0, envelope_mod = 0, beatDuration, syncMultiplier, envCurve = 3;
+
+		EnvGen.kr(
+			Env.adsr(
+				attackTime: 0,
+				decayTime: 0,
+				sustainLevel: 1,
+				releaseTime: 0,
+				curve: 0,
+			),
+			gate: gate,
+			doneAction:2);
 	},
 
 	pluck: {arg gate = 0, envelope_mod = 0, beatDuration, syncMultiplier, envCurve = 3;

@@ -1,7 +1,9 @@
 "initializing groups".postln;
 
 ~makeGroups = {
-	~source_group = Group.new;
+	~pointer_group = Group.new;
+	~bufferRec_group  = Group.after(~pointer_group);
+	~source_group = Group.after(~bufferRec_group);
 	//~source_group_fills = Group.head;
 //	~source_group = ParGroup.new;
 	~effect_group = Group.after(~source_group);

@@ -21,7 +21,6 @@ OSCdef(\networkEvents, { |msg|
 	~networkEvents[eventSymbol].value(nextEventBeat);
 }, '/trigger1').permanent_(true);
 
-~linkClock.timeToNextBeat(quant: 1);
 
 OSCdef(\reloadInstruments, { |msg|
 	"reloading instr..".postln;

@@ -104,8 +104,8 @@
 	\out, ~melody_bus,
 	\send_1, ~ef_reverb,
 	\send_1_level, 0.25,
-	\send_2, ~simpleDelay_8d,
-	\send_2_level, 0,
+	\send_2, ~beatRepeat_1,
+	\send_2_level, 1,
 
 	// \noMod, \adsrEnv, \syncEnv, \sineSyncLFO, \sineLFO, \rampSyncLFO, \rampLFO, \sawSyncLFO, \saweLFO, \triSyncLFO, \triLFO, \rectSyncLFO, \rectLFO, \sampleAndHold
 
@@ -156,6 +156,18 @@
 	\mod4EnvCurve, 2,
 	\mod4syncEnvRatio, 0,
 	\mod4ControlbusChannel, 3,
+
+	\controlbus1, ~dummybus.index,
+	\controlbus2, ~dummybus.index,
+	\controlbus3, ~dummybus.index,
+	\controlbus4, ~dummybus.index,
+	\controlbus_vol, ~dummybus.index,
+
+	\controlbus1_index, 0,
+	\controlbus2_index, 0,
+	\controlbus3_index, 0,
+	\controlbus4_index, 0,
+	\controlbus_vol_index, 0,
 
 	\external1Target, "",
 	\external1Amount, 1,
