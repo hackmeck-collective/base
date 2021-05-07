@@ -29,7 +29,7 @@ var path = PathName(thisProcess.nowExecutingPath).pathOnly +/+ "calc/hindemithTr
 
 
 ~chordNow = [0,3,7,14]; //für piano_gui
-~startPiano.init(~chordNow);
+
 (
 var res = ~searchTree.(chord: ~chordNow, rootNote: 2, dissDegree: 1, offset: 2);
 res !? {

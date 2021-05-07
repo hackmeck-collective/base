@@ -47,8 +47,11 @@ if (~port.isNil) {
 
 (
 
+"trees/piano_gui.scd".loadRelative;
+~startPiano.init(~chordNow);
 "Hindemith Akkord Generator GUI mit LaunchControl.scd".loadRelative;
 ~actualizeGUI.value;
+
 //Message-Parsing
 MIDIdef.cc(\launchControlKnobs, {
 	arg val, num, chan, src;
@@ -69,6 +72,7 @@ MIDIdef.cc(\launchControlKnobs, {
 				~listAndParameters.dissDegree = newDissDegree;
 				"dissDegree: ".post; ~listAndParameters.dissDegree.postln;
 				~actualizeGUI.value;
+				~startPiano.showKeys(~listAndParameters.list);
 				~sendWithHail.((list: ~listAndParameters.list, rootNote: ~listAndParameters.rootNote));
 			}{
 				"no new list".postln
@@ -91,6 +95,7 @@ MIDIdef.cc(\launchControlKnobs, {
 				~listAndParameters.rootNote = newRootValue;
 				"rootNote: ".post; ~listAndParameters.rootNote.postln;
 				~actualizeGUI.value;
+				~startPiano.showKeys(~listAndParameters.list);
 				~sendWithHail.((list: ~listAndParameters.list, rootNote: ~listAndParameters.rootNote));
 			}{
 				"no new list".postln
@@ -104,17 +109,28 @@ MIDIdef.cc(\launchControlKnobs, {
 		newNumberOfNotes.postln;
 		if (~listAndParameters.numNotes != newNumberOfNotes && (~gateOpen[3] == true))
 		{
-			var closestList = ~searchTreeNearest.(
-				numNotes: 3,
+			var closestList;
+			//~listAndParameters.list = [ 0, 7, 12 ];
+			if (~listAndParameters.list.size < newNumberOfNotes ) {
+				~listAndParameters.list = ~listAndParameters.list.add(~listAndParameters.list.first + 12)
+			};
+			if (~listAndParameters.list.size > newNumberOfNotes ) {
+				~listAndParameters.list.removeAt(~listAndParameters.list.size - 1);
+			};
+
+			closestList = ~searchTreeNearest.(
+				numNotes: 4,
 				chord: ~listAndParameters.list,
 				rootNote: ~listAndParameters.rootNote,
 				dissDegree: ~listAndParameters.dissDegree
 			);
+
 			if(closestList.notNil){
 				~listAndParameters.list = closestList;
 				~listAndParameters.numNotes = newNumberOfNotes;
 				"numNotes: ".post; ~listAndParameters.numNotes.postln;
 				~actualizeGUI.value;
+				~startPiano.showKeys(~listAndParameters.list);
 				~sendWithHail.((list: ~listAndParameters.list, rootNote: ~listAndParameters.rootNote));
 			}{
 				"no new list".postln

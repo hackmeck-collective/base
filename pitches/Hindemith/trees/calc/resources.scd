@@ -57,9 +57,18 @@
 		includeOneOf2: Set[7, 5, 4, 8],
 		rootNoteEqual: "!="
 	),
+
+
 	10: (),
 	11: ()
 );
+
+
+
+
+
+
+
 
 ~intervals = { |chord|
 	all {: (chord[i+gap] - chord[i]).mod(12),
@@ -115,7 +124,7 @@
 };
 
 
-~getListComprehension = { |numNotes, underlyingScale, excludeAll, includeAll, includeOneOf, includeOneOf2, mehrereTritoni, maxUpperNoteWhenBaseIs0, rootNoteEqual|
+~getListComprehension = { |numNotes, underlyingScale, excludeAll, includeAll, includeOneOf, includeOneOf2, mehrereTritoni, maxUpperNoteWhenBaseIs0, rootNoteEqual, dissDegree|
 	var noteStringArray = (numNotes - 1).collect {|i| "n%".format(i + 1) };
 	var noteString = ("[0" ++ (numNotes - 1).collect {|i| ", n%".format(i + 1) }.reduce{|a b| a ++ b}  ++ "]");
 	var str = "{: (list: %, rootNote: rootNote), \n var maxUpperNoteWhenBaseIs0 = %, \n
@@ -149,6 +158,9 @@ n1 <- (1..(maxUpperNoteWhenBaseIs0-%)),".format(
 	++ (if(mehrereTritoni.notNil){"(intervals.count({|item| item.mod(12) == 6}) >= 2),"}{""}) ++ "\n"
 	++ "var rootNote = ~rootNote.(%)".format(noteString)
 	++ (if(rootNoteEqual.notNil){", (rootNote % 0) && (rootNote.notNil)}".format(rootNoteEqual)}{"}"});
-	// str.asCompileString.postln;
+	//str.asCompileString.postln;
 	str.interpret
+
 };
+
+

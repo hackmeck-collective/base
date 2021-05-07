@@ -49,5 +49,5 @@ w = Window.new(bounds: Rect(0, 300, 1100, 600)).front;
 .states_([ ["gate5", Color.black, Color.white], ["gate5", Color.black, amber] ]);
 
 
-~textfieldList = TextField(w, Rect(breite, 8 * hoehe + ( 8 * platz), 1100 - breite - (2*platz), 40));
+~textfieldList = TextField(w, Rect(breite, 5 * hoehe + ( 5 * platz), 1100 - breite - (2*platz), 40));
 ~textfieldList.font = Font(size: 20);

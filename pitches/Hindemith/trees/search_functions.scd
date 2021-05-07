@@ -69,3 +69,4 @@
 		nearestTr[0].location
 	}
 };
+//~trees[\numNotes, 4, \rootNote, 0, \dissDegrees, 0].nearest([ 0, 4, 8, 12 ]);

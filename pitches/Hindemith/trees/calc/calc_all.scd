@@ -8,10 +8,31 @@
 		~dissDegreeConstraints[dissDegree],
 		(numNotes: numNotes, maxUpperNoteWhenBaseIs0: maxUpper)
 	);
-	~getListComprehension.valueWithEnvir(inputs).all
+	var outputs;
+	if(dissDegree <= 9){outputs = ~getListComprehension.valueWithEnvir(inputs).all};
+	if(dissDegree == 10) { //A ohne Tritonus V Unbestimmbar
+		var events;
+		if (numNotes == 3) { events = [( 'rootNote': 0, 'list': [ 0, 4, 8 ] ), ( 'rootNote': 10, 'list': [ 0, 5, 10 ] ) ] };
+		if (numNotes == 4) { events = [ ( 'rootNote': 0, 'list': [ 0, 4, 8, 12 ] ), ( 'rootNote': 3, 'list': [ 0, 5, 10, 15 ] ) ] };
+		if (numNotes == 5) { events = [ ( 'rootNote': 0, 'list': [ 0, 4, 8, 12, 16 ] ), ( 'rootNote': 8, 'list': [ 0, 5, 10, 15, 20 ] ) ] };
+		outputs = events;
+	};
+	if(dissDegree == 11) { // B mit Tritonus VI Unbestimmbar Tritonus übergeordnet
+		var timesThree = Array.series((maxUpper / 3).trunc.asInteger + 1, 0, 3);
+		var arrayOfLists = timesThree.powerset.select({
+			arg item;
+			item.size == numNotes && ((item.mod(12).asSet.size >= 3) && item.includes(0))
+		});
+		var arrayOfEventsWithLists = [];
+		arrayOfLists.do({ arg item;
+			arrayOfEventsWithLists = arrayOfEventsWithLists.add((list: item, rootNote: 0))
+		});
+		outputs = arrayOfEventsWithLists;
+	};
+	outputs
 };
 
-~dissDegreesAll = (0..9);
+~dissDegreesAll = (0..11);
 ~numNotesAll = [3, 4, 5]; //Chordsize
 ~maxUpper = 36; // Ambitus, 36 dauert ca. 3 Min
 // beachten: da alle ergebnisse nochmal mit den offsets (1..11) vervielfacht werden
@@ -40,7 +61,7 @@
 )
 
 // inspection
-~res[\numNotes, 4, \dissDegrees, 3]; //rootNote doesn’t work here
+~res[\numNotes, 3, \dissDegrees, 11]; //rootNote doesn’t work here
 
 // copy and offset rootnote and list for every note
 (
@@ -93,7 +114,7 @@
 )
 
 // save file
-(
+(se
 {
 	var path = PathName(thisProcess.nowExecutingPath).pathOnly +/+ "hindemithTrees.archiv";
 	("saving to " ++ path ++ " ...").postln;
