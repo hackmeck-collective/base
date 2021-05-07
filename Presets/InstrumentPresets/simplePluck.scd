@@ -14,13 +14,19 @@
 	\pitchOp_1_amount, 0.1,
 
 	\oscillator_mod_1, 0.3,
-	\oscillator_mod_2, 0.001,
+	\oscillator_mod_2, -0.002,
 
 	\oscillator_2_mod_1, 0.15,
 	\oscillator_2_mod_2, 0.01,
 
-	\fx_mod_1, 1,
-	\fx_mod_2, 1,
+	\fxType, \combfilterScaled,
+	\fx_1_input_gain, 1,
+	\fx_mod_1, 0.2,
+	\fx_mod_2, 0.2,
+
+	\fxType_2, \noFx,
+	\fx_2_mod_1, 1,
+	\fx_2_mod_2, 0.25,
 
 	\filter_1_mod_1, 0.75,
 	\filter_1_mod_2, 0.4,

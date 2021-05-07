@@ -55,7 +55,7 @@
 \out, ~melody_bus,
 \send_1, ~ef_reverb,
 \send_1_level, 0.5,
-\send_2, ~simpleDelay_8d,
+\send_2, ~simpleDelay,
 \send_2_level, 0,
 
 \mod1Type, \sineLFO,

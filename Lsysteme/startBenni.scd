@@ -435,7 +435,7 @@ testArray.do(
 
 // ~poppeStretch = Pbind(\stretch, Pseq([3/2, 1/2,1,1, 4/3, 2/3, 1,1,8/5, 2/5, 1,1,12/7, 2/7,1,1], inf));
 // ~poppeStretch = Pbind(\stretch, Prand([Pseq([4/3, 2/3]), Pn(1,2)], inf));
-~poppeStretch = Pbind(\stretch, Pseq([Pseq([Pn(2/3, 6), Pn(2,2)], 3),Pseq([2/3, 4/3, 1/2, 1.5,1,1,1,1])], inf));
+// ~poppeStretch = Pbind(\stretch, Pseq([Pseq([Pn(2/3, 6), Pn(2,2)], 3),Pseq([2/3, 4/3, 1/2, 1.5,1,1,1,1])], inf));
 
 
 ~poppeFilter = Pbind(\vol, Pfunc {|ev|
@@ -494,19 +494,19 @@ testArray.do(
 testArray.do(
 	{ |item|
 		Pdef((testName ++ item ++ "_filter").asSymbol,
-			~poppeStretch <>  ~poppeFilter
+			/*~poppeStretch <> */ ~poppeFilter
 		);
 
 		Pdef((testName ++ testNameAdd  ++ item ++ "_filter").asSymbol,
-			~poppeStretch <>  ~poppeFilter
+			/*~poppeStretch <>  */~poppeFilter
 		);
 
 		Pdef((testName ++ testNameAdd2  ++ item ++ "_filter").asSymbol,
-			~poppeStretch <>  ~poppeFilter
+			/*~poppeStretch <> */ ~poppeFilter
 		);
 
 		Pdef((testName ++ testNameAdd3  ++ item ++ "_filter").asSymbol,
-			~poppeStretch <> Pbind(\vol, Pfunc {|ev|
+			/*~poppeStretch <> */Pbind(\vol, Pfunc {|ev|
 				switch (ev.charNow,
 					$a, {ev.vol * 1},
 					$b, {ev.vol * 0},
@@ -521,7 +521,7 @@ testArray.do(
 		);
 
 		Pdef((testName ++ testNameAdd4  ++ item ++ "_filter").asSymbol,
-			~poppeStretch <> Pbind(\vol, Pfunc {|ev|
+			/*~poppeStretch <> */Pbind(\vol, Pfunc {|ev|
 				switch (ev.charNow,
 					$a, {ev.vol * 0},
 					$b, {ev.vol * 0.6},
@@ -695,7 +695,7 @@ var testNameAdd4 = "_sd";
 var baseTempo = 1/8;
 var legato = 0.8;
 var volume = 2;
-var leadInstr1 = \srrPluck;
+var leadInstr1 = \simpleLead;
 var branchInstr1 = \simpleLead;
 var percInstr1 = \bdBuzz;
 var percInstr2 = \crackle;

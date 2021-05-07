@@ -7,7 +7,30 @@ Document.open(thisProcess.nowExecutingPath.dirname +/+ "launchControlXlTrigger.s
 ~instrPreset.create(\granulator)
 ~instrPreset.create_d(\template_drum)
 ~instrPreset.create_o(\simpleSine)
-~instrPreset.edit(\sd2);
+~instrPreset.edit(\simpleLead);
+
+(
+b = ( Pbind(\controlbus1, ~launchcontrol_xl_row_1, \envelope_mod, 0.5)
+ <> Pdef(\srrPluck)
+	<> Pbind( \controlbus1_index, 1,  \external1Target, "envelope_mod", \external1Amount, 1, ) <> Pbindef(\arp) <> Pbindef(\pulse_16) ).play(~linkClock, quant: 4);
+)
+b.stop
+
+00010000
+00010010
+00010010
+00011010
+01011010
+01011011
+01111011
+01111111
+11111111
+
+~bd2.stop;
+~bd2 = ( Pbind( \octave, 3) <> Pdef(\bdBuzz).collect {|ev| ~scM8.play; ev} <> Pbindef(\root) <> Pbindef(\pulse_2) ).play(~linkClock, quant: 4);
+~sd.stop;
+~sd = ( Pdef(\sd2).collect {|ev| ~scM4.play; ev} <> Pbindef(\fifth) <> Pbindef(\pulse_4_ob)  ).play(~linkClock, quant: 4);
+
 
 ~audioBusses.melodyBus.set(\sidechain_amount, (-72).dbamp);
 ~audioBusses.chordsBus.set(\sidechain_amount, (-72).dbamp);
@@ -29,7 +52,7 @@ Document.open(thisProcess.nowExecutingPath.dirname +/+ "launchControlXlTrigger.s
 	\filterType, 3,
 	\filterFreq, 500,
 	\resonance, 2,
-	\feedback_amount, 0.5,
+	\feedback_amount, 0.45,
 	\reverbSend, 0.25,
 	\maxDelayTime, 4);
 );
@@ -48,65 +71,12 @@ Document.open(thisProcess.nowExecutingPath.dirname +/+ "launchControlXlTrigger.s
 	\feedback, 0.5,)
 );
 
-b = (Pbind(\send_2_level, Pfunc {~midi}) <> Pdef(\sd2) <> Pbindef(\root) <> Pbindef(\pulse) ).play(~linkClock, quant: 4);
+b = (Pdef(\simpleLead) <> Pbindef(\root) <> Pbindef(\pulse) ).play(~linkClock, quant: 4);
+
+
 ~scM4.play
 ~instrumentPresetsDictionary[\sd2][\send_2]
 Pdef(\sd2).set(\send_2, ~simpleDelay, \send_2_level, 0)
-
-(
-var winenv;
-
-b = Buffer.read(s, Platform.resourceDir +/+ "sounds/a11wlk01-44_1.aiff");
-// a custom envelope
-winenv = Env([0, 1, 0], [0.5, 0.5], [8, -8]);
-z = Buffer.sendCollection(s, winenv.discretize, 1);
-
-SynthDef(\buf_grain_test, { |out, gate = 1, amp = 1, sndbuf, envbuf|
-	var pan, env, freqdev;
-	// use mouse x to control panning
-	pan = MouseX.kr(-1, 1);
-	env = EnvGen.kr(
-		Env([0, 1, 0], [1, 1], \sin, 1),
-		gate,
-		levelScale: amp,
-		doneAction: Done.freeSelf);
-	Out.ar(out,
-		GrainBuf.ar(1, Impulse.kr(10), 0.1, ~beatRepeatBuffer_1, LFNoise1.kr.range(0.5, 2),
-			LFNoise2.kr(0.1).range(0, 1), 2, pan, (-1)) * env)
-}).add;
-)
-~beatRepeatBuffer_1.plot
-// use built-in env
-x = Synth(\buf_grain_test, [\sndbuf, b, \envbuf, -1])
-
-// switch to the custom env
-x.set(\envbuf, z)
-x.set(\envbuf, -1);
-
-x.set(\gate, 0);
-~linkClock.tempo
-b.stop
-b = ( Pdef(\metalPerc) <> Pbindef(\arp) <> Pbindef(\pulse_16) ).play(~linkClock, quant: 4);
-Pdef(\beatRepeat).play
-(
-Routine({
-	var controlbus =  ~launchcontrol_xl_row_3,
-	quant = 1;
-	(~linkClock.timeToNextBeat % quant).wait;
-	b.set(Pbind(\send_1, ~ef_reverb,
-		\send_1_level, 1,
-		\send_2, ~beatRepeat_1,
-		\send_2_level, 1,));
-	((~linkClock.timeToNextBeat % quant) * 4).wait;
-	b.set(Pbind(\send_1, ~ef_reverb,
-		\send_1_level, 0,
-		\send_2, ~beatRepeat_1,
-		\send_2_level, 1,));
-	b.pause
-	(~linkClock.timeToNextBeat % quant).postln
-}).play;
-)
-
 
 ~beatRepeatBuffer_1.plot
 (
@@ -205,7 +175,7 @@ Pbindef(\pulse_8)
 ~bd.stop;
 
 ~bd2.stop;
-~bd2 = ( Pdef(\bd1).collect {|ev| ~scM8.play; ev} <> Pbindef(\root) <> Pbindef(\pulse_2) ).play(~linkClock, quant: 4);
+~bd2 = ( Pdef(\bdBuzz).collect {|ev| ~scM8.play; ev} <> Pbindef(\root) <> Pbindef(\pulse_2) ).play(~linkClock, quant: 4);
 ~sd.stop;
 ~sd = ( Pdef(\sd2).collect {|ev| ~scM4.play; ev} <> Pbindef(\fifth) <> Pbindef(\pulse_4_ob)  ).play(~linkClock, quant: 4);
 ~sd2.stop;

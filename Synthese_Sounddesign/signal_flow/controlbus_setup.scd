@@ -5,7 +5,7 @@
 	"
 ~launchcontrol_xl_row_% ?? {~launchcontrol_xl_row_% = Bus.control(Server.default, 4)};
 ~launchcontrol_xl_row_%.set(0.25,0.25,1,1);
-~osc_data_params[\\launchcontrol_xl_row_%] = ~launchcontrol_xl_row_%.index;
+~routing[\\launchcontrol_xl_row_%] = ~launchcontrol_xl_row_%.index;
 ".replace("%", rowNumber.asString).interpret;
 
 });
