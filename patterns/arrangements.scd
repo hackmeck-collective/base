@@ -7,10 +7,10 @@ Document.open(thisProcess.nowExecutingPath.dirname +/+ "launchControlXlTrigger.s
 ~instrPreset.create(\metalPerc2)
 ~instrPreset.create_d(\template_drum)
 ~instrPreset.create_o(\simpleSine)
-~instrPreset.edit(\metalPerc2);
+~instrPreset.edit(\srrPluck);
 
 
-( Pdef(\metalPerc) <> Pbindef(\root) <> Pbindef(\pulse_16) ).play(~linkClock, quant: 4);
+( Pdef(\metalPerc) <> Pbindef(\root) <> Pbindef(\pulse_4) ).play(~linkClock, quant: 4);
 
 // root note und drums mit phillip klären
 
@@ -22,7 +22,9 @@ Pdef(\fill).stop
 
 thisProcess.openPorts
 (
-(Pn(Pdef(\looper, {
+(
+Pn(
+	Pdef(\looper, {
 		var events = List.new;
 		Pseq([
 			(Psync(~loopPattern,1,~loopDur)).collect{|ev| events.add(ev);ev},
@@ -31,11 +33,32 @@ thisProcess.openPorts
 	})
 ) <> (
 	loopPattern: Pbind(\dur, Prand([1/3,1/4,1/2],inf), \degree, Pwhite(-7,3)),
-	loopRepeats: 2,
-	loopDur: Pn(Plazy {|ev| ev.loopDurKey })
-) <> (Pbind(\loopDurKey, Pn(Plazy { 2 ** (~launchcontrol_xl_row_6.getnSynchronous(4).at(2).lincurve(0,1,3,-1,2).round) }.trace)
+	loopRepeats: inf,
+	loopDur:  (2 ** (~launchcontrol_xl_row_1.getnSynchronous(4).at(2).lincurve(0,1,3,-1,2).round)).postln
 )
-)).play(quant: 1);
+).play(quant: 1);
+)
+
+(
+(
+Pn(
+	Plazy { |ev|
+		var events = List.new;
+		Pseq([
+			(Psync(ev.loopPattern,1,ev.loopDur)).collect{|ev| events.add(ev);ev},
+			Pn(Plazy{Pseq(events)}, ev.loopRepeats - 1)
+		])
+	}
+	<> (
+		loopPattern: ( Pdef(\metalPerc) <> Pbindef(\root) <> Pbindef(\euclidean_16th_rng) ),
+		loopRepeats: inf,
+		loopDur:  (2 ** (~launchcontrol_xl_row_1.getnSynchronous(4).at(2).lincurve(0,1,3,-1,2).round)).postln
+	)
+).play(quant: 1);
+)
+)
+
+~launchcontrol_xl_row_6.getnSynchronous(4).at(2)
 
 // metronom
 Pbind(\dur, 1, \note,24, \legato, 0.1).play(quant: 1)

@@ -1,4 +1,21 @@
 (
+~modSourcesShortcuts = (
+	noMod: "no",
+	adsrEnv: "ae",
+	syncEnv: "se",
+	sineSyncLFO: "ss",
+	sineLFO: "sl",
+	rampSyncLFO: "rs",
+	rampLFO: "rl",
+	sawLFO: "sw",
+	sawSyncLFO: "so",
+	triSyncLFO: "ts",
+	triLFO: "tl",
+	rectSyncLFO: "re",
+	rectLFO: "rc",
+	sampleAndHold: "sh"
+);
+
 ~modSources = (
 	noMod: {arg freq = 440,
 		gate = 1,

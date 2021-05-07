@@ -14,6 +14,26 @@
 ~overdrive_fuction_3_buf ?? ~overdrive_fuction_3_buf = Buffer.loadCollection(s, ~overdrive_fuction_3);
 
 (
+~fxTypesShortcuts = (
+	noFx: "no",
+	tremoloRect: "tr",
+	tremoloRamp: "ta",
+	tremoloSine: "ts",
+	overdriveSoft: "os",
+	shelvedOverdriveSoft: "so",
+	overdriveMid: "om",
+	shelvedOverdriveMid: "sm",
+	overdriveHard: "oh",
+	shelvedOverdriveHard: "sh",
+	rectifier: "re",
+	fold: "fo",
+	wrap: "wr",
+	sampleRateReduction: "sr",
+	bitcrush: "bc",
+	combfilter: "cf",
+	combfilterScaled: "cs"
+);
+
 ~fxTypes = (
 
 	tremoloRect: {arg in, gate, freq = 440, fx_mod_1, fx_mod_2, beatDuration, syncMultiplier;

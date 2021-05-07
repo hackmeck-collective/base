@@ -19,7 +19,8 @@
 	maxPatDur: 36,
 	instr: \simplePluck,
 	useGlobalPitch: true,
-	mute: 1
+	mute: 1,
+	stutterVal: 1
 );
 
 ~philipp_pitches = Scale.harmonicMinor;

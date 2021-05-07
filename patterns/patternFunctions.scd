@@ -22,6 +22,13 @@
 	)
 };
 
+// ~accPulse = { |events, unit, pulse|
+// 	Pbind(
+// 		\time, Ptime(),
+// 		\dur, Pstep([3,2,1],[4,4],1).trace // Pseg([3,1/4] ..).round(1/4)
+// 	)
+// };
+
 ~rit = { |events, unit|
 
 	(Array.fib(events, unit * 4, unit * 4));

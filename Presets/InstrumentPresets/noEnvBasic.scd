@@ -1,7 +1,5 @@
 (
 ~instrumentPresetsDictionary['noEnvBasic'] = [
-\envelope_mod, 0.5,
-\envCurve, 3,
 
 \pitchOpType, \noPitchOp, // \noPitchOp, \vibrato, \slide, \unisonoDetune, \fm, \vibratoSync, \slideVibrato, \rectArpSync, \rectArp
 \pitchOp_1_interval, 0,

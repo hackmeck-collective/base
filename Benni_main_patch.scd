@@ -81,7 +81,8 @@ s.waitForBoot {
 	};
 	ServerTree.removeAll;
 	"loading network".postln;
-	"network/address_book.scd".loadRelative;
+	~addrBookUserName = \benni;
+	"network/address_book_all.scd".loadRelative;
 	"network/ip_config.scd".loadRelative;
 	"waiting...".postln;
 	if(waitForPeers){

@@ -1,7 +1,5 @@
 (
 ~instrumentPresetsDictionary['noEnvSine'] = [
-\envelope_mod, 0.5,
-\envCurve, 3,
 
 \pitchOpType, \noPitchOp, // \noPitchOp, \vibrato, \slide, \unisonoDetune, \fm, \vibratoSync, \slideVibrato, \rectArpSync, \rectArp
 \pitchOp_1_interval, 0,
@@ -17,11 +15,11 @@
 \oscillator_1_level, 1,
 \oscillator_1_transpose, 0,
 
-\oscillatorType_2, \fm,
-\oscillator_2_mod_1, 5.5,
-\oscillator_2_mod_2, 1.001,
-\oscillator_2_level, 1,
-\oscillator_2_transpose, 0,
+\oscillatorType_2, \basic,
+\oscillator_2_mod_1, 0,
+\oscillator_2_mod_2, 0,
+\oscillator_2_level, 0.5,
+\oscillator_2_transpose, 12,
 
 // \noFx,
 // \overdriveSoft, \overdriveMid, \overdriveHard,

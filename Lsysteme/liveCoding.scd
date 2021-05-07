@@ -92,7 +92,7 @@ Pdef(\play, Pn(
 		sp(~addrBook.at(\Admin).sendMsg("/trigger1", 1));
 	})
 ))
-
+~addrBook.at(\Admin).sendMsg("/trigger1", 1, 'fill1')
 
 Pdef(\play, Pn(
 	Pspawner({|sp|

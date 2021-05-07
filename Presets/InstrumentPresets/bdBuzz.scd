@@ -1,31 +1,37 @@
 (
-~instrumentPresetsDictionary['noEnvFormant'] = [
+~instrumentPresetsDictionary['bdBuzz'] = [
+// [ pad, pluck, noEnv, lead, sync ]
 
-// \noPitchOp, \vibrato, \slide, \unisonoDetune, \fm, \vibratoSync, \slideVibrato, \rectArpSync, \rectArp
+\adsrType, \pluck,
+\sendGate, false,
+\envelope_mod, 0.1,
+\envCurve, 10,
 
-\pitchOpType, \noPitchOp,
-\pitchOp_1_interval, 0,
+// [ fm, noPitchOp, unisonoDetune, vibrato, rectArp, rectArpSync, slide, vibratoSync ]
+
+\pitchOpType, \slide,
+\pitchOp_1_interval, 24,
 \pitchOp_1_amount, 0.1,
 
-\pitchOpType, \noPitchOp,
+\pitchOpType_2, \noPitchOp,
 \pitchOp_2_interval, 12,
 \pitchOp_2_amount, 0.1,
 
-// \noOscillator, \basic, \fm, \formant, \filteredNoise, \modal, \pulsar, \ping, \grainCloudGuitar
+// [ crackles, formant, fmScaled, basic, fm, pulsar, noOscillator, modal, filteredNoise, ping, grainCloudGuitar ]
 
-\oscillatorType, \formant,
-\oscillator_mod_1, 0.15,
-\oscillator_mod_2, 0.2,
-\oscillator_1_level, 2,
-\oscillator_1_transpose, 0,
+\oscillatorType, \basic,
+\oscillator_mod_1, 0.45,
+\oscillator_mod_2, 0.3,
+\oscillator_1_level, 1,
+\oscillator_1_transpose, -24,
 
-\oscillatorType_2, \basic,
-\oscillator_2_mod_1, 0,
-\oscillator_2_mod_2, 0,
-\oscillator_2_level, 1,
-\oscillator_1_transpose, 0,
+\oscillatorType_2, \fm,
+\oscillator_2_mod_1, 4,
+\oscillator_2_mod_2, 0.3,
+\oscillator_2_level, 0.5,
+\oscillator_1_transpose, -12,
 
-// \noDrum, \bodyTimbreTransientTail, \fmTransientTail, \noiseFmTransientTail, \amTransientTail
+// [ bodyTimbreTransientTail, noDrum, fmTransientTail, noiseFmTransientTail, amTransientTail ]
 
 \drumType, \noDrum,
 \timbre_ratio, 0.45,
@@ -59,22 +65,21 @@
 \punch_factor_2, 2,
 \drum_2_level, 1,
 
-// \noFx,
-// \overdriveSoft, \overdriveMid, \overdriveHard,
-// \shelvedOverdriveSoft, \shelvedOverdriveMid, \shelvedOverdriveHard,
-// \sampleRateReduction, \fold, \wrap, \rectifier,
-// \tremoloRect, \tremoloSine, \tremoloRamp,
+// [ combfilter, tremoloRamp, tremoloRect, overdriveHard, overdriveSoft, overdriveMid, shelvedOverdriveMid, bitcrush, noFx, wrap, sampleRateReduction, combfilterScaled, shelvedOverdriveHard, rectifier, tremoloSine, fold, shelvedOverdriveSoft ]
 
-\fxType, \noFx,
+\fxType, \overdriveSoft,
 \fx_1_input_gain, 1,
 \fx_mod_1, 0.25,
 \fx_mod_2, 0.25,
 
-\fxType_2, \noFx,
+\fxType_2, \sampleRateReduction,
 \fx_2_mod_1, 0.25,
 \fx_2_mod_2, 0.25,
 
-// \noFilter, \lpf_moog, \lpf_24, \lpf_12, \hpf_24, \hpf_12, \bpf, \notch, \lo_shelf, \hi_shelf,
+// [ lpf_24, bpf, hpf_12, lo_shelf, lpf_12, lpf_moog, notch, hi_shelf, hpf_24, noFilter ]
+
+\filterIn_preFxLevel, 0,
+\filterIn_FxLevel, 1,
 
 \filterType, \noFilter,
 \filter_1_mod_1, 1,
@@ -84,18 +89,24 @@
 \filter_2_mod_1, 1,
 \filter_2_mod_2, 0.25,
 
+\vca_filterLevel, 1,
+\vca_preFilterLevel, 0,
+\vca_preFxLevel, 0,
+
 \vol, 1,
-\amp, 0.2,
+\amp, 1,
 
 \out, ~melody_bus,
 \send_1, ~ef_reverb,
-\send_1_level, 0.25,
+\send_1_level, 0.1,
 \send_2, ~simpleDelay_8d,
 \send_2_level, 0,
 
-\mod1Type, \sampleAndHold,
-\mod1Target, "oscillator_mod_1",
-\mod1Amount, 0.2,
+// [ sampleAndHold, noMod, sawSyncLFO, rampSyncLFO, adsrEnv, sineSyncLFO, rampLFO, triLFO, triSyncLFO, rectSyncLFO, rectLFO, sineLFO, syncEnv, sawLFO ]
+
+\mod1Type, \noMod,
+\mod1Target, "",
+\mod1Amount, 0.25,
 \mod1Rate, 0.25,
 \mod1attack, 1,
 \mod1decay, 1,
@@ -105,9 +116,9 @@
 \mod1syncEnvRatio, 0,
 \mod1ControlbusChannel, 0,
 
-\mod2Type, \sampleAndHold,
-\mod2Target, "oscillator_mod_2",
-\mod2Amount, 0.15,
+\mod2Type, \noMod,
+\mod2Target, "",
+\mod2Amount, 0.25,
 \mod2Rate, 0.25,
 \mod2attack, 1,
 \mod2decay, 1,
@@ -141,16 +152,16 @@
 \mod4syncEnvRatio, 0,
 \mod4ControlbusChannel, 3,
 
-\external1Target, "oscillator_mod_1",
-\external1Amount, 0.5,
+\external1Target, "",
+\external1Amount, 1,
 \external2Target, "",
 \external2Amount, 1,
 \external3Target, "",
 \external3Amount, 1,
 \external4Target, "",
 \external4Amount, 1,
-\external1Target2, "oscillator_mod_2",
-\external1Amount2, 0.4,
+\external1Target2, "",
+\external1Amount2, 1,
 \external2Target2, "",
 \external2Amount2, 1,
 \external3Target2, "",
@@ -168,5 +179,5 @@
 \pattern4Amount, 1,
 
 ];
-~callInstrumentPreset.('noEnvFormant');
+~callInstrumentPreset.('bdBuzz');
 )

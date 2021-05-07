@@ -1,5 +1,9 @@
 (
 ~instrumentPresetsDictionary[\hh1] = [
+	\adsrType, \pluck,
+	\sendGate, false,
+	\envelope_mod, 0.2,
+
 	\octave, 7,
 	\drumType, \bodyTimbreTransientTail,
 	\type, \on,

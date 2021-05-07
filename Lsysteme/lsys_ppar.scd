@@ -3,7 +3,7 @@ Pdef(\play).stop
 
 ~cueData[\lsysBeats1] = (~lsys.presets.rabbitSeq.maxPatDur * ~lsys.presets.rabbitSeq.baseTempo).roundUp(~lsys.presets.rabbitSeq.quant)
 
-Pdef(\play, Pn(Pdef(\rabbitSeq)))
+Pdef(\play, Pn(Pdef(\snowFlake)))
 Pdef(\play, Pbind(\vol, Pfunc {|ev| if(ev.charNow == $F){1}{ 0.7}}) <> Pn(Pdef(\rabbitSeq)))
 
 Pdef(\play).play(~linkClock, quant: 1)
