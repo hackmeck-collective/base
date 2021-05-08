@@ -1,6 +1,6 @@
 
 (
-var waitForPeers = false;
+var waitForPeers = true;
 var multicoreSetup = false;
 var loadStuff = {
 	"loading signal flow".postln;
@@ -23,7 +23,6 @@ var loadStuff = {
 	"loading presets".postln;
 	"Presets/InstrumentPresetFunctions.scd".loadRelative;
 	~instrPreset.loadAll;
-	"Presets/instrumentationPresets.scd".loadRelative;
 
 	"loading patternfunctions".postln;
 	"patterns/patternFunctions.scd".loadRelative;

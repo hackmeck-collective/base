@@ -3,8 +3,12 @@
 // ~cyclicBufferRecordPointer ?? {~cyclicBufferRecordPointer = Bus.audio(Server.default, 1)};
 
 ~grainDelay_1 ?? {~grainDelay_1 = Bus.audio(Server.default, 2)};
-~grainDelayBuffer_1 ?? {~grainDelayBuffer_1 = Buffer.alloc(Server.default, Server.default.sampleRate * 5, 2)};
+~grainDelayBuffer_1 ?? {~grainDelayBuffer_1 = Buffer.alloc(Server.default, Server.default.sampleRate * 5, 1)};
 ~grainDelayBufferPosition_1 ?? {~grainDelayBufferPosition_1 = Bus.audio(Server.default, 1)};
+
+~granulator_1 ?? {~granulator_1 = Bus.audio(Server.default, 2)};
+~granulatorBuffer_1 ?? {~granulatorBuffer_1 = Buffer.alloc(Server.default, Server.default.sampleRate * 5, 1)};
+~granulatorBufferPosition_1 ?? {~granulatorBufferPosition_1 = Bus.audio(Server.default, 1)};
 
 ~beatRepeat_1 ?? {~beatRepeat_1 = Bus.audio(Server.default, 2)};
 ~beatRepeatBuffer_1 ?? {~beatRepeatBuffer_1 = Buffer.alloc(Server.default, Server.default.sampleRate * 5, 2)};
@@ -23,17 +27,31 @@ s.sync;
 	Out.ar(~cyclicBufferRecordPointer, sig);
 }).add;*/
 
-SynthDef.new(\grainDelayBufferRecord, {
+SynthDef.new(\grainDelayBufferRecord_1, {
 	arg inBus = ~grainDelay_1,
-	buf_1 = ~grainDelayBuffer_1,
+	buf = ~grainDelayBuffer_1,
 	bufPos = ~grainDelayBufferPosition_1,
 	recording = 1;
 
-	var ringBufDur = BufFrames.ir(buf_1);
+	var ringBufDur = BufFrames.ir(buf);
 	var recordPointer = Phasor.ar(rate: recording, end: ringBufDur);
 	var input = InFeedback.ar(inBus, 2);
 
-	BufWr.ar(input, buf_1, recordPointer);
+	BufWr.ar(input.sum, buf, recordPointer);
+	Out.ar(bufPos, recordPointer);
+}).add;
+
+SynthDef.new(\granulatorBufferRecord_1, {
+	arg inBus = ~granulator_1,
+	buf = ~granulator_1Buffer_1,
+	bufPos = ~granulator_1BufferPosition_1,
+	recording = 1;
+
+	var ringBufDur = BufFrames.ir(buf);
+	var recordPointer = Phasor.ar(rate: recording, end: ringBufDur);
+	var input = InFeedback.ar(inBus, 2);
+
+	BufWr.ar(input.sum, buf, recordPointer);
 	Out.ar(bufPos, recordPointer);
 }).add;
 
@@ -122,7 +140,7 @@ SynthDef(\simpleDelay, {
 
 }).add;
 
-SynthDef.new(\grainDelay, {
+SynthDef.new(\grainDelay_1, {
 	arg amp = 0.5,
 	out = ~effect_bus,
 	buf = ~grainDelayBuffer_1,
@@ -134,7 +152,7 @@ SynthDef.new(\grainDelay, {
 	dens = 40,
 	baseDur = 0.05, durRand = 0.05,
 	rate = 1, rateRand = 0.05,
-	pan = 0, panRand = 0,
+	pan = 0.5, panRand = 0.5,
 	grainEnv = (-1),
 	ptrSampleDelay = 20000, ptrRandomSamples = 5000, minPtrDelay = 1000,
 	feedback = 0.25;
@@ -170,21 +188,10 @@ SynthDef.new(\grainDelay, {
 		panCtrl,
 		grainEnv
 	);
-	/*sig2 = GrainBuf.ar(
-		2,
-		densCtrl,
-		durCtrl,
-		buf2,
-		rateCtrl,
-		ptr,
-		2,
-		panCtrl,
-		grainEnv
-	);
-*/
-	combined = [sig, /*sig2*/] * env * amp;
+
+	combined = sig * env * amp;
 	Out.ar(out, combined);
-	Out.ar(feedbackBus, combined.reverse * feedback);
+	Out.ar(feedbackBus, combined * feedback);
 	Out.ar(~ef_reverb, combined * 0.25);
 }).add;
 
@@ -194,14 +201,21 @@ s.sync;
 
 ~startSendFX = {
 	~sendFX = ();
-	~sendFX.cyclicBufferRecordPointer = Synth.new(\cyclicBufferRecordPointer,
+	/*~sendFX.cyclicBufferRecordPointer = Synth.new(\cyclicBufferRecordPointer,
 		[\buf, ~grainDelayBuffer, \out, ~cyclicBufferRecordPointer],
-		target: ~pointer_group);
+		target: ~pointer_group);*/
 
-	~sendFX.grainDelayBufferRecord = Synth.new(\grainDelayBufferRecord,
+	~sendFX.grainDelayBufferRecord_1 = Synth.new(\grainDelayBufferRecord_1,
 		[\inBus, ~grainDelay_1,
-			\buf_1, ~grainDelayBuffer_1,
+			\buf, ~grainDelayBuffer_1,
 			\bufPos, ~grainDelayBufferPosition_1,
+			\recording, 1],
+		target: ~bufferRec_group);
+
+	~sendFX.granulatorBufferRecord_1 = Synth.new(\granulatorBufferRecord_1,
+		[\inBus, ~granulator_1,
+			\buf, ~granulatorBuffer_1,
+			\bufPos, ~granulatorBufferPosition_1,
 			\recording, 1],
 		target: ~bufferRec_group);
 
@@ -212,19 +226,18 @@ s.sync;
 			\recording, 1],
 		target: ~bufferRec_group);
 
-	~sendFX.grainDelay = Synth.new(\grainDelay,
-		[\amp, 1, \atk, 0.1, \rel, 1, \gate, 1, \sync, 0,
-			\dens, 50, \baseDur, 0.5, \durRand, 0.05, \rate, 2,
-			\rateRand, 0.025, \pan, 0, \panRand, 1, \grainEnv, (-1),
+	~sendFX.grainDelay_1 = Synth.new(\grainDelay_1,
+		[\amp, 1, \atk, 0.1, \rel, 1, \gate, 1, \sync, 1,
+			\dens, 70, \baseDur, 0.05, \durRand, 0.02, \rate, 2,
+			\rateRand, 0.025, \pan, 0.5, \panRand, 0.5, \grainEnv, (-1),
 			\out, ~effect_bus,
 			\buf, ~grainDelayBuffer_1,
-			\buf2, (~grainDelayBuffer_1.bufnum + 1),
 			\ptrBus, ~grainDelayBufferPosition_1,
 			\feedbackBus, ~grainDelay_1,
-			\ptrSampleDelay, s.sampleRate*0.04,
-			\ptrRandomSamples, s.sampleRate*0.05,
+			\ptrSampleDelay, s.sampleRate*0.05,
+			\ptrRandomSamples, s.sampleRate*0.03,
 			\minPtrDelay, 100,
-			\feedback, 0.8,
+			\feedback, 0.01
 		],
 		target: ~effect_group);
 

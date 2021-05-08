@@ -135,6 +135,10 @@
 					send_1_level,
 					send_2,
 					send_2_level,
+					send_3,
+					send_3_level,
+					send_4,
+					send_4_level,
 
 					pitchOp_1_interval,
 					pitchOp_1_amount,
@@ -345,6 +349,12 @@
 					drum, drum_2,
 					vca;
 
+					case
+					{out.isNil} {"ERROR: out bus is nil - there will be no sound".postln}
+					{send_1.isNil} {"ERROR: send_1 bus is nil - there will be no sound".postln}
+					{send_2.isNil} {"ERROR: send_2 bus is nil - there will be no sound".postln}
+					{true}{nil};
+
 					vol = vol.lincurve(0,1,0,0.5,3);
 
 					external1 = external1[0];
@@ -503,6 +513,8 @@
 					Out.ar(out, vca);
 					Out.ar(send_1, vca * send_1_level);
 					Out.ar(send_2, vca * send_2_level);
+					Out.ar(send_3, vca * send_3_level);
+					Out.ar(send_4, vca * send_4_level);
 				}
 			).add;
 		}.asCompileString

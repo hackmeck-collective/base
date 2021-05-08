@@ -9,12 +9,12 @@
 \pitchOp_1_interval, 0,
 \pitchOp_1_amount, 0.1,
 
-\pitchOpType, \noPitchOp,
-\pitchOp_2_interval, 12,
-\pitchOp_2_amount, 0.1,
+\pitchOpType_2, \slide,
+\pitchOp_2_interval, 0.75,
+\pitchOp_2_amount, 0.4,
 
 \oscillatorType, \basic, // \noOscillator, \basic, \fm, \formant, \filteredNoise, \modal, \pulsar, \ping, \grainCloudGuitar
-\oscillator_mod_1, 0.45,
+\oscillator_mod_1, 0.7,
 \oscillator_mod_2, 0.1,
 \oscillator_1_level, 1,
 \oscillator_1_transpose, 0,
@@ -58,8 +58,8 @@
 \send_2, ~simpleDelay,
 \send_2_level, 0,
 
-\mod1Type, \sineLFO,
-\mod1Target, "freq",
+\mod1Type, \noMod,
+\mod1Target, "",
 \mod1Amount, 0.03,
 \mod1Rate, 7,
 \mod1attack, 1,
@@ -70,8 +70,8 @@
 \mod1syncEnvRatio, 0,
 \mod1ControlbusChannel, 0,
 
-\mod2Type, \adsrEnv,
-\mod2Target, "oscillator_mod_2",
+\mod2Type, \noMod,
+\mod2Target, "",
 \mod2Amount, 7,
 \mod2Rate, 0.25,
 \mod2attack, 0,
@@ -82,8 +82,8 @@
 \mod2syncEnvRatio, 0,
 \mod2ControlbusChannel, 1,
 
-\mod3Type, \sineSyncLFO,
-\mod3Target, "filter_1_mod_1",
+\mod3Type, \noMod,
+\mod3Target, "",
 \mod3Amount, 0.005,
 \mod3Rate, 1/48,
 \mod3attack, 1,

@@ -107,7 +107,7 @@
 	\out, ~aux_bus,
 	\send_1, ~ef_reverb,
 	\send_1_level, 0.1,
-	\send_2, ~simpleDelayT,
+	\send_2, ~simpleDelay,
 	\send_2_level, 0,
 
 	// [ sampleAndHold, noMod, sawSyncLFO, rampSyncLFO, adsrEnv, sineSyncLFO, rampLFO, triLFO, triSyncLFO, rectSyncLFO, rectLFO, sineLFO, syncEnv, sawLFO ]

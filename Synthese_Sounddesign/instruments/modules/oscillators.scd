@@ -201,18 +201,18 @@
 		oscillator_mod_2 = 0,
 		oscillator_mod_3 = 0,
 		oscillator_mod_4 = 0,
-		buf = ~beatRepeatBuffer_1,
-		bufPosBus = ~beatRepeatBufferPosition_1.index;
+		buf = ~grainDelayBuffer_1,
+		bufPosBus = ~grainDelayBufferPosition_1;
 
 		var grain_density = oscillator_mod_1,
-		grain_length = min(oscillator_mod_2.clip(0.01,10), grain_density.reciprocal),
+		grain_length = min(oscillator_mod_2.clip(0.01,10), (grain_density.reciprocal * 1.7)),
 		grain_pitch = oscillator_mod_3;
 
 		var bufPos, grain_position, grain_trigger, grainPan;
 
 		bufPos = In.ar(bufPosBus);
-		grain_position = ((oscillator_mod_4 + (BufFrames.ir(buf) / bufPos)) % 1).poll;
-		grain_trigger = Impulse.ar(grain_density);
+		grain_position = ((oscillator_mod_4 + (BufFrames.ir(buf) / bufPos)) % 1);
+		grain_trigger = Dust.ar(grain_density);
 		grainPan = Latch.ar(WhiteNoise.ar(),grain_trigger);
 
 		GrainBuf.ar(

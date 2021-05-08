@@ -4,7 +4,7 @@
 
 \adsrType, \pluck,
 \sendGate, false,
-\envelope_mod, 0.05,
+\envelope_mod, 0.15,
 \envCurve, 10,
 
 // [ fm, noPitchOp, unisonoDetune, vibrato, rectArp, rectArpSync, slide, vibratoSync ]
@@ -72,7 +72,7 @@
 \fx_mod_1, 0.25,
 \fx_mod_2, 0.25,
 
-\fxType_2, \sampleRateReduction,
+\fxType_2, \noFx,
 \fx_2_mod_1, 0.25,
 \fx_2_mod_2, 0.25,
 
@@ -94,13 +94,18 @@
 \vca_preFxLevel, 0,
 
 \vol, 1,
-\amp, 0.2,
+\amp, 1,
 
 \out, ~drums_bus,
 \send_1, ~ef_reverb,
 \send_1_level, 0.1,
 \send_2, ~simpleDelay,
 \send_2_level, 0,
+
+\send_3, ~ef_reverb,
+\send_3_level, 0,
+\send_4, ~simpleDelay,
+\send_4_level, 0,
 
 // [ sampleAndHold, noMod, sawSyncLFO, rampSyncLFO, adsrEnv, sineSyncLFO, rampLFO, triLFO, triSyncLFO, rectSyncLFO, rectLFO, sineLFO, syncEnv, sawLFO ]
 

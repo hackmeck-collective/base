@@ -186,8 +186,12 @@
 \\out, ~melody_bus,
 \\send_1, ~ef_reverb,
 \\send_1_level, 0.25,
-\\send_2, ~simpleDelay_8d,
+\\send_2, ~simpleDelay,
 \\send_2_level, 0,
+\\send_3, ~granulator_1,
+\\send_3_level, 0,
+\\send_4, ~beatRepeat_1,
+\\send_4_level, 0,
 
 // %
 
@@ -346,8 +350,12 @@
 \\out, ~melody_bus,
 \\send_1, ~ef_reverb,
 \\send_1_level, 0.25,
-\\send_2, ~simpleDelay_8d,
+\\send_2, ~simpleDelay,
 \\send_2_level, 0,
+\\send_3, ~granulator_1,
+\\send_3_level, 0,
+\\send_4, ~beatRepeat_1,
+\\send_4_level, 0,
 
 // %
 
@@ -519,8 +527,12 @@
 \\out, ~melody_bus,
 \\send_1, ~ef_reverb,
 \\send_1_level, 0.25,
-\\send_2, ~simpleDelay_8d,
+\\send_2, ~simpleDelay,
 \\send_2_level, 0,
+\\send_3, ~granulator_1,
+\\send_3_level, 0,
+\\send_4, ~beatRepeat_1,
+\\send_4_level, 0,
 
 // %
 

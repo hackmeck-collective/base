@@ -54,8 +54,8 @@ Pdef(\play).clear
 // <> Pbind(\external1Target, "envelope_mod",
 // \external1Amount, 1)
 ).play(~linkClock, quant: 1);
-( Pdef(\sd2) <> Pbindef(\fifth) <> Pbindef(\pulse_4_ob)  ).play(~linkClock, quant: 1);
-( Pdef(\bd1) <> Pbindef(\root) <> Pbindef(\pulse) ).play(~linkClock, quant: 1);
+// ( Pdef(\sd2) <> Pbindef(\fifth) <> Pbindef(\pulse_4_ob)  ).play(~linkClock, quant: 1);
+// ( Pdef(\bd1) <> Pbindef(\root) <> Pbindef(\pulse) ).play(~linkClock, quant: 1);
 );
 
 
@@ -76,7 +76,7 @@ testArray.do(
 		~newLsys.(
 			name: (testName ++ item).asSymbol,
 			axiom: "G",
-			 rules: ( $F: "Gf" , $f: "Gf", $G: "++F----G++" ),
+			rules: ( $F: "Gf" , $f: "Gf", $G: "++F----G++" ),
 			// rules: ( $F: "G[G]f" , $f: "Gf", $G: "++F----G++" ),
 			// rules: ( $F: "G[G]f" , $f: "G[G]f", $G: "++F----G++" ),
 			// rules: ( $F: "G[G]f" , $f: "G[G]f", $G: "++F--[G]--G++" ),
@@ -101,11 +101,11 @@ testArray.do(
 			gen: item,
 			opts: (
 				useGlobalPitch: false,
-				noteOffset: -12,
+				noteOffset: -24,
 				quant: 0,
 				baseTempo: baseTempo,
 				legatoArr: 0.99,
-				wrapLo: [ 24 ],
+				wrapLo: [ 12 ],
 				wrapHi: [ 36 ],
 				instr: percInstr1,
 				vols: 0.75
@@ -271,8 +271,6 @@ Pdef(\play).clear
 // \external1Amount, 1)
 ).play(~linkClock, quant: 1);
 
-( Pdef(\metalPerc) <> Pbindef(\fifth, \octave, 6) <> Pbindef(\pulse_4_ob)  ).play(~linkClock, quant: 1);
-( Pdef(\bdBuzz) <> Pbindef(\root, \octave, 4) <> Pbindef(\pulse_2) ).play(~linkClock, quant: 1);
 );
 
 
@@ -284,7 +282,7 @@ var testNameAdd2 = "_3";
 var testNameAdd3 = "_bd";
 var testNameAdd4 = "_sd";
 var baseTempo = 1/4;
-var legato = 0.5;
+var legato = 0.99;
 var volume = 2;
 var leadInstr1 = \simpleLead;
 var branchInstr1 = \simpleLead;
@@ -298,7 +296,8 @@ testArray.do(
 		~newLsys.(
 			name: (testName ++ item).asSymbol,
 			axiom: "aG",
-			rules: ( $a: "ab", $b: "bc", $c: "cd", $d: "d-e+", $e: "e+f-", $f: "-[--a++]f+", $G: "a[a]" ),
+			// rules: ( $a: "+a-b", $b: "bc", $c: "cd", $d: "d-e+", $e: "e+f-", $f: "-[--a++]f+", $G: "a[a]" ),
+			rules: ( $a: "ab", $b: "bc", $c: "cd", $d: "d-e+", $e: "e+f-", $f: "-[--a++]f+", $G: "a" ),
 			gen: item,
 			opts: (
 				useGlobalPitch: false,
@@ -317,7 +316,8 @@ testArray.do(
 			name: (testName ++ testNameAdd ++ item).asSymbol,
 			axiom: "aG",
 			// rules: ( $a: "ab", $b: "bc", $c: "cd", $d: "de", $e: "e+f-", $f: "--[a]f++", $G: "a[--a++]" ),
-			rules: ( $a: "ab", $b: "bc", $c: "+c-d", $d: "de", $e: "e+f-", $f: "--[a]f++", $G: "a[--a++]" ),
+			// rules: ( $a: "ab", $b: "bc", $c: "+c-d", $d: "de", $e: "e+f-", $f: "--[a]f++", $G: "a[--a++]" ),
+			rules: ( $a: "ab", $b: "bc", $c: "+c-d", $d: "de", $e: "e+f-", $f: "--f++", $G: "a" ),
 			gen: item,
 			opts: (
 				useGlobalPitch: false,
@@ -335,7 +335,8 @@ testArray.do(
 		~newLsys.(
 			name: (testName ++ testNameAdd2 ++ item).asSymbol,
 			axiom: "aG",
-			rules: ( $a: "ab", $b: "bc", $c: "c-d+", $d: "d[++a--]e", $e: "e--f++", $f: "-[++a--]f+", $G: "a[--a++]" ),
+			// rules: ( $a: "ab", $b: "bc", $c: "c-d+", $d: "d[++a--]e", $e: "e--f++", $f: "-[++a--]f+", $G: "a[--a++]" ),
+			rules: ( $a: "ab", $b: "bc", $c: "c-d+", $d: "de", $e: "e--f++", $f: "-f+", $G: "a" ),
 			gen: item,
 			opts: (
 				useGlobalPitch: false,
@@ -353,18 +354,18 @@ testArray.do(
 		~newLsys.(
 			name: (testName ++ testNameAdd3 ++ item).asSymbol,
 			axiom: "aG",
-			rules: ( $a: "ab", $b: "bc", $c: "cd", $d: "de", $e: "e+f-", $f: "--f++", $G: "" ),
+			rules: ( $a: "ab", $b: "bc", $c: "cd", $d: "de", $e: "e+f-", $f: "--f++", $G: "a" ),
 			gen: item,
 			opts: (
 				useGlobalPitch: false,
-				noteOffset: 0,
+				noteOffset: 12,
 				quant: 0,
 				baseTempo: baseTempo,
 				legatoArr: legato,
-				wrapLo: [ 72 ],
-				wrapHi: [ 84 ],
+				wrapLo: [ 12 ],
+				wrapHi: [ 96 ],
 				instr:  percInstr1, //([leadInstr1] ++ (branchInstr1!18)).flat,
-				vols: volume * 0.5
+				vols: volume * 3
 			)
 		);
 
@@ -379,10 +380,10 @@ testArray.do(
 				quant: 0,
 				baseTempo: baseTempo,
 				legatoArr: legato,
-				wrapLo: [ 72 ],
-				wrapHi: [ 84 ],
+				wrapLo: [ 12 ],
+				wrapHi: [ 96 ],
 				instr: percInstr2, //([leadInstr1] ++ (branchInstr1!18)).flat,
-				vols: volume * 1
+				vols: volume * 3
 			)
 		);
 		//
@@ -439,57 +440,57 @@ testArray.do(
 
 
 ~poppeFilter = Pbind(\vol, Pfunc {|ev|
-				switch (ev.charNow,
-					$a, {ev.vol * 0.5},
-					$b, {ev.vol * 0.6},
-					$c, {ev.vol * 0.7},
-					$d, {ev.vol * 0.8},
-					$e, {ev.vol * 0.9},
-					$f, {ev.vol * 1}
-				)
-			},
-			\mod1Amount, Pfunc {|ev|
-				switch (ev.charNow,
-					$a, {ev.mod1Amount * 0.5},
-					$b, {ev.mod1Amount * 0.6},
-					$c, {ev.mod1Amount * 0.7},
-					$d, {ev.mod1Amount * 0.8},
-					$e, {ev.mod1Amount * 0.9},
-					$f, {ev.mod1Amount * 1}
-				)
-			},
-			\mod1Rate, Pfunc {|ev|
-				switch (ev.charNow,
-					$a, {ev.mod1Rate * 0.5},
-					$b, {ev.mod1Rate * 0.6},
-					$c, {ev.mod1Rate * 0.7},
-					$d, {ev.mod1Rate * 0.8},
-					$e, {ev.mod1Rate * 0.9},
-					$f, {ev.mod1Rate * 1}
-				)
-			},
-			\mod2Amount, Pfunc {|ev|
-				switch (ev.charNow,
-					$a, {ev.mod2Amount * 0.5},
-					$b, {ev.mod2Amount * 0.6},
-					$c, {ev.mod2Amount * 0.7},
-					$d, {ev.mod2Amount * 0.8},
-					$e, {ev.mod2Amount * 0.9},
-					$f, {ev.mod2Amount * 1}
-				)
-			},
-			\mod3Amount, Pfunc {|ev|
-				switch (ev.charNow,
-					$a, {ev.mod3Amount * 0.1},
-					$b, {ev.mod3Amount * 0.2},
-					$c, {ev.mod3Amount * 0.3},
-					$d, {ev.mod3Amount * 0.4},
-					$e, {ev.mod3Amount * 0.5},
-					$f, {ev.mod3Amount * 0.6}
-				)
-			},
-			)
-	<> (Pbind(\time, Ptime));
+	switch (ev.charNow,
+		$a, {ev.vol * 0.5},
+		$b, {ev.vol * 0.6},
+		$c, {ev.vol * 0.7},
+		$d, {ev.vol * 0.8},
+		$e, {ev.vol * 0.9},
+		$f, {ev.vol * 1}
+	)
+},
+\pitchOp_2_interval, Pfunc {|ev|
+	switch (ev.charNow,
+		$a, {ev.pitchOp_2_interval * 0.2},
+		$b, {ev.pitchOp_2_interval * 0.4},
+		$c, {ev.pitchOp_2_interval * 0.6},
+		$d, {ev.pitchOp_2_interval * 0.8},
+		$e, {ev.pitchOp_2_interval * 1},
+		$f, {ev.pitchOp_2_interval * 1.2}
+	)
+},
+\oscillator_mod_1, Pfunc {|ev|
+	switch (ev.charNow,
+		$a, {ev.oscillator_mod_1 * 0.5},
+		$b, {ev.oscillator_mod_1 * 0.6},
+		$c, {ev.oscillator_mod_1 * 0.7},
+		$d, {ev.oscillator_mod_1 * 0.8},
+		$e, {ev.oscillator_mod_1 * 0.9},
+		$f, {ev.oscillator_mod_1 * 1}
+	)
+},
+/*\stretch, Pfunc {|ev|
+	switch (ev.charNow,
+		$a, {16},
+		$b, {8},
+		$c, {4},
+		$d, {2},
+		$e, {1},
+		$f, {0.5}
+	)
+},*/
+\stretch, Pfunc {|ev|
+	switch (ev.charNow,
+		$a, {4},
+		$b, {2},
+		$c, {1},
+		$d, {4},
+		$e, {2},
+		$f, {1}
+	)
+},
+)
+<> (Pbind(\time, Ptime));
 
 testArray.do(
 	{ |item|
@@ -783,51 +784,51 @@ testArray.do(
 
 
 
-/*		Pdef((testName ++ testNameAdd2  ++ item ++ "_filter").asSymbol,
-			Pbind(\vol, Pfunc {|ev|
-				if(ev.charNow == $F){ev.vol}{ev.vol * 1.2}
-			},
-			\filter_1_mod_1, Pfunc {|ev|
-				if(ev.charNow == $F){ev.filter_1_mod_1}{ev.filter_1_mod_1 * 1.2}
-			},
-			\timingOffset, Pfunc {|ev|
-				if(ev.charNow == $F){0}{0}
-			},
-			)
-			<> (Pbind(\time, Ptime))
+		/*		Pdef((testName ++ testNameAdd2  ++ item ++ "_filter").asSymbol,
+		Pbind(\vol, Pfunc {|ev|
+		if(ev.charNow == $F){ev.vol}{ev.vol * 1.2}
+		},
+		\filter_1_mod_1, Pfunc {|ev|
+		if(ev.charNow == $F){ev.filter_1_mod_1}{ev.filter_1_mod_1 * 1.2}
+		},
+		\timingOffset, Pfunc {|ev|
+		if(ev.charNow == $F){0}{0}
+		},
+		)
+		<> (Pbind(\time, Ptime))
 		);
 
 		Pdef((testName ++ testNameAdd  ++ item ++ "_filter").asSymbol,
-			Pbind(\vol, Pfunc {|ev|
-				if(ev.charNow == $F){ev.vol}{ev.vol * 1.2}
-			},
-			\filter_1_mod_1, Pfunc {|ev|
-				if(ev.charNow == $F){ev.filter_1_mod_1}{ev.filter_1_mod_1 * 1.2}
-			},
-			\timingOffset, Pfunc {|ev|
-				if(ev.charNow == $F){0}{0}
-			},
-			)
-			<> (Pbind(\time, Ptime))
+		Pbind(\vol, Pfunc {|ev|
+		if(ev.charNow == $F){ev.vol}{ev.vol * 1.2}
+		},
+		\filter_1_mod_1, Pfunc {|ev|
+		if(ev.charNow == $F){ev.filter_1_mod_1}{ev.filter_1_mod_1 * 1.2}
+		},
+		\timingOffset, Pfunc {|ev|
+		if(ev.charNow == $F){0}{0}
+		},
+		)
+		<> (Pbind(\time, Ptime))
 		);*/
 
-				Pdef((testName ++ testNameAdd3  ++ item ++ "_filter").asSymbol,
+		Pdef((testName ++ testNameAdd3  ++ item ++ "_filter").asSymbol,
 			Pbind(\vol, Pfunc {|ev|
-			case
-			{ev.charNow == $F}{ev.vol}
-			{ev.charNow == $f}{0}
-			{true}{0}
-		})
+				case
+				{ev.charNow == $F}{ev.vol}
+				{ev.charNow == $f}{0}
+				{true}{0}
+			})
 			<> (Pbind(\time, Ptime))
 		);
 
 		Pdef((testName ++ testNameAdd4  ++ item ++ "_filter").asSymbol,
 			Pbind(\vol, Pfunc {|ev|
-			case
-			{ev.charNow == $F}{0}
-			{ev.charNow == $f}{ev.vol * 0.8}
-			{true}{0}
-		})
+				case
+				{ev.charNow == $F}{0}
+				{ev.charNow == $f}{ev.vol * 0.8}
+				{true}{0}
+			})
 			<> (Pbind(\time, Ptime))
 		);
 	}
@@ -938,75 +939,75 @@ testArray.collect{|num| ~lsys.presets[(testName ++ num).asSymbol].maxPatDur }.su
 
 ~instrPreset.edit(\sd1);
 (
-	~newLsys.(
-		name: \simpleSwitch,
-		axiom: "F",
-		rules: ( $F: "FG", $f: "-F+G", $G: "G+f-" ),
-		gen: 6,
-		opts: (
-			useGlobalPitch: false,
-			noteOffset: -24,
-			quant: 0,
-			baseTempo: 1/4,
-			legatoArr: 0.75,
-			wrapLo: [ 12 ],
-			instr: \syncWub
-		)
-	);
+~newLsys.(
+	name: \simpleSwitch,
+	axiom: "F",
+	rules: ( $F: "FG", $f: "-F+G", $G: "G+f-" ),
+	gen: 6,
+	opts: (
+		useGlobalPitch: false,
+		noteOffset: -24,
+		quant: 0,
+		baseTempo: 1/4,
+		legatoArr: 0.75,
+		wrapLo: [ 12 ],
+		instr: \syncWub
+	)
+);
 
-	Pdef(\simpleSwitch_filter,
-		Pbind(\vol, Pfunc {|ev|
-			if(ev.charNow == $F){ev.vol}{ev.vol * 1.2}
-		},
-		\filter_1_mod_1, Pfunc {|ev|
-			if(ev.charNow == $F){ev.filter_1_mod_1}{ev.filter_1_mod_1 * 1.2}
-		},
-		\timingOffset, Pfunc {|ev|
-			if(ev.charNow == $F){0}{0}
-		},
-		)
-		<> (Pbind(\time, Ptime))
-	);
+Pdef(\simpleSwitch_filter,
+	Pbind(\vol, Pfunc {|ev|
+		if(ev.charNow == $F){ev.vol}{ev.vol * 1.2}
+	},
+	\filter_1_mod_1, Pfunc {|ev|
+		if(ev.charNow == $F){ev.filter_1_mod_1}{ev.filter_1_mod_1 * 1.2}
+	},
+	\timingOffset, Pfunc {|ev|
+		if(ev.charNow == $F){0}{0}
+	},
+	)
+	<> (Pbind(\time, Ptime))
+);
 
-	(Pdef(\play, Psym(Pseq([\simpleSwitch], inf))
-		<> (Pbind(\time, Ptime)))
-	).play(~linkClock, quant: 4)
+(Pdef(\play, Psym(Pseq([\simpleSwitch], inf))
+	<> (Pbind(\time, Ptime)))
+).play(~linkClock, quant: 4)
 );
 
 (
-	~newLsys.(
-		name: \simpleSwitch,
-		axiom: "F",
-		rules: ( $F: "FG", $f: "-F+G", $G: "G+f-" ),
-		gen: 6,
-		opts: (
-			useGlobalPitch: false,
-			noteOffset: -24,
-			quant: 0,
-			baseTempo: 1/2,
-			legatoArr: 0.75,
-			wrapLo: [ 12 ],
-			instr: \syncWub
-		)
-	);
+~newLsys.(
+	name: \simpleSwitch,
+	axiom: "F",
+	rules: ( $F: "FG", $f: "-F+G", $G: "G+f-" ),
+	gen: 6,
+	opts: (
+		useGlobalPitch: false,
+		noteOffset: -24,
+		quant: 0,
+		baseTempo: 1/2,
+		legatoArr: 0.75,
+		wrapLo: [ 12 ],
+		instr: \syncWub
+	)
+);
 
-	Pdef(\simpleSwitch_filter,
-		Pbind(\vol, Pfunc {|ev|
-			if(ev.charNow == $F){ev.vol}{ev.vol * 1.2}
-		},
-		\filter_1_mod_1, Pfunc {|ev|
-			if(ev.charNow == $F){ev.filter_1_mod_1}{ev.filter_1_mod_1 * 1.2}
-		},
-		\timingOffset, Pfunc {|ev|
-			if(ev.charNow == $F){0}{3/16}
-		},
-		)
-		<> (Pbind(\time, Ptime))
-	);
+Pdef(\simpleSwitch_filter,
+	Pbind(\vol, Pfunc {|ev|
+		if(ev.charNow == $F){ev.vol}{ev.vol * 1.2}
+	},
+	\filter_1_mod_1, Pfunc {|ev|
+		if(ev.charNow == $F){ev.filter_1_mod_1}{ev.filter_1_mod_1 * 1.2}
+	},
+	\timingOffset, Pfunc {|ev|
+		if(ev.charNow == $F){0}{3/16}
+	},
+	)
+	<> (Pbind(\time, Ptime))
+);
 
-	(Pdef(\play, Psym(Pseq([\simpleSwitch], inf))
-		<> (Pbind(\time, Ptime)))
-	).play(~linkClock, quant: 4)
+(Pdef(\play, Psym(Pseq([\simpleSwitch], inf))
+	<> (Pbind(\time, Ptime)))
+).play(~linkClock, quant: 4)
 );
 
 
@@ -1014,134 +1015,134 @@ testArray.collect{|num| ~lsys.presets[(testName ++ num).asSymbol].maxPatDur }.su
 ///////////////////////// Rabbit
 
 (
-	var gen_all = 3;
-	var tempo_all = 1/8;
-	var quant_all = 0;
+var gen_all = 3;
+var tempo_all = 1/8;
+var quant_all = 0;
 
-	~newLsys.(
-		name: \rabbitSeq,
-		axiom: "F",
-		rules: ( $F: "+F-G--f++GfG", $f: "+F-G--f++GfG", $G: "F"),
-		gen: gen_all,
-		opts: (
-			useGlobalPitch: false,
-			noteOffset: 0,
-			quant: quant_all,
-			baseTempo: tempo_all,
-			legatoArr: 0.2,
-			wrapLo: [ 24 ],
-			instr: \simplePluck
-		)
-	);
+~newLsys.(
+	name: \rabbitSeq,
+	axiom: "F",
+	rules: ( $F: "+F-G--f++GfG", $f: "+F-G--f++GfG", $G: "F"),
+	gen: gen_all,
+	opts: (
+		useGlobalPitch: false,
+		noteOffset: 0,
+		quant: quant_all,
+		baseTempo: tempo_all,
+		legatoArr: 0.2,
+		wrapLo: [ 24 ],
+		instr: \simplePluck
+	)
+);
 
-	~newLsys.(
-		name: \rabbitSeq_bd,
-		axiom: "F",
-		rules: ( $F: "FGfGfG", $f: "FGfGfG", $G: "f"),
-		gen: gen_all,
-		opts: (
-			useGlobalPitch: false,
-			noteOffset: 0,
-			quant: quant_all,
-			baseTempo: tempo_all,
-			legatoArr: 0.2,
-			wrapLo: [ 12 ],
-			instr: \bd1
-		)
-	);
+~newLsys.(
+	name: \rabbitSeq_bd,
+	axiom: "F",
+	rules: ( $F: "FGfGfG", $f: "FGfGfG", $G: "f"),
+	gen: gen_all,
+	opts: (
+		useGlobalPitch: false,
+		noteOffset: 0,
+		quant: quant_all,
+		baseTempo: tempo_all,
+		legatoArr: 0.2,
+		wrapLo: [ 12 ],
+		instr: \bd1
+	)
+);
 
-	~newLsys.(
-		name: \rabbitSeq_sd,
-		axiom: "F",
-		rules: ( $F: "fGFGSG", $f: "fGFGSG", $S: "fsFGSG", $G: "F", $s: "F"),
-		gen: gen_all,
-		opts: (
-			useGlobalPitch: false,
-			noteOffset: 7,
-			quant: quant_all,
-			baseTempo: tempo_all,
-			legatoArr: 0.2,
-			wrapLo: [ 12 ],
-			vols: [0.9],
-			instr: \sd1
-		)
-	);
+~newLsys.(
+	name: \rabbitSeq_sd,
+	axiom: "F",
+	rules: ( $F: "fGFGSG", $f: "fGFGSG", $S: "fsFGSG", $G: "F", $s: "F"),
+	gen: gen_all,
+	opts: (
+		useGlobalPitch: false,
+		noteOffset: 7,
+		quant: quant_all,
+		baseTempo: tempo_all,
+		legatoArr: 0.2,
+		wrapLo: [ 12 ],
+		vols: [0.9],
+		instr: \sd1
+	)
+);
 
-	~newLsys.(
-		name: \rabbitSeq_hh,
-		axiom: "H",
-		rules: ( $H: "12+H12-GHhHG", $G: "--H++", $h: "--H++"),
-		gen: gen_all,
-		opts: (
-			useGlobalPitch: false,
-			noteOffset: 12,
-			quant: quant_all,
-			baseTempo: tempo_all,
-			legatoArr: 0.2,
-			wrapLo: [ 12 ],
-			vols: [0.9],
-			instr: \hh1
-		)
-	);
+~newLsys.(
+	name: \rabbitSeq_hh,
+	axiom: "H",
+	rules: ( $H: "12+H12-GHhHG", $G: "--H++", $h: "--H++"),
+	gen: gen_all,
+	opts: (
+		useGlobalPitch: false,
+		noteOffset: 12,
+		quant: quant_all,
+		baseTempo: tempo_all,
+		legatoArr: 0.2,
+		wrapLo: [ 12 ],
+		vols: [0.9],
+		instr: \hh1
+	)
+);
 );
 
 (
-	Pdef(\rabbitSeq_bd_filter,
-		Pbind(\vol, Pfunc {|ev|
-			if(ev.charNow == $F){ev.vol}{0}
-		})
-		<> (Pbind(\time, Ptime))
-	);
+Pdef(\rabbitSeq_bd_filter,
+	Pbind(\vol, Pfunc {|ev|
+		if(ev.charNow == $F){ev.vol}{0}
+	})
+	<> (Pbind(\time, Ptime))
+);
 
-	Pdef(\rabbitSeq_sd_filter,
-		Pbind(\vol, Pfunc {|ev|
-			case
-			{ev.charNow == $S}{ev.vol}
-			{ev.charNow == $s}{ev.vol * 0.8}
-			{true}{0}
-		})
-	);
+Pdef(\rabbitSeq_sd_filter,
+	Pbind(\vol, Pfunc {|ev|
+		case
+		{ev.charNow == $S}{ev.vol}
+		{ev.charNow == $s}{ev.vol * 0.8}
+		{true}{0}
+	})
+);
 
-	Pdef(\rabbitSeq_hh_filter,
-		Pbind(\vol, Pfunc {|ev|
-			case
-			{ev.charNow == $H}{ev.vol}
-			{ev.charNow == $h}{ev.vol * 0.5}
-			{true}{0}
-		})
-	);
+Pdef(\rabbitSeq_hh_filter,
+	Pbind(\vol, Pfunc {|ev|
+		case
+		{ev.charNow == $H}{ev.vol}
+		{ev.charNow == $h}{ev.vol * 0.5}
+		{true}{0}
+	})
+);
 
 
-	Pdef(\rabbitSeq_filter,
-		Pbind(\vol, Pfunc {|ev|
-			if(ev.charNow == $F){ev.vol * 1.1}{ev.vol * 0.8}
-		},
-		\oscillator_mod_1, Pfunc {|ev|
-			if(ev.charNow == $F){ev.oscillator_mod_1 * 1}{ev.oscillator_mod_1 * 0.7}
-		},
-		\envelope_mod, Pfunc {|ev|
-			if(ev.charNow == $F){ev.envelope_mod * 0.8}{ev.envelope_mod * 1}
-		},
-		)
-	);
+Pdef(\rabbitSeq_filter,
+	Pbind(\vol, Pfunc {|ev|
+		if(ev.charNow == $F){ev.vol * 1.1}{ev.vol * 0.8}
+	},
+	\oscillator_mod_1, Pfunc {|ev|
+		if(ev.charNow == $F){ev.oscillator_mod_1 * 1}{ev.oscillator_mod_1 * 0.7}
+	},
+	\envelope_mod, Pfunc {|ev|
+		if(ev.charNow == $F){ev.envelope_mod * 0.8}{ev.envelope_mod * 1}
+	},
+	)
+);
 
-	( Pbind(\controlbus, ~launchcontrol_xl_row_1)
-		<> Psym(Pseq([\rabbitSeq], inf))
-		<> Pbind(\external1Target, "envelope_mod",
-			\external1Amount, 1)
-	).play(~linkClock, quant: 4);
-	Pdef(\rabbit_sd, Psym(Pseq([\rabbitSeq_sd], inf))).play(~linkClock, quant: 4);
-	Pdef(\rabbit_bd, Psym(Pseq([\rabbitSeq_bd], inf))).play(~linkClock, quant: 4);
-	Pdef(\rabbit_hh, Psym(Pseq([\rabbitSeq_hh], inf))).play(~linkClock, quant: 4);
+( Pbind(\controlbus, ~launchcontrol_xl_row_1)
+	<> Psym(Pseq([\rabbitSeq], inf))
+	<> Pbind(\external1Target, "envelope_mod",
+		\external1Amount, 1)
+).play(~linkClock, quant: 4);
+Pdef(\rabbit_sd, Psym(Pseq([\rabbitSeq_sd], inf))).play(~linkClock, quant: 4);
+Pdef(\rabbit_bd, Psym(Pseq([\rabbitSeq_bd], inf))).play(~linkClock, quant: 4);
+Pdef(\rabbit_hh, Psym(Pseq([\rabbitSeq_hh], inf))).play(~linkClock, quant: 4);
 );
 
 (
-	~newLsys.(
-		name: \theLick,
-		axiom: "-F",//"F-F-F-F-F",
-		rules: ( $F: "F+F+F+F--FG--F+FGG" ),
-		gen: 2.0
-	);
+~newLsys.(
+	name: \theLick,
+	axiom: "-F",//"F-F-F-F-F",
+	rules: ( $F: "F+F+F+F--FG--F+FGG" ),
+	gen: 2.0
+);
 )
 
 Pdef(\basicL).play(l)
@@ -1151,12 +1152,12 @@ Pdef(\basicL).play(l)
 Pdef(\play, Psym(Pseq([\rabbitSeq_bd], inf))).play
 
 (
-	~newLsys.(
-		name: \fuenfte,
-		axiom: "F-[F-F]-F-F",
-		rules: ( $F: "GFFF--FGGG" ),
-		gen: 2.0
-	);
+~newLsys.(
+	name: \fuenfte,
+	axiom: "F-[F-F]-F-F",
+	rules: ( $F: "GFFF--FGGG" ),
+	gen: 2.0
+);
 )
 
 Pdef(\basicL).play(l)
@@ -1182,269 +1183,269 @@ Pdef(\snowFlake).play(l)
 Pdef(\play, Psym(Pseq([\snowFlake], inf))).play
 
 (
-	~newLsys.(
-		name: \pausen,
-		axiom: "G",
-		rules: ( $F: "-F++F-F", $G: "G--X++G[X-X+F]", $X: "[XG-F]----XG++++F" ),
-		gen: 2,
-		opts: (
-			instr: [\simplePluck, \simplePluck, \srrPluck],
-			useGlobalPitch: false,
-			noteOffset: 28,
-			vols: [0.8, 0.7, 0.7],
-			legatoArr: 1,
-			quant: 0
-		)
+~newLsys.(
+	name: \pausen,
+	axiom: "G",
+	rules: ( $F: "-F++F-F", $G: "G--X++G[X-X+F]", $X: "[XG-F]----XG++++F" ),
+	gen: 2,
+	opts: (
+		instr: [\simplePluck, \simplePluck, \srrPluck],
+		useGlobalPitch: false,
+		noteOffset: 28,
+		vols: [0.8, 0.7, 0.7],
+		legatoArr: 1,
+		quant: 0
 	)
+)
 )
 ~lsys.presets.pausen.numBranches
 Pdef(\play, Pn(Pdef(\pausen))).play
 
 
 (
-	var gen_all = 10;
-	var tempo_all = 1/2;
-	var quant_all = 0;
-	var leg_all = 0.8;
-	var vol_all = 1.5;
+var gen_all = 10;
+var tempo_all = 1/2;
+var quant_all = 0;
+var leg_all = 0.8;
+var vol_all = 1.5;
 
-	~newLsys.(
-		name: \poppe_hi,
-		axiom: "aG",
-		rules: ( $a: "ab", $b: "bc", $c: "cd", $d: "d-e+", $e: "e+f-", $f: "-f[a]+", $G: "[a]" ),
-		gen: gen_all,
-		opts: (
-			useGlobalPitch: false,
-			noteOffset: 12,
-			quant: quant_all,
-			baseTempo: tempo_all,
-			legatoArr: leg_all,
-			wrapLo: [ 12 ],
-			wrapHi: [ 96 ],
-			instr: \simpleLead,
-			vols: (vol_all * 0.5)
-		)
-	);
-
-
-	~newLsys.(
-		name: \poppe_mid,
-		axiom: "aG",
-		rules: ( $a: "ab", $b: "bc", $c: "cd", $d: "de", $e: "e+f-", $f: "--f[a]++", $G: "[--a++]" ),
-		gen: gen_all,
-		opts: (
-			useGlobalPitch: false,
-			noteOffset: 0,
-			quant: quant_all,
-			baseTempo: tempo_all,
-			legatoArr: leg_all,
-			wrapLo: [ 12 ],
-			wrapHi: [ 96 ],
-			instr: \simpleLead,
-			vols: (vol_all * 0.75)
-		)
-	);
-
-	~newLsys.(
-		name: \poppe_lo,
-		axiom: "aG",
-		rules: ( $a: "ab", $b: "bc", $c: "cd", $d: "de", $e: "e--f++", $f: "-f[a]+", $G: "[++a--]" ),
-		gen: gen_all,
-		opts: (
-			useGlobalPitch: false,
-			noteOffset: -12,
-			quant: quant_all,
-			baseTempo: tempo_all,
-			legatoArr: leg_all),
+~newLsys.(
+	name: \poppe_hi,
+	axiom: "aG",
+	rules: ( $a: "ab", $b: "bc", $c: "cd", $d: "d-e+", $e: "e+f-", $f: "-f[a]+", $G: "[a]" ),
+	gen: gen_all,
+	opts: (
+		useGlobalPitch: false,
+		noteOffset: 12,
+		quant: quant_all,
+		baseTempo: tempo_all,
+		legatoArr: leg_all,
 		wrapLo: [ 12 ],
 		wrapHi: [ 96 ],
 		instr: \simpleLead,
-		vols: (vol_all * 1.5)
+		vols: (vol_all * 0.5)
 	)
 );
 
 
+~newLsys.(
+	name: \poppe_mid,
+	axiom: "aG",
+	rules: ( $a: "ab", $b: "bc", $c: "cd", $d: "de", $e: "e+f-", $f: "--f[a]++", $G: "[--a++]" ),
+	gen: gen_all,
+	opts: (
+		useGlobalPitch: false,
+		noteOffset: 0,
+		quant: quant_all,
+		baseTempo: tempo_all,
+		legatoArr: leg_all,
+		wrapLo: [ 12 ],
+		wrapHi: [ 96 ],
+		instr: \simpleLead,
+		vols: (vol_all * 0.75)
+	)
+);
+
+~newLsys.(
+	name: \poppe_lo,
+	axiom: "aG",
+	rules: ( $a: "ab", $b: "bc", $c: "cd", $d: "de", $e: "e--f++", $f: "-f[a]+", $G: "[++a--]" ),
+	gen: gen_all,
+	opts: (
+		useGlobalPitch: false,
+		noteOffset: -12,
+		quant: quant_all,
+		baseTempo: tempo_all,
+		legatoArr: leg_all),
+	wrapLo: [ 12 ],
+	wrapHi: [ 96 ],
+	instr: \simpleLead,
+	vols: (vol_all * 1.5)
+)
+);
+
+
 (
-	Pdef(\poppe_hi_filter,
-		Pbind(\vol, Pfunc {|ev|
-			switch (ev.charNow,
-				$a, {ev.vol * 0.5},
-				$b, {ev.vol * 0.6},
-				$c, {ev.vol * 0.7},
-				$d, {ev.vol * 0.8},
-				$e, {ev.vol * 0.9},
-				$f, {ev.vol * 1}
-			)
-		},
-		\mod1Amount, Pfunc {|ev|
-			switch (ev.charNow,
-				$a, {ev.mod1Amount * 0.5},
-				$b, {ev.mod1Amount * 0.6},
-				$c, {ev.mod1Amount * 0.7},
-				$d, {ev.mod1Amount * 0.8},
-				$e, {ev.mod1Amount * 0.9},
-				$f, {ev.mod1Amount * 1}
-			)
-		},
-		\mod1Rate, Pfunc {|ev|
-			switch (ev.charNow,
-				$a, {ev.mod1Rate * 0.5},
-				$b, {ev.mod1Rate * 0.6},
-				$c, {ev.mod1Rate * 0.7},
-				$d, {ev.mod1Rate * 0.8},
-				$e, {ev.mod1Rate * 0.9},
-				$f, {ev.mod1Rate * 1}
-			)
-		},
-		\mod2Amount, Pfunc {|ev|
-			switch (ev.charNow,
-				$a, {ev.mod2Amount * 0.5},
-				$b, {ev.mod2Amount * 0.6},
-				$c, {ev.mod2Amount * 0.7},
-				$d, {ev.mod2Amount * 0.8},
-				$e, {ev.mod2Amount * 0.9},
-				$f, {ev.mod2Amount * 1}
-			)
-		},
-		\mod3Amount, Pfunc {|ev|
-			switch (ev.charNow,
-				$a, {ev.mod3Amount * 0.1},
-				$b, {ev.mod3Amount * 0.2},
-				$c, {ev.mod3Amount * 0.3},
-				$d, {ev.mod3Amount * 0.4},
-				$e, {ev.mod3Amount * 0.5},
-				$f, {ev.mod3Amount * 0.6}
-			)
-		},
+Pdef(\poppe_hi_filter,
+	Pbind(\vol, Pfunc {|ev|
+		switch (ev.charNow,
+			$a, {ev.vol * 0.5},
+			$b, {ev.vol * 0.6},
+			$c, {ev.vol * 0.7},
+			$d, {ev.vol * 0.8},
+			$e, {ev.vol * 0.9},
+			$f, {ev.vol * 1}
 		)
-
-	);
-
-	Pdef(\poppe_mid_filter,
-		Pbind(\vol, Pfunc {|ev|
-			switch (ev.charNow,
-				$a, {ev.vol * 0.5},
-				$b, {ev.vol * 0.6},
-				$c, {ev.vol * 0.7},
-				$d, {ev.vol * 0.8},
-				$e, {ev.vol * 0.9},
-				$f, {ev.vol * 1}
-			)
-		},
-		\mod1Amount, Pfunc {|ev|
-			switch (ev.charNow,
-				$a, {ev.mod1Amount * 0.5},
-				$b, {ev.mod1Amount * 0.6},
-				$c, {ev.mod1Amount * 0.7},
-				$d, {ev.mod1Amount * 0.8},
-				$e, {ev.mod1Amount * 0.9},
-				$f, {ev.mod1Amount * 1}
-			)
-		},
-		\mod1Rate, Pfunc {|ev|
-			switch (ev.charNow,
-				$a, {ev.mod1Rate * 0.5},
-				$b, {ev.mod1Rate * 0.6},
-				$c, {ev.mod1Rate * 0.7},
-				$d, {ev.mod1Rate * 0.8},
-				$e, {ev.mod1Rate * 0.9},
-				$f, {ev.mod1Rate * 1}
-			)
-		},
-		\mod2Amount, Pfunc {|ev|
-			switch (ev.charNow,
-				$a, {ev.mod2Amount * 0.5},
-				$b, {ev.mod2Amount * 0.6},
-				$c, {ev.mod2Amount * 0.7},
-				$d, {ev.mod2Amount * 0.8},
-				$e, {ev.mod2Amount * 0.9},
-				$f, {ev.mod2Amount * 1}
-			)
-		},
-		\mod3Amount, Pfunc {|ev|
-			switch (ev.charNow,
-				$a, {ev.mod3Amount * 0.3},
-				$b, {ev.mod3Amount * 0.4},
-				$c, {ev.mod3Amount * 0.5},
-				$d, {ev.mod3Amount * 0.6},
-				$e, {ev.mod3Amount * 0.7},
-				$f, {ev.mod3Amount * 0.8}
-			)
-		},
+	},
+	\mod1Amount, Pfunc {|ev|
+		switch (ev.charNow,
+			$a, {ev.mod1Amount * 0.5},
+			$b, {ev.mod1Amount * 0.6},
+			$c, {ev.mod1Amount * 0.7},
+			$d, {ev.mod1Amount * 0.8},
+			$e, {ev.mod1Amount * 0.9},
+			$f, {ev.mod1Amount * 1}
 		)
-	);
-
-	Pdef(\poppe_lo_filter,
-		Pbind(\vol, Pfunc {|ev|
-			switch (ev.charNow,
-				$a, {ev.vol * 0.5},
-				$b, {ev.vol * 0.6},
-				$c, {ev.vol * 0.7},
-				$d, {ev.vol * 0.8},
-				$e, {ev.vol * 0.9},
-				$f, {ev.vol * 1}
-			)
-		},
-		\mod1Amount, Pfunc {|ev|
-			switch (ev.charNow,
-				$a, {ev.mod1Amount * 0.5},
-				$b, {ev.mod1Amount * 0.6},
-				$c, {ev.mod1Amount * 0.7},
-				$d, {ev.mod1Amount * 0.8},
-				$e, {ev.mod1Amount * 0.9},
-				$f, {ev.mod1Amount * 1}
-			)
-		},
-		\mod1Rate, Pfunc {|ev|
-			switch (ev.charNow,
-				$a, {ev.mod1Rate * 0.5},
-				$b, {ev.mod1Rate * 0.6},
-				$c, {ev.mod1Rate * 0.7},
-				$d, {ev.mod1Rate * 0.8},
-				$e, {ev.mod1Rate * 0.9},
-				$f, {ev.mod1Rate * 1}
-			)
-		},
-		\mod2Amount, Pfunc {|ev|
-			switch (ev.charNow,
-				$a, {ev.mod2Amount * 0.5},
-				$b, {ev.mod2Amount * 0.6},
-				$c, {ev.mod2Amount * 0.7},
-				$d, {ev.mod2Amount * 0.8},
-				$e, {ev.mod2Amount * 0.9},
-				$f, {ev.mod2Amount * 1}
-			)
-		},
-		\mod3Amount, Pfunc {|ev|
-			switch (ev.charNow,
-				$a, {ev.mod3Amount * 0.5},
-				$b, {ev.mod3Amount * 0.6},
-				$c, {ev.mod3Amount * 0.7},
-				$d, {ev.mod3Amount * 0.8},
-				$e, {ev.mod3Amount * 0.9},
-				$f, {ev.mod3Amount * 1}
-			)
-		},
+	},
+	\mod1Rate, Pfunc {|ev|
+		switch (ev.charNow,
+			$a, {ev.mod1Rate * 0.5},
+			$b, {ev.mod1Rate * 0.6},
+			$c, {ev.mod1Rate * 0.7},
+			$d, {ev.mod1Rate * 0.8},
+			$e, {ev.mod1Rate * 0.9},
+			$f, {ev.mod1Rate * 1}
 		)
-	);
+	},
+	\mod2Amount, Pfunc {|ev|
+		switch (ev.charNow,
+			$a, {ev.mod2Amount * 0.5},
+			$b, {ev.mod2Amount * 0.6},
+			$c, {ev.mod2Amount * 0.7},
+			$d, {ev.mod2Amount * 0.8},
+			$e, {ev.mod2Amount * 0.9},
+			$f, {ev.mod2Amount * 1}
+		)
+	},
+	\mod3Amount, Pfunc {|ev|
+		switch (ev.charNow,
+			$a, {ev.mod3Amount * 0.1},
+			$b, {ev.mod3Amount * 0.2},
+			$c, {ev.mod3Amount * 0.3},
+			$d, {ev.mod3Amount * 0.4},
+			$e, {ev.mod3Amount * 0.5},
+			$f, {ev.mod3Amount * 0.6}
+		)
+	},
+	)
 
-	( Pbind(\controlbus, ~launchcontrol_xl_row_1)
-		<> Psym(Pseq([\poppe_hi], inf))
-		<> Pbind(\external1Target, "envelope_mod",
-			\external1Amount, 1)
-	).play(~linkClock, quant: 4);
+);
 
-	( Pbind(\controlbus, ~launchcontrol_xl_row_1)
-		<> Psym(Pseq([\poppe_mid], inf))
-		<> Pbind(\external1Target, "envelope_mod",
-			\external1Amount, 1)
-	).play(~linkClock, quant: 4);
+Pdef(\poppe_mid_filter,
+	Pbind(\vol, Pfunc {|ev|
+		switch (ev.charNow,
+			$a, {ev.vol * 0.5},
+			$b, {ev.vol * 0.6},
+			$c, {ev.vol * 0.7},
+			$d, {ev.vol * 0.8},
+			$e, {ev.vol * 0.9},
+			$f, {ev.vol * 1}
+		)
+	},
+	\mod1Amount, Pfunc {|ev|
+		switch (ev.charNow,
+			$a, {ev.mod1Amount * 0.5},
+			$b, {ev.mod1Amount * 0.6},
+			$c, {ev.mod1Amount * 0.7},
+			$d, {ev.mod1Amount * 0.8},
+			$e, {ev.mod1Amount * 0.9},
+			$f, {ev.mod1Amount * 1}
+		)
+	},
+	\mod1Rate, Pfunc {|ev|
+		switch (ev.charNow,
+			$a, {ev.mod1Rate * 0.5},
+			$b, {ev.mod1Rate * 0.6},
+			$c, {ev.mod1Rate * 0.7},
+			$d, {ev.mod1Rate * 0.8},
+			$e, {ev.mod1Rate * 0.9},
+			$f, {ev.mod1Rate * 1}
+		)
+	},
+	\mod2Amount, Pfunc {|ev|
+		switch (ev.charNow,
+			$a, {ev.mod2Amount * 0.5},
+			$b, {ev.mod2Amount * 0.6},
+			$c, {ev.mod2Amount * 0.7},
+			$d, {ev.mod2Amount * 0.8},
+			$e, {ev.mod2Amount * 0.9},
+			$f, {ev.mod2Amount * 1}
+		)
+	},
+	\mod3Amount, Pfunc {|ev|
+		switch (ev.charNow,
+			$a, {ev.mod3Amount * 0.3},
+			$b, {ev.mod3Amount * 0.4},
+			$c, {ev.mod3Amount * 0.5},
+			$d, {ev.mod3Amount * 0.6},
+			$e, {ev.mod3Amount * 0.7},
+			$f, {ev.mod3Amount * 0.8}
+		)
+	},
+	)
+);
 
-	( Pbind(\controlbus, ~launchcontrol_xl_row_1)
-		<> Psym(Pseq([\poppe_lo], inf))
-		<> Pbind(\external1Target, "envelope_mod",
-			\external1Amount, 1)
-	).play(~linkClock, quant: 4);
+Pdef(\poppe_lo_filter,
+	Pbind(\vol, Pfunc {|ev|
+		switch (ev.charNow,
+			$a, {ev.vol * 0.5},
+			$b, {ev.vol * 0.6},
+			$c, {ev.vol * 0.7},
+			$d, {ev.vol * 0.8},
+			$e, {ev.vol * 0.9},
+			$f, {ev.vol * 1}
+		)
+	},
+	\mod1Amount, Pfunc {|ev|
+		switch (ev.charNow,
+			$a, {ev.mod1Amount * 0.5},
+			$b, {ev.mod1Amount * 0.6},
+			$c, {ev.mod1Amount * 0.7},
+			$d, {ev.mod1Amount * 0.8},
+			$e, {ev.mod1Amount * 0.9},
+			$f, {ev.mod1Amount * 1}
+		)
+	},
+	\mod1Rate, Pfunc {|ev|
+		switch (ev.charNow,
+			$a, {ev.mod1Rate * 0.5},
+			$b, {ev.mod1Rate * 0.6},
+			$c, {ev.mod1Rate * 0.7},
+			$d, {ev.mod1Rate * 0.8},
+			$e, {ev.mod1Rate * 0.9},
+			$f, {ev.mod1Rate * 1}
+		)
+	},
+	\mod2Amount, Pfunc {|ev|
+		switch (ev.charNow,
+			$a, {ev.mod2Amount * 0.5},
+			$b, {ev.mod2Amount * 0.6},
+			$c, {ev.mod2Amount * 0.7},
+			$d, {ev.mod2Amount * 0.8},
+			$e, {ev.mod2Amount * 0.9},
+			$f, {ev.mod2Amount * 1}
+		)
+	},
+	\mod3Amount, Pfunc {|ev|
+		switch (ev.charNow,
+			$a, {ev.mod3Amount * 0.5},
+			$b, {ev.mod3Amount * 0.6},
+			$c, {ev.mod3Amount * 0.7},
+			$d, {ev.mod3Amount * 0.8},
+			$e, {ev.mod3Amount * 0.9},
+			$f, {ev.mod3Amount * 1}
+		)
+	},
+	)
+);
+
+( Pbind(\controlbus, ~launchcontrol_xl_row_1)
+	<> Psym(Pseq([\poppe_hi], inf))
+	<> Pbind(\external1Target, "envelope_mod",
+		\external1Amount, 1)
+).play(~linkClock, quant: 4);
+
+( Pbind(\controlbus, ~launchcontrol_xl_row_1)
+	<> Psym(Pseq([\poppe_mid], inf))
+	<> Pbind(\external1Target, "envelope_mod",
+		\external1Amount, 1)
+).play(~linkClock, quant: 4);
+
+( Pbind(\controlbus, ~launchcontrol_xl_row_1)
+	<> Psym(Pseq([\poppe_lo], inf))
+	<> Pbind(\external1Target, "envelope_mod",
+		\external1Amount, 1)
+).play(~linkClock, quant: 4);
 
 );
 
