@@ -5,12 +5,12 @@
 \envelope_mod, 0.1,
 \envCurve, 3,
 
-\pitchOpType, \noPitchOp, // \noPitchOp, \vibrato, \slide, \unisonoDetune, \fm, \vibratoSync, \slideVibrato, \rectArpSync, \rectArp
-\pitchOp_1_interval, 0,
-\pitchOp_1_amount, 0.1,
+\pitchOpType, \slide, // \noPitchOp, \vibrato, \slide, \unisonoDetune, \fm, \vibratoSync, \slideVibrato, \rectArpSync, \rectArp
+\pitchOp_1_interval, 0.75,
+\pitchOp_1_amount, 0.4,
 
-\pitchOpType_2, \slide,
-\pitchOp_2_interval, 0.75,
+\pitchOpType_2, \unisonoDetune,
+\pitchOp_2_interval, 0.5,
 \pitchOp_2_amount, 0.4,
 
 \oscillatorType, \basic, // \noOscillator, \basic, \fm, \formant, \filteredNoise, \modal, \pulsar, \ping, \grainCloudGuitar
@@ -36,14 +36,16 @@
 \fx_mod_1, 0.2,
 \fx_mod_2, 0.25,
 
-\fxType_2, \noFx,
-\fx_2_mod_1, 0.74,
+\fxType_2, \sampleRateReduction,
+\fx_2_mod_1, 0.98,
 \fx_2_mod_2, 0.25,
 
+	\filterIn_preFxLevel, 0.2,
+	\filterIn_FxLevel, 0.8,
 
-\filterType, \lpf_moog, // \noFilter, \lpf_moog, \lpf_24, \lpf_12, \hpf_24, \hpf_12, \bpf, \notch, \lo_shelf, \hi_shelf,
-\filter_1_mod_1, 0.72,
-\filter_1_mod_2, 0.2,
+\filterType, \bpf, // \noFilter, \lpf_moog, \lpf_24, \lpf_12, \hpf_24, \hpf_12, \bpf, \notch, \lo_shelf, \hi_shelf,
+\filter_1_mod_1, 0.6,
+\filter_1_mod_2, 0.99,
 
 \filterType_2, \noFilter,
 \filter_2_mod_1, 1,
@@ -58,8 +60,8 @@
 \send_2, ~simpleDelay,
 \send_2_level, 0,
 
-\mod1Type, \noMod,
-\mod1Target, "",
+\mod1Type, \sampleAndHold,
+\mod1Target, "fx_2_mod_1",
 \mod1Amount, 0.03,
 \mod1Rate, 7,
 \mod1attack, 1,

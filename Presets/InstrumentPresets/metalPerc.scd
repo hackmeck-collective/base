@@ -21,12 +21,6 @@
 
 	// [ modal, ping, beatRepeat, filteredNoise, crackles, fm, granulator, formant, noOscillator, fmScaled, basic, pulsar ]
 
-
-
-
-
-
-
 	\oscillatorType, \fm,
 	\oscillator_mod_1, 2,
 	\oscillator_mod_2, 1.7,
