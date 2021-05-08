@@ -59,10 +59,10 @@ MIDIdef.cc(\launchControlKnobs, {
 	{ num == 21 } { //Drehknopf  1  oben
 		//Soll Dissonanzgrad steuern. Mit Anzahl Töne wird eine Liste erstellt.
 		var newDissDegree = val.linlin(0,127,0,11).round.asInteger;//0 bis 11
-		if (~listAndParameters.dissDegree != newDissDegree && (~gateOpen[1] == true)) //Nur wenn was neues kommt, mach was.
+		if (~listAndParameters.dissDegree != newDissDegree) //Nur wenn was neues kommt, mach was.
 		{
 			var closestList = ~searchTreeNearest.(
-				numNotes: ~listAndParameters.numNotes,
+				numNotes:  ~listAndParameters.list.size,
 				chord: ~listAndParameters.list,
 				rootNote: ~listAndParameters.rootNote,
 				dissDegree: newDissDegree
@@ -73,7 +73,7 @@ MIDIdef.cc(\launchControlKnobs, {
 				"dissDegree: ".post; ~listAndParameters.dissDegree.postln;
 				~actualizeGUI.value;
 				~startPiano.showKeys(~listAndParameters.list);
-				~sendWithHail.((list: ~listAndParameters.list, rootNote: ~listAndParameters.rootNote));
+				if(~gateOpen[1] == true){~sendWithHail.((list: ~listAndParameters.list, rootNote: ~listAndParameters.rootNote));};
 			}{
 				"no new list".postln
 			}
@@ -82,10 +82,10 @@ MIDIdef.cc(\launchControlKnobs, {
 	{ num == 22 } { //Drehknopf 2 oben
 		//rootNote
 		var newRootValue = val.linlin(0,127,0,11).round.asInteger; // 0 bis 11
-		if (newRootValue != ~listAndParameters.rootNote && (~gateOpen[2] == true))
+		if (newRootValue != ~listAndParameters.rootNote)
 		{
-			var closestList = ~searchTreeNearest.(
-				numNotes: ~listAndParameters.numNotes,
+			var closestList = ~searchTreeNearestOld.(
+				// numNotes:  ~listAndParameters.list.size,
 				chord: ~listAndParameters.list,
 				rootNote: newRootValue,
 				dissDegree: ~listAndParameters.dissDegree
@@ -96,7 +96,7 @@ MIDIdef.cc(\launchControlKnobs, {
 				"rootNote: ".post; ~listAndParameters.rootNote.postln;
 				~actualizeGUI.value;
 				~startPiano.showKeys(~listAndParameters.list);
-				~sendWithHail.((list: ~listAndParameters.list, rootNote: ~listAndParameters.rootNote));
+				if(~gateOpen[2] == true){~sendWithHail.((list: ~listAndParameters.list, rootNote: ~listAndParameters.rootNote));};
 			}{
 				"no new list".postln
 			}
@@ -106,32 +106,39 @@ MIDIdef.cc(\launchControlKnobs, {
 	{ num == 23 } { //Drehknopf 3 oben
 		//Soll Anzahl Töne steuern. Mit Dissonanzgrad wird eine Liste erstellt.
 		var newNumberOfNotes = val.linlin(0,127,3,5).round.asInteger; //3 bis 5
-		newNumberOfNotes.postln;
-		if (~listAndParameters.numNotes != newNumberOfNotes && (~gateOpen[3] == true))
+		//newNumberOfNotes.postln;
+		if (~listAndParameters.list.size != newNumberOfNotes )
 		{
 			var closestList;
-			//~listAndParameters.list = [ 0, 7, 12 ];
-			if (~listAndParameters.list.size < newNumberOfNotes ) {
-				~listAndParameters.list = ~listAndParameters.list.add(~listAndParameters.list.first + 12)
+			var testlist = ~listAndParameters.list.copy;
+			//"testlist: ".post; testlist.postln;
+			//"newNumberOfNotes: ".post; newNumberOfNotes.postln;
+
+			while {testlist.size < newNumberOfNotes } {
+				var newVal = testlist.first + 12;
+				testlist = testlist.copy.add(newVal).sort;
+
 			};
-			if (~listAndParameters.list.size > newNumberOfNotes ) {
-				~listAndParameters.list.removeAt(~listAndParameters.list.size - 1);
+			while {testlist.size > newNumberOfNotes } {
+				testlist.removeAt(testlist.size - 1);
 			};
 
-			closestList = ~searchTreeNearest.(
-				numNotes: 4,
-				chord: ~listAndParameters.list,
+			//"testlist: ".post; testlist.postln;
+
+			closestList = ~searchTreeNearestOld.(
+				//numNotes: ~listAndParameters.list.size,
+				chord: testlist,
 				rootNote: ~listAndParameters.rootNote,
 				dissDegree: ~listAndParameters.dissDegree
 			);
 
 			if(closestList.notNil){
 				~listAndParameters.list = closestList;
-				~listAndParameters.numNotes = newNumberOfNotes;
-				"numNotes: ".post; ~listAndParameters.numNotes.postln;
+				//~listAndParameters.numNotes = newNumberOfNotes;
+				// "numNotes: ".post; ~listAndParameters.numNotes.postln;
 				~actualizeGUI.value;
 				~startPiano.showKeys(~listAndParameters.list);
-				~sendWithHail.((list: ~listAndParameters.list, rootNote: ~listAndParameters.rootNote));
+				if(~gateOpen[3] == true){~sendWithHail.((list: ~listAndParameters.list, rootNote: ~listAndParameters.rootNote));};
 			}{
 				"no new list".postln
 			}
@@ -169,7 +176,9 @@ MIDIdef.noteOn(\launchControlButtonsON, {
 	case
 	{ num == 9 } { // Button -1-
 		if (~gateOpen[1] == false)
-		{ ~gateOpen[1] = true; ~toLaunchControl.noteOn(0, 9, 63); //Macht Button 1 (note 9) bernsteingelb (veloc 63)
+		{
+			~sendWithHail.((list: ~listAndParameters.list, rootNote: ~listAndParameters.rootNote));
+			~gateOpen[1] = true; ~toLaunchControl.noteOn(0, 9, 63); //Macht Button 1 (note 9) bernsteingelb (veloc 63)
 			{~button1.value = 1;}.defer; //Buttonfarbe in der Gui setzen
 		}
 		{ ~gateOpen[1] = false; ~toLaunchControl.noteOn(0, 9, 12);
@@ -179,7 +188,9 @@ MIDIdef.noteOn(\launchControlButtonsON, {
 	}
 	{ num == 10 } { // Button -2-
 		if (~gateOpen[2] == false)
-		{ ~gateOpen[2] = true; ~toLaunchControl.noteOn(0, 10, 63); //Macht Button 2 (note 10) bernsteingelb (veloc 63)
+		{
+			~sendWithHail.((list: ~listAndParameters.list, rootNote: ~listAndParameters.rootNote));
+			~gateOpen[2] = true; ~toLaunchControl.noteOn(0, 10, 63); //Macht Button 2 (note 10) bernsteingelb (veloc 63)
 			{~button2.value = 1;}.defer; //Buttonfarbe in der Gui setzen
 		}
 		{ ~gateOpen[2] = false; ~toLaunchControl.noteOn(0, 10, 12);
@@ -188,8 +199,15 @@ MIDIdef.noteOn(\launchControlButtonsON, {
 	}
 	{ num == 11 } { // Button -3-
 		if (~gateOpen[3] == false)
-		{ ~gateOpen[3] = true; ~toLaunchControl.noteOn(0, 11, 63); {~button3.value = 1}.defer}
-		{ ~gateOpen[3] = false; ~toLaunchControl.noteOn(0, 11, 12); {~button3.value = 0}.defer};
+		{
+			~sendWithHail.((list: ~listAndParameters.list, rootNote: ~listAndParameters.rootNote));
+			~gateOpen[3] = true; ~toLaunchControl.noteOn(0, 11, 63);
+			{~button3.value = 1}.defer};
+		{
+			~gateOpen[3] = false; ~toLaunchControl.noteOn(0, 11, 12);
+			{~button3.value = 0}.defer
+
+		};
 	}
 	{ num == 12 } { //Button -4-
 		if (~gateOpen[4] == false)
@@ -229,7 +247,6 @@ MIDIdef.noteOff(\launchControlButtonsOff, {
 	;
 });
 )
-
 
 
 

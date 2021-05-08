@@ -20,13 +20,15 @@ var path = PathName(thisProcess.nowExecutingPath).pathOnly +/+ "calc/hindemithTr
 ~searchTreeNearest.(chord: [1,4,10,12], rootNote: 7, dissDegree: 1)
 
 // query the tree
-~trees[\numNotes, 3, \rootNote, 4, \dissDegrees, 5].asArray;
-~trees[\numNotes, 3, \rootNote, 8, \dissDegrees, 3].asArray
+~trees[\numNotes, 5, \rootNote, 0, \dissDegrees, 3].nearest([ 0, 4, 10, 14, 26.0 ])[0].location;
+~trees[\numNotes, 3, \rootNote, 8, \dissDegrees, 3].asArray;
 ~trees[\numNotes, 4, \rootNote, \noRootNote]; // selten
 
 
 
-
+[ [ 0, 4, 10, 14, 26 ], 0, 3, 5 ]
+nearest chord distance 0.0
+numNotes: 5
 
 ~chordNow = [0,3,7,14]; //für piano_gui
 
@@ -46,4 +48,6 @@ res !? {
 	~startPiano.showKeys(~chordNow)
 }
 )
+
+//~trees[\numNotes, 4, \rootNote, 0, \dissDegrees, 1].nearest([ 0, 7, 12,18])//[0].location;
 

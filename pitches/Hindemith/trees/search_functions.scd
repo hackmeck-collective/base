@@ -60,13 +60,21 @@
 
 ~searchTreeNearest = { |chord, rootNote, dissDegree, numNotes|
 	var res = ~trees[\numNotes, numNotes, \rootNote, rootNote, \dissDegrees, dissDegree];
+	//"res: ".post; res.postln;
+	//[chord, rootNote, dissDegree, numNotes].postcs;
+	// res.asArray.printAll;
 	if(res.isNil){
 		"empty address!".postln;
 		nil
 	}{
 		var nearestTr = res.nearest(chord); //Methode gibt Array wieder. Array Stelle 0 ist das Ergebnis, Arraystelle 1 gibt die Distanz an
+/*		nearestTr ? { var path = PathName(thisProcess.nowExecutingPath).pathOnly +/+ "calc/hindemithTrees.archiv";
+			"loading archive, because nearestTree seems to be nil ...".postln;
+			~trees = Object.readBinaryArchive(path);
+			"search_functions.scd".loadRelative;
+			"finished loading".postln;
+		};*/
 		("nearest chord distance " ++ nearestTr[1]).postln;
 		nearestTr[0].location
 	}
 };
-//~trees[\numNotes, 4, \rootNote, 0, \dissDegrees, 0].nearest([ 0, 4, 8, 12 ]);
