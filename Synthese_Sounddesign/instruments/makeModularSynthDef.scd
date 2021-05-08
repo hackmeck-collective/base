@@ -130,13 +130,15 @@
 				{
 					arg gate = 1,
 					freq = 440,
-					controlbus,
-					controlbus_vol,
 					out,
 					send_1,
 					send_1_level,
 					send_2,
 					send_2_level,
+					send_3,
+					send_3_level,
+					send_4,
+					send_4_level,
 
 					pitchOp_1_interval,
 					pitchOp_1_amount,
@@ -145,9 +147,17 @@
 
 					oscillator_mod_1,
 					oscillator_mod_2,
+					oscillator_mod_3,
+					oscillator_mod_4,
+					oscillator_buffer,
+					oscillator_bufferPos,
+					oscillator_1_level = 1,
 					oscillator_2_mod_1,
 					oscillator_2_mod_2,
-					oscillator_1_level = 1,
+					oscillator_2_mod_3,
+					oscillator_2_mod_4,
+					oscillator_2_buffer,
+					oscillator_2_bufferPos,
 					oscillator_2_level = 1,
 
 					oscillator_1_transpose = 0,
@@ -219,6 +229,18 @@
 					time_factor_macro_channel,
 					time_factor_macro_channel_2,
 
+					controlbus1 = ~dummybus.index,
+					controlbus2 = ~dummybus.index,
+					controlbus3 = ~dummybus.index,
+					controlbus4 = ~dummybus.index,
+					controlbus_vol = ~dummybus.index,
+
+					controlbus1_index = 0,
+					controlbus2_index = 0,
+					controlbus3_index = 0,
+					controlbus4_index = 0,
+					controlbus_vol_index = 0,
+
 					external1Amount,
 					external2Amount,
 					external3Amount,
@@ -286,9 +308,27 @@
 
 					var note = \note.kr(60,0);
 
-					var external = Lag.kr(
+					var external1 = Lag.kr(
 						In.kr(
-							controlbus,
+							controlbus1,
+							4),
+						0.1);
+
+					var external2 = Lag.kr(
+						In.kr(
+							controlbus2,
+							4),
+						0.1);
+
+					var external3 = Lag.kr(
+						In.kr(
+							controlbus3,
+							4),
+						0.1);
+
+					var external4 = Lag.kr(
+						In.kr(
+							controlbus4,
 							4),
 						0.1);
 
@@ -309,7 +349,19 @@
 					drum, drum_2,
 					vca;
 
+					case
+					{out.isNil} {"ERROR: out bus is nil - there will be no sound".postln}
+					{send_1.isNil} {"ERROR: send_1 bus is nil - there will be no sound".postln}
+					{send_2.isNil} {"ERROR: send_2 bus is nil - there will be no sound".postln}
+					{true}{nil};
+
 					vol = vol.lincurve(0,1,0,0.5,3);
+
+					external1 = external1[0];
+					external2 = external2[1];
+					external3 = external3[2];
+					external4 = external4[3];
+					external_vol = external_vol[3];
 
 					"external1TargetPlaceholder";
 					"external2TargetPlaceholder";
@@ -328,7 +380,7 @@
 
 					mod1 = SynthDef.wrap(
 						mod1_function,
-						prependArgs: [gate, beatDuration, syncMultiplier, mod1Amount, mod1Rate, mod1attack, mod1decay, mod1sustain, mod1release, mod1EnvCurve, mod1syncEnvRatio, controlbus, mod1ControlbusChannel],
+						prependArgs: [gate, beatDuration, syncMultiplier, mod1Amount, mod1Rate, mod1attack, mod1decay, mod1sustain, mod1release, mod1EnvCurve, mod1syncEnvRatio],
 					);
 
 					"mod1TargetPlaceholder";
@@ -338,21 +390,21 @@
 
 					mod2 = SynthDef.wrap(
 						mod2_function,
-						prependArgs: [gate, beatDuration, syncMultiplier, mod2Amount, mod2Rate, mod2attack, mod2decay, mod2sustain, mod2release, mod2EnvCurve, mod2syncEnvRatio, controlbus, mod2ControlbusChannel],
+						prependArgs: [gate, beatDuration, syncMultiplier, mod2Amount, mod2Rate, mod2attack, mod2decay, mod2sustain, mod2release, mod2EnvCurve, mod2syncEnvRatio],
 					);
 
 					"mod2TargetPlaceholder";
 
 					mod3 = SynthDef.wrap(
 						mod3_function,
-						prependArgs: [gate, beatDuration, syncMultiplier, mod3Amount, mod3Rate, mod3attack, mod3decay, mod3sustain, mod3release, mod3EnvCurve, mod3syncEnvRatio, controlbus, mod3ControlbusChannel],
+						prependArgs: [gate, beatDuration, syncMultiplier, mod3Amount, mod3Rate, mod3attack, mod3decay, mod3sustain, mod3release, mod3EnvCurve, mod3syncEnvRatio],
 					);
 
 					"mod3TargetPlaceholder";
 
 					mod4 = SynthDef.wrap(
 						mod4_function,
-						prependArgs: [gate, beatDuration, syncMultiplier, mod4Amount, mod4Rate, mod4attack, mod4decay, mod4sustain, mod4release, mod4EnvCurve, mod4syncEnvRatio, controlbus, mod4ControlbusChannel],
+						prependArgs: [gate, beatDuration, syncMultiplier, mod4Amount, mod4Rate, mod4attack, mod4decay, mod4sustain, mod4release, mod4EnvCurve, mod4syncEnvRatio],
 					);
 
 					"mod4TargetPlaceholder";
@@ -374,14 +426,21 @@
 
 					oscillator = SynthDef.wrap(
 						oscillator_function,
-						prependArgs: [pitchOp_freq_2 * oscillator_1_transpose.midiratio,
-							gate, oscillator_mod_1, oscillator_mod_2, beatDuration, syncMultiplier]);
+						prependArgs:
+						[pitchOp_freq_2 * oscillator_1_transpose.midiratio,
+							gate,
+							oscillator_mod_1, oscillator_mod_2, oscillator_mod_3, oscillator_mod_4,
+							oscillator_buffer, oscillator_bufferPos]
+					);
 
 					oscillator_2 = SynthDef.wrap(
 						oscillator_function_2,
-						prependArgs: [pitchOp_freq_2 * oscillator_2_transpose.midiratio,
-							gate, oscillator_2_mod_1, oscillator_2_mod_2, beatDuration, syncMultiplier])
-					;
+						prependArgs:
+						[pitchOp_freq_2 * oscillator_2_transpose.midiratio,
+							gate,
+							oscillator_2_mod_1, oscillator_2_mod_2, oscillator_2_mod_3, oscillator_2_mod_4,
+							oscillator_2_buffer, oscillator_2_bufferPos]
+					);
 
 					drum = SynthDef.wrap(
 						drum_function,
@@ -449,11 +508,13 @@
 						prependArgs: [filter, gate, freq, filter_2_mod_1, filter_2_mod_2, filter_2_hz_offset, beatDuration, syncMultiplier],
 					);
 
-					vca = ((filter_2 * vca_filterLevel) + (fx_2 * vca_preFilterLevel) + (preFxSig * vca_preFxLevel)) * vol * amp * external_vol[3] * envelope;
+					vca = ((filter_2 * vca_filterLevel) + (fx_2 * vca_preFilterLevel) + (preFxSig * vca_preFxLevel)) * vol * amp * external_vol * envelope;
 
 					Out.ar(out, vca);
 					Out.ar(send_1, vca * send_1_level);
 					Out.ar(send_2, vca * send_2_level);
+					Out.ar(send_3, vca * send_3_level);
+					Out.ar(send_4, vca * send_4_level);
 				}
 			).add;
 		}.asCompileString
@@ -485,49 +546,49 @@
 			if(external1Target.isEmpty){
 				external1Target = "dummy"
 			}{
-				"% = % + (% * external[0].linlin(0,1,-1,1) * external1Amount)".format(external1Target, external1Target, external1Target)
+				"% = % + (% * external1.linlin(0,1,-1,1) * external1Amount)".format(external1Target, external1Target, external1Target)
 			}
 		).replace("\"external2TargetPlaceholder\"",
 			if(external2Target.isEmpty){
 				external2Target = "dummy"
 			}{
-				"% = % + (% * external[1].linlin(0,1,-1,1) * external2Amount)".format(external2Target, external2Target, external2Target)
+				"% = % + (% * external2.linlin(0,1,-1,1) * external2Amount)".format(external2Target, external2Target, external2Target)
 			}
 		).replace("\"external3TargetPlaceholder\"",
 			if(external3Target.isEmpty){
 				external3Target = "dummy"
 			}{
-				"% = % + (% * external[2].linlin(0,1,-1,1) * external3Amount)".format(external3Target, external3Target, external3Target)
+				"% = % + (% * external3.linlin(0,1,-1,1) * external3Amount)".format(external3Target, external3Target, external3Target)
 			}
 		).replace("\"external4TargetPlaceholder\"",
 			if(external4Target.isEmpty){
 				external4Target = "dummy"
 			}{
-				"% = % + (% * external[3].linlin(0,1,-1,1) * external4Amount)".format(external4Target, external4Target, external4Target)
+				"% = % + (% * external4.linlin(0,1,-1,1) * external4Amount)".format(external4Target, external4Target, external4Target)
 			}
 		).replace("\"external1Target2Placeholder\"",
 			if(external1Target2.isEmpty){
 				external1Target2 = "dummy"
 			}{
-				"% = % + (% * external[0].linlin(0,1,-1,1) * external1Amount)".format(external1Target2, external1Target2, external1Target2)
+				"% = % + (% * external1.linlin(0,1,-1,1) * external1Amount)".format(external1Target2, external1Target2, external1Target2)
 			}
 		).replace("\"external2Target2Placeholder\"",
 			if(external2Target2.isEmpty){
 				external2Target2 = "dummy"
 			}{
-				"% = % + (% * external[1].linlin(0,1,-1,1) * external2Amount)".format(external2Target2, external2Target2, external2Target2)
+				"% = % + (% * external2.linlin(0,1,-1,1) * external2Amount)".format(external2Target2, external2Target2, external2Target2)
 			}
 		).replace("\"external3Target2Placeholder\"",
 			if(external3Target2.isEmpty){
 				external3Target2 = "dummy"
 			}{
-				"% = % + (% * external[2].linlin(0,1,-1,1) * external3Amount)".format(external3Target2, external3Target2, external3Target2)
+				"% = % + (% * external3.linlin(0,1,-1,1) * external3Amount)".format(external3Target2, external3Target2, external3Target2)
 			}
 		).replace("\"external4Target2Placeholder\"",
 			if(external4Target2.isEmpty){
 				external4Target2 = "dummy"
 			}{
-				"% = % + (% * external[3].linlin(0,1,-1,1) * external4Amount)".format(external4Target2, external4Target2, external4Target2)
+				"% = % + (% * external4.linlin(0,1,-1,1) * external4Amount)".format(external4Target2, external4Target2, external4Target2)
 			}
 		).replace("\"mod1TargetPlaceholder\"",
 			if(mod1Target.isEmpty){

@@ -186,7 +186,7 @@
 
 		sig = LeakDC.ar(
 			CombL.ar(in,
-				delaytime: (freq.reciprocal * fx_mod_1),
+				delaytime: (freq * fx_mod_1).reciprocal,
 			decaytime: fx_mod_2,
 		));
 

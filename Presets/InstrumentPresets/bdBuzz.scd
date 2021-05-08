@@ -4,13 +4,13 @@
 
 \adsrType, \pluck,
 \sendGate, false,
-\envelope_mod, 0.1,
+\envelope_mod, 0.15,
 \envCurve, 10,
 
 // [ fm, noPitchOp, unisonoDetune, vibrato, rectArp, rectArpSync, slide, vibratoSync ]
 
 \pitchOpType, \slide,
-\pitchOp_1_interval, 24,
+\pitchOp_1_interval, 48,
 \pitchOp_1_amount, 0.1,
 
 \pitchOpType_2, \noPitchOp,
@@ -23,7 +23,7 @@
 \oscillator_mod_1, 0.45,
 \oscillator_mod_2, 0.3,
 \oscillator_1_level, 1,
-\oscillator_1_transpose, -24,
+\oscillator_1_transpose, -36,
 
 \oscillatorType_2, \fm,
 \oscillator_2_mod_1, 4,
@@ -72,7 +72,7 @@
 \fx_mod_1, 0.25,
 \fx_mod_2, 0.25,
 
-\fxType_2, \sampleRateReduction,
+\fxType_2, \noFx,
 \fx_2_mod_1, 0.25,
 \fx_2_mod_2, 0.25,
 
@@ -81,9 +81,9 @@
 \filterIn_preFxLevel, 0,
 \filterIn_FxLevel, 1,
 
-\filterType, \noFilter,
-\filter_1_mod_1, 1,
-\filter_1_mod_2, 0.25,
+\filterType, \lpf_12,
+\filter_1_mod_1, 1.2,
+\filter_1_mod_2, 0,
 
 \filterType_2, \noFilter,
 \filter_2_mod_1, 1,
@@ -96,17 +96,22 @@
 \vol, 1,
 \amp, 1,
 
-\out, ~melody_bus,
+\out, ~drums_bus,
 \send_1, ~ef_reverb,
 \send_1_level, 0.1,
-\send_2, ~simpleDelay_8d,
+\send_2, ~simpleDelay,
 \send_2_level, 0,
+
+\send_3, ~ef_reverb,
+\send_3_level, 0,
+\send_4, ~simpleDelay,
+\send_4_level, 0,
 
 // [ sampleAndHold, noMod, sawSyncLFO, rampSyncLFO, adsrEnv, sineSyncLFO, rampLFO, triLFO, triSyncLFO, rectSyncLFO, rectLFO, sineLFO, syncEnv, sawLFO ]
 
-\mod1Type, \noMod,
-\mod1Target, "",
-\mod1Amount, 0.25,
+\mod1Type, \sampleAndHold,
+\mod1Target, "fx_2_mod_1",
+\mod1Amount, 0.2,
 \mod1Rate, 0.25,
 \mod1attack, 1,
 \mod1decay, 1,
@@ -116,9 +121,9 @@
 \mod1syncEnvRatio, 0,
 \mod1ControlbusChannel, 0,
 
-\mod2Type, \noMod,
-\mod2Target, "",
-\mod2Amount, 0.25,
+\mod2Type, \sampleAndHold,
+\mod2Target, "fx_mod_1",
+\mod2Amount, 0.1,
 \mod2Rate, 0.25,
 \mod2attack, 1,
 \mod2decay, 1,
@@ -128,9 +133,9 @@
 \mod2syncEnvRatio, 0,
 \mod2ControlbusChannel, 1,
 
-\mod3Type, \noMod,
-\mod3Target, "",
-\mod3Amount, 0.25,
+\mod3Type, \sampleAndHold,
+\mod3Target, "filter_1_mod_1",
+\mod3Amount, 0.2,
 \mod3Rate, 0.25,
 \mod3attack, 1,
 \mod3decay, 1,
@@ -140,14 +145,14 @@
 \mod3syncEnvRatio, 0,
 \mod3ControlbusChannel, 2,
 
-\mod4Type, \noMod,
-\mod4Target, "",
-\mod4Amount, 0.25,
+\mod4Type, \adsrEnv,
+\mod4Target, "fx_mod_1",
+\mod4Amount, 1,
 \mod4Rate, 0.25,
-\mod4attack, 1,
-\mod4decay, 1,
-\mod4sustain, 0.5,
-\mod4release, 1,
+\mod4attack, 0.01,
+\mod4decay, 0.1,
+\mod4sustain, 0,
+\mod4release, 0.3,
 \mod4EnvCurve, 2,
 \mod4syncEnvRatio, 0,
 \mod4ControlbusChannel, 3,

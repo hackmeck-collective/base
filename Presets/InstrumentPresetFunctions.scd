@@ -101,12 +101,20 @@
 \\oscillatorType, \\basic,
 \\oscillator_mod_1, 0.45,
 \\oscillator_mod_2, 0.001,
+\\oscillator_mod_3, 0,
+\\oscillator_mod_4, 0,
+\\oscillator_buffer, ~beatRepeatBuffer_1,
+\\oscillator_bufferPos, ~beatRepeatBufferPosition_1,
 \\oscillator_1_level, 1,
 \\oscillator_1_transpose, 0,
 
 \\oscillatorType_2, \\noOscillator,
 \\oscillator_2_mod_1, 0.15,
 \\oscillator_2_mod_2, 0.01,
+\\oscillator_2_mod_3, 0,
+\\oscillator_2_mod_4, 0,
+\\oscillator_2_buffer, ~beatRepeatBuffer_1,
+\\oscillator_2_bufferPos, ~beatRepeatBufferPosition_1,
 \\oscillator_2_level, 1,
 \\oscillator_1_transpose, -12,
 
@@ -178,8 +186,12 @@
 \\out, ~melody_bus,
 \\send_1, ~ef_reverb,
 \\send_1_level, 0.25,
-\\send_2, ~simpleDelay_8d,
+\\send_2, ~simpleDelay,
 \\send_2_level, 0,
+\\send_3, ~granulator_1,
+\\send_3_level, 0,
+\\send_4, ~beatRepeat_1,
+\\send_4_level, 0,
 
 // %
 
@@ -287,14 +299,22 @@
 \\oscillatorType, \\basic,
 \\oscillator_mod_1, 0.45,
 \\oscillator_mod_2, 0.001,
+\\oscillator_mod_3, 0,
+\\oscillator_mod_4, 0,
+\\oscillator_buffer, ~beatRepeatBuffer_1,
+\\oscillator_bufferPos, ~beatRepeatBufferPosition_1,
 \\oscillator_1_level, 1,
 \\oscillator_1_transpose, 0,
 
 \\oscillatorType_2, \\noOscillator,
 \\oscillator_2_mod_1, 0.15,
 \\oscillator_2_mod_2, 0.01,
+\\oscillator_2_mod_3, 0,
+\\oscillator_2_mod_4, 0,
+\\oscillator_2_buffer, ~beatRepeatBuffer_1,
+\\oscillator_2_bufferPos, ~beatRepeatBufferPosition_1,
 \\oscillator_2_level, 1,
-\\oscillator_2_transpose, -12,
+\\oscillator_1_transpose, -12,
 
 // %
 
@@ -330,8 +350,12 @@
 \\out, ~melody_bus,
 \\send_1, ~ef_reverb,
 \\send_1_level, 0.25,
-\\send_2, ~simpleDelay_8d,
+\\send_2, ~simpleDelay,
 \\send_2_level, 0,
+\\send_3, ~granulator_1,
+\\send_3_level, 0,
+\\send_4, ~beatRepeat_1,
+\\send_4_level, 0,
 
 // %
 
@@ -503,8 +527,12 @@
 \\out, ~melody_bus,
 \\send_1, ~ef_reverb,
 \\send_1_level, 0.25,
-\\send_2, ~simpleDelay_8d,
+\\send_2, ~simpleDelay,
 \\send_2_level, 0,
+\\send_3, ~granulator_1,
+\\send_3_level, 0,
+\\send_4, ~beatRepeat_1,
+\\send_4_level, 0,
 
 // %
 

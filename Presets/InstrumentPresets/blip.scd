@@ -5,7 +5,6 @@
 	\pitchOpType, \unisonoDetune,
 	\oscillatorType, \formant,
 	\fxType, \overdriveMid,
-	\controlbus, ~launchcontrol_xl_row_4,
 	\out, ~melody_bus,
 	\send_1, ~ef_reverb,
 	\send_1_level, 0.1,
@@ -26,6 +25,7 @@
 
 	\vol, 1,
 	\amp, 0.25,
+
 ];
 ~callInstrumentPreset.(\blip);
 )

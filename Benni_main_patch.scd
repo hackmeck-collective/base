@@ -1,6 +1,6 @@
 
 (
-var waitForPeers = false;
+var waitForPeers = true;
 var multicoreSetup = false;
 var loadStuff = {
 	"loading signal flow".postln;
@@ -23,7 +23,6 @@ var loadStuff = {
 	"loading presets".postln;
 	"Presets/InstrumentPresetFunctions.scd".loadRelative;
 	~instrPreset.loadAll;
-	"Presets/instrumentationPresets.scd".loadRelative;
 
 	"loading patternfunctions".postln;
 	"patterns/patternFunctions.scd".loadRelative;
@@ -56,7 +55,7 @@ var loadStuff = {
 
 	"loading cue functions".postln;
 	"cues/cues.scd".loadRelative;
-	"cues/launchcontrolPolymer.scd".loadRelative;
+	"control_interfaces/performance_programs_launchcontrol-xl/launchcontrol-xl_load_modules.scd".loadRelative;
 
 	CmdPeriod.run;
 

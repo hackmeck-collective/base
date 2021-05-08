@@ -154,6 +154,11 @@
 		Latch.ar(WhiteNoise.ar(),gate)
 	},
 
+		noise: {arg gate, beatDuration, syncMultiplier, mod1Amount, mod1Rate, attack, decay, sustain, release;
+
+		LFNoise1.kr(100)
+	},
+
 );
 );
 

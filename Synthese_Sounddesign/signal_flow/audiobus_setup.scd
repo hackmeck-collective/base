@@ -8,6 +8,8 @@
 ~effect_bus ?? {~effect_bus = Bus.audio(s,2)};
 ~master ?? {~master = Bus.audio(s,2)};
 
+s.sync;
+
 "writing indices to object space".postln;
 
 ~routing[\melodyBus] = ~melody_bus.index;
@@ -18,60 +20,40 @@
 "defining Synthdefs for audio busses".postln;
 
 SynthDef(\melody_bus, {
-	arg beatDurNow = 1,
-	controlbus = ~launchcontrol_xl_row_8;
+	arg beatDurNow = ~linkClock.tempo,
+	sidechain_amount = (-24).dbamp;
 
 	var sidechain_trigger_4 = \sidechain_trigger_4_melody.tr(0),
 	sidechain_trigger_8 = \sidechain_trigger_8_melody.tr(0);
 
-
-	var macro_controls = Lag.kr(
-		In.kr(
-			controlbus ?? {controlbus = Bus.control(Server.default, 4)},
-			4),
-		0.1);
-
-	var macro_1 = macro_controls[0],
-	sidechain_amount = macro_1.lincurve(0,1,1,-36.dbamp,3);
-
-	var melody_bus_in, sidechain;
+	var in, sidechain;
 
 	var duck_4 = EnvGen.ar(Env([1,sidechain_amount,1],[0.01, 0.99], -2),sidechain_trigger_4, timeScale: beatDurNow),
 	duck_8 = EnvGen.ar(Env([1,sidechain_amount,1],[0.01, 0.99], -1),sidechain_trigger_8, timeScale: (beatDurNow/2));
 
-	melody_bus_in = In.ar(~melody_bus, 2) * \on.kr(1, 0.001);
+	in = In.ar(~melody_bus, 2) * \on.kr(1, 0.001);
 
-	sidechain = melody_bus_in * duck_4 * duck_8;
+	sidechain = in * duck_4 * duck_8;
 
 	Out.ar(~instruments_bus, sidechain);
 
 }).add;
 
 SynthDef(\chords_bus, {
-	arg beatDurNow = 1,
-	controlbus = ~launchcontrol_xl_row_8;
+	arg beatDurNow = ~linkClock.tempo,
+	sidechain_amount = (-24).dbamp;
 
-		var sidechain_trigger_4 = \sidechain_trigger_4_chords.tr(0),
+	var sidechain_trigger_4 = \sidechain_trigger_4_chords.tr(0),
 	sidechain_trigger_8 = \sidechain_trigger_8_chords.tr(0);
 
-
-	var macro_controls = Lag.kr(
-		In.kr(
-			controlbus ?? {controlbus = Bus.control(Server.default, 4)},
-			4),
-		0.1);
-
-	var macro_1 = macro_controls[0],
-	sidechain_amount = macro_1.lincurve(0,1,1,-36.dbamp,3);
-
-	var chords_bus_in, sidechain;
+	var in, sidechain;
 
 	var duck_4 = EnvGen.ar(Env([1,sidechain_amount,1],[0.01, 0.99], -2),sidechain_trigger_4, timeScale: beatDurNow),
 	duck_8 = EnvGen.ar(Env([1,sidechain_amount,1],[0.01, 0.99], -1),sidechain_trigger_8, timeScale: (beatDurNow/2));
 
-	chords_bus_in = In.ar(~chords_bus, 2) * \on.kr(1, 0.001);
+	in = In.ar(~chords_bus, 2) * \on.kr(1, 0.001);
 
-	sidechain = chords_bus_in * duck_4 * duck_8;
+	sidechain = in * duck_4 * duck_8;
 
 	Out.ar(~instruments_bus, sidechain);
 
@@ -152,6 +134,7 @@ SynthDef(\Master, {
 "starting audio busses".postln;
 
 s.sync;
+
 ~startAudioBusses = {
 	~audioBusses = ();
 	~audioBusses.master = Synth.new(\Master,
@@ -167,10 +150,12 @@ s.sync;
 		target: ~summing_group);
 
 	~audioBusses.melodyBus = Synth.new(\melody_bus,
-		args:[\controlbus, ~launchcontrol_xl_row_8],
+		args:[\sidechain_amount, (-24).dbamp,
+			\beatDurNow, ~linkClock.tempo],
 		target: ~bus_group);
 	~audioBusses.chordsBus = Synth.new(\chords_bus,
-		args:[\controlbus, ~launchcontrol_xl_row_8],
+		args:[\sidechain_amount, (-24).dbamp,
+			\beatDurNow, ~linkClock.tempo],
 		target: ~bus_group);
 	~audioBusses.drumsBus = Synth.new(\drums_bus,
 		target: ~bus_group);

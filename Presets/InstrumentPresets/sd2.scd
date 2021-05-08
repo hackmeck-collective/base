@@ -12,6 +12,8 @@
 	\out, ~drums_bus,
 	\send_1, ~ef_reverb,
 	\send_1_level, 0.2,
+	\send_2, ~simpleDelay,
+	\send_2_level, 0.75,
 
 	\timbre_ratio, 0.45,
 	\body_sweep_ratio, 1,
@@ -31,7 +33,7 @@
 	\fx_mod_2, 0.7,
 
 	\vol, 1,
-	\amp, 3,
+	\amp, 0.5,
 ];
 ~callInstrumentPreset.(\sd2);
 )

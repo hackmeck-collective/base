@@ -5,16 +5,16 @@
 \envelope_mod, 0.1,
 \envCurve, 3,
 
-\pitchOpType, \noPitchOp, // \noPitchOp, \vibrato, \slide, \unisonoDetune, \fm, \vibratoSync, \slideVibrato, \rectArpSync, \rectArp
-\pitchOp_1_interval, 0,
-\pitchOp_1_amount, 0.1,
+\pitchOpType, \slide, // \noPitchOp, \vibrato, \slide, \unisonoDetune, \fm, \vibratoSync, \slideVibrato, \rectArpSync, \rectArp
+\pitchOp_1_interval, 0.75,
+\pitchOp_1_amount, 0.4,
 
-\pitchOpType, \noPitchOp,
-\pitchOp_2_interval, 12,
-\pitchOp_2_amount, 0.1,
+\pitchOpType_2, \unisonoDetune,
+\pitchOp_2_interval, 0.5,
+\pitchOp_2_amount, 0.4,
 
 \oscillatorType, \basic, // \noOscillator, \basic, \fm, \formant, \filteredNoise, \modal, \pulsar, \ping, \grainCloudGuitar
-\oscillator_mod_1, 0.45,
+\oscillator_mod_1, 0.7,
 \oscillator_mod_2, 0.1,
 \oscillator_1_level, 1,
 \oscillator_1_transpose, 0,
@@ -36,14 +36,16 @@
 \fx_mod_1, 0.2,
 \fx_mod_2, 0.25,
 
-\fxType_2, \noFx,
-\fx_2_mod_1, 0.74,
+\fxType_2, \sampleRateReduction,
+\fx_2_mod_1, 0.98,
 \fx_2_mod_2, 0.25,
 
+	\filterIn_preFxLevel, 0.2,
+	\filterIn_FxLevel, 0.8,
 
-\filterType, \lpf_moog, // \noFilter, \lpf_moog, \lpf_24, \lpf_12, \hpf_24, \hpf_12, \bpf, \notch, \lo_shelf, \hi_shelf,
-\filter_1_mod_1, 0.72,
-\filter_1_mod_2, 0.2,
+\filterType, \bpf, // \noFilter, \lpf_moog, \lpf_24, \lpf_12, \hpf_24, \hpf_12, \bpf, \notch, \lo_shelf, \hi_shelf,
+\filter_1_mod_1, 0.6,
+\filter_1_mod_2, 0.99,
 
 \filterType_2, \noFilter,
 \filter_2_mod_1, 1,
@@ -55,11 +57,11 @@
 \out, ~melody_bus,
 \send_1, ~ef_reverb,
 \send_1_level, 0.5,
-\send_2, ~simpleDelay_8d,
+\send_2, ~simpleDelay,
 \send_2_level, 0,
 
-\mod1Type, \sineLFO,
-\mod1Target, "freq",
+\mod1Type, \sampleAndHold,
+\mod1Target, "fx_2_mod_1",
 \mod1Amount, 0.03,
 \mod1Rate, 7,
 \mod1attack, 1,
@@ -70,8 +72,8 @@
 \mod1syncEnvRatio, 0,
 \mod1ControlbusChannel, 0,
 
-\mod2Type, \adsrEnv,
-\mod2Target, "oscillator_mod_2",
+\mod2Type, \noMod,
+\mod2Target, "",
 \mod2Amount, 7,
 \mod2Rate, 0.25,
 \mod2attack, 0,
@@ -82,8 +84,8 @@
 \mod2syncEnvRatio, 0,
 \mod2ControlbusChannel, 1,
 
-\mod3Type, \sineSyncLFO,
-\mod3Target, "filter_1_mod_1",
+\mod3Type, \noMod,
+\mod3Target, "",
 \mod3Amount, 0.005,
 \mod3Rate, 1/48,
 \mod3attack, 1,

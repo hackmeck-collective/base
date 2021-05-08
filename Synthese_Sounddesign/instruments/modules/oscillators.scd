@@ -12,9 +12,10 @@
 	fmScaled: "fs",
 	formant: "fo",
 	pulsar: "pu",
-	grainCloudGuitar: "gc",
 	modal: "mo",
-	ping: "pi"
+	ping: "pi",
+	granulator: "gr",
+	beatRepeat: "br",
 );
 
 ~oscillatorTypes = (
@@ -105,94 +106,13 @@
 
 	},
 
-	pulsar: {arg freq = 440,
-		gate = 1,
-		oscillator_mod_1 = 0,
-		oscillator_mod_2 = 0,
-		grain_position = 0.5;
-		var grain_rate = oscillator_mod_1.lincurve(0,1,0.25,4,0,nil),
-		grain_length_ratio = oscillator_mod_2.lincurve(0,1,1,0.1,0,nil);
-
-		GrainBuf.ar(
-			1,
-			Impulse.ar(freq),
-			(1/freq) * grain_length_ratio,
-			~pulsar_buffer_1,
-			grain_rate,
-			grain_position,
-			4,
-			0,
-			-1,
-			8,
-			16
-		);
-	},
-
-	grainCloudGuitar: {arg freq = 440,
+	modal: {arg freq = 440,
 		gate = 1,
 		oscillator_mod_1 = 0,
 		oscillator_mod_2 = 0;
 
-		var grain_density = oscillator_mod_1.lincurve(0,1,1,10,3,nil),
-		grain_rate = (freq.cpsmidi-69).midiratio * 15.midiratio,
-		grain_length_ratio = (2/grain_density) * oscillator_mod_2.lincurve(0,1,2,0.1,3,nil);
-
-		var grain_trigger, grain_position;
-
-		grain_trigger = Dust.ar(grain_density);
-		grain_position = 0.1 + Latch.ar(WhiteNoise.ar().abs/2,grain_trigger);
-
-		GrainBuf.ar(
-			1,
-			grain_trigger,
-			grain_length_ratio,
-			~grainCloudGuitar_buffer,
-			grain_rate,
-			grain_position,
-			4,
-			Latch.ar(WhiteNoise.ar(),grain_trigger),
-			-1,
-			16,
-			0.5
-		);
-	},
-
-	/*grainCloudGuitar: {arg freq = 440,
-	gate = 1,
-	oscillator_mod_1 = 0,
-	oscillator_mod_2 = 0;
-
-	var grain_density = oscillator_mod_1.lincurve(0,1,1,10,3),
-	grain_rate = (freq.cpsmidi-69).midiratio * 15.midiratio,
-	grain_length_ratio = (2/grain_density) * oscillator_mod_2.lincurve(0,1,2,0.1,3);
-
-	var grain_trigger, grain_position;
-
-	grain_trigger = Dust.ar(grain_density);
-	grain_position = 0.1 + Latch.ar(WhiteNoise.ar().abs/2,grain_trigger);
-
-	GrainBuf.ar(
-	1,
-	grain_trigger,
-	grain_length_ratio,
-	~grainCloudRecord_buffer,
-	grain_rate,
-	grain_position,
-	4,
-	Latch.ar(WhiteNoise.ar(),grain_trigger),
-	-1,
-	16,
-	0.5
-	);
-	},*/
-
-	modal: {arg freq = 440,
-		gate = 1,
-		oscillator_mod_1 = 0,
-		oscillator_mod_2 = 0,
-		harmonics_array = (1..3);
-
-		var d2_dimension = oscillator_mod_1.lincurve(0,1,1.5,2,0,nil),
+		var harmonics_array = (1..3),
+		d2_dimension = oscillator_mod_1.lincurve(0,1,1.5,2,0,nil),
 		d3_dimension = oscillator_mod_1.lincurve(0,1,1,3.3,0,nil),
 		tan_ot_vol = oscillator_mod_2.lincurve(0,1,0.01,0.5,3,nil),
 		oblique_ot_vol = oscillator_mod_2.lincurve(0,1,0.25,0.5,3,nil),
@@ -250,6 +170,95 @@
 				gate) - 1,
 		);
 	},
+
+	pulsar: {arg freq = 440,
+		gate = 1,
+		oscillator_mod_1 = 0,
+		oscillator_mod_2 = 0,
+		grain_position = 0.5;
+
+		var grain_rate = oscillator_mod_1.lincurve(0,1,0.25,4,0,nil),
+		grain_length_ratio = oscillator_mod_2.lincurve(0,1,1,0.1,0,nil);
+
+		GrainBuf.ar(
+			1,
+			Impulse.ar(freq),
+			(1/freq) * grain_length_ratio,
+			~pulsar_buffer_1,
+			grain_rate,
+			grain_position,
+			4,
+			0,
+			-1,
+			8,
+			16
+		);
+	},
+
+	granulator: {arg freq = 440,
+		gate = 1,
+		oscillator_mod_1 = 0,
+		oscillator_mod_2 = 0,
+		oscillator_mod_3 = 0,
+		oscillator_mod_4 = 0,
+		buf = ~grainDelayBuffer_1,
+		bufPosBus = ~grainDelayBufferPosition_1;
+
+		var grain_density = oscillator_mod_1,
+		grain_length = min(oscillator_mod_2.clip(0.01,10), (grain_density.reciprocal * 1.7)),
+		grain_pitch = oscillator_mod_3;
+
+		var bufPos, grain_position, grain_trigger, grainPan;
+
+		bufPos = In.ar(bufPosBus);
+		grain_position = ((oscillator_mod_4 + (BufFrames.ir(buf) / bufPos)) % 1);
+		grain_trigger = Dust.ar(grain_density);
+		grainPan = Latch.ar(WhiteNoise.ar(),grain_trigger);
+
+		GrainBuf.ar(
+			buf.numChannels,
+			grain_trigger,
+			grain_length,
+			buf,
+			grain_pitch,
+			grain_position,
+			2,
+			grainPan,
+			-1,
+			512,
+			2
+		);
+	},
+
+	beatRepeat: {
+		arg freq = 440,
+		gate = 1,
+		oscillator_mod_1 = 0,
+		oscillator_mod_2 = 0,
+		oscillator_mod_3 = 0,
+		oscillator_mod_4 = 0,
+		buf = ~beatRepeatBuffer_1.index,
+		bufPosBus = ~beatRepeatBufferPosition_1.index;
+
+		var bufPos, playFreq, pitchTrig, playRangeStart, playRangeEnd,
+		env, ptr, sig;
+
+		var start = oscillator_mod_1.clip(1/512,(BufFrames.ir(buf)/SampleRate.ir)),
+		rate = oscillator_mod_2.clip(1/512,(BufFrames.ir(buf)/SampleRate.ir)),
+		pitch = oscillator_mod_3.clip(1/8,8);
+
+		bufPos = In.ar(bufPosBus);
+		playFreq = (BufDur.ir(buf) * rate).reciprocal;
+		pitchTrig = Impulse.ar(playFreq);
+		ptr = LFSaw.ar(playFreq);
+
+		playRangeStart = Latch.kr((bufPos - (BufFrames.ir(buf) * start)), Impulse.ar(0));
+		playRangeEnd = playRangeStart + ((BufFrames.ir(buf) * rate) * Gate.ar(pitch, pitchTrig));
+
+		ptr = ptr.range(playRangeStart, playRangeEnd);
+
+		sig = BufRd.ar(2, buf, ptr);
+	}
 
 );
 );

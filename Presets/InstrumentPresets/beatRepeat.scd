@@ -1,63 +1,61 @@
 (
-~instrumentPresetsDictionary['metalPerc'] = [
-	// [ pluck, lead, rect, pad, sync, noEnv ]
+~instrumentPresetsDictionary['beatRepeat'] = [
+	// [ pad, pluck, noEnv, lead, sync ]
 
-
-	\adsrType, \pluck,
-	\sendGate, false,
-	\envelope_mod, 0.3,
-	\envCurve, -2,
+	\adsrType, \rect,
+	\sendGate, true,
+	\envelope_mod, 0,
+	\envCurve, 3,
 
 	// [ fm, noPitchOp, unisonoDetune, vibrato, rectArp, rectArpSync, slide, vibratoSync ]
 
+	\pitchOpType, \noPitchOp,
+	\pitchOp_1_interval, 0,
+	\pitchOp_1_amount, 0.1,
 
-	\pitchOpType, \slide,
-	\pitchOp_1_interval, 7,
-	\pitchOp_1_amount, 0.05,
-
-	\pitchOpType_2, \vibrato,
-	\pitchOp_2_interval, 0.3,
+	\pitchOpType_2, \noPitchOp,
+	\pitchOp_2_interval, 12,
 	\pitchOp_2_amount, 0.1,
 
-	// [ modal, ping, beatRepeat, filteredNoise, crackles, fm, granulator, formant, noOscillator, fmScaled, basic, pulsar ]
+	// [ modal, ping, beatRepeat, filteredNoise, crackles, fm, formant, noOscillator, fmScaled, grainCloudGuitar, basic, pulsar ]
 
-	\oscillatorType, \fm,
-	\oscillator_mod_1, 2,
-	\oscillator_mod_2, 1.7,
-	\oscillator_mod_3, 0,
+	\oscillatorType, \beatRepeat,
+	\oscillator_mod_1, 0.5,
+	\oscillator_mod_2, 0.5,
+	\oscillator_mod_3, 0.5,
 	\oscillator_mod_4, 0,
 	\oscillator_buffer, ~beatRepeatBuffer_1,
 	\oscillator_bufferPos, ~beatRepeatBufferPosition_1,
-\oscillator_1_level, 1,
+	\oscillator_1_level, 1,
 	\oscillator_1_transpose, 0,
 
-	\oscillatorType_2, \fm,
-	\oscillator_2_mod_1, 1,
-	\oscillator_2_mod_2, 1.3,
+	\oscillatorType_2, \noOscillator,
+	\oscillator_2_mod_1, 0.15,
+	\oscillator_2_mod_2, 0.01,
 	\oscillator_2_mod_3, 0,
 	\oscillator_2_mod_4, 0,
 	\oscillator_2_buffer, ~beatRepeatBuffer_1,
 	\oscillator_2_bufferPos, ~beatRepeatBufferPosition_1,
-	\oscillator_2_level, 0.5,
-	\oscillator_1_transpose, 12,
+	\oscillator_2_level, 1,
+	\oscillator_1_transpose, -12,
 
 	// [ bodyTimbreTransientTail, noDrum, fmTransientTail, noiseFmTransientTail, amTransientTail ]
 
-	\drumType, \fmTransientTail,
-	\timbre_ratio, 0.3,
+	\drumType, \noDrum,
+	\timbre_ratio, 0.45,
 	\body_sweep_ratio, 1,
-	\timbre_sweep_ratio, 0.5,
+	\timbre_sweep_ratio, 0.25,
 	\body_time, 0.5,
-	\timbre_time, 0.3,
-	\transient_time, 0.01,
+	\timbre_time, 0.5,
+	\transient_time, 0.15,
 	\tail_time, 0.75,
 	\body_vol, 1,
-	\timbre_vol, 0,
+	\timbre_vol, 0.25,
 	\transient_vol, 1,
-	\tail_vol, 0,
-	\time_factor, 0.5,
+	\tail_vol, 0.65,
+	\time_factor, 0.01,
 	\punch_factor, 2,
-	\drum_1_level, 0.5,
+	\drum_1_level, 1,
 
 	\drumType_2, \noDrum,
 	\timbre_ratio_2, 0.45,
@@ -77,10 +75,10 @@
 
 	// [ combfilter, tremoloRamp, tremoloRect, overdriveHard, overdriveSoft, overdriveMid, shelvedOverdriveMid, bitcrush, noFx, wrap, sampleRateReduction, combfilterScaled, shelvedOverdriveHard, rectifier, tremoloSine, fold, shelvedOverdriveSoft ]
 
-	\fxType, \combfilterScaled,
+	\fxType, \noFx,
 	\fx_1_input_gain, 1,
-	\fx_mod_1, 1.11,
-	\fx_mod_2, 0.2,
+	\fx_mod_1, 0.25,
+	\fx_mod_2, 0.25,
 
 	\fxType_2, \noFx,
 	\fx_2_mod_1, 0.25,
@@ -88,8 +86,8 @@
 
 	// [ lpf_24, bpf, hpf_12, lo_shelf, lpf_12, lpf_moog, notch, hi_shelf, hpf_24, noFilter ]
 
-	\filterIn_preFxLevel, 0.5,
-	\filterIn_FxLevel, 0.5,
+	\filterIn_preFxLevel, 0,
+	\filterIn_FxLevel, 1,
 
 	\filterType, \noFilter,
 	\filter_1_mod_1, 1,
@@ -104,19 +102,15 @@
 	\vca_preFxLevel, 0,
 
 	\vol, 1,
-	\amp, 0.2,
+	\amp, 5,
 
-	\out, ~melody_bus,
+	\out, ~aux_bus,
 	\send_1, ~ef_reverb,
-	\send_1_level, 0.25,
+	\send_1_level, 0.1,
 	\send_2, ~simpleDelay,
 	\send_2_level, 0,
-	\send_3, ~granulator_1,
-	\send_3_level, 0,
-	\send_4, ~beatRepeat_1,
-	\send_4_level, 0,
 
-	// [ sineLFO, noMod, rampLFO, noise, rampSyncLFO, sampleAndHold, triSyncLFO, triLFO, sawLFO, sawSyncLFO, rectSyncLFO, rectLFO, syncEnv, sineSyncLFO, adsrEnv ]
+	// [ sampleAndHold, noMod, sawSyncLFO, rampSyncLFO, adsrEnv, sineSyncLFO, rampLFO, triLFO, triSyncLFO, rectSyncLFO, rectLFO, sineLFO, syncEnv, sawLFO ]
 
 	\mod1Type, \noMod,
 	\mod1Target, "",
@@ -166,9 +160,21 @@
 	\mod4syncEnvRatio, 0,
 	\mod4ControlbusChannel, 3,
 
+	\controlbus1, ~dummybus.index,
+	\controlbus2, ~dummybus.index,
+	\controlbus3, ~dummybus.index,
+	\controlbus4, ~dummybus.index,
+	\controlbus_vol, ~dummybus.index,
+
+	\controlbus1_index, 0,
+	\controlbus2_index, 0,
+	\controlbus3_index, 0,
+	\controlbus4_index, 0,
+	\controlbus_vol_index, 0,
+
 	\external1Target, "",
 	\external1Amount, 1,
-	\external2Target, "",
+	\external2Target, "\oscillator_mod_3",
 	\external2Amount, 1,
 	\external3Target, "",
 	\external3Amount, 1,
@@ -193,5 +199,5 @@
 	\pattern4Amount, 1,
 
 ];
-~callInstrumentPreset.('metalPerc');
+~callInstrumentPreset.('beatRepeat');
 )

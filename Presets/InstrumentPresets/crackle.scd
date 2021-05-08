@@ -17,7 +17,7 @@
 	\pitchOp_2_interval, 12,
 	\pitchOp_2_amount, 0.1,
 
-	\oscillatorType, \crackles, // \noOscillator, \basic, \fm, \formant, \filteredNoise, \modal, \pulsar, \ping, \grainCloudGuitar
+	\oscillatorType, \noOscillator, // \noOscillator, \basic, \fm, \formant, \filteredNoise, \modal, \pulsar, \ping, \grainCloudGuitar
 	\oscillator_mod_1, 0.5,
 	\oscillator_mod_2, 0.001,
 	\oscillator_1_level, 30,
@@ -33,11 +33,11 @@
 	\timbre_ratio, 0.45,
 	\body_sweep_ratio, 1,
 	\timbre_sweep_ratio, 0.25,
-	\body_time, 0,
+	\body_time, 0.1,
 	\timbre_time,0,
 	\transient_time, 0.2,
 	\tail_time, 0.01,
-	\body_vol, 0,
+	\body_vol, 1,
 	\timbre_vol, 0,
 	\transient_vol, 1,
 	\tail_vol, 0.3,
@@ -61,9 +61,9 @@
 	\fx_2_mod_2, 0.25,
 
 
-	\filterType, \noFilter, // \noFilter, \lpf_moog, \lpf_24, \lpf_12, \hpf_24, \hpf_12, \bpf, \notch, \lo_shelf, \hi_shelf,
-	\filter_1_mod_1, 1,
-	\filter_1_mod_2, 0.25,
+	\filterType, \bpf, // \noFilter, \lpf_moog, \lpf_24, \lpf_12, \hpf_24, \hpf_12, \bpf, \notch, \lo_shelf, \hi_shelf,
+	\filter_1_mod_1, 0.5,
+	\filter_1_mod_2, 0.4,
 
 	\filterType_2, \noFilter,
 	\filter_2_mod_1, 1,
@@ -75,12 +75,12 @@
 	\out, ~melody_bus,
 	\send_1, ~ef_reverb,
 	\send_1_level, 0.1,
-	\send_2, ~simpleDelay_8d,
-	\send_2_level, 0,
+	\send_2, ~grainDelay_1,
+	\send_2_level, 1,
 
-	\mod1Type, \noMod,
-	\mod1Target, "",
-	\mod1Amount, 0.25,
+	\mod1Type, \sampleAndHold,
+	\mod1Target, "filter_1_mod_1",
+	\mod1Amount, 0.5,
 	\mod1Rate, 0.25,
 	\mod1attack, 1,
 	\mod1decay, 1,

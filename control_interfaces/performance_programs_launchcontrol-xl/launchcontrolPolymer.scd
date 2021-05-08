@@ -154,7 +154,6 @@ var liveControl = controllerArray;
 var button;
 var buttonArray;
 
-//~launchControlEvents.add(\launchControlXlEvent_6 -> {
 ~launchControlEvents.add(("launchControlXlEvent_" ++ bank).asSymbol -> {
 
 	~launchControlXlKnobLEDsSetRow.([2,3],4);
@@ -263,8 +262,6 @@ var buttonArray;
 	)
 	};
 
-	//	~chord.([0,1,2,3,4,5,6,7,8,9,10,11])
-
 	~texturDurations = {
 		Pbind(\durations,
 			Pn(Plazy{ 2 ** (patternValuesControl[0].getnSynchronous(4).at(1).lincurve(0,1,2,-4,0).round + (-1..1)) }),
@@ -305,7 +302,7 @@ var buttonArray;
 );
 
 texturKlangButtons.do({ |button, index|
-	//~launchControlEvents.add(\launchControlXlEvent_6_1 -> {
+
 	~launchControlEvents.add(("launchControlXlEvent_" ++ bank ++ "_" ++ button).asSymbol -> {
 
 		if (~texturKlangLayers.at(button-1) == 0)
@@ -340,7 +337,6 @@ texturKlangButtons.do({ |button, index|
 
 pulsButtons.do({ |button, index|
 
-	// ~launchControlEvents.add(\launchControlXlEvent_6_5 -> {
 	~launchControlEvents.add(("launchControlXlEvent_" ++ bank ++ "_" ++ button).asSymbol -> {
 		("starting Layer " ++ button ++ ": puls").postln;
 
@@ -400,7 +396,7 @@ pulsButtons.do({ |button, index|
 });
 
 accellerandoButtons.do({ |button|
-	// ~launchControlEvents.add(\launchControlXlEvent_6_7 -> {
+
 	~launchControlEvents.add(("launchControlXlEvent_" ++ bank ++ "_" ++ button).asSymbol -> {
 
 		var events = 5,
@@ -451,8 +447,6 @@ accellerandoButtons.do({ |button|
 });
 
 ritardandoButtons.do({ |button|
-
-	// ~launchControlEvents.add(\launchControlXlEvent_6_8 -> {
 
 	~launchControlEvents.add(("launchControlXlEvent_" ++ bank ++ "_" ++ button).asSymbol -> {
 

@@ -17,7 +17,7 @@
 	\oscillator_mod_1, 0.35,
 	\oscillator_mod_2, 0.25,
 
-	\fx_mod_1, 1.7,
+	\fx_mod_1, 1,
 	\fx_mod_2, 0.7,
 
 	\filter_1_mod_1, 0.7,
