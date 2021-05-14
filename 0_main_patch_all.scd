@@ -36,15 +36,17 @@ var loadOnlyBenni = {
 
 };
 var loadOnlyVincent = {
+	"Synthese_Sounddesign/instruments/modules/0_load_modules.scd".loadRelative;
+	"Synthese_Sounddesign/instruments/makeModularSynthDef.scd".loadRelative;
 
-	if(~localSetup){
-		"loading L-Systems".postln;
-		"Lsysteme/resources/globals.scd".loadRelative;
-		"Lsysteme/resources/lsysCreator_noDaemon.scd".loadRelative;
-		"Lsysteme/resources/pdefCreator.scd".loadRelative; // load pdef which will play back lsystems
-		"Presets/LsystemPresetFunctions.scd".loadRelative;
-		~lsysPreset.loadAll;
-	};
+	//if(~localSetup){
+	"loading L-Systems".postln;
+	"Lsysteme/resources/globals.scd".loadRelative;
+	"Lsysteme/resources/lsysCreator_noDaemon.scd".loadRelative;
+	"Lsysteme/resources/pdefCreator.scd".loadRelative; // load pdef which will play back lsystems
+	"Presets/LsystemPresetFunctions.scd".loadRelative;
+	~lsysPreset.loadAll;
+	//};
 
 };
 var loadOnlyPhilipp = {
@@ -114,8 +116,10 @@ s.waitForBoot {
 		block {|break|
 			inf.do{
 				~addrBook.names.postln;
-				if(~addrBook.names.includes(\vincent)){
+				if(~addrBook.names.includes(\vincent) && ~addrBook.names.includes(\Admin)){
 					// loadStuff.value;
+					loadAll.value;
+					loadOnlyVincent.value;
 					break.value
 				};
 				1.wait
