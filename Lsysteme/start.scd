@@ -1,7 +1,7 @@
 (
 s.waitForBoot {
 	var benniPath = "../Synthese_Sounddesign/";
-	~localSetup = true; // hier und bei globals ist das relevant
+	~localSetup = false; // hier und bei globals ist das relevant
 	("../network/address_book.scd").loadRelative;
 
 	if(~localSetup){

@@ -1,7 +1,7 @@
 (
 var opts = (
 	useGlobalPitch: false,
-	noteOffset: -10,
+	noteOffset: 10,
 	branchInterval: 4,
 	quant: 1/2,
 	baseTempo: 1/8,
@@ -58,7 +58,7 @@ Pdef(\play, Psym(Pseq([Pn(\wup2, 4), Pn(\wup3, 2),\wup4,\wup5, Pn(\wup2, 4)],inf
 ~linkClock.tempo = 0.8
 Pdef(\play).clear
 (
-Pbind(\dur, 1, \note, 24, \legato, 0.2).play(~linkClock, quant:4 );
+// Pbind(\dur, 1, \note, 24, \legato, 0.2).play(~linkClock, quant:4 );
 Pdef(\play).play(~linkClock, quant:4 );
 )
 

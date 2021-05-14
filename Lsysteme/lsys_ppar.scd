@@ -1,13 +1,13 @@
 Pdef(\play).play(~linkClock, quant:4 )
 Pdef(\play).stop
-
+~lsysPreset.edit(\chaosFugue)
 ~cueData[\lsysBeats1] = (~lsys.presets.rabbitSeq.maxPatDur * ~lsys.presets.rabbitSeq.baseTempo).roundUp(~lsys.presets.rabbitSeq.quant)
 
-Pdef(\play, Pn(Pdef(\snowFlake)))
-Pdef(\play, Pbind(\vol, Pfunc {|ev| if(ev.charNow == $F){1}{ 0.7}}) <> Pn(Pdef(\rabbitSeq)))
-
+Pdef(\play,Pbind(\vol, Pfunc {|ev| if(ev.charNow == $F){0.7}{0.4}}) <>  Pn(Pdef(\chaosFugue)))
+Pdef(\play, Pbind(\vol, Pfunc {|ev| if(ev.charNow == $F){1}{0.7}}) <>Pn(Pdef(\rabbitSeq)))
+Pdef(\play).clear
 Pdef(\play).play(~linkClock, quant: 1)
-~lsys.presets.rabbitSeq.maxPatDur
+~lsys.presets.chaosFugue.instr = \simplePluck
 (81 / 21)
 
 /////////// erkenntnis
@@ -29,18 +29,19 @@ Pdef(\play, Pn(
 ~newLsys.(
 	name: \rabbitSeq,
 	axiom: "F-F",
-	rules: ( $F: "+F[F---FG--F]-G--F++GFG", $G: "F" ),
+	rules: ( $F: "+F-X--f++XfX", $X: "F" ,  $f: "+F-X--f++XfX"),
 	gen: 3.0,
 	opts: (
 		noteOffset: 28,
+		vols: 2,
 		quant: 0,
-		baseTempo: 1/8,
+		baseTempo: 1/4,
 		useGlobalPitch: false
 	)
 );
 )
 ~linkClock.tempo =0.7
-~lsys.presets.rabbitSeq.instr = [ 'simplePluck', 'detunePluck', 'srrPluck' ];
+~lsys.presets.rabbitSeq.instr = \blip
 ~lsys.presets.rabbitSeq.vols = [ 1 ,1, 1, 1];
 
 (
