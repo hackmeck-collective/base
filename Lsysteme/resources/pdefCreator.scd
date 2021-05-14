@@ -40,7 +40,7 @@
 						\out, Pfunc { top[\routing][\melodyBus] },
 						\pitches, Pseq(voiceEvent.pitches),
 						\charNow, Pseq(voiceEvent.chars),
-						\scale, Pfunc { Scale.new(top[\pitchesRootDissonance][\pitches]) },
+						\scale, Pfunc { Scale.new(top[\pitchesRootDissonance][\pitches] % 12) },
 						\legatoArr, Pn(Plazy {|ev| ev.legatoArr.asArray.wrapAt(myKey)}),
 						\legato, Pfunc {|ev|
 							if(ev.sendGate ? true){
@@ -52,7 +52,7 @@
 						\vols, Pn(Plazy {|ev| ev.vols.asArray.wrapAt(myKey)}),
 						\vol, Pfunc {|ev| ev.vol * ev.vols * muteMe},
 						\degree, Pfunc {|ev|
-							(ev.pitches * ev.stepInterval) + (myKey * ev.branchInterval) + addPitch + ev.noteOffset
+							(ev.pitches * ev.stepInterval) + (myKey * ev.branchInterval.asArray.wrapAt(myKey)) + addPitch + ev.noteOffset
 						},
 						\checkPause, Pfunc { |ev|
 							if(ev.charNow == $G){Rest(ev.dur)}{0}

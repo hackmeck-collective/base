@@ -1,4 +1,5 @@
 
+Pdef(\snowFlake).play
 
 
 ~lsys.presets.poppe2.instr = \simpleLead
@@ -7,7 +8,7 @@ Pdef(\play, Pn(Pdef(\poppe3)).trace);
 ~lsys.presets.snowFlake.quant = 0
 ~lsys.presets.snowFlake.legatoArr = 0.6
 ~lsys.presets.snowFlake.useGlobalPitch = false
-~lsys.presets.snowFlake.stutterVal = 3
+~lsys.presets.snowFlake.stutterVal = 1
 ~lsys.presets.snowFlake.stutterVal = Pseq([3, Pn(1,1)])
 ~lsys.presets.snowFlake.instr = \blip
 Pdef(\play).play(~linkClock, quant:4 )
