@@ -1,4 +1,4 @@
-~linkClock = ~linkClock ?? { LinkClock.new().permanent_(true).enableMeterSync};
+// ~linkClock = ~linkClock ?? { LinkClock.new().permanent_(true).enableMeterSync};
 
 // dict for everything regarding the lsys
 ~lsys = ();
@@ -73,7 +73,7 @@ if(~localSetup){
 
 };
 
-Pdef(\rest, Pbind(\dur, Pn(Rest())));
+// Pdef(\rest, Pbind(\dur, Pn(Rest())));
 
 /*Pdef(\playVisuals,
 (

@@ -38,6 +38,11 @@ var row_busses = Array.newClear(8);
 
 };
 
+if(MIDIClient.initialized.not){
+	MIDIClient.init;
+	MIDIIn.connectAll;
+};
+
 ~switchRows.(\bank_1);
 
 if (~launchcontrol_xl_port.isNil) {

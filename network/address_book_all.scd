@@ -14,21 +14,23 @@ var dependenciesBenniVincent = {
 	~synthDescRel = SynthDescRelay(~addrBook);
 };
 var userDict = (
-	\benni: { dependenciesAll.value; dependenciesBenniVincent.value; },
+	\Admin: { dependenciesAll.value; dependenciesBenniVincent.value; },
 	\vincent: { dependenciesAll.value; dependenciesBenniVincent.value; },
-	\philipp: { dependenciesAll.value; }
+	\Philipp: { dependenciesAll.value; }
 );
 
 if(~addrBook.isNil){
-	"initialize adressbook, user %".format(~addrBookUserName).postln;
 	~addrBook = AddrBook.new;
 	~addrBook.addMe;
 	~hail = Hail.new(~addrBook);
 	"initialize OSC Object Spaces".postln;
-	userDict[~addrBookUserName].value;
+	userDict[~addrBook.me.name].value;
+	"initialize adressbook, user %".format(~addrBook.me.name).postln;
 	"addressbook loaded";
 }{
 	"addressbook exists. not initializing variables again".warn;
 };
 )
+
+
 

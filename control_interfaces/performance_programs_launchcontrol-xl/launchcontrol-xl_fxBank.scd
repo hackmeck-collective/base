@@ -43,7 +43,7 @@ var buttonArray;
 	(
 		~sendFX.simpleDelay.set(\inBus, ~simpleDelay,
 			\beatDurNow, ~linkClock.tempo,
-			\relativeDelayTime, 0.33,
+			\relativeDelayTime, 0.375,
 			\filterType, 3,
 			\filterFreq, 500,
 			\resonance, 2,

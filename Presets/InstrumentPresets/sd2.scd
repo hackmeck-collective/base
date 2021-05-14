@@ -33,7 +33,7 @@
 	\fx_mod_2, 0.7,
 
 	\vol, 1,
-	\amp, 0.5,
+	\amp, 1,
 ];
 ~callInstrumentPreset.(\sd2);
 )

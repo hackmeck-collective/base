@@ -40,7 +40,7 @@
 						\out, Pfunc { top[\routing][\melodyBus] },
 						\pitches, Pseq(voiceEvent.pitches),
 						\charNow, Pseq(voiceEvent.chars),
-						\scale, Pfunc { top[\philipp_pitches] },
+						\scale, Pfunc { Scale.new(top[\pitchesRootDissonance][\pitches]) },
 						\legatoArr, Pn(Plazy {|ev| ev.legatoArr.asArray.wrapAt(myKey)}),
 						\legato, Pfunc {|ev|
 							if(ev.sendGate ? true){

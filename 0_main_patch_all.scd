@@ -2,13 +2,14 @@
 (
 var waitForPeers = false;
 var multicoreSetup = false;
-var loadStuff = {
+
+var loadOnlyBenni = {
 	"loading signal flow".postln;
 	if(multicoreSetup)
-{"Synthese_Sounddesign/signal_flow/groups_setup_multicore.scd".loadRelative;
-	"groups for multicore use created".postln;}
-{"Synthese_Sounddesign/signal_flow/groups_setup.scd".loadRelative;
-	"groups created".postln;
+	{"Synthese_Sounddesign/signal_flow/groups_setup_multicore.scd".loadRelative;
+		"groups for multicore use created".postln;}
+	{"Synthese_Sounddesign/signal_flow/groups_setup.scd".loadRelative;
+		"groups created".postln;
 	};
 
 	"Synthese_Sounddesign/signal_flow/controlbus_setup.scd".loadRelative;
@@ -31,9 +32,10 @@ var loadStuff = {
 	"patterns/drumFills.scd".loadRelative;
 	"patterns/launchControlXlTrigger.scd".loadRelative;
 
-	"loading control interfaces".postln;
-	"control_interfaces/midi_defs_launchcontrol-xl.scd".loadRelative;
 
+
+};
+var loadOnlyVincent = {
 	~localSetup = waitForPeers.not;
 
 	if(~localSetup){
@@ -41,63 +43,91 @@ var loadStuff = {
 		"Lsysteme/resources/globals.scd".loadRelative;
 		"Lsysteme/resources/lsysCreator_noDaemon.scd".loadRelative;
 		"Lsysteme/resources/pdefCreator.scd".loadRelative; // load pdef which will play back lsystems
-		"Lsysteme/resources/lsys_dict_text_replace.scd".loadRelative;
+		"Presets/LsystemPresetFunctions.scd".loadRelative;
+		~lsysPreset.loadAll;
 	};
+
+};
+var loadOnlyPhilipp = {
+	~sendWithHail = {arg event; //Funktion, die das event inklusive liste versendet.
+		~pitchesRootDissonance[\pitches] = event.list;
+		~pitchesRootDissonance[\root] = event.rootNote;
+	};
+	"pitches/Hindemith/prepare Session.scd".loadRelative;
+};
+var midiDeviceBenni = {
+	"loading control interfaces".postln;
+	"control_interfaces/midi_defs_launchcontrol-xl.scd".loadRelative;
+
+	"control_interfaces/performance_programs_launchcontrol-xl/launchcontrol-xl_load_modules.scd".loadRelative;
+};
+var midiDevicePhilipp = {
+	"loading control interfaces".postln;
+	"control_interfaces/launchcontrol.scd".loadRelative;
+};
+var loadAll = {
+	~linkClock = LinkClock.new(1).latency_(s.latency).enableMeterSync.permanent_(true);
 
 	Pdef(\rest, Pbind(\dur, Pn(Rest())));
 
 	if (~pitchesRootDissonance[\pitches] == nil ) {~pitchesRootDissonance[\pitches] = [-36,-9,5,-17,10]};
 	if (~pitchesRootDissonance[\root] == nil ) {~pitchesRootDissonance[\root] = [0]};
 
-	"initializing LinkClock".postln;
+	// "loading cue functions".postln;
+	// "cues/cues.scd".loadRelative;
 
-	~linkClock = LinkClock.new(1).latency_(s.latency).enableMeterSync.permanent_(true);
 
-	"loading cue functions".postln;
-	"cues/cues.scd".loadRelative;
-	"control_interfaces/performance_programs_launchcontrol-xl/launchcontrol-xl_load_modules.scd".loadRelative;
-
-	CmdPeriod.run;
-
-	Document.open(thisProcess.nowExecutingPath.dirname +/+ "patterns" +/+ "arrangements.scd");
+	// Document.open(thisProcess.nowExecutingPath.dirname +/+ "patterns" +/+ "arrangements.scd");
 
 	"ready".postln;
 };
 
 Server.killAll;
+/*
 "reading audio server options".postln;
-if(multicoreSetup)
-{"audio_server_options_multicore.scd".loadRelative;
-	"multicore server options loaded".postln;}
-{"audio_server_options.scd".loadRelative;
-	"server options loaded".postln;};
+if(multicoreSetup){
+"audio_server_options_multicore.scd".loadRelative;
+"multicore server options loaded".postln;
+}{
+"audio_server_options.scd".loadRelative;
+"server options loaded".postln;
+};
+*/
 
 "booting server".postln;
 s.waitForBoot {
-	if(MIDIClient.initialized.not){
-		MIDIClient.init;
-		MIDIIn.connectAll;
-	};
 	ServerTree.removeAll;
+
 	"loading network".postln;
-	~addrBookUserName = \benni;
+	// ~addrBookUserName = \benni;
 	"network/address_book_all.scd".loadRelative;
-	"network/ip_config.scd".loadRelative;
+
+	if(~addrBook.me.name == \Admin){
+		midiDeviceBenni.value
+	};
+	if(~addrBook.me.name == \Philipp){
+		midiDevicePhilipp.value
+	};
 	"waiting...".postln;
 	if(waitForPeers){
 		block {|break|
 			inf.do{
 				~addrBook.names.postln;
 				if(~addrBook.names.includes(\vincent)){
-					loadStuff.value;
+					// loadStuff.value;
 					break.value
 				};
 				1.wait
 			}
 		}
 	}{
-		loadStuff.value
-	}
+		loadAll.value;
+		loadOnlyBenni.value;
+		loadOnlyPhilipp.value;
+		loadOnlyVincent.value;
+	};
+
+	CmdPeriod.run;
 };
 )
 
