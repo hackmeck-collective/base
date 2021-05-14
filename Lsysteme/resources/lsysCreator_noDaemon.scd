@@ -5,7 +5,7 @@
 	var lsys = RedLSystem(axiom, rules), lsysPattern;
 	var expandToArrays = [\legatoArr, \wrapLo, \wrapHi, \vols, \instr, \mute];
 	gen.do { lsys.next };
-	~lsys.lastString = lsys;
+	~lsys.lastString = lsys.postln;
 	lsysPattern = ~makeStream.(lsys);
 	~lsys.newPattern = lsysPattern;
 	~lsys.presets[name] = ~lsys.presets[name] ?? {~lsys.defaultPreset.copy};

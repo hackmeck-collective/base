@@ -16,7 +16,7 @@ var dependenciesBenniVincent = {
 var userDict = (
 	\Admin: { dependenciesAll.value; dependenciesBenniVincent.value; },
 	\vincent: { dependenciesAll.value; dependenciesBenniVincent.value; },
-	\Philipp: { dependenciesAll.value; }
+	\philipp: { dependenciesAll.value; }
 );
 
 if(~addrBook.isNil){
@@ -24,7 +24,11 @@ if(~addrBook.isNil){
 	~addrBook.addMe;
 	~hail = Hail.new(~addrBook);
 	"initialize OSC Object Spaces".postln;
-	userDict[~addrBook.me.name].value;
+	if(~localSetup){
+		dependenciesAll.value; dependenciesBenniVincent.value;
+	}{
+		userDict[~addrBook.me.name].value;
+	};
 	"initialize adressbook, user %".format(~addrBook.me.name).postln;
 	"addressbook loaded";
 }{

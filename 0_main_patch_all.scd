@@ -36,7 +36,6 @@ var loadOnlyBenni = {
 
 };
 var loadOnlyVincent = {
-	~localSetup = waitForPeers.not;
 
 	if(~localSetup){
 		"loading L-Systems".postln;
@@ -99,13 +98,15 @@ s.waitForBoot {
 	ServerTree.removeAll;
 
 	"loading network".postln;
+	~localSetup = waitForPeers.not;
+
 	// ~addrBookUserName = \benni;
 	"network/address_book_all.scd".loadRelative;
 
 	if(~addrBook.me.name == \Admin){
 		midiDeviceBenni.value
 	};
-	if(~addrBook.me.name == \Philipp){
+	if(~addrBook.me.name == \philipp){
 		midiDevicePhilipp.value
 	};
 	"waiting...".postln;
