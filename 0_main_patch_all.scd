@@ -1,8 +1,8 @@
 
 (
-var waitForPeers = false;
+var waitForPeers = true;
 var multicoreSetup = false;
-
+         $###########3333333333333333
 var loadOnlyBenni = {
 	"loading signal flow".postln;
 	if(multicoreSetup)

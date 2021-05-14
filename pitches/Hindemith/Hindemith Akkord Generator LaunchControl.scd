@@ -25,7 +25,7 @@ if (~port.isNil) {
 };
 
 
-~addrBookUserName = \philipp;
+~localSetup = false;
 "../../network/address_book_all.scd".loadRelative;
 // Hail-Init for Networking
 // ~addrBook = AddrBook.new;
