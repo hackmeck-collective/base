@@ -1,17 +1,22 @@
 "initializing control busses".postln;
 
-8.do({arg i;
-	var rowNumber = i + 1;
-	"
-~launchcontrol_xl_row_% ?? {~launchcontrol_xl_row_% = Bus.control(Server.default, 4)};
-~launchcontrol_xl_row_%.set(0.25,0.25,1,1);
-~routing[\\launchcontrol_xl_row_%] = ~launchcontrol_xl_row_%.index;
-".replace("%", rowNumber.asString).interpret;
 
+~dummybus ?? {~dummybus = Bus.control(Server.default, 1)};
+~dummybus.set(1);
+
+
+"initializing controlBusses for launchControlXl".postln;
+
+~launchcontrolXlControlBusses ?? {~launchcontrolXlControlBusses = {Bus.control(s, 1)} ! 32};
+
+
+
+32.do({ |i|
+	~launchcontrolXlControlBusses[i].set(1);
+	~routing["~launchcontrolXlControlBusses[%]".format(i).asSymbol] = ~launchcontrolXlControlBusses[i].index;
 });
 
-~launchcontrol_xl_row_7.set(0.5,0.5,1,1);
-~launchcontrol_xl_row_8.set(0.5,0,1,1);
+~launchcontrolXlControlBusses[15].set(0);
 
-~dummybus ?? {~dummybus = Bus.control(Server.default, 16)};
-~dummybus.set(0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5);
+// ~launchcontrol_xl_row_8.set(0.5,0,1,1);
+

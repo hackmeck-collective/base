@@ -7,7 +7,7 @@ Document.open(thisProcess.nowExecutingPath.dirname +/+ "launchControlXlTrigger.s
 ~instrPreset.create(\metalPerc)
 ~instrPreset.create_d(\template_drum)
 ~instrPreset.create_o(\simpleSine)
-~instrPreset.edit(\sd2);
+~instrPreset.edit(\simplePluck);
 
 
 00010000
@@ -25,10 +25,15 @@ Document.open(thisProcess.nowExecutingPath.dirname +/+ "launchControlXlTrigger.s
 ~sd.stop;
 ~sd = ( Pdef(\sd2).collect {|ev| ~scM4.play; ev} <> Pbindef(\fifth) <> Pbindef(\pulse_4_ob)  ).play(~linkClock, quant: 4);
 
+~launchcontrolXlControlBusses[0].index
 
 
+b = (Pbind(\controlbus1, ~launchcontrolXlControlBusses[0].postln, \external1Amount, 1)
+	<> Pdef(\simpleLead)  <> Pbind(\external1Target, "filter_1_mod_1")
+	<> Pbindef(\root) <> Pbindef(\pulse_16) ).play(~linkClock, quant: 4);
 
-b = (Pdef(\simpleLead) <> Pbindef(\root) <> Pbindef(\pulse_16) ).play(~linkClock, quant: 4);
+b = (Pbind(\envelope_mod, 0.7) <> Pdef(\simplePluck) <> Pbindef(\arp) <> Pbindef(\pulse_64) ).play(~linkClock, quant: 4);
+b.stop
 
 ~granulatorBuffer_1.plot
 

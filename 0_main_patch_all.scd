@@ -1,6 +1,6 @@
 
 (
-var waitForPeers = true;
+var waitForPeers = false;
 var multicoreSetup = false;
 
 var loadOnlyBenni = {

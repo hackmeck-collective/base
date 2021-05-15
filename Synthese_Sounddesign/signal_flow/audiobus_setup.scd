@@ -97,26 +97,34 @@ SynthDef(\effect_bus, {
 
 SynthDef(\Master, {
 	arg vol = 1,
-	controlbus,
-	lpf_freq;
+	controlbus1,
+	controlbus2,
+	controlbus3,
+	controlbus4;
 
-	var macro_controls = Lag.kr(
-		In.kr(
-			controlbus ?? {controlbus = Bus.control(Server.default, 4)},
-			4),
+	var macro_1 = Lag.kr(
+		In.kr(controlbus1),
 		0.1);
 
-	var macro_2 = macro_controls[1],
-	lpf_resonance = macro_2.lincurve(0,1,0,3.5,3),
+	var macro_2 = Lag.kr(
+		In.kr(controlbus2),
+		0.1);
+
+	var lpf_resonance = macro_2.lincurve(0,1,0,3.5,3),
 	filter_vol_correct = macro_2.lincurve(0,1,1,3,3);
 
-	var macro_3 = macro_controls[2];
+	var macro_3 = Lag.kr(
+		In.kr(controlbus3),
+		0.1);
 
-	var macro_4 = macro_controls[3];
+	var lpf_freq = macro_3.lincurve(0,1,60,18000,3);
+
+	var macro_4 = Lag.kr(
+		In.kr(controlbus4),
+		0.1);
 
 	var master_in, soft_clip, hard_clip, sig;
 
-	lpf_freq = macro_3.lincurve(0,1,60,18000,3);
 	/*vol = macro_4.lincurve(0,1,0.25,1,3)*/
 
 	sig = In.ar(~master, 2);
@@ -140,8 +148,11 @@ s.sync;
 	~audioBusses.master = Synth.new(\Master,
 		args:[
 			\vol, 1,
-			\controlbus, ~launchcontrol_xl_row_8,
-			\lpf_freq, 18000],
+			\controlbus1, ~launchcontrolXlControlBusses[7],
+			\controlbus2, ~launchcontrolXlControlBusses[15],
+			\controlbus3, ~launchcontrolXlControlBusses[23],
+			\controlbus4, ~launchcontrolXlControlBusses[31],
+		/*\lpf_freq, 18000*/],
 		target: ~master_group);
 
 	~audioBusses.effectBus = Synth.new(\effect_bus,

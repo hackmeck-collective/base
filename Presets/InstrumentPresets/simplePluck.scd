@@ -1,14 +1,11 @@
 (
 ~instrumentPresetsDictionary[\simplePluck] = [
-	\adsrType, \pluck,
-	\sendGate, false,
+	\adsrType, \pluckStop,
+	\sendGate, true,
 
-	\oscillatorType, \fm,
-	\oscillatorType_2, \fm,
-	\controlbus, ~launchcontrol_xl_row_4,
 	\out, ~melody_bus,
 	\send_1, ~ef_reverb,
-	\send_1_level, 0.5,
+	\send_1_level, 0, //0.5,
 
 	\pitchOpType, \slide,
 	\pitchOp_1_interval, 1,
@@ -18,9 +15,12 @@
 	\pitchOp_2_interval, 0.3,
 	\pitchOp_2_amount, 0.1,
 
+	\oscillatorType, \fm,
+
 	\oscillator_mod_1, 0.4,
 	\oscillator_mod_2, 1.03,
 
+	\oscillatorType_2, \fm,
 	\oscillator_2_mod_1, 0.3,
 	\oscillator_2_mod_2, 1.9,
 
@@ -38,7 +38,7 @@
 	\filter_1_mod_2, 0.4,
 
 	\envCurve, 2,
-	\envelope_mod, 0.3,
+	\envelope_mod, 0.1, // 0.5,
 	\vol, 1,
 	\amp, 0.2,
 
