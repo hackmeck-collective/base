@@ -202,7 +202,7 @@ MIDIdef.noteOn(\launchControlButtonsON, {
 		{
 			~sendWithHail.((list: ~listAndParameters.list, rootNote: ~listAndParameters.rootNote));
 			~gateOpen[3] = true; ~toLaunchControl.noteOn(0, 11, 63);
-			{~button3.value = 1}.defer};
+			{~button3.value = 1}.defer;}
 		{
 			~gateOpen[3] = false; ~toLaunchControl.noteOn(0, 11, 12);
 			{~button3.value = 0}.defer
