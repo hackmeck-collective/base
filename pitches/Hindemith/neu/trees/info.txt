@@ -1,0 +1,1 @@
+search_functions.scd stellt die Funktionen (in den entsprechenden globalen Variablen) bereit durch die man die Akkorde aus hindemithTrees.archiv suchen kann. Gewünscht ist hier ein möglichst "naher" Akkord. 

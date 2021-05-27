@@ -19,7 +19,8 @@ Pdef(\fraktal_philipp_bd).play(~linkClock, quant: 1);
 Pdef(\fraktal_philipp_sd).play(~linkClock, quant: 1);
 );
 
-
+//axiom: "a+k+f+k+k+a-a-k-f-k-k-a"
+//rules: ($a: "b", $b: "c", $c: "d", $d: "e", $e: "f", $f: "h[i]", $i: "j+l", $l: "mn", $n: "o+l")
 (
 var testArray = (2..9);
 var testName = "fraktal_philipp";
