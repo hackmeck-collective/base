@@ -1,17 +1,13 @@
 (
 var bank = ~fxBank;
-var beatRepeatButton = [1,2];
-var granulatorButton = [5,6];
-var controllerArray = [
-	~launchcontrol_xl_row_1,
-	~launchcontrol_xl_row_2,
-	~launchcontrol_xl_row_3,
-	~launchcontrol_xl_row_4,
-	~launchcontrol_xl_row_5,
-	~launchcontrol_xl_row_6,
-	~launchcontrol_xl_row_7,
-	~launchcontrol_xl_row_8];
-var beatRepeatControl = controllerArray[(beatRepeatButton-1)];
+var writeMomentarySwitchButton = (2..5);
+var clearInfiniteHoldReverbButton = [1];
+var beatRepeatButton = [6];
+var granulatorButton = [7];
+var controllerArray = ~launchcontrolXlControlBusses;
+var buttonStateArray = ~launchcontrolXlBottomButtonsControlBusses;
+var controllerRow = ~launchcontrolXlControlBussesRowOffset;
+//  var beatRepeatControl = controllerArray;
 var button;
 var buttonArray;
 
@@ -19,6 +15,7 @@ var buttonArray;
 
 ~launchControlEvents.add(("launchControlXlEvent_" ++ bank).asSymbol -> {
 
+	~launchControlXlKnobLEDsSetRow.(clearInfiniteHoldReverbButton, 1);
 	~launchControlXlKnobLEDsSetRow.(beatRepeatButton,1);
 	~launchControlXlKnobLEDsSetRow.(granulatorButton,2);
 	~launchControlXlKnobLEDsSetRow.(8,3);
@@ -29,7 +26,7 @@ var buttonArray;
 	~audioBusses.chordsBus.set(\sidechain_amount, (-72).dbamp);
 
 	(
-		~sendFX.ef_reverb.set(\inbus, ~ef_reverb,
+		~sendFX.ef_reverb.set(\inBus, ~ef_reverb,
 			\revtime, 2.5,
 			\predelay, 0.025,
 			\hpf, 60,
@@ -38,6 +35,21 @@ var buttonArray;
 			\vol, 1.5,
 			\beatDurNow, ~linkClock.tempo,
 			\sidechain_amount, (-24).dbamp);
+	);
+
+	(
+		~sendFX.infiniteHoldReverb.set(\inBus, ~infiniteHoldReverb,
+			\filterType, 0,
+			\reverbSend, 0.25,
+			\decaytime, 2,
+			\controlbusFilterFreq, controllerArray[((clearInfiniteHoldReverbButton-1) + controllerRow[2])],
+			\filterFreq, 18000,
+			\controlbusFilterRes, controllerArray[((clearInfiniteHoldReverbButton-1) + controllerRow[1])],
+			\resonance, 2,
+			\controlbusFeedback, controllerArray[((clearInfiniteHoldReverbButton-1) + controllerRow[0])],
+			\feedback_amount, 1,
+			\controlbusVolume, controllerArray[((clearInfiniteHoldReverbButton-1) + controllerRow[3])],
+			\vol, 1);
 	);
 
 	(
@@ -70,6 +82,58 @@ var buttonArray;
 }
 );
 
+writeMomentarySwitchButton.do({ |button, index|
+
+	~launchControlEvents.add(("launchControlXlEvent_" ++ bank ++ "_" ++ button).asSymbol -> {
+
+		buttonStateArray[(button-1) + ((bank-1) * 8)].set(1);
+
+		("bus " ++ ((button-1) + ((bank-1) * 8)) ++ "set to 1").postln;
+
+	});
+
+
+	~launchControlEvents.add(("launchControlXlNoteOffEvent_" ++ bank ++ "_" ++ button).asSymbol -> {
+
+		buttonStateArray[(button-1) + ((bank-1) * 8)].set(0);
+
+		("bus " ++ ((button-1) + ((bank-1) * 8)) ++ "set to 0").postln;
+
+	});
+
+});
+
+clearInfiniteHoldReverbButton.do({ |button, index|
+
+	~launchControlEvents.add(("launchControlXlEvent_" ++ bank ++ "_" ++ button).asSymbol -> {
+
+		Routine({
+			var waitTime = 0.5;
+
+			~sendFX.infiniteHoldReverb.set(
+				\feedback_amount, 0,
+				\reverbSend, 0,
+				\decaytime, 0.1,
+				\vol, 0);
+
+			("infiniteHoldReverb clear").postln;
+
+			waitTime.wait;
+
+			~sendFX.infiniteHoldReverb.set(
+				\feedback_amount, 1,
+				\reverbSend, 0.25,
+				\decaytime, 2,
+				\vol, 1);
+
+			("infiniteHoldReverb cleared").postln;
+
+		}).play;
+
+	});
+
+});
+
 beatRepeatButton.do({ |button, index|
 
 	~launchControlEvents.add(("launchControlXlEvent_" ++ bank ++ "_" ++ button).asSymbol -> {
@@ -80,15 +144,13 @@ beatRepeatButton.do({ |button, index|
 
 			(
 				Routine({
-					var controlbus =  beatRepeatControl,
-					quant = 0.5;
+					var quant = 0.5;
 					(~linkClock.timeToNextBeat % quant).wait;
 					~sendFX.beatRepeatBufferRecord_1.set(\recording, 0);
 					b.pause;
 
 					(Pdef(("beatRepeat" ++ button).asSymbol,
-						Pbind(\controlbus2, beatRepeatControl.at(button - 1),
-							\controlbus2_index, 1,
+						Pbind(\controlbus2, controllerArray[((button-1) + controllerRow[1])],
 							\oscillator_mod_1, quant,
 							\oscillator_mod_2, quant,
 							\oscillator_mod_3, 0.5,
@@ -98,7 +160,7 @@ beatRepeatButton.do({ |button, index|
 						<>
 						Pdef(\beatRepeat)
 						<>
-						Pbind(\dur, Pfunc{ 1/(2**beatRepeatControl.at(button - 1).getnSynchronous[0].linlin(0,1,8,0).round)}, \legato, 1) )
+						Pbind(\dur, Pfunc{ 1/(2**controllerArray[((button-1) + controllerRow[0])].getSynchronous.linlin(0,1,8,0).round)}, \legato, 1) )
 					).play;
 
 				}).play;
@@ -107,7 +169,6 @@ beatRepeatButton.do({ |button, index|
 			~launchControlXlBottomLEDs.put( (((bank - 1) * 8) + (button - 1)), 2);
 
 			~fxState.put((button - 1),1);}
-
 
 		{"stopping beatRepeat".postln;
 
@@ -137,17 +198,14 @@ granulatorButton.do({ |button, index|
 
 		(
 			Routine({
-				var controlbus =  ~launchcontrol_xl_row_3,
+				var controlbus =  controllerArray[(granulatorButton-1) + controllerRow[0]].getSynchronous,
 				quant = 1;
 				(~linkClock.timeToNextBeat % quant).wait;
 				~sendFX.granulatorBufferRecord_1.set(\recording, 0);
 				Pdef(("granulator" ++ button).asSymbol,
-					Pbind(\controlbus1, controlbus,
-						\controlbus1_index, 1,
-						\controlbus2, controlbus,
-						\controlbus2_index, 1,
-						\controlbus3, controlbus,
-						\controlbus3_index, 1,
+					Pbind(\controlbus1, controllerArray[(button-1) + controllerRow[0]], //controlbus,
+						\controlbus2, controllerArray[(button-1) + controllerRow[1]],
+						\controlbus3, controllerArray[(button-1) + controllerRow[2]],
 						\oscillator_mod_1, 30,
 						\oscillator_mod_2, 0.6,
 						\oscillator_mod_3, 1,

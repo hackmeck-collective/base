@@ -8,3 +8,6 @@
 "launchcontrol-xl_fxBank.scd".loadRelative;
 "launchcontrol-xl_TexturKlang.scd".loadRelative;
 
+
+// ~launchcontrolXlBottomButtonsControlBusses[button + ((bank - 1) * 8)].set(1);
+// ~launchcontrolXlBottomButtonsControlBusses[button + ((bank - 1) * 8)].getSynchronous;

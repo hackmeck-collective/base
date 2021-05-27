@@ -14,17 +14,19 @@
 ~beatRepeatBuffer_1 ?? {~beatRepeatBuffer_1 = Buffer.alloc(Server.default, Server.default.sampleRate * 5, 2)};
 ~beatRepeatBufferPosition_1 ?? {~beatRepeatBufferPosition_1 = Bus.audio(Server.default, 1)};
 
+~infiniteHoldReverb ?? {~infiniteHoldReverb = Bus.audio(s,2)};
+
 ~ef_reverb ?? {~ef_reverb = Bus.audio(s,2)};
 ~simpleDelay ?? {~simpleDelay = Bus.audio(s,2)};
 
 s.sync;
 
 /*SynthDef.new(\cyclicBufferRecordPointer, {
-	arg out, buf=0;
-	var sig;
+arg out, buf=0;
+var sig;
 
-	sig = Phasor.ar(0, BufRateScale.kr(buf), 0, BufFrames.kr(buf));
-	Out.ar(~cyclicBufferRecordPointer, sig);
+sig = Phasor.ar(0, BufRateScale.kr(buf), 0, BufFrames.kr(buf));
+Out.ar(~cyclicBufferRecordPointer, sig);
 }).add;*/
 
 SynthDef.new(\grainDelayBufferRecord_1, {
@@ -70,7 +72,7 @@ SynthDef.new(\beatRepeatBufferRecord_1, {
 }).add;
 
 SynthDef(\ef_reverb, {
-	arg inbus = ~ef_reverb,
+	arg inBus = ~ef_reverb,
 	revtime = 2.5,
 	predelay = 0.025,
 	hpf = 60,
@@ -88,7 +90,7 @@ SynthDef(\ef_reverb, {
 
 	var wet, temp, sig;
 
-	temp = InFeedback.ar(~ef_reverb, 2);
+	temp = InFeedback.ar(inBus, 2);
 
 	wet=0;
 
@@ -105,6 +107,51 @@ SynthDef(\ef_reverb, {
 	sig = HPF.ar(Splay.ar(sig * duck_4 * duck_8, spread), hpf);
 
 	Out.ar(~effect_bus, sig);
+
+}).add;
+
+SynthDef(\infiniteHoldReverb, {
+	arg inBus = ~infiniteHoldReverb,
+	reverbSend = 0.25,
+	decaytime = 2,
+	filterType = 0,
+	controlbusFilterFreq = ~dummybus,
+	filterFreq = 18000,
+	controlbusFilterRes = ~dummybus,
+	resonance = 3,
+	controlbusFeedback = ~dummybus,
+	feedback_amount = 1,
+	controlbusVolume = ~dummybus,
+	vol = 1;
+
+	var input, local, feedback, delay;
+
+
+	feedback_amount = feedback_amount * Lag.kr(In.kr( controlbusFeedback ), 0.1);
+	filterFreq = Lag.kr(
+		In.kr( controlbusFilterFreq ).lincurve(0,1,20,filterFreq,3),
+		0.1).clip(30,10000);
+	resonance = Lag.kr(In.kr( controlbusFilterRes ), 0.1).lincurve(0,1,1,resonance,3);
+	vol = Lag.kr(In.kr( controlbusVolume ), 0.1).lincurve(0,1,0,vol,3);
+
+	resonance;
+
+	input = In.ar(inBus, 2);
+
+	local = (LocalIn.ar(2) * feedback_amount) + input;
+
+	15.do{local = AllpassN.ar(local, 0.06, Rand(0.001,0.06), decaytime) };
+
+	LocalOut.ar(local * feedback_amount);
+
+	local = Select.ar(filterType ,[
+		RLPF.ar(local, filterFreq, resonance),
+		BPF.ar(local, filterFreq, resonance),
+		RHPF.ar(local, filterFreq, resonance),
+	]);
+
+	Out.ar(~effect_bus, local * vol);
+	Out.ar(~ef_reverb, local * vol * reverbSend);
 
 }).add;
 
@@ -202,8 +249,8 @@ s.sync;
 ~startSendFX = {
 	~sendFX = ();
 	/*~sendFX.cyclicBufferRecordPointer = Synth.new(\cyclicBufferRecordPointer,
-		[\buf, ~grainDelayBuffer, \out, ~cyclicBufferRecordPointer],
-		target: ~pointer_group);*/
+	[\buf, ~grainDelayBuffer, \out, ~cyclicBufferRecordPointer],
+	target: ~pointer_group);*/
 
 	~sendFX.grainDelayBufferRecord_1 = Synth.new(\grainDelayBufferRecord_1,
 		[\inBus, ~grainDelay_1,
@@ -242,7 +289,7 @@ s.sync;
 		target: ~effect_group);
 
 	~sendFX.ef_reverb = Synth.new(\ef_reverb,
-		args:[\inbus, ~ef_reverb,
+		args:[\inBus, ~ef_reverb,
 			\revtime, 2.5,
 			\predelay, 0.025,
 			\hpf, 60,
@@ -251,6 +298,21 @@ s.sync;
 			\vol, 1.5,
 			\beatDurNow, ~linkClock.tempo,
 			\sidechain_amount, (-24).dbamp],
+		target: ~effect_group);
+
+	~sendFX.infiniteHoldReverb = Synth.new(\infiniteHoldReverb,
+		args:[\inBus, ~infiniteHoldReverb,
+			\filterType, 0,
+			\reverbSend, 0.25,
+			\decaytime, 2,
+			\controlbusFilterFreq, ~dummybus,
+			\filterFreq, 18000,
+			\controlbusFilterRes, ~dummybus,
+			\resonance, 2,
+			\controlbusFeedback, ~dummybus,
+			\feedback_amount, 1,
+			\controlbusVolume, ~dummybus,
+			\vol, 1],
 		target: ~effect_group);
 
 	~sendFX.simpleDelay = Synth.new(\simpleDelay,

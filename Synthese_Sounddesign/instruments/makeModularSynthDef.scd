@@ -145,12 +145,12 @@
 					pitchOp_2_interval,
 					pitchOp_2_amount,
 
-					oscillator_mod_1,
-					oscillator_mod_2,
-					oscillator_mod_3,
-					oscillator_mod_4,
-					oscillator_buffer,
-					oscillator_bufferPos,
+					oscillator_1_mod_1,
+					oscillator_1_mod_2,
+					oscillator_1_mod_3,
+					oscillator_1_mod_4,
+					oscillator_1_buffer,
+					oscillator_1_bufferPos,
 					oscillator_1_level = 1,
 					oscillator_2_mod_1,
 					oscillator_2_mod_2,
@@ -194,8 +194,8 @@
 					drum_2_level = 1,
 
 					fx_1_input_gain = 1,
-					fx_mod_1,
-					fx_mod_2,
+					fx_1_mod_1,
+					fx_1_mod_2,
 					fx_2_mod_1,
 					fx_2_mod_2,
 
@@ -216,19 +216,6 @@
 
 					vol = 0.5,
 
-					pitchOp_mod_2_macro_channel,
-					pitchOp_mod_1_macro_channel,
-					oscillator_mod_1_macro_channel,
-					oscillator_mod_2_macro_channel,
-					fx_mod_1_macro_channel,
-					fx_mod_2_macro_channel,
-					filter_mod_1_macro_channel,
-					filter_mod_2_macro_channel,
-					envelope_mod_macro_channel,
-
-					time_factor_macro_channel,
-					time_factor_macro_channel_2,
-
 					controlbus1 = ~dummybus.index,
 					controlbus2 = ~dummybus.index,
 					controlbus3 = ~dummybus.index,
@@ -243,6 +230,15 @@
 					external2Amount2,
 					external3Amount2,
 					external4Amount2,
+
+					external1min,
+					external1max,
+					external2min,
+					external2max,
+					external3min,
+					external3max,
+					external4min,
+					external4max,
 
 					pattern1In,
 					pattern2In,
@@ -407,8 +403,8 @@
 						prependArgs:
 						[pitchOp_freq_2 * oscillator_1_transpose.midiratio,
 							gate,
-							oscillator_mod_1, oscillator_mod_2, oscillator_mod_3, oscillator_mod_4,
-							oscillator_buffer, oscillator_bufferPos]
+							oscillator_1_mod_1, oscillator_1_mod_2, oscillator_1_mod_3, oscillator_1_mod_4,
+							oscillator_1_buffer, oscillator_1_bufferPos]
 					);
 
 					oscillator_2 = SynthDef.wrap(
@@ -468,7 +464,7 @@
 					fx = SynthDef.wrap(
 						fx_function,
 						prependArgs: [preFxSig * fx_1_input_gain,
-							gate, freq, fx_mod_1, fx_mod_2, beatDuration, syncMultiplier],
+							gate, freq, fx_1_mod_1, fx_1_mod_2, beatDuration, syncMultiplier],
 					);
 
 					fx_2 = SynthDef.wrap(
@@ -524,49 +520,49 @@
 			if(external1Target.isEmpty){
 				external1Target = "dummy"
 			}{
-				"% = % + (% * external1.linlin(0,1,-1,1) * external1Amount).poll".format(external1Target, external1Target, external1Target)
+				"% = % + (% * external1.linlin(0,1, external1min, external1max) * external1Amount)".format(external1Target, external1Target, external1Target)
 			}
 		).replace("\"external2TargetPlaceholder\"",
 			if(external2Target.isEmpty){
 				external2Target = "dummy"
 			}{
-				"% = % + (% * external2.linlin(0,1,-1,1) * external2Amount)".format(external2Target, external2Target, external2Target)
+				"% = % + (% * external2.linlin(0,1, external2min, external2max) * external2Amount)".format(external2Target, external2Target, external2Target)
 			}
 		).replace("\"external3TargetPlaceholder\"",
 			if(external3Target.isEmpty){
 				external3Target = "dummy"
 			}{
-				"% = % + (% * external3.linlin(0,1,-1,1) * external3Amount)".format(external3Target, external3Target, external3Target)
+				"% = % + (% * external3.linlin(0,1, external3min, external3max) * external3Amount)".format(external3Target, external3Target, external3Target)
 			}
 		).replace("\"external4TargetPlaceholder\"",
 			if(external4Target.isEmpty){
 				external4Target = "dummy"
 			}{
-				"% = % + (% * external4.linlin(0,1,-1,1) * external4Amount)".format(external4Target, external4Target, external4Target)
+				"% = % + (% * external4.linlin(0,1, external4min, external4max) * external4Amount)".format(external4Target, external4Target, external4Target)
 			}
 		).replace("\"external1Target2Placeholder\"",
 			if(external1Target2.isEmpty){
 				external1Target2 = "dummy"
 			}{
-				"% = % + (% * external1.linlin(0,1,-1,1) * external1Amount)".format(external1Target2, external1Target2, external1Target2)
+				"% = % + (% * external1.linlin(0,1, external1min, external1max) * external1Amount)".format(external1Target2, external1Target2, external1Target2)
 			}
 		).replace("\"external2Target2Placeholder\"",
 			if(external2Target2.isEmpty){
 				external2Target2 = "dummy"
 			}{
-				"% = % + (% * external2.linlin(0,1,-1,1) * external2Amount)".format(external2Target2, external2Target2, external2Target2)
+				"% = % + (% * external2.linlin(0,1, external2min, external2max) * external2Amount)".format(external2Target2, external2Target2, external2Target2)
 			}
 		).replace("\"external3Target2Placeholder\"",
 			if(external3Target2.isEmpty){
 				external3Target2 = "dummy"
 			}{
-				"% = % + (% * external3.linlin(0,1,-1,1) * external3Amount)".format(external3Target2, external3Target2, external3Target2)
+				"% = % + (% * external3.linlin(0,1, external3min, external3max) * external3Amount)".format(external3Target2, external3Target2, external3Target2)
 			}
 		).replace("\"external4Target2Placeholder\"",
 			if(external4Target2.isEmpty){
 				external4Target2 = "dummy"
 			}{
-				"% = % + (% * external4.linlin(0,1,-1,1) * external4Amount)".format(external4Target2, external4Target2, external4Target2)
+				"% = % + (% * external4.linlin(0,1, external4min, external4max) * external4Amount)".format(external4Target2, external4Target2, external4Target2)
 			}
 		).replace("\"mod1TargetPlaceholder\"",
 			if(mod1Target.isEmpty){

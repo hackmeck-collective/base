@@ -10,8 +10,8 @@
 	\pitchOp_2_amount, 0.1,
 
 	\oscillatorType, \modal, // \noOscillator, \basic, \fm, \formant, \filteredNoise, \modal, \pulsar, \ping, \grainCloudGuitar
-	\oscillator_mod_1, 0.15,
-	\oscillator_mod_2, 0.3,
+	\oscillator_1_mod_1, 0.15,
+	\oscillator_1_mod_2, 0.3,
 	\oscillator_1_level, 2.5,
 	\oscillator_1_transpose, 0,
 
@@ -29,8 +29,8 @@
 
 	\fxType, \overdriveSoft,
 	\fx_1_input_gain, 1,
-	\fx_mod_1, 0,
-	\fx_mod_2, 0.25,
+	\fx_1_mod_1, 0,
+	\fx_1_mod_2, 0.25,
 
 	\fxType_2, \noFx,
 	\fx_2_mod_1, 0.25,
@@ -56,7 +56,7 @@
 
 
 	\mod1Type, \sampleAndHold,
-	\mod1Target, "oscillator_mod_1",
+	\mod1Target, "oscillator_1_mod_1",
 	\mod1Amount, 0.1,
 	\mod1Rate, 0.25,
 	\mod1attack, 1,
@@ -68,7 +68,7 @@
 	\mod1ControlbusChannel, 0,
 
 	\mod2Type, \sampleAndHold,
-	\mod2Target, "oscillator_mod_2",
+	\mod2Target, "oscillator_1_mod_2",
 	\mod2Amount, 0.2,
 	\mod2Rate, 0.25,
 	\mod2attack, 1,

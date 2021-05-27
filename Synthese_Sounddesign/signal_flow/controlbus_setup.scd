@@ -8,7 +8,7 @@
 "initializing controlBusses for launchControlXl".postln;
 
 ~launchcontrolXlControlBusses ?? {~launchcontrolXlControlBusses = {Bus.control(s, 1)} ! 32};
-
+~launchcontrolXlBottomButtonsControlBusses ?? {~launchcontrolXlBottomButtonsControlBusses = {Bus.control(s, 1)} ! 64};
 
 
 32.do({ |i|
@@ -17,6 +17,9 @@
 });
 
 ~launchcontrolXlControlBusses[15].set(0);
+~launchcontrolXlControlBussesRowOffset = [0,8,16,24];
 
-// ~launchcontrol_xl_row_8.set(0.5,0,1,1);
-
+64.do({ |i|
+	~launchcontrolXlBottomButtonsControlBusses[i].set(0);
+	~routing["~launchcontrolXlBottomButtonsControlBusses[%]".format(i).asSymbol] = ~launchcontrolXlBottomButtonsControlBusses[i].index;
+});

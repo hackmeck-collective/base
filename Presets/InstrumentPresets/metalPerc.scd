@@ -10,7 +10,6 @@
 
 	// [ fm, noPitchOp, unisonoDetune, vibrato, rectArp, rectArpSync, slide, vibratoSync ]
 
-
 	\pitchOpType, \slide,
 	\pitchOp_1_interval, 7,
 	\pitchOp_1_amount, 0.05,
@@ -22,13 +21,13 @@
 	// [ modal, ping, beatRepeat, filteredNoise, crackles, fm, granulator, formant, noOscillator, fmScaled, basic, pulsar ]
 
 	\oscillatorType, \fm,
-	\oscillator_mod_1, 2,
-	\oscillator_mod_2, 1.7,
-	\oscillator_mod_3, 0,
-	\oscillator_mod_4, 0,
-	\oscillator_buffer, ~beatRepeatBuffer_1,
-	\oscillator_bufferPos, ~beatRepeatBufferPosition_1,
-\oscillator_1_level, 1,
+	\oscillator_1_mod_1, 2,
+	\oscillator_1_mod_2, 1.7,
+	\oscillator_1_mod_3, 0,
+	\oscillator_1_mod_4, 0,
+	\oscillator_1_buffer, ~beatRepeatBuffer_1,
+	\oscillator_1_bufferPos, ~beatRepeatBufferPosition_1,
+	\oscillator_1_level, 1,
 	\oscillator_1_transpose, 0,
 
 	\oscillatorType_2, \fm,
@@ -79,8 +78,8 @@
 
 	\fxType, \combfilterScaled,
 	\fx_1_input_gain, 1,
-	\fx_mod_1, 1.11,
-	\fx_mod_2, 0.2,
+	\fx_1_mod_1, 1.11,
+	\fx_1_mod_2, 0.2,
 
 	\fxType_2, \noFx,
 	\fx_2_mod_1, 0.25,
@@ -114,7 +113,7 @@
 	\send_3, ~granulator_1,
 	\send_3_level, 0,
 	\send_4, ~beatRepeat_1,
-	\send_4_level, 0,
+	\send_4_level, 1,
 
 	// [ sineLFO, noMod, rampLFO, noise, rampSyncLFO, sampleAndHold, triSyncLFO, triLFO, sawLFO, sawSyncLFO, rectSyncLFO, rectLFO, syncEnv, sineSyncLFO, adsrEnv ]
 
@@ -166,22 +165,37 @@
 	\mod4syncEnvRatio, 0,
 	\mod4ControlbusChannel, 3,
 
-	\external1Target, "",
+	//\controlbus1, ~dummybus,
+	//\external1Target, "",
 	\external1Amount, 1,
-	\external2Target, "",
-	\external2Amount, 1,
-	\external3Target, "",
-	\external3Amount, 1,
-	\external4Target, "",
-	\external4Amount, 1,
-	\external1Target2, "",
+	//\external1Target2, "",
 	\external1Amount2, 1,
-	\external2Target2, "",
+	\external1min, -1,
+	\external1max, 1,
+
+	//\controlbus2, ~dummybus,
+	//\external2Target, "",
+	\external2Amount, 1,
+	//\external2Target2, "",
 	\external2Amount2, 1,
-	\external3Target2, "",
+	\external2min, -1,
+	\external2max, 1,
+
+	//\controlbus3, ~dummybus,
+	//\external3Target, "",
+	\external3Amount, 1,
+	//\external3Target2, "",
 	\external3Amount2, 1,
-	\external4Target2, "",
+	\external3min, -1,
+	\external3max, 1,
+
+	//\controlbus4, ~dummybus,
+	//\external4Target, "",
+	\external4Amount, 1,
+	//\external4Target2, "",
 	\external4Amount2, 1,
+	\external4min, -1,
+	\external4max, 1,
 
 	\pattern1Target, "",
 	\pattern1Amount, 1,

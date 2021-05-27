@@ -11,8 +11,6 @@ var faderOffset = 77;
 	oldVal + (diff * diff.lincurve(0.1,0.9,1,0.5,-2));
 };
 
-
-
 "connecting launchControlXl".postln;
 
 if(MIDIClient.initialized.not){
@@ -26,8 +24,6 @@ if (~launchcontrol_xl_port.isNil) {
 	~toLaunchControlXl.connect(~launchcontrol_xl_port);
 	"launchControlXl connected"
 };
-
-
 
 "mapping knobs and faders on launchcontrol xl".postln;
 

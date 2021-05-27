@@ -98,13 +98,16 @@
 
 // %
 
+// the buffers have to be EXISTING audio buffers. If they return nil there will be no sound without an ERROR.
+// the buffers for the granulator have to be ONE CHANNEL. If they contain more than one channel there will be no sound without an ERROR.
+
 \\oscillatorType, \\basic,
-\\oscillator_mod_1, 0.45,
-\\oscillator_mod_2, 0.001,
-\\oscillator_mod_3, 0,
-\\oscillator_mod_4, 0,
-\\oscillator_buffer, ~beatRepeatBuffer_1,
-\\oscillator_bufferPos, ~beatRepeatBufferPosition_1,
+\\oscillator_1_mod_1, 0.45,
+\\oscillator_1_mod_2, 0.001,
+\\oscillator_1_mod_3, 0,
+\\oscillator_1_mod_4, 0,
+\\oscillator_1_buffer, ~beatRepeatBuffer_1,
+\\oscillator_1_bufferPos, ~beatRepeatBufferPosition_1,
 \\oscillator_1_level, 1,
 \\oscillator_1_transpose, 0,
 
@@ -156,8 +159,8 @@
 
 \\fxType, \\noFx,
 \\fx_1_input_gain, 1,
-\\fx_mod_1, 0.25,
-\\fx_mod_2, 0.25,
+\\fx_1_mod_1, 0.25,
+\\fx_1_mod_2, 0.25,
 
 \\fxType_2, \\noFx,
 \\fx_2_mod_1, 0.25,
@@ -182,6 +185,8 @@
 
 \\vol, 1,
 \\amp, 0.2,
+
+// the sends have to be EXISTING audio busses. If they return nil there will be no sound without an ERROR.
 
 \\out, ~melody_bus,
 \\send_1, ~ef_reverb,
@@ -243,30 +248,47 @@
 \\mod4syncEnvRatio, 0,
 \\mod4ControlbusChannel, 3,
 
-\\external1Target, \"\",
-\\external1Amount, 1,
-\\external2Target, \"\",
-\\external2Amount, 1,
-\\external3Target, \"\",
-\\external3Amount, 1,
-\\external4Target, \"\",
-\\external4Amount, 1,
-\\external1Target2, \"\",
-\\external1Amount2, 1,
-\\external2Target2, \"\",
-\\external2Amount2, 1,
-\\external3Target2, \"\",
-\\external3Amount2, 1,
-\\external4Target2, \"\",
-\\external4Amount2, 1,
+//external targets you want to declare in a Pattern have to be chained before the preset Pdef(preset) <> Pbind(\external1Target, \"filter_1_mod_1\") for example. If they are declared in the chain, they can't be present in the instrumentPreset, otherwise you will get an ERROR.
 
-\\pattern1Target, \"\",
+\\controlbus1, ~dummybus,
+//\\external1Target, \"\",
+\\external1Amount, 1,
+//\\external1Target2, \"\",
+\\external1Amount2, 1,
+\\external1min, -1,
+\\external1max, 1,
+
+\\controlbus2, ~dummybus,
+//\\external2Target, \"\",
+\\external2Amount, 1,
+//\\external2Target2, \"\",
+\\external2Amount2, 1,
+\\external2min, -1,
+\\external2max, 1,
+
+\\controlbus3, ~dummybus,
+//\\external3Target, \"\",
+\\external3Amount, 1,
+//\\external3Target2, \"\",
+\\external3Amount2, 1,
+\\external3min, -1,
+\\external3max, 1,
+
+\\controlbus4, ~dummybus,
+//\\external4Target, \"\",
+\\external4Amount, 1,
+//\\external4Target2, \"\",
+\\external4Amount2, 1,
+\\external4min, -1,
+\\external4max, 1,
+
+//\\pattern1Target, \"\",
 \\pattern1Amount, 1,
-\\pattern2Target, \"\",
+//\\pattern2Target, \"\",
 \\pattern2Amount, 1,
-\\pattern3Target, \"\",
+//\\pattern3Target, \"\",
 \\pattern3Amount, 1,
-\\pattern4Target, \"\",
+//\\pattern4Target, \"\",
 \\pattern4Amount, 1,
 
 ];
@@ -296,13 +318,16 @@
 
 // %
 
+// the buffers have to be EXISTING audio buffers. If they return nil there will be no sound without an ERROR.
+// the buffers for the granulator have to be ONE CHANNEL. If they contain more than one channel there will be no sound without an ERROR.
+
 \\oscillatorType, \\basic,
-\\oscillator_mod_1, 0.45,
-\\oscillator_mod_2, 0.001,
-\\oscillator_mod_3, 0,
-\\oscillator_mod_4, 0,
-\\oscillator_buffer, ~beatRepeatBuffer_1,
-\\oscillator_bufferPos, ~beatRepeatBufferPosition_1,
+\\oscillator_1_mod_1, 0.45,
+\\oscillator_1_mod_2, 0.001,
+\\oscillator_1_mod_3, 0,
+\\oscillator_1_mod_4, 0,
+\\oscillator_1_buffer, ~beatRepeatBuffer_1,
+\\oscillator_1_bufferPos, ~beatRepeatBufferPosition_1,
 \\oscillator_1_level, 1,
 \\oscillator_1_transpose, 0,
 
@@ -320,8 +345,8 @@
 
 \\fxType, \\noFx,
 \\fx_1_input_gain, 1,
-\\fx_mod_1, 0.25,
-\\fx_mod_2, 0.25,
+\\fx_1_mod_1, 0.25,
+\\fx_1_mod_2, 0.25,
 
 \\fxType_2, \\noFx,
 \\fx_2_mod_1, 0.25,
@@ -346,6 +371,8 @@
 
 \\vol, 1,
 \\amp, 0.2,
+
+// the sends have to be EXISTING audio busses. If they return nil there will be no sound without an ERROR.
 
 \\out, ~melody_bus,
 \\send_1, ~ef_reverb,
@@ -407,31 +434,45 @@
 \\mod4syncEnvRatio, 0,
 \\mod4ControlbusChannel, 3,
 
-\\external1Target, \"\",
-\\external1Amount, 1,
-\\external2Target, \"\",
-\\external2Amount, 1,
-\\external3Target, \"\",
-\\external3Amount, 1,
-\\external4Target, \"\",
-\\external4Amount, 1,
-\\external1Target2, \"\",
-\\external1Amount2, 1,
-\\external2Target2, \"\",
-\\external2Amount2, 1,
-\\external3Target2, \"\",
-\\external3Amount2, 1,
-\\external4Target2, \"\",
-\\external4Amount2, 1,
+//external targets you want to declare in a Pattern have to be chained before the preset Pdef(preset) <> Pbind(\external1Target, \"filter_1_mod_1\") for example. If they are declared in the chain, they can't be present in the instrumentPreset, otherwise you will get an ERROR.
 
-\\pattern1Target, \"\",
+//\\external1Target, \"\",
+\\external1Amount, 1,
+//\\external1Target2, \"\",
+\\external1Amount2, 1,
+\\external1min, -1,
+\\external1max, 1,
+
+//\\external2Target, \"\",
+\\external2Amount, 1,
+//\\external2Target2, \"\",
+\\external2Amount2, 1,
+\\external2min, -1,
+\\external2max, 1,
+
+//\\external3Target, \"\",
+\\external3Amount, 1,
+//\\external3Target2, \"\",
+\\external3Amount2, 1,
+\\external3min, -1,
+\\external3max, 1,
+
+//\\external4Target, \"\",
+\\external4Amount, 1,
+//\\external4Target2, \"\",
+\\external4Amount2, 1,
+\\external4min, -1,
+\\external4max, 1,
+
+//\\pattern1Target, \"\",
 \\pattern1Amount, 1,
-\\pattern2Target, \"\",
+//\\pattern2Target, \"\",
 \\pattern2Amount, 1,
-\\pattern3Target, \"\",
+//\\pattern3Target, \"\",
 \\pattern3Amount, 1,
-\\pattern4Target, \"\",
+//\\pattern4Target, \"\",
 \\pattern4Amount, 1,
+
 ];
 ~callInstrumentPreset.(%);
 )".format(name.asCompileString, ~adsrTypes.keys.asArray.flat, ~pitchOpTypes.keys.asArray.flat, ~oscillatorTypes.keys.asArray.flat, ~fxTypes.keys.asArray.flat, ~filterTypes.keys.asArray.flat, ~modSources.keys.asArray.flat, name.asCompileString);
@@ -497,8 +538,8 @@
 
 \\fxType, \\noFx,
 \\fx_1_input_gain, 1,
-\\fx_mod_1, 0.25,
-\\fx_mod_2, 0.25,
+\\fx_1_mod_1, 0.25,
+\\fx_1_mod_2, 0.25,
 
 \\fxType_2, \\noFx,
 \\fx_2_mod_1, 0.25,
@@ -523,6 +564,8 @@
 
 \\vol, 1,
 \\amp, 0.2,
+
+// the sends have to be EXISTING audio busses. If they return nil there will be no sound without an ERROR.
 
 \\out, ~melody_bus,
 \\send_1, ~ef_reverb,
@@ -584,31 +627,45 @@
 \\mod4syncEnvRatio, 0,
 \\mod4ControlbusChannel, 3,
 
-\\external1Target, \"\",
-\\external1Amount, 1,
-\\external2Target, \"\",
-\\external2Amount, 1,
-\\external3Target, \"\",
-\\external3Amount, 1,
-\\external4Target, \"\",
-\\external4Amount, 1,
-\\external1Target2, \"\",
-\\external1Amount2, 1,
-\\external2Target2, \"\",
-\\external2Amount2, 1,
-\\external3Target2, \"\",
-\\external3Amount2, 1,
-\\external4Target2, \"\",
-\\external4Amount2, 1,
+//external targets you want to declare in a Pattern have to be chained before the preset Pdef(preset) <> Pbind(\external1Target, \"filter_1_mod_1\") for example. If they are declared in the chain, they can't be present in the instrumentPreset, otherwise you will get an ERROR.
 
-\\pattern1Target, \"\",
+//\\external1Target, \"\",
+\\external1Amount, 1,
+//\\external1Target2, \"\",
+\\external1Amount2, 1,
+\\external1min, -1,
+\\external1max, 1,
+
+//\\external2Target, \"\",
+\\external2Amount, 1,
+//\\external2Target2, \"\",
+\\external2Amount2, 1,
+\\external2min, -1,
+\\external2max, 1,
+
+//\\external3Target, \"\",
+\\external3Amount, 1,
+//\\external3Target2, \"\",
+\\external3Amount2, 1,
+\\external3min, -1,
+\\external3max, 1,
+
+//\\external4Target, \"\",
+\\external4Amount, 1,
+//\\external4Target2, \"\",
+\\external4Amount2, 1,
+\\external4min, -1,
+\\external4max, 1,
+
+//\\pattern1Target, \"\",
 \\pattern1Amount, 1,
-\\pattern2Target, \"\",
+//\\pattern2Target, \"\",
 \\pattern2Amount, 1,
-\\pattern3Target, \"\",
+//\\pattern3Target, \"\",
 \\pattern3Amount, 1,
-\\pattern4Target, \"\",
+//\\pattern4Target, \"\",
 \\pattern4Amount, 1,
+
 ];
 ~callInstrumentPreset.(%);
 )".format(name.asCompileString, ~adsrTypes.keys.asArray.flat, ~pitchOpTypes.keys.asArray.flat, ~drumTypes.keys.asArray.flat, ~fxTypes.keys.asArray.flat, ~filterTypes.keys.asArray.flat, ~modSources.keys.asArray.flat, name.asCompileString);

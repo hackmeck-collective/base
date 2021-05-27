@@ -14,8 +14,8 @@
 // \noOscillator, \basic, \fm, \formant, \filteredNoise, \modal, \pulsar, \ping, \grainCloudGuitar
 
 \oscillatorType, \formant,
-\oscillator_mod_1, 0.15,
-\oscillator_mod_2, 0.2,
+\oscillator_1_mod_1, 0.15,
+\oscillator_1_mod_2, 0.2,
 \oscillator_1_level, 2,
 \oscillator_1_transpose, 0,
 
@@ -67,8 +67,8 @@
 
 \fxType, \noFx,
 \fx_1_input_gain, 1,
-\fx_mod_1, 0.25,
-\fx_mod_2, 0.25,
+\fx_1_mod_1, 0.25,
+\fx_1_mod_2, 0.25,
 
 \fxType_2, \noFx,
 \fx_2_mod_1, 0.25,
@@ -94,7 +94,7 @@
 \send_2_level, 0,
 
 \mod1Type, \sampleAndHold,
-\mod1Target, "oscillator_mod_1",
+\mod1Target, "oscillator_1_mod_1",
 \mod1Amount, 0.2,
 \mod1Rate, 0.25,
 \mod1attack, 1,
@@ -106,7 +106,7 @@
 \mod1ControlbusChannel, 0,
 
 \mod2Type, \sampleAndHold,
-\mod2Target, "oscillator_mod_2",
+\mod2Target, "oscillator_1_mod_2",
 \mod2Amount, 0.15,
 \mod2Rate, 0.25,
 \mod2attack, 1,
@@ -141,7 +141,7 @@
 \mod4syncEnvRatio, 0,
 \mod4ControlbusChannel, 3,
 
-\external1Target, "oscillator_mod_1",
+\external1Target, "oscillator_1_mod_1",
 \external1Amount, 0.5,
 \external2Target, "",
 \external2Amount, 1,
@@ -149,7 +149,7 @@
 \external3Amount, 1,
 \external4Target, "",
 \external4Amount, 1,
-\external1Target2, "oscillator_mod_2",
+\external1Target2, "oscillator_1_mod_2",
 \external1Amount2, 0.4,
 \external2Target2, "",
 \external2Amount2, 1,

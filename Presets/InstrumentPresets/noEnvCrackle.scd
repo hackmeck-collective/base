@@ -10,8 +10,8 @@
 	\pitchOp_2_amount, 0.1,
 
 	\oscillatorType, \crackles, // \noOscillator, \basic, \fm, \formant, \filteredNoise, \modal, \pulsar, \ping, \grainCloudGuitar
-	\oscillator_mod_1, 0.5,
-	\oscillator_mod_2, 0.001,
+	\oscillator_1_mod_1, 0.5,
+	\oscillator_1_mod_2, 0.001,
 	\oscillator_1_level, 30,
 	\oscillator_1_transpose, 0,
 
@@ -45,8 +45,8 @@
 
 	\fxType, \overdriveSoft,
 	\fx_1_input_gain, 1,
-	\fx_mod_1, 0.3,
-	\fx_mod_2, 0.25,
+	\fx_1_mod_1, 0.3,
+	\fx_1_mod_2, 0.25,
 
 	\fxType_2, \noFx,
 	\fx_2_mod_1, 0.25,

@@ -1,6 +1,6 @@
 
 (
-var waitForPeers = false;
+var waitForPeers = true;
 var multicoreSetup = false;
          $###########3333333333333333
 var loadOnlyBenni = {
@@ -84,16 +84,6 @@ var loadAll = {
 };
 
 Server.killAll;
-/*
-"reading audio server options".postln;
-if(multicoreSetup){
-"audio_server_options_multicore.scd".loadRelative;
-"multicore server options loaded".postln;
-}{
-"audio_server_options.scd".loadRelative;
-"server options loaded".postln;
-};
-*/
 
 "booting server".postln;
 s.waitForBoot {
@@ -105,9 +95,6 @@ s.waitForBoot {
 	// ~addrBookUserName = \benni;
 	"network/address_book_all.scd".loadRelative;
 
-	if(~addrBook.me.name == \Admin){
-		midiDeviceBenni.value
-	};
 	if(~addrBook.me.name == \philipp){
 		midiDevicePhilipp.value
 	};
@@ -117,9 +104,9 @@ s.waitForBoot {
 			inf.do{
 				~addrBook.names.postln;
 				if(~addrBook.names.includes(\vincent) && ~addrBook.names.includes(\Admin)){
-					// loadStuff.value;
+
 					loadAll.value;
-					loadOnlyVincent.value;
+					loadOnlyBenni.value;
 					break.value
 				};
 				1.wait
@@ -130,6 +117,10 @@ s.waitForBoot {
 		loadOnlyBenni.value;
 		loadOnlyPhilipp.value;
 		loadOnlyVincent.value;
+	};
+
+	if(~addrBook.me.name == \Admin){
+		midiDeviceBenni.value
 	};
 
 	CmdPeriod.run;
