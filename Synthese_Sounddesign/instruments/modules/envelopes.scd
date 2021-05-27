@@ -3,6 +3,7 @@
 	noEnv: "no",
 	rect: "rc",
 	pluck: "pl",
+	pluckStop: "ps",
 	lead: "le",
 	pad: "pa",
 	sync: "sy"
@@ -35,6 +36,23 @@
 		EnvGen.kr(
 			Env.perc(
 				attackTime: amp_a,
+				releaseTime: amp_r,
+				curve: envCurve,
+			),
+			gate: gate,
+			doneAction:2);
+	},
+
+	pluckStop: {arg gate = 0, envelope_mod = 0, beatDuration, syncMultiplier, envCurve = 3;
+
+		var amp_a = envelope_mod.lincurve(0,1,0.001,0.02,3,nil),
+		amp_d = envelope_mod.lincurve(0,1,0.05,3,3,nil),
+		amp_r = amp_d/2 * envelope_mod.lincurve(0,1,0.5,0.01,3,nil);
+		EnvGen.kr(
+			Env.adsr(
+				attackTime: amp_a,
+				decayTime: amp_d,
+				sustainLevel: 0,
 				releaseTime: amp_r,
 				curve: envCurve,
 			),

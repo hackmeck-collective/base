@@ -235,12 +235,6 @@
 					controlbus4 = ~dummybus.index,
 					controlbus_vol = ~dummybus.index,
 
-					controlbus1_index = 0,
-					controlbus2_index = 0,
-					controlbus3_index = 0,
-					controlbus4_index = 0,
-					controlbus_vol_index = 0,
-
 					external1Amount,
 					external2Amount,
 					external3Amount,
@@ -309,33 +303,23 @@
 					var note = \note.kr(60,0);
 
 					var external1 = Lag.kr(
-						In.kr(
-							controlbus1,
-							4),
+						In.kr(controlbus1),
 						0.1);
 
 					var external2 = Lag.kr(
-						In.kr(
-							controlbus2,
-							4),
+						In.kr(controlbus2),
 						0.1);
 
 					var external3 = Lag.kr(
-						In.kr(
-							controlbus3,
-							4),
+						In.kr(controlbus3),
 						0.1);
 
 					var external4 = Lag.kr(
-						In.kr(
-							controlbus4,
-							4),
+						In.kr(controlbus4),
 						0.1);
 
 					var external_vol = Lag.kr(
-						In.kr(
-							controlbus_vol,
-							4),
+						In.kr(controlbus_vol),
 						0.1);
 
 					var dummy,
@@ -356,12 +340,6 @@
 					{true}{nil};
 
 					vol = vol.lincurve(0,1,0,0.5,3);
-
-					external1 = external1[0];
-					external2 = external2[1];
-					external3 = external3[2];
-					external4 = external4[3];
-					external_vol = external_vol[3];
 
 					"external1TargetPlaceholder";
 					"external2TargetPlaceholder";
@@ -546,7 +524,7 @@
 			if(external1Target.isEmpty){
 				external1Target = "dummy"
 			}{
-				"% = % + (% * external1.linlin(0,1,-1,1) * external1Amount)".format(external1Target, external1Target, external1Target)
+				"% = % + (% * external1.linlin(0,1,-1,1) * external1Amount).poll".format(external1Target, external1Target, external1Target)
 			}
 		).replace("\"external2TargetPlaceholder\"",
 			if(external2Target.isEmpty){
