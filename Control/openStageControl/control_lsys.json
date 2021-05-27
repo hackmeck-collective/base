@@ -1,5 +1,8 @@
 {
-  "session": {
+  "version": "1.9.8",
+  "type": "session",
+  "createdWith": "Open Stage Control",
+  "content": {
     "type": "root",
     "id": "root",
     "visible": true,
@@ -80,7 +83,9 @@
         "decimals": 0,
         "target": "",
         "ignoreDefaults": false,
-        "bypass": false
+        "bypass": false,
+        "comments": "",
+        "html": ""
       },
       {
         "type": "text",
@@ -110,7 +115,10 @@
         "script": "",
         "address": "auto",
         "preArgs": "",
-        "target": ""
+        "target": "",
+        "comments": "",
+        "html": "",
+        "decimals": 2
       },
       {
         "type": "panel",
@@ -201,7 +209,9 @@
             "decimals": 2,
             "target": "",
             "ignoreDefaults": false,
-            "bypass": false
+            "bypass": false,
+            "comments": "",
+            "html": ""
           },
           {
             "type": "fader",
@@ -250,7 +260,9 @@
             "decimals": 2,
             "target": "",
             "ignoreDefaults": false,
-            "bypass": false
+            "bypass": false,
+            "comments": "",
+            "html": ""
           },
           {
             "type": "fader",
@@ -299,7 +311,9 @@
             "decimals": 2,
             "target": "",
             "ignoreDefaults": false,
-            "bypass": false
+            "bypass": false,
+            "comments": "",
+            "html": ""
           },
           {
             "type": "fader",
@@ -348,7 +362,9 @@
             "decimals": 2,
             "target": "",
             "ignoreDefaults": false,
-            "bypass": false
+            "bypass": false,
+            "comments": "",
+            "html": ""
           },
           {
             "type": "fader",
@@ -397,7 +413,9 @@
             "decimals": 2,
             "target": "",
             "ignoreDefaults": false,
-            "bypass": false
+            "bypass": false,
+            "comments": "",
+            "html": ""
           },
           {
             "type": "fader",
@@ -446,10 +464,14 @@
             "decimals": 2,
             "target": "",
             "ignoreDefaults": false,
-            "bypass": false
+            "bypass": false,
+            "comments": "",
+            "html": ""
           }
         ],
-        "tabs": []
+        "tabs": [],
+        "comments": "",
+        "html": ""
       },
       {
         "type": "panel",
@@ -529,7 +551,6 @@
             "logScale": false,
             "sensitivity": 1,
             "steps": 1,
-            "origin": "auto",
             "value": "",
             "default": "",
             "linkId": "",
@@ -540,10 +561,14 @@
             "decimals": 0,
             "target": "",
             "ignoreDefaults": false,
-            "bypass": false
+            "bypass": false,
+            "comments": "",
+            "html": ""
           }
         ],
-        "tabs": []
+        "tabs": [],
+        "comments": "",
+        "html": ""
       },
       {
         "type": "text",
@@ -573,7 +598,10 @@
         "script": "",
         "address": "auto",
         "preArgs": "",
-        "target": ""
+        "target": "",
+        "comments": "",
+        "html": "",
+        "decimals": 2
       },
       {
         "type": "text",
@@ -603,7 +631,10 @@
         "script": "",
         "address": "auto",
         "preArgs": "",
-        "target": ""
+        "target": "",
+        "comments": "",
+        "html": "",
+        "decimals": 2
       },
       {
         "type": "input",
@@ -638,7 +669,11 @@
         "decimals": 2,
         "target": "localhost:12000",
         "ignoreDefaults": false,
-        "bypass": false
+        "bypass": false,
+        "comments": "",
+        "html": "",
+        "numeric": false,
+        "validation": ""
       },
       {
         "type": "text",
@@ -668,7 +703,10 @@
         "script": "",
         "address": "auto",
         "preArgs": "",
-        "target": ""
+        "target": "",
+        "comments": "",
+        "html": "",
+        "decimals": 2
       },
       {
         "type": "input",
@@ -703,7 +741,11 @@
         "decimals": 2,
         "target": "localhost:12000",
         "ignoreDefaults": false,
-        "bypass": false
+        "bypass": false,
+        "comments": "",
+        "html": "",
+        "numeric": false,
+        "validation": ""
       },
       {
         "type": "text",
@@ -733,7 +775,10 @@
         "script": "",
         "address": "auto",
         "preArgs": "",
-        "target": ""
+        "target": "",
+        "comments": "",
+        "html": "",
+        "decimals": 2
       },
       {
         "type": "input",
@@ -768,7 +813,11 @@
         "decimals": 2,
         "target": "localhost:12000",
         "ignoreDefaults": false,
-        "bypass": false
+        "bypass": false,
+        "comments": "",
+        "html": "",
+        "numeric": false,
+        "validation": ""
       },
       {
         "type": "text",
@@ -798,7 +847,10 @@
         "script": "",
         "address": "auto",
         "preArgs": "",
-        "target": ""
+        "target": "",
+        "comments": "",
+        "html": "",
+        "decimals": 2
       },
       {
         "type": "fader",
@@ -847,7 +899,9 @@
         "decimals": 2,
         "target": "localhost:12000",
         "ignoreDefaults": false,
-        "bypass": false
+        "bypass": false,
+        "comments": "",
+        "html": ""
       },
       {
         "type": "text",
@@ -877,7 +931,10 @@
         "script": "",
         "address": "auto",
         "preArgs": "",
-        "target": ""
+        "target": "",
+        "comments": "",
+        "html": "",
+        "decimals": 2
       },
       {
         "type": "xy",
@@ -926,11 +983,13 @@
         "decimals": 2,
         "target": "localhost:12000",
         "ignoreDefaults": false,
-        "bypass": false
+        "bypass": false,
+        "comments": "",
+        "html": ""
       }
     ],
-    "tabs": []
-  },
-  "version": "1.5.4",
-  "type": "Open Stage Control session"
+    "tabs": [],
+    "comments": "",
+    "html": ""
+  }
 }
