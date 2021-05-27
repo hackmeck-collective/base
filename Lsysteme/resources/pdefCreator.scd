@@ -1,19 +1,17 @@
 ~makePdef = { |name, lsys|
 	Pdef((name.asString ++ "Inf").asSymbol, Pn(Pdef(name)));
+	// filter fuer das komplette lsys
+	Pdef((name.asString ++ "_filter").asSymbol).source ?? {
+		Pdef((name.asString ++ "_filter").asSymbol, Pbind())
+	};
+	// filter fuer die einzelnen branches
+	lsys.maxKey.do {|i|
+		Pdef((name.asString ++ "_filter" ++ i).asSymbol).source ?? {
+			Pdef((name.asString ++ "_filter" ++ i).asSymbol, Pbind())
+		}
+	};
+
 	Pdef(name,
-		// filter fuer das komplette lsys
-		Pdef((name.asString ++ "_filter").asSymbol).source ?? {
-			Pdef((name.asString ++ "_filter").asSymbol, Pbind())
-		};
-		// filter fuer die einzelnen branches
-		lsys.maxKey.do {|i|
-			Pdef((name.asString ++ "_filter" ++ i).asSymbol).source ?? {
-				Pdef((name.asString ++ "_filter" ++ i).asSymbol, Pbind())
-			}
-		};
-
-		Pdefn((name.asString ++ "_stutter").asSymbol, Pn(Plazy {~lsys.presets[name].stutterVal}));
-
 		Pdef((name.asString ++ "_innerPdef").asSymbol, {
 			var top = topEnvironment;
 			var startOffsets = lsys.startTimes * ~baseTempo;
@@ -24,11 +22,13 @@
 				firstPoint,
 				lastPoint,
 				addPitch = if(~useGlobalPitch){top[\lsys].globalPitch + top[\lsys].globalPitchBalance}{0};
+
 				PmonoArtic2() <>
 				Pdef((name.asString ++ "_filter" ++ myKey).asSymbol) <>
 				Pdef((name.asString ++ "_filter").asSymbol) <>
-				Pstutter(Pdefn((name.asString ++ "_stutter").asSymbol),
+				Pstutter(Pn(Plazy {~lsys.presets[name].stutterVal}),
 					Pbind(
+						\myId, voiceEvent.myId,
 						\branchLevel, myKey,
 						\branchTotalDur, ~baseTempo * (voiceEvent.lastTime - voiceEvent.firstTime),
 						\dur, ~baseTempo * Pn(Plazy {|ev| 1 / ev.stutterVal}),
@@ -40,7 +40,6 @@
 						\out, Pfunc { top[\routing][\melodyBus] },
 						\pitches, Pseq(voiceEvent.pitches),
 						\charNow, Pseq(voiceEvent.chars),
-						\scale, Pfunc { Scale.new(top[\pitchesRootDissonance][\pitches] % 12) },
 						\legatoArr, Pn(Plazy {|ev| ev.legatoArr.asArray.wrapAt(myKey)}),
 						\legato, Pfunc {|ev|
 							if(ev.sendGate ? true){
@@ -51,11 +50,16 @@
 						},
 						\vols, Pn(Plazy {|ev| ev.vols.asArray.wrapAt(myKey)}),
 						\vol, Pfunc {|ev| ev.vol * ev.vols * muteMe},
+						\scale, Pfunc { Scale.new(top[\pitchesRootDissonance][\pitches] % 12) },
 						\degree, Pfunc {|ev|
 							(ev.pitches * ev.stepInterval) + (myKey * ev.branchInterval.asArray.wrapAt(myKey)) + addPitch + ev.noteOffset
 						},
+						/*\notesArray, Pfunc { |ev| ev.philippOctaves.collect { |i| top[\pitchesRootDissonance][\pitches] + (i * 12) }.flat.sort },
+						\note, Pfunc {|ev|
+						ev.notesArray.wrapAt((ev.pitches * ev.stepInterval) + (myKey * ev.branchInterval.asArray.wrapAt(myKey)) + addPitch + ev.noteOffset)
+						},*/
 						\checkPause, Pfunc { |ev|
-							if(ev.charNow == $G){Rest(ev.dur)}{0}
+							if((ev.charNow == $G) || (ev.vol == 0)){Rest(ev.dur)}{0}
 						},
 						/// GUI PART
 						\calcPoint, Pfunc { |ev|
@@ -71,13 +75,11 @@
 							[lastPoint, firstPoint]
 						},
 						\draw, Pfunc { |ev|
-							if(ev.vol > 0){ // muesste vol testen damit es wie gewuenscht funktioniert
-								if((ev.checkPause.class != Rest) || (ev.legato >= 1)){
-									top[\gui].points.add([
-										ev.calcPoint,
-										myKey.linlin(0,5,0,1).asFloat
-									]);
-								};
+							if((ev.checkPause.class != Rest) || (ev.legato >= 1)){
+								top[\gui].points.add([
+									ev.calcPoint,
+									myKey.linlin(0,5,0,1).asFloat
+								]);
 							};
 							0
 						},
@@ -85,7 +87,9 @@
 						\wrapHi, Pn(Plazy {|ev| ev.wrapHi.asArray.wrapAt(myKey)}),
 						\finish, { |ev|
 							if(myKey == 0){top[\lsys].globalPitch = ev.pitches + addPitch};
-							ev.midinote = ev.midinote.wrap(~wrapLo, ~wrapHi);
+							// ev.midinote = ev.midinote.wrap(~wrapLo, ~wrapHi);
+							if(ev.midinote > ~wrapHi){ ev.midinote = (ev.midinote % 12) + ~wrapHi - 12; "wrapHI!".postln };
+							if(ev.midinote < ~wrapLo){ ev.midinote = (ev.midinote % 12) + ~wrapLo; "wrapLO!".postln };
 							ev
 						}
 					) <> Pbind(*(top[\instrumentPresetsDictionary][~instr.asArray.wrapAt(myKey)]))

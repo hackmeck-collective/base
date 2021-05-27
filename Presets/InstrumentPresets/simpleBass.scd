@@ -6,7 +6,7 @@
 	\pitchOpType, \slide,
 	\oscillatorType, \basic,
 	\fxType, \shelvedOverdriveSoft,
-	\controlbus, ~launchcontrol_xl_row_3,
+	//\controlbus, ~launchcontrol_xl_row_3,
 	\out, ~chords_bus,
 	\send_1, ~ef_reverb,
 	\send_1_level, 0.1,

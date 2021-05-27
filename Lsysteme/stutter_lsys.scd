@@ -1,12 +1,14 @@
-
+~lsys.presets.basicL.noteOffset = 0
+~pitchesRootDissonance[\pitches] = [0, 4, 7, 11]
+Pn(Pdef(\basicL)).play
+~lsys.presets.philly.vols = [0,0.5,0.5,0,0.5,0]
 Pdef(\snowFlake).play
-
-
+~lsys.presets.snowFlake.instr = \blip
 ~lsys.presets.poppe2.instr = \simpleLead
 
 Pdef(\play, Pn(Pdef(\poppe3)).trace);
 ~lsys.presets.snowFlake.quant = 0
-~lsys.presets.snowFlake.legatoArr = 0.6
+~lsys.presets.snowFlake.legatoArr = 0.1
 ~lsys.presets.snowFlake.useGlobalPitch = false
 ~lsys.presets.snowFlake.stutterVal = 1
 ~lsys.presets.snowFlake.stutterVal = Pseq([3, Pn(1,1)])

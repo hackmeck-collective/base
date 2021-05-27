@@ -15,9 +15,9 @@ var opts = (
 // ARGS
 ~newLsys.(
 	name: 'philly',
-	axiom: "-FGKK[+FGKK]-FGKK",
+	axiom: "-FGKK[+FGKK]-FGKK", //"-FGKK[+FGKK]-FGKK",
 	rules: ( $F: "FGKK[+FGKK-]" ),
-	gen: 4,
+	gen: 3,
 	opts: opts
 )
 )

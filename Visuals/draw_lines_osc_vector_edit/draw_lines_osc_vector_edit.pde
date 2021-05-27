@@ -12,7 +12,7 @@ PVector middle;
 boolean initCentroid = true;
 OscP5 oscP5;
 
-ArrayList<ColouredLine> linesList;
+ArrayList<ColouredLine> linesList, linesListCopy;
 
 void setup() {
   size(1000, 1000);
@@ -28,19 +28,27 @@ void setup() {
 }
 
 void draw() { 
-  background(0); //black 
-  
+  //linesListCopy = linesList.clone(); wenn linesMax geaendert wird waehrend es malt kanns error geben
+  background(0); //black
   scale(scaleFactor); //zoom
   //translate(offSetX / scaleFactor, offSetY / scaleFactor); 
+  float d = centroid_old.dist(centroid);
+  if(d > 100){
+    centroid_old = centroid.copy();
+  };
   centroid_old.lerp(centroid, lerpFactor);
   //middle = PVector.lerp(centroid_old, centroid, 0.5);
-  println(centroid_old);
-  translate((width / 2) - centroid_old.x, (height / 2) - centroid_old.y);
-  for (int i = 0; i <= linesList.size() - 1; i++) { 
+  
+  translate((width / (2 * scaleFactor)) - centroid_old.x + offSetX, (height / (2 * scaleFactor)) - centroid_old.y + offSetY);
+  float lsize = linesList.size(); 
+
+  for (int i = 0; i <= lsize - 1; i++) { 
+    float alphaNow = (i / lsize) * 256;
+ 
     ColouredLine currentLine = linesList.get(i);
     //println("line:", line);
 
-    currentLine.display();  
+    currentLine.display(int(alphaNow));  
   }
   //ellipse(centroidX, centroidY, 10, 10);
   
@@ -100,7 +108,7 @@ void oscToLine(OscMessage message) {
     ));
 
   };
-
+  centroid.set(0,0);
   for (int i = 0; i <= linesList.size() - 1; i++) { 
     ColouredLine currentLine = linesList.get(i);
     PVector addMe = new PVector(currentLine.p1_x, currentLine.p1_y); 
@@ -109,7 +117,8 @@ void oscToLine(OscMessage message) {
   
   
   //centroid.x = centroid.x / lines.size() / 2;
-  //centroid.y = centroid.y / lines.size() / 2; 
+  //centroid.y = centroid.y / lines.size() / 2;
+  
   centroid.div((linesList.size()));
   if(initCentroid){
     centroid_old = centroid.copy();
@@ -121,7 +130,7 @@ void oscToLine(OscMessage message) {
   while (linesList.size() > linesMax) {
       linesList.remove(0);  
   };
-  redraw(); 
+  //redraw(); 
 }
 
 class ColouredLine 
@@ -140,10 +149,10 @@ class ColouredLine
     branchLevel = ibranchLevel;
   }
  
-  void display() {
+  void display(int alpha) {
     //println(p1_x, p1_y, p2_x, p2_y);
     //Color according to branch level
-    stroke(map(branchLevel, 0, 1, 0, 100), 100, 100);
+    stroke(map(branchLevel, 1, 0, 65, 100), map(branchLevel, 1, 0, 35, 85), map(branchLevel, 1, 0, 50, 100), alpha);
     line(p1_x, p1_y, p2_x, p2_y);
   }
 }
