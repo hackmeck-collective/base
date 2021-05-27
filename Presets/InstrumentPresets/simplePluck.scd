@@ -1,7 +1,7 @@
 (
 ~instrumentPresetsDictionary[\simplePluck] = [
-	\adsrType, \pluckStop,
-	\sendGate, true,
+	\adsrType, \pluck,
+	\sendGate, false,
 
 	\out, ~melody_bus,
 	\send_1, ~ef_reverb,
@@ -37,7 +37,7 @@
 	\filter_1_mod_2, 0.4,
 
 	\envCurve, 2,
-	\envelope_mod, 0.1, // 0.5,
+	\envelope_mod, 0.2,
 	\vol, 1,
 	\amp, 0.2,
 

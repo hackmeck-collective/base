@@ -4,11 +4,14 @@ Document.open(thisProcess.nowExecutingPath.dirname +/+ "patternFunctions.scd");
 Document.open(thisProcess.nowExecutingPath.dirname +/+ "drumFills.scd");
 Document.open(thisProcess.nowExecutingPath.dirname +/+ "launchControlXlTrigger.scd");
 ~cueData[\lsysBeats1]
-~instrPreset.create(\blip)
+~instrPreset.create(\bdBuzz)
 ~instrPreset.create_d(\template_drum)
 ~instrPreset.create_o(\simpleSine)
-~instrPreset.edit(\blip);
+~instrPreset.edit(\simplePluck);
 
+
+// Master Verzerrung raus
+// bdBuzz / sd2 rein
 
 00010000
 00010010
@@ -20,8 +23,10 @@ Document.open(thisProcess.nowExecutingPath.dirname +/+ "launchControlXlTrigger.s
 01111111
 11111111
 
+360/5
+
 ~bd2.stop;
-~bd2 = ( Pbind( \octave, 3) <> Pdef(\bd1).collect {|ev| ~scM8.play; ev} <> Pbindef(\root) <> Pbindef(\pulse_4) ).play(~linkClock, quant: 4);
+~bd2 = ( Pbind( \octave, 3) <> Pdef(\bdBuzz).collect {|ev| ~scM8.play; ev} <> Pbindef(\root) <> Pbindef(\pulse_4) ).play(~linkClock, quant: 4);
 
 ~sd.stop;
 ~sd = ( Pdef(\sd2).collect {|ev| ~scM4.play; ev} <> Pbindef(\fifth) <> Pbindef(\pulse_4_ob)  ).play(~linkClock, quant: 4);
