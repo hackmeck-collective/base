@@ -16,9 +16,9 @@ var opts = (
 
 // ARGS
 ~newLsys.(
-	name: \penrose, //besserer name waere arppeggios
+	name: \penrose_toPause3, //besserer name waere arppeggios
 	axiom: "F",//"4-F",
-	rules: ($F: "F2-F2-F5-F++F2-F"), //"[X]F-G-F2+F"
+	rules: ($F: "F-G-F2-F"), //"[X]F-G-F2+F"
 	gen: 1, // 1
 	opts: opts
 )

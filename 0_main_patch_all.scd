@@ -120,12 +120,11 @@ s.waitForBoot {
 		loadOnlyPhilipp.value;
 		loadOnlyVincent.value;
 	};
+	CmdPeriod.run;
 
 	if(~addrBook.me.name == \Admin){
 		midiDeviceBenni.value
 	};
-
-	CmdPeriod.run;
 };
 )
 

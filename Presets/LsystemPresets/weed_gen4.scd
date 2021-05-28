@@ -3,11 +3,11 @@
 var opts = (
 	instr: \simpleSine,
 	legatoArr: 1.5,
-	branchInterval: 2,
+	branchInterval: 4,
 	quant: 0,
 	noteOffset: 0,
 	useGlobalPitch: false,
-	vols: 0.45,
+	vols: 0.35,
 	baseTempo: 1/4
 );
 
@@ -15,10 +15,10 @@ var opts = (
 
 // ARGS
 ~newLsys.(
-	name: \weed,
+	name: \weed_gen4,
 	axiom: "F",
 	rules: ($F: "|[F]GG[-F+F]"),
-	gen: 3,
+	gen: 4,
 	opts: opts
 )
 )

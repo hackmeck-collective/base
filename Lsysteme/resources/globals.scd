@@ -109,7 +109,7 @@ Pdef(\playVisuals,
 					wp2 = (p[0][1]) * ~gui.scale,
 					branchLevel = p[1],
 					oscMsg = (wp1.asArray ++ wp2.asArray).asInteger ++ branchLevel;
-					{~gui.toProcessing.sendMsg('/lines', *oscMsg)}.defer(~targetServer.latency - 0.1) // damit es mit server latency zusammen kommt
+					{~gui.toProcessing.sendMsg('/lines', *oscMsg)}.defer(~targetServer.latency - 0.2) // damit es mit server latency zusammen kommt
 				};
 				~gui.points.clear;
 			};

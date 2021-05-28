@@ -13,10 +13,10 @@ var opts = (
 
 // ARGS
 ~newLsys.(
-	name: 'simpleSwitch',
-	axiom: "F",
-	rules:  ($F: "F-G-F2+F"),
-	gen: 2,
+	name: 'simpleSwitch_gen5',
+	axiom: "|G",
+	rules: ( $F: "-Gf+" , $f: "[G]Gf", $G: "-F+G" ),
+	gen: 5.0,
 	opts: opts
 )
 )

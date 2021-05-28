@@ -4,21 +4,23 @@ var opts = (
 	instr: \simpleSine,
 	legatoArr: 1,
 	useGlobalPitch: false,
-	noteOffset: 40,
+	noteOffset: 7,
 	quant: 0,
 	vols: 0.8,
 	baseTempo: 1/6,
 	quant: 0,
-	theta: 12 // 72
+	wrapLo: 48,
+	wrapHi: 108,
+	theta: 24 // 72
 );
 
 // FILTERS
 
 // ARGS
 ~newLsys.(
-	name: \penrose, //besserer name waere arppeggios
-	axiom: "F",//"4-F",
-	rules: ($F: "F2-F2-F5-F++F2-F"), //"[X]F-G-F2+F"
+	name: \penrose_pauses, //besserer name waere arppeggios
+	axiom: "F",
+	rules: ($F: "[X]F-G-F2+F"), //5-F++F2-F
 	gen: 1, // 1
 	opts: opts
 )

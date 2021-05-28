@@ -1,8 +1,8 @@
 (
 // OPTIONS
 var opts = (
-	instr: \simpleSine,
-	legatoArr: 1.5,
+	instr: \simplePluckStop,
+	legatoArr: 1,
 	branchInterval: 2,
 	quant: 0,
 	noteOffset: 0,
@@ -15,7 +15,7 @@ var opts = (
 
 // ARGS
 ~newLsys.(
-	name: \weed,
+	name: \weed_simplePluckStop,
 	axiom: "F",
 	rules: ($F: "|[F]GG[-F+F]"),
 	gen: 3,
