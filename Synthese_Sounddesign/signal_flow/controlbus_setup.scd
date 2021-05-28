@@ -13,7 +13,7 @@
 
 32.do({ |i|
 	~launchcontrolXlControlBusses[i].set(1);
-	~routing["~launchcontrolXlControlBusses[%]".format(i).asSymbol] = ~launchcontrolXlControlBusses[i].index;
+	~routing["launchcontrolXlControlBusses%".format(i).asSymbol] = ~launchcontrolXlControlBusses[i].index;
 });
 
 ~launchcontrolXlControlBusses[15].set(0);
@@ -21,5 +21,5 @@
 
 64.do({ |i|
 	~launchcontrolXlBottomButtonsControlBusses[i].set(0);
-	~routing["~launchcontrolXlBottomButtonsControlBusses[%]".format(i).asSymbol] = ~launchcontrolXlBottomButtonsControlBusses[i].index;
+	~routing["launchcontrolXlBottomButtonsControlBusses%".format(i).asSymbol] = ~launchcontrolXlBottomButtonsControlBusses[i].index;
 });

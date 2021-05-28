@@ -1,8 +1,8 @@
 (
-~instrumentPresetsDictionary['simpleSine'] = [
+~instrumentPresetsDictionary['simpleSinePluckStop'] = [
 // [ rect, pluck, pluckStop, noEnv, pad, lead, sync ]
 
-\adsrType, \lead,
+\adsrType, \pluckStop,
 \sendGate, true,
 \envelope_mod, 0.5,
 \envCurve, 3,
@@ -175,5 +175,5 @@
 \pattern4Amount, 1,
 
 ];
-~callInstrumentPreset.('simpleSine');
+~callInstrumentPreset.('simpleSinePluckStop');
 )

@@ -52,7 +52,7 @@
 	\filter_2_mod_2, 0.25,
 
 	\vol, 1,
-	\amp, 0.2,
+	\amp, 0.7,
 
 	\out, ~melody_bus,
 	\send_1, ~ef_reverb,
