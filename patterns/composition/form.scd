@@ -1,4 +1,6 @@
+(
 "pdef_resources.scd".loadRelative;
+"formteile.scd".loadRelative;
 
 Pdef(\play,
 	Pspawner({ |sp|
@@ -7,6 +9,7 @@ Pdef(\play,
 		sp.seq(Pdef(\penrose_entwicklung2));
 	})
 );
+)
 
 Pdef(\play).play(~linkClock, quant:1 )
 
