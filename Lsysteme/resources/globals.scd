@@ -49,8 +49,8 @@ if(~localSetup){
 			("utopia peers: " ++ ~addrBook.names).postln;
 			if(~addrBook.names.includes(\Admin)){ //~addrBook.names.includes(\Philipp) &&
 
-				 ~gui.toProcessing = NetAddr("127.0.0.1", 12000);
-				//~gui.toProcessing = NetAddr(~addrBook.at(\Philipp).addr.ip, 12000);
+				// ~gui.toProcessing = NetAddr("127.0.0.1", 12000);
+				~gui.toProcessing = NetAddr(~addrBook.at(\philipp).addr.ip, 12000);
 
 				~objSpace_philipp = OSCObjectSpace(~addrBook, oscPath:'/pitches').acceptEvents_(true);
 				~objSpace_philipp.addDependant({|objectSpace, what, key, val|
@@ -109,7 +109,7 @@ Pdef(\playVisuals,
 					wp2 = (p[0][1]) * ~gui.scale,
 					branchLevel = p[1],
 					oscMsg = (wp1.asArray ++ wp2.asArray).asInteger ++ branchLevel;
-					{~gui.toProcessing.sendMsg('/lines', *oscMsg)}.defer(~targetServer.latency - 0.18) // damit es mit server latency zusammen kommt
+					{~gui.toProcessing.sendMsg('/lines', *oscMsg)}.defer(~targetServer.latency - 0.1) // damit es mit server latency zusammen kommt
 				};
 				~gui.points.clear;
 			};

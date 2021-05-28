@@ -2,7 +2,6 @@
 (
 var waitForPeers = true;
 var multicoreSetup = false;
-         $###########3333333333333333
 var loadOnlyBenni = {
 	"loading signal flow".postln;
 	if(multicoreSetup)
@@ -32,7 +31,7 @@ var loadOnlyBenni = {
 	"patterns/drumFills.scd".loadRelative;
 	"patterns/launchControlXlTrigger.scd".loadRelative;
 
-
+	"cues/cues.scd".loadRelative;
 
 };
 var loadOnlyVincent = {
@@ -104,9 +103,12 @@ s.waitForBoot {
 			inf.do{
 				~addrBook.names.postln;
 				if(~addrBook.names.includes(\vincent) && ~addrBook.names.includes(\Admin)){
-
 					loadAll.value;
-					loadOnlyBenni.value;
+					switch (~addrBook.me.name,
+						\Admin, {loadOnlyBenni.value},
+						\vincent, {loadOnlyVincent.value},
+						\philipp, {loadOnlyPhilipp.value}
+					);
 					break.value
 				};
 				1.wait
@@ -126,6 +128,8 @@ s.waitForBoot {
 	CmdPeriod.run;
 };
 )
+
+~addrBook.at(\Admin).sendMsg("/reloadInstruments");
 
 ~instrPreset.keys.do.postln;
 
