@@ -87,7 +87,7 @@
 						\wrapHi, Pn(Plazy {|ev| ev.wrapHi.asArray.wrapAt(myKey)}),
 						\finish, { |ev|
 							if(myKey == 0){top[\lsys].globalPitch = ev.pitches + addPitch};
-							// ev.midinote = ev.midinote.wrap(~wrapLo, ~wrapHi);
+							//ev.midinote = ev.midinote.wrap(~wrapLo, ~wrapHi);
 							if(ev.midinote > ~wrapHi){ ev.midinote = (ev.midinote % 12) + ~wrapHi - 12; "wrapHI!".postln };
 							if(ev.midinote < ~wrapLo){ ev.midinote = (ev.midinote % 12) + ~wrapLo; "wrapLO!".postln };
 							ev

@@ -1,10 +1,15 @@
 (
 // OPTIONS
 var opts = (
-	instr: \simpleBass,
+	instr: \simpleSine,
 	legatoArr: 1,
+	useGlobalPitch: false,
+	noteOffset: 40,
 	quant: 0,
-	baseTempo: 1/6
+	vols: 0.8,
+	baseTempo: 1/6,
+	quant: 0,
+	theta: 12 // 72
 );
 
 // FILTERS
@@ -12,9 +17,9 @@ var opts = (
 // ARGS
 ~newLsys.(
 	name: \penrose, //besserer name waere arppeggios
-	axiom: "4-F",
-	rules: ($F: "F4-F4-F10-F++F4-F"),
-	gen: 3.0,
+	axiom: "F",//"4-F",
+	rules: ($F: "F2-F2-F5-F++F2-F"), //"[X]F-G-F2+F"
+	gen: 1, // 1
 	opts: opts
 )
 )

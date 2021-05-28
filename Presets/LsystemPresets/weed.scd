@@ -1,14 +1,14 @@
 (
 // OPTIONS
 var opts = (
-	instr: \simplePluck,
-	legatoArr: 1,
+	instr: \simpleSine,
+	legatoArr: 1.5,
 	branchInterval: 2,
 	quant: 0,
-	noteOffset: 14,
+	noteOffset: 0,
 	useGlobalPitch: false,
-	vols: [0.8, 0.6] ++ (0.4!100),
-	baseTempo: 1/2
+	vols: 0.45,
+	baseTempo: 1/4
 );
 
 // FILTERS
@@ -17,8 +17,8 @@ var opts = (
 ~newLsys.(
 	name: \weed,
 	axiom: "F",
-	rules: ($F: "[F]GG[-F+F]"),
-	gen: 4.0,
+	rules: ($F: "|[F]GG[-F+F]"),
+	gen: 3,
 	opts: opts
 )
 )

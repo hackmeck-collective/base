@@ -26,7 +26,7 @@ if (~port.isNil) {
 
 
 ~localSetup = false;
-"../../network/address_book_all.scd".loadRelative;
+"../../../network/address_book_all.scd".loadRelative;
 // Hail-Init for Networking
 // ~addrBook = AddrBook.new;
 // ~addrBook.addMe(Peer(\Philipp, NetAddr("192.168.178.21", 57120)));
@@ -61,8 +61,8 @@ MIDIdef.cc(\launchControlKnobs, {
 		var newDissDegree = val.linlin(0,127,0,11).round.asInteger;//0 bis 11
 		if (~listAndParameters.dissDegree != newDissDegree) //Nur wenn was neues kommt, mach was.
 		{
-			var closestList = ~searchTreeNearest.(
-				numNotes:  ~listAndParameters.list.size,
+			var closestList = ~searchTreeNearestOld.(
+				underlyingScale: ~listAndParameters.underlyingScale,
 				chord: ~listAndParameters.list,
 				rootNote: ~listAndParameters.rootNote,
 				dissDegree: newDissDegree
@@ -85,7 +85,7 @@ MIDIdef.cc(\launchControlKnobs, {
 		if (newRootValue != ~listAndParameters.rootNote)
 		{
 			var closestList = ~searchTreeNearestOld.(
-				// numNotes:  ~listAndParameters.list.size,
+				underlyingScale: ~listAndParameters.underlyingScale,
 				chord: ~listAndParameters.list,
 				rootNote: newRootValue,
 				dissDegree: ~listAndParameters.dissDegree
@@ -105,7 +105,7 @@ MIDIdef.cc(\launchControlKnobs, {
 	}
 	{ num == 23 } { //Drehknopf 3 oben
 		//Soll Anzahl Töne steuern. Mit Dissonanzgrad wird eine Liste erstellt.
-		var newNumberOfNotes = val.linlin(0,127,3,5).round.asInteger; //3 bis 5
+		var newNumberOfNotes = val.linlin(0,127,3,7).round.asInteger; //3 bis 7
 		//newNumberOfNotes.postln;
 		if (~listAndParameters.list.size != newNumberOfNotes )
 		{
@@ -126,7 +126,7 @@ MIDIdef.cc(\launchControlKnobs, {
 			//"testlist: ".post; testlist.postln;
 
 			closestList = ~searchTreeNearestOld.(
-				//numNotes: ~listAndParameters.list.size,
+				underlyingScale: ~listAndParameters.underlyingScale,
 				chord: testlist,
 				rootNote: ~listAndParameters.rootNote,
 				dissDegree: ~listAndParameters.dissDegree
@@ -145,6 +145,34 @@ MIDIdef.cc(\launchControlKnobs, {
 		}
 	}
 	{ num == 24 } { //Drehknopf 4 oben
+		var newUnderlyingScale = [\Chromatic, \Major].at(val.linlin(0,127,0,1).round.asInteger);
+		if (newUnderlyingScale != ~listAndParameters.underlyingScale) {
+			var closestList = ~searchTreeNearestOld.(
+				underlyingScale: \Major,//newUnderlyingScale,
+				chord: ~listAndParameters.list,
+				rootNote: ~listAndParameters.rootNote,
+				dissDegree: ~listAndParameters.dissDegree
+			);
+			//Hier darf er eigentlich nichts finden! Makro ist wahrscheinlich doch falsch
+			~searchTreeNearestOld.(
+				underlyingScale: \Major,
+				chord: [ 3, 7, 12, 19 ],
+				rootNote: 0,
+				dissDegree: 1
+			);
+
+			if(closestList.notNil){
+				~listAndParameters.list = closestList;
+				~listAndParameters.underlyingScale = newUnderlyingScale;
+				"underlyingScale: ".post; ~listAndParameters.underlyingScale.postln;
+				~actualizeGUI.value;
+				~startPiano.showKeys(~listAndParameters.list);
+				if(~gateOpen[4] == true){~sendWithHail.((list: ~listAndParameters.list, rootNote: ~listAndParameters.rootNote));};
+			}{
+				"no new list".postln
+			}
+
+		}
 	}
 	{ num == 25 } { //Drehknopf 5 oben
 	}
@@ -202,7 +230,7 @@ MIDIdef.noteOn(\launchControlButtonsON, {
 		{
 			~sendWithHail.((list: ~listAndParameters.list, rootNote: ~listAndParameters.rootNote));
 			~gateOpen[3] = true; ~toLaunchControl.noteOn(0, 11, 63);
-			{~button3.value = 1}.defer};
+			{~button3.value = 1}.defer}
 		{
 			~gateOpen[3] = false; ~toLaunchControl.noteOn(0, 11, 12);
 			{~button3.value = 0}.defer
@@ -211,8 +239,13 @@ MIDIdef.noteOn(\launchControlButtonsON, {
 	}
 	{ num == 12 } { //Button -4-
 		if (~gateOpen[4] == false)
-		{ ~gateOpen[4] = true; ~toLaunchControl.noteOn(0, 12, 63); {~button4.value = 1}.defer}
-		{ ~gateOpen[4] = false; ~toLaunchControl.noteOn(0, 12, 12); {~button4.value = 0}.defer};
+		{
+			~sendWithHail.((list: ~listAndParameters.list, rootNote: ~listAndParameters.rootNote));
+			~gateOpen[4] = true; ~toLaunchControl.noteOn(0, 12, 63);
+			{~button4.value = 1}.defer}
+		{
+			~gateOpen[4] = false; ~toLaunchControl.noteOn(0, 12, 12);
+			{~button4.value = 0}.defer};
 	}
 	{ num == 25 } { //Button -5-
 		if (~gateOpen[5] == false)

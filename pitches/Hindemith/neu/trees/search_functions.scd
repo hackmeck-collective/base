@@ -44,8 +44,8 @@
 
 
 //Die gibt einem immer ein Ergebnis
-~searchTreeNearestOld = { |chord, rootNote, dissDegree|
-	var res = ~trees[\numNotes, chord.size, \rootNote, rootNote, \dissDegrees, dissDegree];
+~searchTreeNearestOld = { |underlyingScale, chord, rootNote, dissDegree|
+	var res = ~trees[\underlyingScale, underlyingScale, \numNotes, chord.size, \rootNote, rootNote, \dissDegrees, dissDegree];
 	if(res.isNil){
 		"empty address!".postln;
 		nil

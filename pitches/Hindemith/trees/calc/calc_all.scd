@@ -34,7 +34,7 @@
 
 ~dissDegreesAll = (0..11);
 ~numNotesAll = [3, 4, 5]; //Chordsize
-~maxUpper = 36; // Ambitus, 36 dauert ca. 3 Min
+~maxUpper = 24; // Ambitus
 // beachten: da alle ergebnisse nochmal mit den offsets (1..11) vervielfacht werden
 // ist der tatsaechliche wert fuer maxUpper 11 hoeher
 )
@@ -94,6 +94,7 @@
 	"fill lists with values from ~res and ~rootOffsets ...".postln;
 	([~res] ++ ~rootOffsets).do { |res|
 		res.treeDo({}, {|lf eventArr|
+			//("lf: " ++ lf.asString).postln;
 			eventArr.do {|ev|
 				var addr = [\numNotes, lf[1], \rootNote, ev.rootNote ? \noRootNote, \dissDegrees, lf[3]]; //weil nil als key in nem Dictionary nicht geht
 				kdTrees.at(*addr) ?? {

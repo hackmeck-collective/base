@@ -859,8 +859,8 @@
         "id": "scale",
         "visible": true,
         "interaction": true,
-        "width": "auto",
-        "height": "auto",
+        "width": 50,
+        "height": 460,
         "expand": "false",
         "colorText": "auto",
         "colorWidget": "auto",
@@ -882,10 +882,10 @@
         "spring": false,
         "doubleTap": false,
         "range": {
-          "min": 1,
+          "min": 0.25,
           "max": 5
         },
-        "logScale": false,
+        "logScale": true,
         "sensitivity": 1,
         "steps": "",
         "origin": "auto",

@@ -29,7 +29,6 @@ s.waitForBoot {
 	"ready".postln
 }
 )
-~addrBook.at(\Admin).sendMsg("/reloadInstruments");
 
 
 
