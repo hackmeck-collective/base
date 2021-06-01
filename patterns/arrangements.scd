@@ -4,14 +4,17 @@ Document.open(thisProcess.nowExecutingPath.dirname +/+ "patternFunctions.scd");
 Document.open(thisProcess.nowExecutingPath.dirname +/+ "drumFills.scd");
 Document.open(thisProcess.nowExecutingPath.dirname +/+ "launchControlXlTrigger.scd");
 ~cueData[\lsysBeats1]
-~instrPreset.create(\bdBuzz)
+~instrPreset.create(\click);
 ~instrPreset.create_d(\template_drum)
 ~instrPreset.create_o(\simpleSine)
-~instrPreset.edit(\simplePluck);
+~instrPreset.edit(\click);
 
-
+Pdef(\metalPerc).play
+Pdef(\simpleSine).play
 // Master Verzerrung raus
 // bdBuzz / sd2 rein
+// mit vincet clock klären kann man über netzwerk syncen?
+// startup patch
 
 00010000
 00010010
@@ -26,7 +29,7 @@ Document.open(thisProcess.nowExecutingPath.dirname +/+ "launchControlXlTrigger.s
 360/5
 
 ~bd2.stop;
-~bd2 = ( Pbind( \octave, 3) <> Pdef(\bdBuzz).collect {|ev| ~scM8.play; ev} <> Pbindef(\root) <> Pbindef(\pulse_4) ).play(~linkClock, quant: 4);
+~bd2 = ( Pbind( \octave, 3) <> Pdef(\bdBuzz).collect {|ev| ~scM8.play; ev} <> Pbindef(\root) <> Pbindef(\pulse_6) ).play(~linkClock, quant: 4);
 
 ~sd.stop;
 ~sd = ( Pdef(\sd2).collect {|ev| ~scM4.play; ev} <> Pbindef(\fifth) <> Pbindef(\pulse_4_ob)  ).play(~linkClock, quant: 4);
@@ -34,8 +37,8 @@ Document.open(thisProcess.nowExecutingPath.dirname +/+ "launchControlXlTrigger.s
 
 (
 b = (Pbind(\controlbus1, ~launchcontrolXlControlBusses[0], \external1Amount, 1)
-	<> Pdef(\simpleLead)  <> Pbind(\external1Target, "filter_1_mod_1")
-	<> Pbindef(\root) <> Pbindef(\pulse_16) ).play(~linkClock, quant: 4);
+	<> Pdef(\simpleSinePluckStop)  <> Pbind(\external1Target, "filter_1_mod_1")
+	<> Pbindef(\arp) <> Pbindef(\pulse_16) ).play(~linkClock, quant: 4);
 )
 
 b.stop
@@ -54,7 +57,7 @@ b = (
 		\external2max, 0,
 	)
 	<>
-	Pdef(\simplePluck)
+	Pdef(\click)
 
 	<>
 	Pbind(//\external1Target, "oscillator_2_mod_1",

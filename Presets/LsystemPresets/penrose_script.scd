@@ -1,4 +1,5 @@
 (
+(0..4).do({ |i|
 // OPTIONS
 var opts = (
 	instr: \simpleSine,
@@ -12,17 +13,17 @@ var opts = (
 	theta: 12, // 72
 	wrapLo: 36,
 	wrapHi: 120,
-	branchInterval: 3,
 );
 
 // FILTERS
 
 // ARGS
 ~newLsys.(
-	name: \penrose_canon_pausen_1, //besserer name waere arppeggios
-	axiom: "F",
-	rules: ($F: "-F+[-X+GX]G[F]G5-F5+", $G: "GX"), // "-F+[-X+GX]G[F]5-F5+-F+" "-F+[-X+3-X3+X]G[F]5-F5+-F+"
-	gen: 3, // 1
+	name: ("penrose_gen" ++ i).asSymbol, //besserer name waere arppeggios
+	axiom: "F",//"4-F",
+	rules: ($F: "2+F2--F+-F+2-F2+5+F5--F+"), //"[X]F-G-F2+F"
+	gen: i, // 1
 	opts: opts
 )
-)
+})
+);

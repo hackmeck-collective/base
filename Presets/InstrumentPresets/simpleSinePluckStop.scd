@@ -9,9 +9,9 @@
 
 // [ fm, noPitchOp, unisonoDetune, vibrato, rectArp, rectArpSync, slide, vibratoSync ]
 
-\pitchOpType, \noPitchOp,
-\pitchOp_1_interval, 0.2,
-\pitchOp_1_amount, 0.4,
+\pitchOpType, \vibrato,
+\pitchOp_1_interval, 0.15,
+\pitchOp_1_amount, 0.1,
 
 \pitchOpType_2, \noPitchOp,
 \pitchOp_2_interval, 12,

@@ -12,17 +12,16 @@ var opts = (
 	theta: 12, // 72
 	wrapLo: 36,
 	wrapHi: 120,
-	branchInterval: 3,
 );
 
 // FILTERS
 
 // ARGS
 ~newLsys.(
-	name: \penrose_canon_pausen_1, //besserer name waere arppeggios
+	name: \penrose_pauses_gen1, //besserer name waere arppeggios
 	axiom: "F",
-	rules: ($F: "-F+[-X+GX]G[F]G5-F5+", $G: "GX"), // "-F+[-X+GX]G[F]5-F5+-F+" "-F+[-X+3-X3+X]G[F]5-F5+-F+"
-	gen: 3, // 1
+	rules: ($F: "[X]2+F2--G+4+F4--F+"), // "2+F2--G+5+F5--F+" + branch
+	gen: 1, // 1
 	opts: opts
 )
 )

@@ -19,9 +19,9 @@ var opts = (
 
 // ARGS
 ~newLsys.(
-	name: \penrose_canon_pausen_1, //besserer name waere arppeggios
+	name: \penrose_canon_2, //besserer name waere arppeggios
 	axiom: "F",
-	rules: ($F: "-F+[-X+GX]G[F]G5-F5+", $G: "GX"), // "-F+[-X+GX]G[F]5-F5+-F+" "-F+[-X+3-X3+X]G[F]5-F5+-F+"
+	rules: ($F: "-F+[-X+3-X3+X]G[F]5-F5+-F+"), // branches gedreht
 	gen: 3, // 1
 	opts: opts
 )

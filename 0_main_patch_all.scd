@@ -1,6 +1,6 @@
 
 (
-var waitForPeers = true;
+var waitForPeers = false;
 var multicoreSetup = false;
 var loadOnlyBenni = {
 	"loading signal flow".postln;
@@ -31,7 +31,7 @@ var loadOnlyBenni = {
 	"patterns/drumFills.scd".loadRelative;
 	"patterns/launchControlXlTrigger.scd".loadRelative;
 
-	"cues/cues.scd".loadRelative;
+
 
 };
 var loadOnlyVincent = {
@@ -55,12 +55,12 @@ var loadOnlyPhilipp = {
 	};
 	"pitches/Hindemith/prepare Session.scd".loadRelative;
 };
-var midiDeviceBenni = {
-	"loading control interfaces".postln;
-	"control_interfaces/midi_defs_launchcontrol-xl.scd".loadRelative;
-
-	"control_interfaces/performance_programs_launchcontrol-xl/launchcontrol-xl_load_modules.scd".loadRelative;
-};
+// var midiDeviceBenni = {
+// 	"loading control interfaces".postln;
+// 	"control_interfaces/midi_defs_launchcontrol-xl.scd".loadRelative;
+//
+// 	"control_interfaces/performance_programs_launchcontrol-xl/launchcontrol-xl_load_modules.scd".loadRelative;
+// };
 var midiDevicePhilipp = {
 	"loading control interfaces".postln;
 	"control_interfaces/launchcontrol.scd".loadRelative;
@@ -103,12 +103,12 @@ s.waitForBoot {
 			inf.do{
 				~addrBook.names.postln;
 				if(~addrBook.names.includes(\vincent) && ~addrBook.names.includes(\Admin)){
+
 					loadAll.value;
-					switch (~addrBook.me.name,
-						\Admin, {loadOnlyBenni.value},
-						\vincent, {loadOnlyVincent.value},
-						\philipp, {loadOnlyPhilipp.value}
-					);
+					loadOnlyBenni.value;
+
+
+
 					break.value
 				};
 				1.wait
@@ -119,16 +119,22 @@ s.waitForBoot {
 		loadOnlyBenni.value;
 		loadOnlyPhilipp.value;
 		loadOnlyVincent.value;
-	};
-	CmdPeriod.run;
 
-	if(~addrBook.me.name == \Admin){
-		midiDeviceBenni.value
+		CmdPeriod.run;
+
+		/*if(~addrBook.me.name == \Admin){
+			midiDeviceBenni.value
+		};*/
 	};
+
 };
 )
 
-~addrBook.at(\Admin).sendMsg("/reloadInstruments");
+(
+"loading control interfaces".postln;
+"control_interfaces/midi_defs_launchcontrol-xl.scd".loadRelative;
+"control_interfaces/performance_programs_launchcontrol-xl/launchcontrol-xl_load_modules.scd".loadRelative;
+)
 
 ~instrPreset.keys.do.postln;
 
@@ -139,6 +145,7 @@ s.waitForBoot {
 ~routing[\chordsBus] = ~chords_bus.index;
 ~routing[\drumsBus] = ~drums_bus.index;
 ~routing[\auxBus] = ~aux_bus.index;
+
 );
 
 /*
