@@ -181,6 +181,7 @@ MIDIdef.cc(\launchControlKnobs, {
 	}
 	{ num == 25 } { //Drehknopf 5 oben
 		~listAndParameters.lowNote = 24 + (val.linlin(0,127,0,5).round.asInteger * 12);
+		~sendWithHail.((list: ~listAndParameters.list, rootNote: ~listAndParameters.rootNote));
 	}
 	{ num == 26 } { //Drehknopf 6 oben
 	}
