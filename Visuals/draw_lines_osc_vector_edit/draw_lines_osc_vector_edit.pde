@@ -93,18 +93,20 @@ void oscEvent(OscMessage message) {
 void oscToLine(OscMessage message) {
   // find out how many lines are sent ++++
   // one line requires four numbers (two points with x and y) and has one color/level-parameter. so to calculate how many are sent we divide by five
-  int numLines = message.typetag().length() / 5; 
+  int numLines = message.typetag().length() / 7; 
 
   
   // add new lines to list
   for(int i = 0; i < numLines; i++) { 
-    int j = i * 5; //find the right position in the array according to the number of the line
+    int j = i * 7; //find the right position in the array according to the number of the line
     linesList.add(new ColouredLine(
       message.get(0 + j).intValue(),   //gets coordinate x of p1
       message.get(1 + j).intValue(),   //gets coordinate y of p1
       message.get(2 + j).intValue(),   //gets coordinate x of p2
       message.get(3 + j).intValue(),    //gets coordinate y of p2
-      message.get(4 + j).floatValue()  // branch Level
+      message.get(4 + j).floatValue(),  // branch Level
+      message.get(5 + j).floatValue(),  // volume
+      message.get(6 + j).intValue()  // baseColor
     ));
 
   };
@@ -140,19 +142,29 @@ class ColouredLine
   int p2_x;
   int p2_y;
   float branchLevel;
+  float volume;
+  int baseColor;
  
-  ColouredLine(int ip1_x, int ip1_y, int ip2_x, int ip2_y, float ibranchLevel) {
+  ColouredLine(int ip1_x, int ip1_y, int ip2_x, int ip2_y, float ibranchLevel, float ivolume, int ibaseColor) {
     p1_x = ip1_x;
     p1_y = ip1_y;
     p2_x = ip2_x;
     p2_y = ip2_y;
     branchLevel = ibranchLevel;
+    volume = ivolume;
+    baseColor = ibaseColor;
   }
  
   void display(int alpha) {
     //println(p1_x, p1_y, p2_x, p2_y);
     //Color according to branch level
-    stroke(map(branchLevel, 1, 0, 65, 100), map(branchLevel, 1, 0, 35, 85), map(branchLevel, 1, 0, 50, 100), alpha);
+    strokeWeight(map(branchLevel, 1, 0, 1, 5));
+    stroke(
+      map(branchLevel, 1, 0, 65 - baseColor, 100 - baseColor), 
+      map(branchLevel, 1, 0, 35 - baseColor, 85 - baseColor), 
+      map(branchLevel, 1, 0, 50 - baseColor, 100 - baseColor), 
+      alpha * volume
+    );
     line(p1_x, p1_y, p2_x, p2_y);
   }
 }

@@ -88,7 +88,7 @@
 		);
 
 		// make root voice
-		voices[0] = newVoice.(0, 0, parentId: 0, keyInit: 0);
+		voices[0] = newVoice.(0, 0, keyInit: 0, parentId: 0);
 
 		while ({(searchIndex < str.size)}, {
 			var n;

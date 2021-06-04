@@ -74,7 +74,7 @@
 							top[\gui].lastPoints[voiceEvent.myId] = firstPoint;
 							[lastPoint, firstPoint]
 						},
-						\draw, Pfunc { |ev|
+/*						\draw, Pfunc { |ev|
 							if((ev.checkPause.class != Rest) || (ev.legato >= 1)){
 								top[\gui].points.add([
 									ev.calcPoint,
@@ -82,7 +82,7 @@
 								]);
 							};
 							0
-						},
+						},*/
 						\wrapLo, Pn(Plazy {|ev| ev.wrapLo.asArray.wrapAt(myKey)}),
 						\wrapHi, Pn(Plazy {|ev| ev.wrapHi.asArray.wrapAt(myKey)}),
 						\finish, { |ev|

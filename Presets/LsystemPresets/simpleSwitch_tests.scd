@@ -15,7 +15,7 @@ var opts = (
 
 // ARGS
 ~newLsys.(
-	name: 'simpleSwitch',
+	name: 'simpleSwitch_tests',
 	axiom: "F",
 	rules:  ($F: "F-G-F2+F"),
 	gen: 2,

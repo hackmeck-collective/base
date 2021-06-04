@@ -19,25 +19,18 @@
 	philippOctaves: 4,
 	maxPatDur: 36,
 	instr: \simplePluck,
-	useGlobalPitch: true,
+	useGlobalPitch: false,
 	mute: 1,
-	stutterVal: 1
+	stutterVal: 1,
+	baseColor: 0,
+	lineScale: 10
 );
-
-~philipp_pitches = Scale.harmonicMinor;
 
 //
 ~gui = ();
 ~gui.points = List.new;
-~gui.scale = 10;
+~gui.scale = 20;
 ~gui.lastPoints = ();
-
-/*~addrBook = AddrBook.new;
-~addrBook.addMe;
-~hail = Hail.new(~addrBook);
-~synthDescRel = SynthDescRelay(~addrBook);
-~instrumentPresetsDictionary = OSCObjectSpace(~addrBook, oscPath:'/instrumentPresets').acceptEvents_(true);
-~routing = OSCObjectSpace(~addrBook, oscPath:'/routing').acceptEvents_(true);*/
 
 if(~localSetup){
 	~targetServer = Server.default;
@@ -74,41 +67,33 @@ if(~localSetup){
 
 };
 
-// Pdef(\rest, Pbind(\dur, Pn(Rest())));
-
-/*Pdef(\playVisuals,
-(
-Pdef(\play) <>
-Pbind(\getDiff, Pdiff(Pkey(\testCount))) <>
-PtimeClutch(Pbind(\testCount, Pseries()))
-).collect{|ev|
-if(ev.getDiff == 1){
-if(~gui.points.isEmpty.not){
-~gui.points.do { |p|
-var wp1 = (p[0][0]) * ~gui.scale,  // ~win.bounds.bottom/2 oder so
-wp2 = (p[0][1]) * ~gui.scale,
-branchLevel = p[1],
-oscMsg = (wp1.asArray ++ wp2.asArray).asInteger ++ branchLevel;
-{~gui.toProcessing.sendMsg('/lines', *oscMsg)}.defer(~targetServer.latency - 0.125) // damit es mit server latency zusammen kommt
-};
-~gui.points.clear;
-};
-};
-ev
-}
-);*/
-
-
 Pdef(\playVisuals,
+	Pbind(
+		\draw, Pfunc { |ev|
+			if(ev.dur.isRest.not){
+				if((ev.checkPause.class != Rest) || (ev.legato >= 1)){
+					("branchLEVEL: " ++ ev.branchLevel).postln;
+					~gui.points.add([
+						ev.calcPoint,
+						ev.branchLevel.linlin(0,5,0,1).asFloat,
+						ev.vol.asFloat ? 1.0,
+						ev.baseColor,
+						ev.lineScale
+					]);
+				};
+			};
+			0
+		}
+	) <>
 	Pdef(\play) <>
 	PtimeClutch(
 		Pbind(\sendToGui, Pfunc {
 			if(~gui.points.isEmpty.not){
 				~gui.points.do { |p|
-					var wp1 = (p[0][0]) * ~gui.scale,  // ~win.bounds.bottom/2 oder so
+					var scale = p[4],
+					wp1 = (p[0][0]) * ~gui.scale,  // ~win.bounds.bottom/2 oder so
 					wp2 = (p[0][1]) * ~gui.scale,
-					branchLevel = p[1],
-					oscMsg = (wp1.asArray ++ wp2.asArray).asInteger ++ branchLevel;
+					oscMsg = (wp1.asArray ++ wp2.asArray).asInteger ++ p[1..3];
 					{~gui.toProcessing.sendMsg('/lines', *oscMsg)}.defer(~targetServer.latency - 0.2) // damit es mit server latency zusammen kommt
 				};
 				~gui.points.clear;

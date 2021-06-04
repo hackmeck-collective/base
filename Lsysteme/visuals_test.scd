@@ -77,7 +77,7 @@ Pdef(\play).stop
 
 Pdef(\playVisuals).play(~linkClock, quant:2 )
 Pdef(\playVisuals).stop
-
+Pdef(\play).clear
 
 ~gui.points
 
@@ -96,6 +96,7 @@ Pdef(\playVisuals).stop
 
 
 ~lsys.presets.chaosFugue.theta = 20
+~lsys.presets.simpleSwitch.vols = 0.4
 
 ~lsys.presets.penrose.legatoArr
 ~lsys.presets.penrose.theta = 12
