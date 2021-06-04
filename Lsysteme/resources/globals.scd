@@ -40,7 +40,7 @@ if(~localSetup){
 		inf.do {
 			1.wait;
 			("utopia peers: " ++ ~addrBook.names).postln;
-			if(~addrBook.names.includes(\Admin)){ //~addrBook.names.includes(\Philipp) &&
+			if(~addrBook.names.includes(\philipp) && ~addrBook.names.includes(\Admin)){ //~addrBook.names.includes(\Philipp) &&
 
 				// ~gui.toProcessing = NetAddr("127.0.0.1", 12000);
 				~gui.toProcessing = NetAddr(~addrBook.at(\philipp).addr.ip, 12000);

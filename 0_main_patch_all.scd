@@ -1,6 +1,6 @@
 
 (
-var waitForPeers = false;
+var waitForPeers = true;
 var multicoreSetup = false;
 var loadOnlyBenni = {
 	"loading signal flow".postln;
@@ -70,7 +70,7 @@ var loadAll = {
 
 	Pdef(\rest, Pbind(\dur, Pn(Rest())));
 
-	if (~pitchesRootDissonance[\pitches] == nil ) {~pitchesRootDissonance[\pitches] = [-36,-9,5,-17,10]};
+	if (~pitchesRootDissonance[\pitches] == nil ) {~pitchesRootDissonance[\pitches] = (36, 38 .. 72)};
 	if (~pitchesRootDissonance[\root] == nil ) {~pitchesRootDissonance[\root] = [0]};
 
 	// "loading cue functions".postln;

@@ -50,14 +50,18 @@
 						},
 						\vols, Pn(Plazy {|ev| ev.vols.asArray.wrapAt(myKey)}),
 						\vol, Pfunc {|ev| ev.vol * ev.vols * muteMe},
-						\scale, Pfunc { Scale.new(top[\pitchesRootDissonance][\pitches] % 12) },
+						/*\scale, Pfunc { Scale.new(top[\pitchesRootDissonance][\pitches] % 12) },
 						\degree, Pfunc {|ev|
 							(ev.pitches * ev.stepInterval) + (myKey * ev.branchInterval.asArray.wrapAt(myKey)) + addPitch + ev.noteOffset
-						},
+						},*/
 						/*\notesArray, Pfunc { |ev| ev.philippOctaves.collect { |i| top[\pitchesRootDissonance][\pitches] + (i * 12) }.flat.sort },
 						\note, Pfunc {|ev|
 						ev.notesArray.wrapAt((ev.pitches * ev.stepInterval) + (myKey * ev.branchInterval.asArray.wrapAt(myKey)) + addPitch + ev.noteOffset)
 						},*/
+						\midinote, Pfunc{ |ev|
+							var pitchIx = (ev.pitches * ev.stepInterval) + (myKey * ev.branchInterval.asArray.wrapAt(myKey));// + ev.noteOffset;
+							top[\pitchesRootDissonance][\pitches].foldAt(pitchIx)
+						},
 						\checkPause, Pfunc { |ev|
 							if((ev.charNow == $G) || (ev.vol == 0)){Rest(ev.dur)}{0}
 						},
