@@ -46,4 +46,4 @@ Takte_5bis6: 2a-2a+2a3-2a3+2a-2a-2a3+2a
 Takte_9bis10: 2G2a5+6a-a+a-a-a-a-a5-
 
 
-IN PATTERNS/COMPOSITION/FORM.scd sind 
+ siehe L-system-test.scd sind 
