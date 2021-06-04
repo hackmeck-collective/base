@@ -30,28 +30,20 @@ rule:
 
 FRAKTAL-FUGE
 Puls ist Achtel.
-Axiomteil_1:
-Takte_1bis4: 2g2a5+6a-a+a-a-a-a-a+2a2-2a+2a+2a+2a+2a2-a+a-2a2-
-Takte_5bis8: a+a+a+a+a+a+a+a3-4a-2a+2a2a3-2a2a2a+2a-2a2a2a
-Takte_9bis12: 2a-2a+2a3-2a3+2a-2a-2a3+4a2-2a3-2a+4a-a2+3a-2a
+Stimme_1:
+Takte_1bis_2: 10+2a-2a+2a3-2a3+2a-2a-2a3+2a7-
+Takte_5bis6: 2G2a5+6a-a+a-a-a-a-a2-
+Takte_9bis10: a+a+a+a+a+a+a+a3-4a-2a+2a
 
-Axiomteil_2:
-Takte_1bis4: 4+2g2a5+6a-a+a-a-a-a-a+2a2-2a+2a+2a+2a+2a2-a+a-2a3- //wie Axiomteil_1 Takte 1 bis 4
-Takte_5bis8: a+a+a+a+a+a+a+a3-4a-2a+2a2a3-2a2a2a3+ //wie Axiomteil_1 Takte 5 bis 8
-Takte_9bis12: 2a-2a+2a3-2a3+2a-2a-2a3+4a2-2a3-2a+4a-a2+3a-2a //wie Axoimteil_1 Takte 9 bis 12
+Stimme_2:
+Takte_1bis2: 2G2a5+6a-a+a-a-a-a-a-
+Takte_5bis6: a+a+a+a+a+a+a+a3-4a-2a+2a-
+Takte_9bis10: 2a-2a+2a3-2a3+2a-2a-2a3+2a
 
-Axiom, Takte 1 bis 24:
-2G2a5+6a-a+a-a-a-a-a+2a2-2a+2a+2a+2a+2a2-a+a-2a
-[4+2G2a5+6a-a+a-a-a-a-a+2a2-2a+2a+2a+2a+2a2-a+a-2a3-a+a+a+a+a+a+a+a3-4a-2a+2a2a3-2a2a2a3+2a-2a+2a3-2a3+2a-2a-2a3+4a2-2a3-2a+4a-a2+3a-2a
-2G2a5+6a-a+a-a-a-a-a+2a2-2a+2a+2a+2a+2a2-a+a-2a2-a+a+a+a+a+a+a+a3-4a-2a+2a2a3-2a2a2a2+2a-2a+2a3-2a3+2a-2a-2a3+4a2-2a3-2a+4a-a2+3a-2a]
-2-a+a+a+a+a+a+a+a3-4a-2a+2a2a3-2a2a2a+2a-2a2a2a
-[8-2G2a5+6a-a+a-a-a-a-a+2a2-2a+2a+2a+2a+2a2-a+a-2a2-a+a+a+a+a+a+a+a3-4a-2a+2a2a3-2a2a2a2+2a-2a+2a3-2a3+2a-2a-2a3+4a2-2a3-2a+4a-a2+3a-2a
-	4+2G2a5+6a-a+a-a-a-a-a+2a2-2a+2a+2a+2a+2a2-a+a-2a3-a+a+a+a+a+a+a+a3-4a-2a+2a2a3-2a2a2a3+2a-2a+2a3-2a3+2a-2a-2a3+4a2-2a3-2a+4a-a2+3a-2a]
-2+2a-2a+2a3-2a3+2a-2a-2a3+4a2-2a3-2a+4a-a2+3a-2a
-3-2G2a5+6a-a+a-a-a-a-a+2a2-2a+2a+2a+2a+2a2-a+a-2a3-a+a+a+a+a+a+a+a3-4a-2a+2a2a3-2a2a2a3+2a-2a+2a3-2a3+2a-2a-2a3+4a2-2a3-2a+4a-a2+3a-2a
+Stimme_3:
+Takte_1bis2: 4-a+a+a+a+a+a+a+a3-4a-2a+2a-
+Takte_5bis6: 2a-2a+2a3-2a3+2a-2a-2a3+2a
+Takte_9bis10: 2G2a5+6a-a+a-a-a-a-a5-
 
 
-
-
-
-
+IN PATTERNS/COMPOSITION/FORM.scd sind 

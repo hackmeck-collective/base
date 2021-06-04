@@ -1,5 +1,6 @@
+
 (
-var waitForPeers = false;
+var waitForPeers = false; //false, wenn man alleine arbeitet
 var multicoreSetup = false;
 var loadOnlyBenni = {
 	"loading signal flow".postln;
@@ -30,6 +31,8 @@ var loadOnlyBenni = {
 	"patterns/drumFills.scd".loadRelative;
 	"patterns/launchControlXlTrigger.scd".loadRelative;
 
+	"cues/cues.scd".loadRelative;
+
 };
 var loadOnlyVincent = {
 	"Synthese_Sounddesign/instruments/modules/0_load_modules.scd".loadRelative;
@@ -45,25 +48,23 @@ var loadOnlyVincent = {
 	//};
 
 };
-var loadOnlyPhilipp = {
+/*var loadOnlyPhilipp = {
 	~sendWithHail = {arg event; //Funktion, die das event inklusive liste versendet.
 		~pitchesRootDissonance[\pitches] = event.list;
 		~pitchesRootDissonance[\root] = event.rootNote;
 	};
 	"pitches/Hindemith/prepare Session.scd".loadRelative;
-};
-
- var midiDeviceBenni = {
- 	"loading control interfaces".postln;
- 	"control_interfaces/midi_defs_launchcontrol-xl.scd".loadRelative;
-
- 	"control_interfaces/performance_programs_launchcontrol-xl/launchcontrol-xl_load_modules.scd".loadRelative;
- };
-
-var midiDevicePhilipp = {
+};*/
+// var midiDeviceBenni = {
+// 	"loading control interfaces".postln;
+// 	"control_interfaces/midi_defs_launchcontrol-xl.scd".loadRelative;
+//
+// 	"control_interfaces/performance_programs_launchcontrol-xl/launchcontrol-xl_load_modules.scd".loadRelative;
+// };
+/*var midiDevicePhilipp = {
 	"loading control interfaces".postln;
 	"control_interfaces/launchcontrol.scd".loadRelative;
-};
+};*/
 var loadAll = {
 	~linkClock = LinkClock.new(1).latency_(s.latency).enableMeterSync.permanent_(true);
 
@@ -93,19 +94,21 @@ s.waitForBoot {
 	// ~addrBookUserName = \benni;
 	"network/address_book_all.scd".loadRelative;
 
-	if(~addrBook.me.name == \philipp){
+	/*if(~addrBook.me.name == \philipp){
 		midiDevicePhilipp.value
-	};
+	};*/
 	"waiting...".postln;
 	if(waitForPeers){
 		block {|break|
 			inf.do{
 				~addrBook.names.postln;
 				if(~addrBook.names.includes(\vincent) && ~addrBook.names.includes(\Admin)){
-
 					loadAll.value;
-					loadOnlyBenni.value;
-
+					switch (~addrBook.me.name,
+						\Admin, {loadOnlyBenni.value},
+						\vincent, {loadOnlyVincent.value},
+						\philipp, {}//{loadOnlyPhilipp.value}
+					);
 					break.value
 				};
 				1.wait
@@ -114,20 +117,21 @@ s.waitForBoot {
 	}{
 		loadAll.value;
 		loadOnlyBenni.value;
-		loadOnlyPhilipp.value;
+		//loadOnlyPhilipp.value;
 		loadOnlyVincent.value;
 
+		CmdPeriod.run;
+
+		/*if(~addrBook.me.name == \Admin){
+		midiDeviceBenni.value
+		};*/
 	};
 
-	CmdPeriod.run;
-
-	/*s.sync;
-
-	if(~addrBook.me.name == \Admin){
-		midiDeviceBenni.value;
-	};*/
 };
 )
+
+~addrBook.at(\Admin).sendMsg("/reloadInstruments");
+
 
 (
 "loading control interfaces".postln;

@@ -14,6 +14,8 @@
 	rootNote: 0,
 	minLowerNote: 0,
 	maxUpperNote: 12,
+	lowNote: 36,
+	highNote: 96
 );
 
 

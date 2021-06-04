@@ -15,18 +15,19 @@ if (MIDIClient.initialized.not){
 	"MIDI initialized".postln;
 	"connecting MIDIIn ...".postln;
 	MIDIIn.connectAll;
+	if (~port.isNil) {
+		~port = MIDIClient.destinations.detectIndex({|item| item.asString.contains("Launch Control")});
+		~toLaunchControl = MIDIOut.new(~port);
+		~toLaunchControl.connect(~port);
+	};
+
 	"MIDIIn connected".postln;
 };
 
-if (~port.isNil) {
-	~port = MIDIClient.destinations.detectIndex({|item| item.asString.contains("Launch Control")});
-	~toLaunchControl = MIDIOut.new(~port);
-	~toLaunchControl.connect(~port);
-};
 
 
 ~localSetup = false;
-"../../../network/address_book_all.scd".loadRelative;
+"../../network/address_book_all.scd".loadRelative;
 // Hail-Init for Networking
 // ~addrBook = AddrBook.new;
 // ~addrBook.addMe(Peer(\Philipp, NetAddr("192.168.178.21", 57120)));
@@ -34,13 +35,17 @@ if (~port.isNil) {
 // ~addrBook.peers;
 // ~addrBook.names;
 // ~objSpace = OSCObjectSpace(~addrBook, true, '/pitches');
+~expandNotes = {|notes, lowNote, highNote|
+	var addOctaves = (0, 12 .. 96) +.t notes + lowNote;
+	addOctaves.flat.reject(_ > highNote).as(Set).asArray.sort
+};
+
 ~sendWithHail = {arg event; //Funktion, die das event inklusive liste versendet.
-	~pitchesRootDissonance[\pitches] = event.list;
+	~pitchesRootDissonance[\pitches] = ~expandNotes.(event.list, ~listAndParameters.lowNote, ~listAndParameters.highNote).postln; //event.list
 	~pitchesRootDissonance[\root] = event.rootNote;
 };
 
 "prepare Session.scd".loadRelative;
-
 
 )
 
@@ -153,7 +158,7 @@ MIDIdef.cc(\launchControlKnobs, {
 				rootNote: ~listAndParameters.rootNote,
 				dissDegree: ~listAndParameters.dissDegree
 			);
-			//Hier darf er eigentlich nichts finden! Makro ist wahrscheinlich doch falsch
+
 			~searchTreeNearestOld.(
 				underlyingScale: \Major,
 				chord: [ 3, 7, 12, 19 ],
@@ -175,6 +180,7 @@ MIDIdef.cc(\launchControlKnobs, {
 		}
 	}
 	{ num == 25 } { //Drehknopf 5 oben
+		~listAndParameters.lowNote = 24 + (val.linlin(0,127,0,5).round.asInteger * 12);
 	}
 	{ num == 26 } { //Drehknopf 6 oben
 	}
