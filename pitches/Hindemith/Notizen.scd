@@ -32,7 +32,7 @@ FRAKTAL-FUGE
 Puls ist Achtel.
 Axiomteil_1:
 Takte_1bis4: 2g2a5+6a-a+a-a-a-a-a+2a2-2a+2a+2a+2a+2a2-a+a-2a2-
-Takte_5bis8: a+a+a+a+a+a+a+a3-4a-2a+2a2a3-2a2a2a2+
+Takte_5bis8: a+a+a+a+a+a+a+a3-4a-2a+2a2a3-2a2a2a+2a-2a2a2a
 Takte_9bis12: 2a-2a+2a3-2a3+2a-2a-2a3+4a2-2a3-2a+4a-a2+3a-2a
 
 Axiomteil_2:
@@ -41,14 +41,14 @@ Takte_5bis8: a+a+a+a+a+a+a+a3-4a-2a+2a2a3-2a2a2a3+ //wie Axiomteil_1 Takte 5 bis
 Takte_9bis12: 2a-2a+2a3-2a3+2a-2a-2a3+4a2-2a3-2a+4a-a2+3a-2a //wie Axoimteil_1 Takte 9 bis 12
 
 Axiom, Takte 1 bis 24:
-2g2a5+6a-a+a-a-a-a-a+2a2-2a+2a+2a+2a+2a2-a+a-2a
-[4+2g2a5+6a-a+a-a-a-a-a+2a2-2a+2a+2a+2a+2a2-a+a-2a3-a+a+a+a+a+a+a+a3-4a-2a+2a2a3-2a2a2a3+2a-2a+2a3-2a3+2a-2a-2a3+4a2-2a3-2a+4a-a2+3a-2a/*T5-16*/
-2g2a5+6a-a+a-a-a-a-a+2a2-2a+2a+2a+2a+2a2-a+a-2a2-a+a+a+a+a+a+a+a3-4a-2a+2a2a3-2a2a2a2+2a-2a+2a3-2a3+2a-2a-2a3+4a2-2a3-2a+4a-a2+3a-2a]/*T17-20*/
-2-a+a+a+a+a+a+a+a3-4a-2a+2a2a3-2a2a2a
-[8-2g2a5+6a-a+a-a-a-a-a+2a2-2a+2a+2a+2a+2a2-a+a-2a2-a+a+a+a+a+a+a+a3-4a-2a+2a2a3-2a2a2a2+2a-2a+2a3-2a3+2a-2a-2a3+4a2-2a3-2a+4a-a2+3a-2a
-	4+2g2a5+6a-a+a-a-a-a-a+2a2-2a+2a+2a+2a+2a2-a+a-2a3-a+a+a+a+a+a+a+a3-4a-2a+2a2a3-2a2a2a3+2a-2a+2a3-2a3+2a-2a-2a3+4a2-2a3-2a+4a-a2+3a-2a]
+2G2a5+6a-a+a-a-a-a-a+2a2-2a+2a+2a+2a+2a2-a+a-2a
+[4+2G2a5+6a-a+a-a-a-a-a+2a2-2a+2a+2a+2a+2a2-a+a-2a3-a+a+a+a+a+a+a+a3-4a-2a+2a2a3-2a2a2a3+2a-2a+2a3-2a3+2a-2a-2a3+4a2-2a3-2a+4a-a2+3a-2a
+2G2a5+6a-a+a-a-a-a-a+2a2-2a+2a+2a+2a+2a2-a+a-2a2-a+a+a+a+a+a+a+a3-4a-2a+2a2a3-2a2a2a2+2a-2a+2a3-2a3+2a-2a-2a3+4a2-2a3-2a+4a-a2+3a-2a]
+2-a+a+a+a+a+a+a+a3-4a-2a+2a2a3-2a2a2a+2a-2a2a2a
+[8-2G2a5+6a-a+a-a-a-a-a+2a2-2a+2a+2a+2a+2a2-a+a-2a2-a+a+a+a+a+a+a+a3-4a-2a+2a2a3-2a2a2a2+2a-2a+2a3-2a3+2a-2a-2a3+4a2-2a3-2a+4a-a2+3a-2a
+	4+2G2a5+6a-a+a-a-a-a-a+2a2-2a+2a+2a+2a+2a2-a+a-2a3-a+a+a+a+a+a+a+a3-4a-2a+2a2a3-2a2a2a3+2a-2a+2a3-2a3+2a-2a-2a3+4a2-2a3-2a+4a-a2+3a-2a]
 2+2a-2a+2a3-2a3+2a-2a-2a3+4a2-2a3-2a+4a-a2+3a-2a
-3-2g2a5+6a-a+a-a-a-a-a+2a2-2a+2a+2a+2a+2a2-a+a-2a3-a+a+a+a+a+a+a+a3-4a-2a+2a2a3-2a2a2a3+2a-2a+2a3-2a3+2a-2a-2a3+4a2-2a3-2a+4a-a2+3a-2a
+3-2G2a5+6a-a+a-a-a-a-a+2a2-2a+2a+2a+2a+2a2-a+a-2a3-a+a+a+a+a+a+a+a3-4a-2a+2a2a3-2a2a2a3+2a-2a+2a3-2a3+2a-2a-2a3+4a2-2a3-2a+4a-a2+3a-2a
 
 
 
