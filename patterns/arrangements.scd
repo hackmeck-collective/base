@@ -7,9 +7,9 @@ Document.open(thisProcess.nowExecutingPath.dirname +/+ "launchControlXlTrigger.s
 ~instrPreset.create(\click);
 ~instrPreset.create_d(\template_drum)
 ~instrPreset.create_o(\simpleSine)
-~instrPreset.edit(\click);
+~instrPreset.edit(\simplePluck);
 
-Pdef(\metalPerc).play
+Pdef(\click).stop
 Pdef(\simpleSine).play
 // Master Verzerrung raus
 // bdBuzz / sd2 rein
@@ -26,7 +26,6 @@ Pdef(\simpleSine).play
 01111111
 11111111
 
-360/5
 
 ~bd2.stop;
 ~bd2 = ( Pbind( \octave, 3) <> Pdef(\bdBuzz).collect {|ev| ~scM8.play; ev} <> Pbindef(\root) <> Pbindef(\pulse_6) ).play(~linkClock, quant: 4);

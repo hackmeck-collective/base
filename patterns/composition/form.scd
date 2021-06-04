@@ -4,11 +4,11 @@
 
 Pdef(\play,
 	Pspawner({ |sp|
-		sp.seq(Pdef(\exposition));
-		sp.seq(Pdef(\penrose_entwicklung1));
+		sp.seq(Pdef(\exposition)); //verpeilung am ende raus
+		sp.seq(Pdef(\penrose_entwicklung1)); // percussion rein
 		sp.seq(Pdef(\penrose_entwicklung2));
 		sp.seq(Pdef(\simpleSwitchDevelopement));
-		sp.seq(Pdef(\triangle_develope));
+		sp.seq(Pdef(\triangle_develope)); // percussion rein
 	})
 );
 )
