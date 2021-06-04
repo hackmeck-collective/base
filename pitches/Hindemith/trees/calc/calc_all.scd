@@ -3,10 +3,10 @@
 
 (
 "resources.scd".loadRelative;
-~calcAll = { |dissDegree, numNotes, maxUpper|
+~calcAll = { |dissDegree, numNotes, maxUpper, underlyingScale|
 	var inputs = merge(
 		~dissDegreeConstraints[dissDegree],
-		(numNotes: numNotes, maxUpperNoteWhenBaseIs0: maxUpper)
+		(numNotes: numNotes, maxUpperNoteWhenBaseIs0: maxUpper, underlyingScale: underlyingScale)
 	);
 	var outputs;
 	if(dissDegree <= 9){outputs = ~getListComprehension.valueWithEnvir(inputs).all};
@@ -32,37 +32,48 @@
 	outputs
 };
 
+
+
 ~dissDegreesAll = (0..11);
-~numNotesAll = [3, 4, 5]; //Chordsize
-~maxUpper = 24; // Ambitus
+~numNotesAll = [3, 4, 5, 6, 7]; //Chordsize
+~maxUpper = 32; // Ambitus. 32 dauert 44 Sek.
 // beachten: da alle ergebnisse nochmal mit den offsets (1..11) vervielfacht werden
 // ist der tatsaechliche wert fuer maxUpper 11 hoeher
 )
+
+
+
 
 // calculate all dissDegrees for all different number of notes
 (
 {
 	var result = MultiLevelIdentityDictionary.new;
 	"calculate all list comprehesions".postln;
-	~numNotesAll.do { |nn|
-		("\tnumNotes " ++ nn).postln;
-		~dissDegreesAll.do { |deg|
-			var newCalc = ~calcAll.(
-				dissDegree: deg,
-				numNotes: nn,
-				maxUpper: ~maxUpper
-			);
-			result.put(\numNotes, nn, \dissDegrees, deg, newCalc);
-			("\t\tdissDegree: " ++ deg ++ " size " ++ newCalc.size ++ " ...").postln;
+	[Scale.chromatic, Scale.major].do {|scale|
+		("scale " ++ scale.name[0..8]).postln;
+		~numNotesAll.do { |nn|
+			("\tnumNotes " ++ nn).postln;
+			~dissDegreesAll.do { |deg|
+				var newCalc = ~calcAll.(
+					dissDegree: deg,
+					numNotes: nn,
+					maxUpper: ~maxUpper,
+					underlyingScale: scale.degrees
+				);
+				result.put(\underlyingScale, scale.name[0..8].asSymbol, \numNotes, nn, \dissDegrees, deg, newCalc);
+				("\t\t scale: " ++ scale.name[0..8] ++ " numNotes: " ++ nn ++ " dissDegree: " ++ deg ++ " size: " ++ newCalc.size ++ " ...").postln;
+			}
 		}
 	};
 	~res = result;
 }.bench
 )
 
-// inspection
-~res[\numNotes, 3, \dissDegrees, 11]; //rootNote doesn’t work here
 
+// inspection
+~res[\underlyingScale, \Major, \numNotes, 4, \dissDegrees, 6]; //rootNote doesn’t work here
+
+~res[\underlyingScale, \Major, \numNotes, 4, \dissDegrees, 1];
 // copy and offset rootnote and list for every note
 (
 {
@@ -82,8 +93,8 @@
 }.bench
 )
 
-//inspection: ~rootOffsets[rootNote][\key, value, \key, value]
-~rootOffsets[1][\numNotes, 4, \dissDegrees, 3];
+//inspection: ~rootOffsets[rootNote][\key, value, \key, value, \key, value]
+~rootOffsets[1][\underlyingScale, \Chromatic, \numNotes, 4, \dissDegrees, 3];
 
 // make kdtrees for all numNotes and all rootNote and all dissDegree
 //Die Idee ist jetzt die Rootnote in die Adresse mit hineinzubringen. Aus den Listen mit den Events werden Objekte (mit Namen kdtree). Der Vorteil ist, dass man schnell darin suchen kann.
@@ -96,7 +107,7 @@
 		res.treeDo({}, {|lf eventArr|
 			//("lf: " ++ lf.asString).postln;
 			eventArr.do {|ev|
-				var addr = [\numNotes, lf[1], \rootNote, ev.rootNote ? \noRootNote, \dissDegrees, lf[3]]; //weil nil als key in nem Dictionary nicht geht
+				var addr = [\underlyingScale, lf[1], \numNotes, lf[3], \rootNote, ev.rootNote ? \noRootNote, \dissDegrees, lf[5]]; //weil nil als key in nem Dictionary nicht geht
 				kdTrees.at(*addr) ?? {
 					kdTrees.putAtPath(addr, List.new);
 				};
@@ -114,8 +125,9 @@
 }.bench
 )
 
+
 // save file
-(se
+(
 {
 	var path = PathName(thisProcess.nowExecutingPath).pathOnly +/+ "hindemithTrees.archiv";
 	("saving to " ++ path ++ " ...").postln;

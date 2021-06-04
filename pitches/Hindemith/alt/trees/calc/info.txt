@@ -1,0 +1,16 @@
+
+
+
+
+calc_all.scd berechnet Akkorde
+
+für die DissDegrees 0 bis 9 (später 0 bis 11)
+
+mit Akkordgröße 3, 4, und 5 Töne
+
+und maxUpperNote = 36 (durch Offset Ambitus = 47 )
+
+und legt sie in hindemithTrees.archiv ab.
+
+
+

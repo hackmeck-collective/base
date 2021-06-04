@@ -24,6 +24,11 @@ w = Window.new(bounds: Rect(0, 300, 1100, 600)).front;
 ~text3.align= \left;
 ~text3.font = Font("Monaco", fontsize);
 
+~text4 = StaticText(w, Rect(4 * platz + (3*breite), platz, breite, hoehe));
+~text4.string = "4 SCALE";
+~text4.align= \left;
+~text4.font = Font("Monaco", fontsize);
+
 //Second row
 ~numberboxDissDegree = NumberBox(w, Rect(platz, 2 * platz + hoehe, 50, 50));
 ~numberboxDissDegree.font = Font("Monaco", fontsize);
@@ -31,6 +36,8 @@ w = Window.new(bounds: Rect(0, 300, 1100, 600)).front;
 ~textfieldRoot.font = Font("Monaco", fontsize);
 ~numberboxNumberNotes = NumberBox(w, Rect(3 * platz + (2*breite),  2 * platz + hoehe, 50, 50));
 ~numberboxNumberNotes.font = Font("Monaco", fontsize);
+~textfieldScale = TextField(w, Rect(4 * platz + (3*breite),  2 * platz + hoehe, 100, 50));
+~textfieldScale.font = Font("Monaco", fontsize);
 
 //Fourth row
 ~button1 = Button(w, Rect(platz, 4 * hoehe + platz, 100, 100))

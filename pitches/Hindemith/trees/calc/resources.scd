@@ -123,24 +123,25 @@
 	}
 };
 
-
+//~getListComprehension.value(4, Scale.major.degrees, nil, Set[5], nil, nil, nil, 12, "==", 3);
 ~getListComprehension = { |numNotes, underlyingScale, excludeAll, includeAll, includeOneOf, includeOneOf2, mehrereTritoni, maxUpperNoteWhenBaseIs0, rootNoteEqual, dissDegree|
 	var noteStringArray = (numNotes - 1).collect {|i| "n%".format(i + 1) };
 	var noteString = ("[0" ++ (numNotes - 1).collect {|i| ", n%".format(i + 1) }.reduce{|a b| a ++ b}  ++ "]");
-	var str = "{: (list: %, rootNote: rootNote), \n var maxUpperNoteWhenBaseIs0 = %, \n
+	var str = "{: (list: %, rootNote: rootNote), \n var maxUpperNoteWhenBaseIs0 = %,
 n1 <- (1..(maxUpperNoteWhenBaseIs0-%)),".format(
 		noteString, maxUpperNoteWhenBaseIs0, numNotes - 2
 	)
 	++ (if(excludeAll.notNil){"%.includes(n1.mod(12)).not,".format(excludeAll)} {""})
-	++ (if(underlyingScale.notNil){"%.includes(n1.mod(12)),".format(underlyingScale)}{""}) ++ "\n"
+	//++ (if(underlyingScale.notNil){"%.includes(n1.mod(12)),".format(underlyingScale)}{""})
+	++ "\n"
 	++
-	(if(numNotes==3){""}{
+	(if(numNotes==3){""} {
 		(numNotes - 3).collect { |nn|
 			"% <- ((%+1)..(maxUpperNoteWhenBaseIs0-%)),".format("n" ++ (nn + 2), "n" ++ (nn + 1), numNotes - nn - 3)
 			++ (if(excludeAll.notNil){"(% & ~intervals.([0, %]).asSet).isEmpty,".format(
 				excludeAll, noteStringArray[0..(nn + 1)].reduce{|a b| a ++ ", " ++ b}
 			)}{""})
-			++ (if(underlyingScale.notNil){"([0, %].asSet - %).isEmpty,".format(
+			++ (if(underlyingScale.notNil){"([0, %].asSet - %.asSet).isEmpty,".format(
 				noteStringArray[0..(nn + 1)].reduce{|a b| a ++ ", " ++ b}, underlyingScale
 			)}{""})
 			++ "\n"
@@ -157,10 +158,18 @@ n1 <- (1..(maxUpperNoteWhenBaseIs0-%)),".format(
 	++ (if(includeAll.notNil){"% isSubsetOf: intervals.asSet,".format(includeAll)}{""}) ++ "\n"
 	++ (if(mehrereTritoni.notNil){"(intervals.count({|item| item.mod(12) == 6}) >= 2),"}{""}) ++ "\n"
 	++ "var rootNote = ~rootNote.(%)".format(noteString)
-	++ (if(rootNoteEqual.notNil){", (rootNote % 0) && (rootNote.notNil)}".format(rootNoteEqual)}{"}"});
+	++ (if(rootNoteEqual.notNil){", (rootNote % 0) &&
+		 rootNote.notNil".format(rootNoteEqual, noteStringArray, underlyingScale)}{""})
+	++ ", (if(rootNote.notNil) {
+		( %.asSet - (% + rootNote).mod(12).asSet).isEmpty
+} {false}) }".format(noteStringArray.insert(0,0), underlyingScale);
+	//("noteStringArray: " ++ noteStringArray.insert(0,0)).postln;
 	//str.asCompileString.postln;
 	str.interpret
 
 };
 
-
+[1,2,3] + 2;
+[1,2,3].insert(0,0).asSet;
+//( noteString.interpret.asSet - (underlyingScale + rootNote).mod(12).asSet).isEmpty
+//true == ( noteStringArray.insert(0,0).asSet - (% + rootNote).mod(12).asSet).isEmpty
