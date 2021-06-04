@@ -71,7 +71,7 @@
 \vca_preFxLevel, 0,
 
 \vol, 1,
-\amp, 0.75,
+\amp, 0.375,
 
 // the sends have to be EXISTING audio busses. If they return nil there will be no sound without an ERROR.
 

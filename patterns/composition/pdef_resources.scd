@@ -1,60 +1,70 @@
-Pdef(\simpleSwitch_midi, Pbind(\controlbus1, ~routing[\launchcontrolXlControlBusses1],
-	\external1Amount, 1,
-	\external1min, -1,
-	\external1max, 1,
-	\envelope_mod, 0.5
-) <> Pdef(\simpleSwitch) <>
-Pbind(\external1Target, "envelope_mod")
-);
-Pdef(\simpleSwitch_gen4_midi, Pbind(\controlbus1, ~routing[\launchcontrolXlControlBusses1],
-	\external1Amount, 1,
-	\external1min, -1,
-	\external1max, 1,
-	\envelope_mod, 0.5
-) <> Pdef(\simpleSwitch_gen4) <>
-Pbind(\external1Target, "envelope_mod")
-);
-Pdef(\simpleSwitch_gen5_midi, Pbind(\controlbus1, ~routing[\launchcontrolXlControlBusses1],
-	\external1Amount, 1,
-	\external1min, -1,
-	\external1max, 1,
-	\envelope_mod, 0.5
-) <> Pdef(\simpleSwitch_gen5) <>
-Pbind(\external1Target, "envelope_mod")
-);
-Pdef(\simpleSwitch_gen6_midi, Pbind(\controlbus1, ~routing[\launchcontrolXlControlBusses1],
-	\external1Amount, 1,
-	\external1min, -1,
-	\external1max, 1,
-	\envelope_mod, 0.5
-) <> Pdef(\simpleSwitch_gen6) <>
-Pbind(\external1Target, "envelope_mod")
+~lcXlCtrBus1Bi = { |busNum, amount = 1, min = -1, max = 1|
+	Pbind(\controlbus1, ~routing[("launchcontrolXlControlBusses" ++ busNum).asSymbol],
+		\external1Amount, amount,
+		\external1min, min,
+		\external1max, max,
+	)
+};
+
+~lcXlCtrBus2Bi = { |busNum, amount, min, max|
+	Pbind(\controlbus2, ~routing[("launchcontrolXlControlBusses" ++ busNum).asSymbol],
+		\external2Amount, 1,
+		\external2min, -1,
+		\external2max, 1,
+	)
+};
+
+~simpleSwitchInstrState_1 = (Pbind(\pitchOp_1_interval, 3.5,
+	\pitchOp_1_amount, 0.05,
+	\pitchOp_2_interval, 0,
+	\pitchOp_2_amount, 0,
+	\oscillator_1_mod_1, 0, \oscillator_2_mod_1, 0,
+	\drum_1_level, 0, \drum_2_level, 0,
+	\vca_filterLevel, 0,
+	\vca_preFilterLevel, 0,
+	\vca_preFxLevel, 1,
+	\envelope_mod, 0.6
+)
 );
 
-Pdef(\penrose_midi,
-	Pbind(\controlbus1, ~routing[\launchcontrolXlControlBusses0],
-		\external1Amount, 1,
-		\external1min, -1,
-		\external1max, 1,
-		\oscillator_1_mod_2, 0.5
-	) <>
-	Pdef(\penrose) <>
-	Pbind(\external1Target, "oscillator_1_mod_2")
+~weedInstrState_1 = (Pbind(\send_1_level, 0.25,	\envelope_mod, 0.7));
+
+~penroseInstrState_1 = (
+	Pbind(\oscillator_2_level, 0.25,
+		\oscillator_1_mod_1, 0.05, \oscillator_2_mod_1, 0,
+		\oscillator_1_mod_2, 1.7, \oscillator_2_mod_2, 1.3,
+));
+
+~patternVolumeFadePre = (Pbind(
+	\vol, (Pfunc {|ev|
+		var oldVol = ev.vol ? 1;
+		var fade = if(ev.streamIndex == 1){ev.xfade}{1 - ev.xfade};
+		oldVol * fade
+	})
+)
 );
 
+~patternVolumeFadePost = ({|length, delta|
+	PtimeClutch(Pbind(
+		\xfade, Pseg([0,1],[length],0,inf)
+	), delta: (delta) - 0.01) // Delta mit dem baseTempo auf dem es laufen soll abstimmen
+});
 
-Pdef(\penrose_gen2_midi,
-	Pbind(\controlbus1, ~routing[\launchcontrolXlControlBusses0],
-		\external1Amount, 1,
-		\external1min, -1,
-		\external1max, 1,
-		\oscillator_1_mod_2, 0.5
-	) <>
-	Pdef(\penrose_gen2) <>
-	Pbind(\external1Target, "oscillator_1_mod_2")
+~patternNotesFadePre = (Pbind(
+		\vol, (Pfunc {|ev|
+			var oldVol = ev.vol ? 1;
+			var fade = if(ev.streamIndex == 1){ev.xfade}{1 - ev.xfade};
+			oldVol * fade
+		})
+	)
 );
 
-
+~patternNotesFadePost = ({|delta, weightPattern|
+	PtimeClutch(Pbind(
+		\weights, weightPattern,
+		\xfade, Pn(Plazy {|ev| Pwrand([0, 1], [1 - ev.weights, ev.weights])})
+	), delta: (delta) - 0.01);
+});
 
 Pdef(\transition_canon_ritardando,
 	Pbind(
@@ -71,21 +81,404 @@ Pdef(\transition_canon_ritardando,
 	), delta: (1/6) - 0.01) // Delta mit dem baseTempo auf dem es laufen soll abstimmen
 );
 
-Pdefn(\weights_transition_penrose_simpleSwitch, Pbjorklund(Pseq([Pstutter(3,Pseq((1..15))),Pn(16)]).trace,16,inf));
+Pdefn(\weights_transition_penrose_simpleSwitch, Pbjorklund(Pseq([Pstutter(3,Pseq((1..15))),Pn(16)]).trace,16));
 
 Pdef(\transition_penrose_simpleSwitch,
-	Pbind(
+	/*Pbind(
 		\vol, (Pfunc {|ev|
 			var oldVol = ev.vol ? 1;
 			var fade = if(ev.streamIndex == 1){ev.xfade}{1 - ev.xfade};
 			oldVol * fade
 		})
-	) <> Ppar([
-		Pn(Pdef(\penrose_canon_mehr_pausen)) <> Pbind(\streamIndex, 2), //\newBranchTest
+	)*/
+	~patternNotesFadePre
+	<> Ppar([
+		Pn(Pdef(\penrose_canon_mehr_pausen3)) <> Pbind(\streamIndex, 2), //\newBranchTest
 		Pn(Pdef(\simpleSwitch)) <> Pbind(\streamIndex, 1)
-	]) <> PtimeClutch(Pbind(
-		\weights, Pdefn(\weights_transition_penrose_simpleSwitch),//Pseg([0,1,0],[20,20],0,inf),//Pfunc{ ~weightsTest },
+	])
+	<> ~patternNotesFadePost.(1/8, Pbjorklund(Pseq([Pstutter(Pseq([Pn(4,4),Pn(2,2)]),Pseq((1..15))),Pn(16, 1)]).trace,16) )
+	/*PtimeClutch(Pbind(
+		\weights, Pbjorklund(Pseq([Pstutter(2,Pseq((1..15))),Pn(16, 1)]).trace,16),
 		\xfade, Pn(Plazy {|ev| Pwrand([0, 1], [1 - ev.weights, ev.weights])})
-	), delta: (1/8) - 0.01) // Delta mit dem baseTempo auf dem es laufen soll abstimmen
+	), delta: (1/8) - 0.01)*/ // Delta mit dem baseTempo auf dem es laufen soll abstimmen
 );
 
+{
+	var testArray = (2..9);
+	var testName = "fraktal_1";
+	var testNameAdd = "_inverse";
+	var testNameAdd2 = "_sd";
+	var baseTempo = 1/8;
+	var leadInstr1 = \simplePluck;
+	var branchInstr1 = \simplePluck;
+	var percInstr1 = \bdBuzz;
+	var percInstr2 = \metalPerc;
+	var intervals = [1, -1, 1, -1, 1, -1, 1, -1, 1, -1, 1, -1, 1, -1, 1, -1];
+	var testSymbols, testSymbols2, testSymbols3;
+
+	testArray.do(
+		{ |item, index|
+			~newLsys.(
+				name: (testName ++ item).asSymbol,
+				axiom: "G",
+				rules: ( $F: "Gf" , $f: "Gf", $G: "++F----G++" ),
+				gen: item,
+				opts: (
+					useGlobalPitch: false,
+					noteOffset: 0,
+					stepInterval: 1,
+					quant: 0,
+					baseTempo: baseTempo,
+					legatoArr: 1,
+					wrapLo: [ 12 ],
+					wrapHi: [ 96 ],
+					instr: leadInstr1,
+					vols: 2,
+				)
+			);
+
+			~newLsys.(
+				name: (testName ++ testNameAdd ++ item).asSymbol,
+				axiom: "G",
+				rules: ( $F: "Gf" , $f: "Gf", $G: "++F----G++" ),
+				gen: item,
+				opts: (
+					useGlobalPitch: false,
+					noteOffset: 0,
+					stepInterval: -1,
+					quant: 0,
+					baseTempo: baseTempo,
+					legatoArr: 1,
+					wrapLo: [ 12 ],
+					wrapHi: [ 96 ],
+					instr: leadInstr1,
+					vols: 2,
+				)
+			);
+
+			~newLsys.(
+				name: (testName ++ testNameAdd2 ++ item).asSymbol,
+				axiom: "G",
+				rules: ( $F: "G--f++" , $f: "G++F--", $G: "+f--G+" ),
+				gen: item,
+				opts: (
+					useGlobalPitch: false,
+					noteOffset: -12,
+					quant: 0,
+					baseTempo: baseTempo,
+					legatoArr: 0.99,
+					wrapLo: [ 84 ],
+					wrapHi: [ 96 ],
+					instr: percInstr2,
+					vols: 0.1
+				)
+			);
+		}
+	);
+
+	testArray.do(
+		{ |item|
+			Pdef((testName ++ item ++ "_filter").asSymbol,
+				Pbind(\vol, Pfunc {|ev|
+					if(ev.charNow == $F){ev.vol * 1.2}{ev.vol}
+				},
+				\filter_1_mod_1, Pfunc {|ev|
+					if(ev.charNow == $F){ev.filter_1_mod_1 * 1.2}{ev.filter_1_mod_1}
+				},
+				\timingOffset, Pfunc {|ev|
+					if(ev.charNow == $F){0}{0}
+				},
+				)
+				<> (Pbind(\time, Ptime))
+			);
+
+			Pdef((testName ++ testNameAdd  ++ item ++ "_filter").asSymbol,
+				Pbind(\vol, Pfunc {|ev|
+					if(ev.charNow == $F){ev.vol * 1.2}{ev.vol}
+				},
+				\filter_1_mod_1, Pfunc {|ev|
+					if(ev.charNow == $F){ev.filter_1_mod_1 * 1.2}{ev.filter_1_mod_1}
+				},
+				\timingOffset, Pfunc {|ev|
+					if(ev.charNow == $F){0}{0}
+				},
+				)
+				<> (Pbind(\time, Ptime))
+			);
+
+			Pdef((testName ++ testNameAdd2  ++ item ++ "_filter").asSymbol,
+				Pbind(\vol, Pfunc {|ev|
+					if(ev.charNow == $F){0}{1}
+				},
+				/*			\filter_1_mod_1, Pfunc {|ev|
+				if(ev.charNow == $F){ev.filter_1_mod_1 * 1.2}{ev.filter_1_mod_1}
+				},*/
+				\timingOffset, Pfunc {|ev|
+					if(ev.charNow == $F){0}{0}
+				},
+				)
+				<> (Pbind(\time, Ptime))
+			);
+		}
+	);
+
+	testSymbols = testArray.collect({ |item|
+		(testName ++ item).asSymbol
+	});
+
+	testSymbols2 = testArray.collect({ |item|
+		(testName ++ testNameAdd ++ item).asSymbol
+	});
+
+	testSymbols3 = testArray.collect({ |item|
+		(testName ++ testNameAdd2 ++ item).asSymbol
+	});
+
+	Pdef((testName).asSymbol.postln,
+		Pbind(
+			\stretch, Pfunc {|ev|
+				if(ev.branchLevel.isNil){
+					1
+				}{
+					if(ev.branchLevel > 0){3}{1}
+				}
+			},
+			\time, Ptime(),
+			\beatDuration, Pfunc { ~linkClock.tempo },
+			\syncMultiplier, Pfunc {|ev| (ev.dur * ev.stretch);},
+		) <>
+		Psym(
+			Pfunc{|sym|
+				(~lsys.presets[sym].maxPatDur * baseTempo).postln; // beats, muss noch mit baseTempo
+				"tolles event".postln;
+				sym.postln} <> Pseq([testSymbols, testSymbols2].flop.flat)
+		)
+	);
+
+	Pdef((testName ++ testNameAdd).asSymbol.postln, Psym(Pseq(testSymbols2)) <> (Pbind(\time, Ptime)));
+	Pdef((testName ++ testNameAdd2).asSymbol.postln, Psym(Pseq(testSymbols3)) <> (Pbind(\time, Ptime)));
+
+	testArray.collect{|num| ~lsys.presets[(testName ++ num).asSymbol].maxPatDur }.sum * baseTempo;
+
+}.value;
+
+
+{
+	var testArray = (2..9);
+	var testName = "fraktal_philipp";
+	var testNameAdd = "_bd";
+	var testNameAdd2 = "_sd";
+	var baseTempo = 1/8;
+	var leadInstr1 = [\simplePluck];
+	var branchInstr1 = \simplePluck;
+	var percInstr1 = \bdBuzz;
+	var percInstr2 = \metalPerc;
+	var testSymbols, testSymbols2, testSymbols3;
+
+	testArray.do(
+		{ |item|
+			~newLsys.(
+				name: (testName ++ item).asSymbol,
+				/*axiom: "af[-b]+f[--b]f-fe",
+				rules: ( $a: "ad[-b]+f", $b: "b", $e: "f[--b]f-fe", ),*/
+				axiom: "aGGf[-b]+fG[--b]fG-Gfe",
+				rules: ( $a: "aGGf[-b]+Gf", $b: "f--Gb++", $e: "[--b]f-fe", ),
+				gen: item,
+				opts: (
+					branchInterval: -5,
+					useGlobalPitch: false,
+					noteOffset: -0,
+					quant: 0,
+					baseTempo: baseTempo,
+					legatoArr: 1,// ([0.99] ++ ([0.99, 1.1]!9)).flat,
+					wrapLo: [ 12 ],
+					wrapHi: [ 96 ],
+					instr: leadInstr1, //([leadInstr1] ++ (branchInstr1!18)).flat,
+					vols: [2] ++ (1!18),//[1, 0, 0.75, 0.75, 0, 0, 0, 0, 0, 0, 0]
+				)
+			);
+
+			~newLsys.(
+				name: (testName ++ testNameAdd ++ item).asSymbol,
+				axiom: "aGGf[-b]+fG[--b]fG-Gfe",
+				rules: ( $a: "aGGf[-b]+Gf", $b: "f--Gb++", $e: "[--b]f-fe", ),
+				gen: item,
+				opts: (
+					branchInterval: -7,
+					useGlobalPitch: false,
+					noteOffset: -24,
+					quant: 0,
+					baseTempo: baseTempo,
+					legatoArr: 0.99,
+					wrapLo: [ 12 ],
+					wrapHi: [ 36 ],
+					instr: percInstr1,
+					vols: 0.75
+				)
+			);
+
+			~newLsys.(
+				name: (testName ++ testNameAdd2 ++ item).asSymbol,
+				axiom: "aGGf[-b]+fG[--b]fG-Gfe",
+				rules: ( $a: "aGGf[-b]+Gf", $b: "f--Gb++", $e: "[--b]f-fe", ),
+				gen: item,
+				opts: (
+					useGlobalPitch: false,
+					noteOffset: -12,
+					quant: 0,
+					baseTempo: baseTempo,
+					legatoArr: 0.99,
+					wrapLo: [ 72 ],
+					wrapHi: [ 84 ],
+					instr: percInstr2,
+					vols: 0.8
+				)
+			);
+		}
+	);
+
+	testArray.do(
+		{ |item|
+			Pdef((testName ++ item ++ "_filter").asSymbol,
+				Pbind(\vol, Pfunc {|ev|
+					if(ev.charNow == $F){ev.vol * 1.2}{ev.vol}
+				},
+				\filter_1_mod_1, Pfunc {|ev|
+					if(ev.charNow == $F){ev.filter_1_mod_1 * 1.2}{ev.filter_1_mod_1}
+				},
+				\timingOffset, Pfunc {|ev|
+					if(ev.charNow == $F){0}{0}
+				},
+				)
+				<> (Pbind(\time, Ptime))
+			);
+
+			Pdef((testName ++ testNameAdd  ++ item ++ "_filter").asSymbol,
+				Pbind(\vol, Pfunc {|ev|
+					if(ev.charNow == $a){ev.vol * 1.2}{0}
+				},
+				\filter_1_mod_1, Pfunc {|ev|
+					if(ev.charNow == $F){ev.filter_1_mod_1 * 1.2}{ev.filter_1_mod_1}
+				},
+				\timingOffset, Pfunc {|ev|
+					if(ev.charNow == $F){0}{0}
+				},
+				)
+				<> (Pbind(\time, Ptime))
+			);
+
+			Pdef((testName ++ testNameAdd2  ++ item ++ "_filter").asSymbol,
+				Pbind(\vol, Pfunc {|ev|
+					if(ev.charNow == $b){ev.vol * 1}{0}
+				},
+				/*			\filter_1_mod_1, Pfunc {|ev|
+				if(ev.charNow == $F){ev.filter_1_mod_1 * 1.2}{ev.filter_1_mod_1}
+				},*/
+				\timingOffset, Pfunc {|ev|
+					if(ev.charNow == $F){0}{0}
+				},
+				)
+				<> (Pbind(\time, Ptime))
+			);
+		}
+	);
+
+	testSymbols = testArray.collect({ |item|
+		(testName ++ item).asSymbol
+	});
+
+	testSymbols2 = testArray.collect({ |item|
+		(testName ++ testNameAdd ++ item).asSymbol
+	});
+
+	testSymbols3 = testArray.collect({ |item|
+		(testName ++ testNameAdd2 ++ item).asSymbol
+	});
+
+	Pdef((testName).asSymbol.postln,
+		Pbind(
+			\stretch, Pfunc {|ev|
+				if(ev.branchLevel.isNil){
+					1
+				}{
+					if(ev.branchLevel > 0){3}{1}
+				}
+			},
+			\time, Ptime(),
+			\beatDuration, Pfunc { ~linkClock.tempo },
+			\syncMultiplier, Pfunc {|ev| (ev.dur * ev.stretch);},
+		) <>
+		Psym(
+			Pfunc{|sym|
+				(~lsys.presets[sym].maxPatDur * baseTempo).postln; // beats, muss noch mit baseTempo
+				"tolles event".postln;
+				sym.postln} <> Pseq(testSymbols)
+		)
+	);
+
+	Pdef((testName ++ testNameAdd).asSymbol.postln, Psym(Pseq(testSymbols2)) <> (Pbind(\time, Ptime)));
+	Pdef((testName ++ testNameAdd2).asSymbol.postln, Psym(Pseq(testSymbols3)) <> (Pbind(\time, Ptime)));
+
+	testArray.collect{|num| ~lsys.presets[(testName ++ num).asSymbol].maxPatDur }.sum * baseTempo;
+
+}.value;
+
+
+
+
+/*
+Pdef(\simpleSwitch_midi, Pbind(\controlbus1, ~routing[\launchcontrolXlControlBusses1],
+\external1Amount, 1,
+\external1min, -1,
+\external1max, 1,
+\envelope_mod, 0.5
+) <> Pdef(\simpleSwitch) <>
+Pbind(\external1Target, "envelope_mod")
+);
+Pdef(\simpleSwitch_gen4_midi, Pbind(\controlbus1, ~routing[\launchcontrolXlControlBusses1],
+\external1Amount, 1,
+\external1min, -1,
+\external1max, 1,
+\envelope_mod, 0.5
+) <> Pdef(\simpleSwitch_gen4) <>
+Pbind(\external1Target, "envelope_mod")
+);
+Pdef(\simpleSwitch_gen5_midi, Pbind(\controlbus1, ~routing[\launchcontrolXlControlBusses1],
+\external1Amount, 1,
+\external1min, -1,
+\external1max, 1,
+\envelope_mod, 0.5
+) <> Pdef(\simpleSwitch_gen5) <>
+Pbind(\external1Target, "envelope_mod")
+);
+Pdef(\simpleSwitch_gen6_midi, Pbind(\controlbus1, ~routing[\launchcontrolXlControlBusses1],
+\external1Amount, 1,
+\external1min, -1,
+\external1max, 1,
+\envelope_mod, 0.5
+) <> Pdef(\simpleSwitch_gen6) <>
+Pbind(\external1Target, "envelope_mod")
+);
+
+Pdef(\penrose_midi,
+Pbind(\controlbus1, ~routing[\launchcontrolXlControlBusses0],
+\external1Amount, 1,
+\external1min, -1,
+\external1max, 1,
+\oscillator_1_mod_2, 0.5
+) <>
+Pdef(\penrose) <>
+Pbind(\external1Target, "oscillator_1_mod_2")
+);
+
+
+Pdef(\penrose_gen2_midi,
+Pbind(\controlbus1, ~routing[\launchcontrolXlControlBusses0],
+\external1Amount, 1,
+\external1min, -1,
+\external1max, 1,
+\oscillator_1_mod_2, 0.5
+) <>
+Pdef(\penrose_gen2) <>
+Pbind(\external1Target, "oscillator_1_mod_2")
+);*/

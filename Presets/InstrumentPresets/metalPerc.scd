@@ -103,7 +103,7 @@
 	\vca_preFxLevel, 0,
 
 	\vol, 1,
-	\amp, 0.2,
+	\amp, 0.1,
 
 	\out, ~melody_bus,
 	\send_1, ~ef_reverb,

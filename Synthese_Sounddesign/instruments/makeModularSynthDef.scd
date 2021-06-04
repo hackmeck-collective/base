@@ -144,6 +144,7 @@
 					pitchOp_1_amount,
 					pitchOp_2_interval,
 					pitchOp_2_amount,
+					glide = 0,
 
 					oscillator_1_mod_1,
 					oscillator_1_mod_2,
@@ -334,6 +335,8 @@
 					{send_1.isNil} {"ERROR: send_1 bus is nil - there will be no sound".postln}
 					{send_2.isNil} {"ERROR: send_2 bus is nil - there will be no sound".postln}
 					{true}{nil};
+
+					freq = Lag.kr(freq, glide);
 
 					vol = vol.lincurve(0,1,0,0.5,3);
 

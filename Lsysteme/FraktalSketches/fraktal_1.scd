@@ -246,7 +246,7 @@ Pdef(\fraktal_philipp_bd).play(~linkClock, quant: 1);
 Pdef(\fraktal_philipp_sd).play(~linkClock, quant: 1);
 );
 (
-Pdef(\play).stop;
+Pdef(\play).pla;
 (Pbind(\controlbus1, ~launchcontrol_xl_row_1,
 	\controlbus2, ~launchcontrol_xl_row_1,
 	\controlbus3, ~launchcontrol_xl_row_1,

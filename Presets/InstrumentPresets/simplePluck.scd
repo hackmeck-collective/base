@@ -39,7 +39,7 @@
 	\envCurve, 2,
 	\envelope_mod, 0.2,
 	\vol, 1,
-	\amp, 0.2,
+	\amp, 0.1,
 
 	\mod1Type, \noMod, //\adsrEnv,
 	\mod1Target, "", // "oscillator_1_mod_1",

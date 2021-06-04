@@ -9,10 +9,13 @@ Pdef(\play,
 		sp.seq(Pdef(\exposition));
 		sp.seq(Pdef(\layers));
 		sp.seq(Pdef(\penrose_entwicklung1));
-		sp.seq(Pdef(\penrose_entwicklung2));
+		sp.seq(Pdef(\penProse_entwicklung2));
+
 	})
 );
 )
 
 Pdef(\play).play(~linkClock, quant:1 )
-Pdef(\play).stop
+Pdef(\playVisuals).stop
+
+Pdef(\playVisuals).source

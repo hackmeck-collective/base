@@ -6,11 +6,21 @@ Pseq([Pdef(\penrose_simple_gen1)]),
 ])).play
 Pseq([Pdef(\penrose_gen2)],4).play*/
 
-Pdef(\exposition).play
+// Pdef(\exposition).play
 
 (
 Pdef(\exposition,
 	Pspawner({ |sp|
+
+		~sendFX.ef_reverb.set(\inBus, ~ef_reverb,
+			\revtime, 2.5,
+			\predelay, 0.025,
+			\hpf, 60,
+			\lpf, 4500,
+			\spread, 1,
+			\vol, 1.5,
+			\beatDurNow, ~linkClock.tempo,
+			\sidechain_amount, (-24).dbamp);
 
 		"weed buildup 1".postln;
 
@@ -50,7 +60,7 @@ Pdef(\exposition,
 
 		sp.wait(8);
 
-		"penrose buildup 1".postln;
+		"penrose buildup 1".postln; // mit percussion und umgedreht
 
 		~lsys.presets.penrose_simplesimple_gen1.noteOffset = -5;
 		~lsys.presets.penrose_simplesimple_gen1.baseTempo = 3/16;
@@ -101,15 +111,15 @@ Pdef(\exposition,
 			<> Pseq([
 				Pseq([Pdef(\simpleSwitch_gen0)],12),
 				Pseq([Pdef(\simpleSwitch_gen1)],2),
-				Pseq([Pdef(\simpleSwitch_gen2)]),
+				Pseq([Pdef(\simpleSwitch_gen2)]), // generation weiter und percussion
 				Pseq([Pdef(\simpleSwitch_gen1)],1),
 				Pseq([Pdef(\simpleSwitch_gen0)],2),
 			])
 			<> Pbind(\external1Target, "envelope_mod", \external1Target2, "pitchOp_1_interval"), 4));
 
-		sp.wait(6);
+		sp.wait(4); // pausenlänge überprüfen
 
-		"weed and penrose".postln;
+		"weed and penrose".postln; //verballert - muss spannend sein, percussion?
 
 		~lsys.presets.weed_gen2.noteOffset = 0;
 		~lsys.presets.weed_gen2.baseTempo = 3/8;
