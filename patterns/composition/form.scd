@@ -1,6 +1,7 @@
 (
 "pdef_resources.scd".loadRelative;
-"formteile.scd".loadRelative;
+// "formteile.scd".loadRelative;
+(PathName(thisProcess.nowExecutingPath).pathOnly +/+ "Formteile/*").loadPaths;
 
 Pdef(\play,
 	Pspawner({ |sp|
@@ -12,6 +13,9 @@ Pdef(\play,
 	})
 );
 )
+
+
+
 
 Pdef(\play).play(~linkClock, quant:1 )
 
