@@ -8,8 +8,8 @@ Pdef(\play,
 		sp.seq(Pdef(\exposition)); //verpeilung am ende raus
 		sp.seq(Pdef(\penrose_entwicklung1)); // percussion rein
 		sp.seq(Pdef(\penrose_entwicklung2));
-		sp.seq(Pdef(\simpleSwitchDevelopement));
-		sp.seq(Pdef(\triangle_develope)); // percussion rein
+		sp.seq(Pdef(\simpleSwitchDevelopement)); //sp.seq(Pdef(\triangle_develope));  ist bei simpleSwitchDev drin
+
 	})
 );
 )

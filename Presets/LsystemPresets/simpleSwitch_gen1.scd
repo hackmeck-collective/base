@@ -4,7 +4,7 @@ var opts = (
 	noteOffset: 0,
 	instr: \metalPerc,
 	useGlobalPitch: false,
-	baseTempo: 1/6,
+	baseTempo: 1/8,
 	quant: 0
 
 );

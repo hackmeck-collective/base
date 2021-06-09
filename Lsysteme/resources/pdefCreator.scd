@@ -60,7 +60,7 @@
 						},*/
 						\midinote, Pfunc{ |ev|
 							var pitchIx = (ev.pitches * ev.stepInterval) + (myKey * ev.branchInterval.asArray.wrapAt(myKey));// + ev.noteOffset;
-							top[\pitchesRootDissonance][\pitches].foldAt(pitchIx)  + ev.noteOffset
+							top[\pitchesRootDissonance][\pitches].foldAt(pitchIx + ev.noteOffset)
 						},
 						\checkPause, Pfunc { |ev|
 							if((ev.charNow == $G) || (ev.vol == 0)){Rest(ev.dur)}{0}

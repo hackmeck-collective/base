@@ -1,8 +1,6 @@
 Pdef(\triangle_develope,
 	Pspawner({|sp|
 		var player1, player2, player3;
-		sp.seq(Pn(Psync(Pdef(\fraktal_12), 4, 4), 8));
-		"fraktal_12".postln;
 		sp.seq(Pn(Psync(Pdef(\fraktal_12), 3, 4), 4));
 		"fraktal_13 A".postln;
 		sp.seq(Pn(Psync(Pdef(\fraktal_13), 2, 4), 4));
@@ -14,9 +12,14 @@ Pdef(\triangle_develope,
 		"fraktal_15".postln;
 		sp.seq(Psync(Pdef(\fraktal_15), 5, 100));
 		"fraktal_16".postln;
-		sp.seq(Psync(Pdef(\fraktal_16), 3, 100));
+		sp.seq(Psync(Pdef(\fraktal_16), 0, 100));
+		//"intermezzo".postln;
+		//sp.seq(Pdef(\simpleSwitch_dev4));
 		"fraktal_17".postln;
-		sp.seq(Psync(Pdef(\fraktal_17), 0, 100));
+		sp.seq(Ppar([
+			Pdef(\fraktal_17) <> Pbind(\streamIndex, 2), //\newBranchTest
+			Pdef(\simpleSwitch_dev4) <> Pbind(\streamIndex, 1)
+		]) );
 		"fraktal_1_inverse7".postln;
 		sp.seq(Psync(Pdef(\fraktal_1_inverse7), 0, 100));
 
