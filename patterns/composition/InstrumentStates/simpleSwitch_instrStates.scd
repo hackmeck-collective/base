@@ -23,6 +23,7 @@
 		\external4Target, "",
 		\external4Target2, "vca_preFxLevel",
 	)
+);
 
 ~simpleSwitchInstrController_1 = (
 	~lcXlCtrBus1Bi.(24, 0.5)
