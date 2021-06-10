@@ -1,5 +1,5 @@
 (
-~instrumentPresetsDictionary['simpleSine'] = [
+~instrumentPresetsDictionary['digiDist_lead'] = [
 // [ rect, pluck, pluckStop, noEnv, pad, lead, sync ]
 
 \adsrType, \lead,
@@ -58,7 +58,7 @@
 \filterIn_preFxLevel, 0,
 \filterIn_FxLevel, 1,
 
-\filterType, \noFilter,
+\filterType, \lpf_moog,
 \filter_1_mod_1, 0,
 \filter_1_mod_2, 0.25,
 
@@ -71,7 +71,7 @@
 \vca_preFxLevel, 0,
 
 \vol, 1,
-\amp, 0.375,
+\amp, 0.19,
 
 // the sends have to be EXISTING audio busses. If they return nil there will be no sound without an ERROR.
 
@@ -172,5 +172,5 @@
 \pattern4Amount, 1,
 
 ];
-~callInstrumentPreset.('simpleSine');
+~callInstrumentPreset.('digiDist_lead');
 )

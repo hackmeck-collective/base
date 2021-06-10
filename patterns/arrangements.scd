@@ -7,7 +7,7 @@ Document.open(thisProcess.nowExecutingPath.dirname +/+ "launchControlXlTrigger.s
 ~instrPreset.create(\click);
 ~instrPreset.create_d(\template_drum)
 ~instrPreset.create_o(\simpleSine)
-~instrPreset.edit(\simplePluck);
+~instrPreset.edit(\metalPerc);
 
 Pdef(\click).stop
 Pdef(\simpleSine).play

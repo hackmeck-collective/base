@@ -1,5 +1,5 @@
 (
-~instrumentPresetsDictionary['simpleSine'] = [
+~instrumentPresetsDictionary['jitter_lead'] = [
 // [ rect, pluck, pluckStop, noEnv, pad, lead, sync ]
 
 \adsrType, \lead,
@@ -9,12 +9,12 @@
 
 // [ fm, noPitchOp, unisonoDetune, vibrato, rectArp, rectArpSync, slide, vibratoSync ]
 
-\pitchOpType, \noPitchOp,
-\pitchOp_1_interval, 0.2,
-\pitchOp_1_amount, 0.4,
+\pitchOpType, \vibrato,
+\pitchOp_1_interval, 0.15,
+\pitchOp_1_amount, 0.01,
 
-\pitchOpType_2, \noPitchOp,
-\pitchOp_2_interval, 12,
+\pitchOpType_2, \slide,
+\pitchOp_2_interval, -0.2,
 \pitchOp_2_amount, 0.1,
 
 // [ modal, ping, beatRepeat, filteredNoise, crackles, fm, granulator, formant, noOscillator, fmScaled, basic, pulsar ]
@@ -23,7 +23,7 @@
 // the buffers for the granulator have to be ONE CHANNEL. If they contain more than one channel there will be no sound without an ERROR.
 
 \oscillatorType, \fm,
-\oscillator_1_mod_1, 0,
+\oscillator_1_mod_1, 1,
 \oscillator_1_mod_2, 1,
 \oscillator_1_mod_3, 0,
 \oscillator_1_mod_4, 0,
@@ -32,46 +32,46 @@
 \oscillator_1_level, 1,
 \oscillator_1_transpose, 0,
 
-\oscillatorType_2, \fm,
-\oscillator_2_mod_1, 0,
+\oscillatorType_2, \filteredNoise,
+\oscillator_2_mod_1, 0.01,
 \oscillator_2_mod_2, 0,
 \oscillator_2_mod_3, 0,
 \oscillator_2_mod_4, 0,
 \oscillator_2_buffer, ~beatRepeatBuffer_1,
 \oscillator_2_bufferPos, ~beatRepeatBufferPosition_1,
-\oscillator_2_level, 0.5,
+\oscillator_2_level, 2,
 \oscillator_2_transpose, 12,
 
 // [ combfilter, tremoloRamp, tremoloRect, overdriveHard, overdriveSoft, overdriveMid, shelvedOverdriveMid, bitcrush, noFx, wrap, sampleRateReduction, combfilterScaled, shelvedOverdriveHard, rectifier, tremoloSine, fold, shelvedOverdriveSoft ]
 
-\fxType, \bitcrush,
+\fxType, \sampleRateReduction,
 \fx_1_input_gain, 1,
-\fx_1_mod_1, 1,
-\fx_1_mod_2, 0.25,
+\fx_1_mod_1, 0.5,
+\fx_1_mod_2, 0.3,
 
-\fxType_2, \sampleRateReduction,
-\fx_2_mod_1, 1,
-\fx_2_mod_2, 0.25,
+\fxType_2, \combfilterScaled,
+\fx_2_mod_1, 1.985,
+\fx_2_mod_2, 0.1,
 
 // [ lpf_24, bpf, hpf_12, lo_shelf, lpf_12, lpf_moog, notch, hi_shelf, hpf_24, noFilter ]
 
-\filterIn_preFxLevel, 0,
-\filterIn_FxLevel, 1,
+\filterIn_preFxLevel, 0.5,
+\filterIn_FxLevel, 0.5,
 
-\filterType, \noFilter,
-\filter_1_mod_1, 0,
-\filter_1_mod_2, 0.25,
+\filterType, \lpf_moog,
+\filter_1_mod_1, 1,
+\filter_1_mod_2, 0.03,
 
-\filterType_2, \noFilter,
-\filter_2_mod_1, 1,
-\filter_2_mod_2, 0.25,
+\filterType_2, \hpf_12,
+\filter_2_mod_1, 0,
+\filter_2_mod_2, 0.125,
 
 \vca_filterLevel, 1,
 \vca_preFilterLevel, 0,
 \vca_preFxLevel, 0,
 
 \vol, 1,
-\amp, 0.375,
+\amp, 0.19,
 
 // the sends have to be EXISTING audio busses. If they return nil there will be no sound without an ERROR.
 
@@ -133,7 +133,7 @@
 \mod4syncEnvRatio, 0,*/
 
 //external targets you want to declare in a Pattern have to be chained before the preset Pdef(preset) <> Pbind(external1Target, "filter_1_mod_1") for example. If they are declared in the chain, they can't be present in the instrumentPreset, otherwise you will get an ERROR.
-
+/*
 //\external1Target, "",
 \external1Amount, 1,
 //\external1Target2, "",
@@ -162,6 +162,7 @@
 \external4min, -1,
 \external4max, 1,
 
+	*/
 //\pattern1Target, "",
 \pattern1Amount, 1,
 //\pattern2Target, "",
@@ -172,5 +173,5 @@
 \pattern4Amount, 1,
 
 ];
-~callInstrumentPreset.('simpleSine');
+~callInstrumentPreset.('jitter_lead');
 )

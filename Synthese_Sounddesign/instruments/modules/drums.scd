@@ -125,9 +125,9 @@
 		carrier, modulator, transient, tail, volume_compensation,
 		mix;
 
-		modulator_ratio = modulator_ratio.lincurve(0,1,-24,24,0,nil).midiratio;
-		carrier_sweep_ratio = carrier_sweep_ratio.lincurve(0,1,0,48,0,nil).midiratio;
-		modulator_sweep_ratio = modulator_sweep_ratio.lincurve(0,1,0,48,0,nil).midiratio;
+		modulator_ratio = modulator_ratio.lincurve(0,1,-24,24,0).midiratio;
+		carrier_sweep_ratio = carrier_sweep_ratio.lincurve(0,1,0,48,0).midiratio;
+		modulator_sweep_ratio = modulator_sweep_ratio.lincurve(0,1,0,48,0).midiratio;
 		carrier_time = carrier_time.lincurve(0,1,0,2,3,nil);
 		modulator_time = modulator_time.lincurve(0,1,0,1,3,nil);
 		transient_time = transient_time.lincurve(0,1,0.005,0.25,3,nil);
