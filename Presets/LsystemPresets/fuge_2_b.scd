@@ -8,7 +8,7 @@ var opts = (
 	branchInterval: 0,
 	quant: 0,
 	vols: 0.8,
-	baseTempo: 1/12,
+	baseTempo: 1/20,
 	quant: 0,
 	theta: 12 // 72
 );
@@ -17,10 +17,10 @@ var opts = (
 
 // ARGS
 ~newLsys.(
-	name: \fuge_2_b, //besserer name waere arppeggios
-	axiom: "[[]10+s7-q2-r+]qrs",//"4-F",
-	rules: ($q: "2G2a5+a-a-a-a-a-", $r: "a+a+a+a+a+2a-", $s: "2a-2a+2a3-2-2a-2a3+2a", $a: "bG+bbG-"),
-	gen: 2, // 1
+	name: \fuge_2_b,
+	axiom: "7+[10+s7-qrs-q+r][q+r-s7-qrs]2-rs8-q+r-sq",
+	rules: ($q: "2G2a5+6a-a+a-a-a-a-a", $r: "a-a+a+a+a+a+a+a3-4a-2a+2a", $s: "2a-2a+2a3-2a3+2a-2a-2a3+2a", $a: "bGG2+bG2-", $b: "a-aG+"),
+	gen: 4, // 1
 	opts: opts
 )
 )

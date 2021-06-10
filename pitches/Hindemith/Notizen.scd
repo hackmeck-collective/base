@@ -27,23 +27,3 @@ rule:
 
 
 
-
-FRAKTAL-FUGE
-Puls ist Achtel.
-Stimme_1:
-Takte_1bis_2: 10+2a-2a+2a3-2a3+2a-2a-2a3+2a7-
-Takte_5bis6: 2G2a5+6a-a+a-a-a-a-a2-
-Takte_9bis10: a+a+a+a+a+a+a+a3-4a-2a+2a
-
-Stimme_2:
-Takte_1bis2: 2G2a5+6a-a+a-a-a-a-a-
-Takte_5bis6: a+a+a+a+a+a+a+a3-4a-2a+2a-
-Takte_9bis10: 2a-2a+2a3-2a3+2a-2a-2a3+2a
-
-Stimme_3:
-Takte_1bis2: 4-a+a+a+a+a+a+a+a3-4a-2a+2a-
-Takte_5bis6: 2a-2a+2a3-2a3+2a-2a-2a3+2a
-Takte_9bis10: 2G2a5+6a-a+a-a-a-a-a5-
-
-
- siehe L-system-test.scd sind 
