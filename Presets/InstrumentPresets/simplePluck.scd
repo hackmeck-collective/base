@@ -5,7 +5,7 @@
 
 	\out, ~melody_bus,
 	\send_1, ~ef_reverb,
-	\send_1_level, 0, //0.5,
+	\send_1_level, 0.25,
 
 	\pitchOpType, \slide, // \slide,
 	\pitchOp_1_interval, 1,

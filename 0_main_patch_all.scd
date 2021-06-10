@@ -1,4 +1,3 @@
-
 (
 var waitForPeers = false; //false, wenn man alleine arbeitet
 var multicoreSetup = false;
@@ -70,7 +69,7 @@ var loadAll = {
 
 	Pdef(\rest, Pbind(\dur, Pn(Rest())));
 
-	if (~pitchesRootDissonance[\pitches] == nil ) {~pitchesRootDissonance[\pitches] = (36, 38 .. 72)};
+	if (~pitchesRootDissonance[\pitches] == nil ) {~pitchesRootDissonance[\pitches] = (36, 38 .. 96)};
 	if (~pitchesRootDissonance[\root] == nil ) {~pitchesRootDissonance[\root] = [0]};
 
 	// "loading cue functions".postln;

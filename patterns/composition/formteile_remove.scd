@@ -1,13 +1,3 @@
-/*(Pseq([
-Pseq([Pdef(\penrose_simple_gen0)]),
-Pseq([Pdef(\penrose_simple_gen1)]),
-Pseq([Pdef(\penrose_simple_gen2)]),
-Pseq([Pdef(\penrose_simple_gen1)]),
-])).play
-Pseq([Pdef(\penrose_gen2)],4).play*/
-
-// Pdef(\exposition).play
-
 (
 Pdef(\exposition,
 	Pspawner({ |sp|
