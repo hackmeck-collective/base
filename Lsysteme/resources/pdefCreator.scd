@@ -18,15 +18,14 @@
 			var voices = lsys.stream.collect { |voiceEvent|
 				var myKey = voiceEvent.myKey.asInteger,
 				noFirstPoint = true,
-				muteMe = ~mute.asArray.wrapAt(myKey).next,
 				firstPoint,
 				lastPoint,
-				addPitch = if(~useGlobalPitch){top[\lsys].globalPitch + top[\lsys].globalPitchBalance}{0};
+				addPitch = if(~useGlobalPitch){top[\lsys][\globalPitch] + top[\lsys][\globalPitchBalance]}{0};
 
 				PmonoArtic2() <>
 				Pdef((name.asString ++ "_filter" ++ myKey).asSymbol) <>
 				Pdef((name.asString ++ "_filter").asSymbol) <>
-				Pstutter(Pn(Plazy {~lsys.presets[name].stutterVal}),
+				Pstutter(Pn(Plazy {~lsys[\presets][name].stutterVal}),
 					Pbind(
 						\myId, voiceEvent.myId,
 						\branchLevel, myKey,
@@ -49,7 +48,7 @@
 							}
 						},
 						\vols, Pn(Plazy {|ev| ev.vols.asArray.wrapAt(myKey)}),
-						\vol, Pfunc {|ev| ev.vol * ev.vols * muteMe},
+						\vol, Pfunc {|ev| ev.vol * ev.vols},
 						/*\scale, Pfunc { Scale.new(top[\pitchesRootDissonance][\pitches] % 12) },
 						\degree, Pfunc {|ev|
 							(ev.pitches * ev.stepInterval) + (myKey * ev.branchInterval.asArray.wrapAt(myKey)) + addPitch + ev.noteOffset
@@ -90,7 +89,7 @@
 						\wrapLo, Pn(Plazy {|ev| ev.wrapLo.asArray.wrapAt(myKey)}),
 						\wrapHi, Pn(Plazy {|ev| ev.wrapHi.asArray.wrapAt(myKey)}),
 						\finish, { |ev|
-							if(myKey == 0){top[\lsys].globalPitch = ev.pitches + addPitch};
+							if(myKey == 0){top[\lsys][\globalPitch] = ev.pitches + addPitch};
 							//ev.midinote = ev.midinote.wrap(~wrapLo, ~wrapHi);
 							//ev.midinote.postln;
 							if(ev.midinote > ~wrapHi){ ev.midinote = (ev.midinote % 12) + ~wrapHi - 12; "wrapHI!".postln };
@@ -103,6 +102,6 @@
 			//top[\lsys][\presets][name].nextFinish = (thisThread.beats + (~maxPatDur * ~baseTempo)).roundUp(~quant);
 			//top[\lsys][\presets][name].startOffsets = startOffsets; // fuer drum struktur?
 			Psync(Ptpar([startOffsets, voices].flop.flat), ~quant, ~maxPatDur )
-		}) <> ~lsys.presets[name]
+		}) <> ~lsys[\presets][name]
 	)
 }

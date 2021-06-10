@@ -1,4 +1,3 @@
-
 (
 var waitForPeers = false; //false, wenn man alleine arbeitet
 var multicoreSetup = false;

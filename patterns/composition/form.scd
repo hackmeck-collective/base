@@ -13,10 +13,7 @@ Pdef(\play,
 	})
 );
 )
-
-
-
-
+Pdef(\play).clear
 Pdef(\play).play(~linkClock, quant:1 )
 
 Pdef(\play).stop

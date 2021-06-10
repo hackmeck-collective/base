@@ -1,14 +1,14 @@
 Pdef(\penrose_entwicklung2,
 	Pspawner({ |sp|
 
-		~lsys.presets.weed_gen3.noteOffset = 0;
-		~lsys.presets.weed_gen2.noteOffset = 0;
-		~lsys.presets.weed_gen1.noteOffset = 0;
-		~lsys.presets.weed_gen0.noteOffset = 0;
-		~lsys.presets.weed_gen3.baseTempo = 6/16;
-		~lsys.presets.weed_gen2.baseTempo = 6/16;
-		~lsys.presets.weed_gen1.baseTempo = 9/16;
-		~lsys.presets.weed_gen0.baseTempo = 16/16;
+		~lsys[\presets].weed_gen3.noteOffset = 0;
+		~lsys[\presets].weed_gen2.noteOffset = 0;
+		~lsys[\presets].weed_gen1.noteOffset = 0;
+		~lsys[\presets].weed_gen0.noteOffset = 0;
+		~lsys[\presets].weed_gen3.baseTempo = 6/16;
+		~lsys[\presets].weed_gen2.baseTempo = 6/16;
+		~lsys[\presets].weed_gen1.baseTempo = 9/16;
+		~lsys[\presets].weed_gen0.baseTempo = 16/16;
 
 		/*	"penrose_pauses_gen4".postln;
 		sp.seq(Pn(Pdef(\penrose_pauses_gen4),1));

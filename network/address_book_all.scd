@@ -7,6 +7,8 @@ var dependenciesBenniVincent = {
 	~instrumentPresetsDictionary = OSCObjectSpace(~addrBook, oscPath: '/instrumentPresets').acceptEvents_(true);
 	~drumPresetsDictionary = OSCObjectSpace(~addrBook, oscPath: '/drumPresets').acceptEvents_(true);
 	~routing = OSCObjectSpace(~addrBook, oscPath: '/routing').acceptEvents_(true);
+	~lsys = OSCObjectSpace(~addrBook, oscPath: '/lsys').acceptEvents_(true);
+	//~lsys = OSCObjectSpace(~addrBook, oscPath: '/lsys').acceptEvents_(true);
 	~cueData = OSCDataSpace(~addrBook, '/cueData');
 	~cueData[\fillLength] = 1;
 

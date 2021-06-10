@@ -1,11 +1,9 @@
-// ~linkClock = ~linkClock ?? { LinkClock.new().permanent_(true).enableMeterSync};
-
 // dict for everything regarding the lsys
-~lsys = ();
-~lsys.globalPitch = 0;
-~lsys.globalPitchBalance = 0;
-~lsys.presets = ();
-~lsys.defaultPreset = (
+//~lsys = ();
+~lsys[\globalPitch] = 0;
+~lsys[\globalPitchBalance] = 0;
+~lsys[\presets] = ();
+~lsys[\defaultPreset] = (
 	baseTempo: 1/4,
 	legatoArr: 0.95,
 	branchInterval: 7,//7,
@@ -16,11 +14,9 @@
 	vols: 1,
 	theta: 51.45,
 	quant: 4,
-	philippOctaves: 4,
 	maxPatDur: 36,
 	instr: \simplePluck,
 	useGlobalPitch: false,
-	mute: 1,
 	stutterVal: 1,
 	baseColor: 0,
 	lineScale: 10
@@ -40,19 +36,10 @@ if(~localSetup){
 		inf.do {
 			1.wait;
 			("utopia peers: " ++ ~addrBook.names).postln;
-			if(~addrBook.names.includes(\philipp) && ~addrBook.names.includes(\Admin)){ //~addrBook.names.includes(\Philipp) &&
-
-				// ~gui.toProcessing = NetAddr("127.0.0.1", 12000);
-				~gui.toProcessing = NetAddr(~addrBook.at(\philipp).addr.ip, 12000);
-
-				~objSpace_philipp = OSCObjectSpace(~addrBook, oscPath:'/pitches').acceptEvents_(true);
-				~objSpace_philipp.addDependant({|objectSpace, what, key, val|
-					if(key == \pitches){
-						~philipp_pitches = Scale.new(val.mod(12))
-					};
-					//4.collect { |i| ~objSpace_philipp[\pitches] + (i * 12) }.flat.sort;
-					//~ctl.branchInterval = ~ctl.scale.size;
-				});
+			if(~addrBook.names.includes(\Admin)){ //~addrBook.names.includes(\Philipp) &&
+				//~addrBook.names.includes(\philipp) &&
+				~gui.toProcessing = NetAddr("127.0.0.1", 12000);
+				//~gui.toProcessing = NetAddr(~addrBook.at(\philipp).addr.ip, 12000);
 
 				~targetServer = Server.remote(
 					\benni,

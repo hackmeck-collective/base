@@ -1,13 +1,13 @@
 Pdef(\penrose_entwicklung1,
 	Pspawner({ |sp|
 
-		~lsys.presets.penrose_simple_gen2.noteOffset = 0;
-		~lsys.presets.penrose_toPause.noteOffset = 0;
-		~lsys.presets.penrose_toPause2.noteOffset = 0;
-		~lsys.presets.penrose_toPause3.noteOffset = 0;
-		~lsys.presets.penrose_pauses_gen1.noteOffset = 0;
-		~lsys.presets.penrose_pauses_gen2.noteOffset = 0;
-		~lsys.presets.penrose_pauses_gen3.noteOffset = 0;
+		~lsys[\presets].penrose_simple_gen2.noteOffset = 0;
+		~lsys[\presets].penrose_toPause.noteOffset = 0;
+		~lsys[\presets].penrose_toPause2.noteOffset = 0;
+		~lsys[\presets].penrose_toPause3.noteOffset = 0;
+		~lsys[\presets].penrose_pauses_gen1.noteOffset = 0;
+		~lsys[\presets].penrose_pauses_gen2.noteOffset = 0;
+		~lsys[\presets].penrose_pauses_gen3.noteOffset = 0;
 
 		sp.seq(Pn(Pdef(\penrose_simple_gen2), 2));
 		sp.seq(Pn(Pdef(\penrose_simple_gen1), 4));
