@@ -2,6 +2,8 @@
 "pdef_resources.scd".loadRelative;
 // "formteile.scd".loadRelative;
 (PathName(thisProcess.nowExecutingPath).pathOnly +/+ "Formteile/*").loadPaths;
+(PathName(thisProcess.nowExecutingPath).pathOnly +/+ "InstrumentStates/*").loadPaths;
+
 
 Pdef(\play,
 	Pspawner({ |sp|
@@ -10,9 +12,16 @@ Pdef(\play,
 		sp.seq(Pdef(\penrose_entwicklung2));
 		sp.seq(Pdef(\simpleSwitchDevelopement)); //sp.seq(Pdef(\triangle_develope));  ist bei simpleSwitchDev drin
 
+		// Dauer: 5'12"
+		sp.seq(Pdef(\simpleSwitchDevelopement_1));
+		sp.seq(Pdef(\simpleSwitchDevelopement_1));
+		sp.seq(Pdef(\simpleSwitchDevelopement_2));
+		sp.seq(Pdef(\triangleDevelopement_2));
+		//
 	})
 );
 )
+
 Pdef(\play).clear
 Pdef(\play).play(~linkClock, quant:1 )
 
