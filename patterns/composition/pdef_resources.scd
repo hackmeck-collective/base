@@ -60,6 +60,23 @@
 		\xfade, Pn(Plazy {|ev| Pwrand([0, 1], [1 - ev.weights, ev.weights])})
 	), delta: (delta) - 0.01);
 });
+
+~patternVolumeFade = ({|pat1, pat2, length, delta|
+	Pbind(
+		\vol, (Pfunc {|ev|
+			var oldVol = ev.vol ? 1;
+			var fade = if(ev.streamIndex == 1){ev.xfade}{1 - ev.xfade};
+			oldVol * fade
+		})
+	) <> Ppar([
+		pat1 <> Pbind(\streamIndex, 1), //\newBranchTest
+		pat2 <> Pbind(\streamIndex, 2)
+	]) <>
+	PtimeClutch(Pbind(
+		\xfade, Pseg([0,1],[length],0,inf)
+	), delta: (delta) - 0.01) // Delta mit dem baseTempo auf dem es laufen soll abstimmen
+});
+
 //
 // Pdef(\transition_canon_ritardando,
 // 	Pbind(

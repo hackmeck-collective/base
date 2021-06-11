@@ -10,13 +10,11 @@ Pdef(\triangleDevelopement_2,
 		player3 = sp.par(Pdef(\fraktal_philipp_sd));
 
 		sp.wait(16);
+
 		player1.stop; player2.stop; player3.stop;
 		player2 = sp.par(Pdef(\fraktal_philipp_bd));
 		player3 = sp.par(Pdef(\fraktal_philipp_sd));
-		sp.par(Pdef(\fraktal_philipp));
-		sp.wait(12);
-		sp.par(
-			Pdef(\sd2).collect {|ev| ~scM4.play; ev} <> Pbindef(\fifth) <> Pbindef(\pulse_4_ob)
-		);
+		sp.seq(Pdef(\fraktal_philipp));
+
 	})
 )
