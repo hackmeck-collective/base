@@ -12,6 +12,18 @@ Pbind(\oscillator_2_level, 0.25,
 		\vca_preFxLevel, 1,
 ));
 
+~penroseInstrState_2 = (
+Pbind(\oscillator_2_level, 0.25,
+		\oscillator_1_mod_1, 1, \oscillator_2_mod_1, 0.75, //fm amount
+		\oscillator_1_mod_2, 1, \oscillator_2_mod_2, 1.3,
+		\fx_1_mod_1, 0.5, // bitcrush
+		\fx_2_mod_1, 1, // srr
+		\filter_1_mod_1, 0,
+		\vca_filterLevel, 0,
+		\vca_preFilterLevel, 0.5,
+		\vca_preFxLevel, 0.5,
+));
+
 ~penroseInstrState_maxCrush = (
 	Pbind(\oscillator_2_level, 0.7,
 		\oscillator_1_mod_1, 2, \oscillator_2_mod_1, 2, //fm amount

@@ -27,8 +27,7 @@
 ));
 
 ~weedInstrExternal_1 = (
-	Pbind(\external1Target, "envelope_mod",
-		\external2Target, "oscillator_1_mod_1",
+	Pbind(\external2Target, "oscillator_1_mod_1",
 		\external2Target2, "oscillator_2_level"
 	)
 );
@@ -47,8 +46,7 @@
 ));
 
 ~weedInstrExternal_2 = (
-	Pbind(\external1Target, "envelope_mod",
-		\external2Target, "filterIn_FxLevel",
+	Pbind(\external2Target, "filterIn_FxLevel",
 		\external4Target, "filterIn_preFxLevel",
 	)
 );
@@ -67,8 +65,7 @@
 ));
 
 ~weedInstrExternal_3 = (
-	Pbind(\external1Target, "envelope_mod",
-		\external2Target, "fx_2_mod_2",
+	Pbind(\external2Target, "fx_2_mod_2",
 		\external3Target, "filter_1_mod_1",
 		\external4Target, "",
 	)

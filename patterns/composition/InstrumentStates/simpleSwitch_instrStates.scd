@@ -14,6 +14,20 @@
 	)
 );
 
+~simpleSwitchInstrState_2 = (
+	Pbind(\pitchOp_1_interval, 7,
+		\pitchOp_1_amount, 0.05,
+		\pitchOp_2_interval, 0,
+		\pitchOp_2_amount, 0,
+		\oscillator_1_mod_1, 2, \oscillator_2_mod_1, 1,
+		\oscillator_2_level, 0.25,
+		\vca_filterLevel, 0,
+		\vca_preFilterLevel, 1,
+		\vca_preFxLevel, 0,
+		\envelope_mod, 0.2
+	)
+);
+
 ~simpleSwitchExternal_1 = (
 	Pbind(\external1Target, "envelope_mod",
 		\external1Target2, "pitchOp_1_interval",

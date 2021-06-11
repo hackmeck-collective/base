@@ -105,15 +105,15 @@
 \vca_preFxLevel, 0,
 
 \vol, 1,
-\amp, 1.5,
+\amp, 0.75,
 
 // the sends have to be EXISTING audio busses. If they return nil there will be no sound without an ERROR.
 
 \out, ~melody_bus,
 \send_1, ~ef_reverb,
-\send_1_level, 0.0025,
-\send_2, ~simpleDelay,
-\send_2_level, 0,
+\send_1_level, 0.25,
+\send_2, ~grainDelay_1,
+\send_2_level, 0.5,
 \send_3, ~granulator_1,
 \send_3_level, 0,
 \send_4, ~beatRepeat_1,
