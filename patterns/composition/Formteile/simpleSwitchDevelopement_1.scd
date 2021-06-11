@@ -26,6 +26,8 @@ Pdef(\simpleSwitchDevelopement_1,
 			})
 		);
 		sp.seq(Pn(Pdef(\simpleSwitch_dev3), 2));
+		~lsys[\presets].simpleSwitch_gen1.baseTempo = 1/8;
+		~lsys[\presets].simpleSwitch_gen0.baseTempo = 1/8;
 		sp.seq(Pn(Pdef(\simpleSwitch_gen1), 8));
 		sp.par(
 			Pspawner({ |sp2|

@@ -1,14 +1,14 @@
 (
 // OPTIONS
 var opts = (
-	instr: \simpleSine,
+	instr: \digiDist_lead,
 	legatoArr: 1,
 	useGlobalPitch: false,
 	noteOffset: 0,
 	branchInterval: 0,
 	quant: 0,
 	vols: 0.8,
-	baseTempo: 1/20,
+	baseTempo: 1/12,
 	quant: 0,
 	theta: 12 // 72
 );

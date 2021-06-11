@@ -31,19 +31,36 @@ Pdef(\penrose_entwicklung2,
 
 		"penrose_canon_pausen x fade".postln;
 
-		sp.seq(~patternVolumeFadePre <> Ppar([
-			~penroseInstrState_maxCrushTo1 <> ~penroseInstrState_maxCrushTo1_Controller
-			<> Pbind(\envelope_mod, 0, \amp, 0.35, \send_1_level, 0.2,)
-			<> Pn(Pdef(\penrose_canon_1),2) <> Pbind(\streamIndex, 2)
-			<> ~penroseInstrState_maxCrushTo1_External,
+		sp.seq(
+			~patternVolumeFade.(
+				pat1: ~penroseInstrState_maxCrushTo1
+				<> ~penroseInstrState_maxCrushTo1_Controller
+				<> Pbind(\envelope_mod, 0, \amp, 0.35, \send_1_level, 0.2,)
+				<> Pn(Pdef(\penrose_canon_1),2)
+				<> ~penroseInstrState_maxCrushTo1_External,
+				pat2: ~penroseInstrState_maxCrushTo1
+				<> ~penroseInstrState_maxCrushTo1_Controller
+				<> Pbind(\envelope_mod, 0, \amp, 0.35, \send_1_level, 0.2,)
+				<> Pn(Pdef(\penrose_canon_pausen_1),2)
+				<> ~penroseInstrState_maxCrushTo1_External,
+				length: 20,
+				delta: 1/6
+			)
+		);
 
-			~penroseInstrState_maxCrushTo1 <> ~penroseInstrState_maxCrushTo1_Controller
-			<> Pbind(\envelope_mod, 0, \amp, 0.35, \send_1_level, 0.2,)
-			<> Pn(Pdef(\penrose_canon_pausen_1),2) <> Pbind(\streamIndex, 1)
-			<> ~penroseInstrState_maxCrushTo1_External
+		/*sp.seq(~patternVolumeFadePre <> Ppar([
+		~penroseInstrState_maxCrushTo1 <> ~penroseInstrState_maxCrushTo1_Controller
+		<> Pbind(\envelope_mod, 0, \amp, 0.35, \send_1_level, 0.2,)
+		<> Pn(Pdef(\penrose_canon_1),2) <> Pbind(\streamIndex, 2)
+		<> ~penroseInstrState_maxCrushTo1_External,
+
+		~penroseInstrState_maxCrushTo1 <> ~penroseInstrState_maxCrushTo1_Controller
+		<> Pbind(\envelope_mod, 0, \amp, 0.35, \send_1_level, 0.2,)
+		<> Pn(Pdef(\penrose_canon_pausen_1),2) <> Pbind(\streamIndex, 1)
+		<> ~penroseInstrState_maxCrushTo1_External
 
 		]) <> ~patternVolumeFadePost.(20, 1/6) // length, Delta mit dem baseTempo auf dem es laufen soll abstimmen
-		);
+		);*/
 
 		"penrose_canon_pausen1".postln;
 
@@ -144,14 +161,14 @@ Pdef(\penrose_entwicklung2,
 		sp.seq(~patternNotesFadePre
 			<> Ppar([
 				~penroseInstrState_maxCrushTo1 <> ~penroseInstrState_maxCrushTo1_Controller
-			<> Pbind(\envelope_mod, 0, \amp, 0.35, \send_1_level, 0.2,)
-			<> Pn(Pdef(\penrose_canon_mehr_pausen3)) <> Pbind(\streamIndex, 2)
-			<> ~penroseInstrState_maxCrushTo1_External, //\newBranchTest
+				<> Pbind(\envelope_mod, 0, \amp, 0.35, \send_1_level, 0.2,)
+				<> Pn(Pdef(\penrose_canon_mehr_pausen3)) <> Pbind(\streamIndex, 2)
+				<> ~penroseInstrState_maxCrushTo1_External, //\newBranchTest
 
 				~penroseInstrState_maxCrushTo1 <> ~penroseInstrState_maxCrushTo1_Controller
-			<> Pbind(\envelope_mod, 0, \amp, 0.35, \send_1_level, 0.2,)
-			<> Pn(Pdef(\simpleSwitch)) <> Pbind(\streamIndex, 1)
-			<> ~penroseInstrState_maxCrushTo1_External
+				<> Pbind(\envelope_mod, 0, \amp, 0.35, \send_1_level, 0.2,)
+				<> Pn(Pdef(\simpleSwitch)) <> Pbind(\streamIndex, 1)
+				<> ~penroseInstrState_maxCrushTo1_External
 			])
 
 			<> ~patternNotesFadePost.(1/8, Pbjorklund(
