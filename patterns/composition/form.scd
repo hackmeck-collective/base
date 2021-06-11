@@ -8,9 +8,10 @@
 Pdef(\play,
 	Pspawner({ |sp|
 		sp.seq(Pdef(\exposition)); //verpeilung am ende raus
+		sp.seq(Pdef(\layers)); //verpeilung am ende raus
 		sp.seq(Pdef(\penrose_entwicklung1)); // percussion rein
 		sp.seq(Pdef(\penrose_entwicklung2));
-		sp.seq(Pdef(\simpleSwitchDevelopement)); //sp.seq(Pdef(\triangle_develope));  ist bei simpleSwitchDev drin
+		// sp.seq(Pdef(\simpleSwitchDevelopement)); //sp.seq(Pdef(\triangle_develope));  ist bei simpleSwitchDev drin
 
 		// Dauer: 5'12"
 		sp.seq(Pdef(\simpleSwitchDevelopement_1));
