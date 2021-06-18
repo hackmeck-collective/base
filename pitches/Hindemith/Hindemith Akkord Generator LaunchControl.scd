@@ -184,6 +184,10 @@ MIDIdef.cc(\launchControlKnobs, {
 		~sendWithHail.((list: ~listAndParameters.list, rootNote: ~listAndParameters.rootNote));
 	}
 	{ num == 26 } { //Drehknopf 6 oben
+		//HIGHNOTE
+		//Check einbauen: Highnote darf nicht kleiner sein als Lownote
+				/*~listAndParameters.lowNote = 24 + (val.linlin(0,127,0,5).round.asInteger * 12);
+		~sendWithHail.((list: ~listAndParameters.list, rootNote: ~listAndParameters.rootNote));*/
 	}
 	{ num == 28 } { //Drehknopf 8 oben
 	}
