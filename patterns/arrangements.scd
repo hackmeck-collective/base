@@ -7,7 +7,7 @@ Document.open(thisProcess.nowExecutingPath.dirname +/+ "launchControlXlTrigger.s
 ~instrPreset.create(\click);
 ~instrPreset.create_d(\template_drum)
 ~instrPreset.create_o(\simpleSine)
-~instrPreset.edit(\simplePluck);
+~instrPreset.edit(\metalPerc);
 
 Pdef(\click).stop
 Pdef(\simpleSine).play
@@ -28,7 +28,7 @@ Pdef(\simpleSine).play
 
 
 ~bd2.stop;
-~bd2 = ( Pbind( \octave, 3) <> Pdef(\bdBuzz).collect {|ev| ~scM8.play; ev} <> Pbindef(\root) <> Pbindef(\pulse_6) ).play(~linkClock, quant: 4);
+~bd2 = ( Pbind( \octave, 4) <> Pdef(\bdBuzz).collect {|ev| ~scM8.play; ev} <> Pbindef(\root) <> Pbindef(\pulse_4) ).play(~linkClock, quant: 4);
 
 ~sd.stop;
 ~sd = ( Pdef(\sd2).collect {|ev| ~scM4.play; ev} <> Pbindef(\fifth) <> Pbindef(\pulse_4_ob)  ).play(~linkClock, quant: 4);

@@ -1,5 +1,7 @@
-Pdef(\simpleSwitchDevelopement,
+Pdef(\simpleSwitchDevelopement_1,
 	Pspawner({ |sp|
+		~lsys[\presets].simpleSwitch_gen0.noteOffset = 0;
+		~lsys[\presets].simpleSwitch_gen1.noteOffset = 0;
 		"ss1".postln;
 		sp.par(
 			Pspawner({ |sp2|
@@ -24,12 +26,8 @@ Pdef(\simpleSwitchDevelopement,
 			})
 		);
 		sp.seq(Pn(Pdef(\simpleSwitch_dev3), 2));
-		sp.par(
-			Pspawner({ |sp2|
-				sp2.wait(3.75);
-				sp2.seq(Pdef(\fraktal_12));
-			})
-		);
+		~lsys[\presets].simpleSwitch_gen1.baseTempo = 1/8;
+		~lsys[\presets].simpleSwitch_gen0.baseTempo = 1/8;
 		sp.seq(Pn(Pdef(\simpleSwitch_gen1), 8));
 		sp.par(
 			Pspawner({ |sp2|
@@ -39,23 +37,7 @@ Pdef(\simpleSwitchDevelopement,
 		);
 		sp.seq(Pn(Pdef(\simpleSwitch_gen0), 32));
 		"ss5".postln;
-		sp.par(
-			Pspawner({ |sp2|
-				sp2.wait(15);
-				sp2.seq(Pdef(\triangle_develope));
-			})
-		);
+		~lsys[\presets].simpleSwitch_dev4.vols = [1, 1, 1, 1, 1, 1];
 		sp.seq(Pdef(\simpleSwitch_dev4));
-		~lsys[\presets].simpleSwitch_dev6.vols = [0, 0, 1, 1, 1, 1];
-		~lsys[\presets].simpleSwitch_dev6.stutterVal = Pseq([1,1,2],inf);
-		sp.par(
-			Pbind(\dur, Rest(0.1), \x, Pfunc { |in|
-				~lsys[\presets].simpleSwitch_dev6.vols[0] = in;
-				~lsys[\presets].simpleSwitch_dev6.vols[1] = in;
-				0 } <> Pseg([0,0,1,0],[18,12,8],-3)
-			)
-		);
-		"ss6".postln;
-		sp.seq(Pdef(\simpleSwitch_dev6));
 	})
 )

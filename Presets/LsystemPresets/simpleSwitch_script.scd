@@ -1,8 +1,9 @@
 (
+(0..3).do({ |i|
 // OPTIONS
 var opts = (
 	noteOffset: 0,
-	instr: [\metalPerc, \click],
+	instr: \metalPerc,
 	useGlobalPitch: false,
 	baseTempo: 1/8,
 	quant: 0
@@ -11,13 +12,13 @@ var opts = (
 
 // FILTERS
 
-
 // ARGS
 ~newLsys.(
-	name: 'simpleSwitch_gen3',
+	name: ("simpleSwitch_gen" ++ i).asSymbol,
 	axiom: "F",
-	rules:  ($F: "[f]F-G-F2+F"),
-	gen: 3,
+	rules:  ($F: "F-G-F2+F"),
+	gen: i,
 	opts: opts
 )
-)
+})
+);

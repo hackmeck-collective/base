@@ -42,7 +42,7 @@
 
 	// [ bodyTimbreTransientTail, noDrum, fmTransientTail, noiseFmTransientTail, amTransientTail ]
 
-	\drumType, \fmTransientTail,
+	\drumType, \noDrum, // \fmTransientTail,
 	\timbre_ratio, 0.3,
 	\body_sweep_ratio, 1,
 	\timbre_sweep_ratio, 0.5,
@@ -50,13 +50,13 @@
 	\timbre_time, 0.3,
 	\transient_time, 0.01,
 	\tail_time, 0.75,
-	\body_vol, 1,
+	\body_vol, 0,
 	\timbre_vol, 0,
-	\transient_vol, 1,
+	\transient_vol, 0,
 	\tail_vol, 0,
 	\time_factor, 0.5,
-	\punch_factor, 2,
-	\drum_1_level, 0.5,
+	\punch_factor, 0,
+	\drum_1_level, 0, // wenn drums wieder funktionieren -> 0.5,
 
 	\drumType_2, \noDrum,
 	\timbre_ratio_2, 0.45,
@@ -72,7 +72,7 @@
 	\tail_vol_2, 0.65,
 	\time_factor_2, 0.01,
 	\punch_factor_2, 2,
-	\drum_2_level, 1,
+	\drum_2_level, 0,
 
 	// [ combfilter, tremoloRamp, tremoloRect, overdriveHard, overdriveSoft, overdriveMid, shelvedOverdriveMid, bitcrush, noFx, wrap, sampleRateReduction, combfilterScaled, shelvedOverdriveHard, rectifier, tremoloSine, fold, shelvedOverdriveSoft ]
 
@@ -103,7 +103,7 @@
 	\vca_preFxLevel, 0,
 
 	\vol, 1,
-	\amp, 0.1,
+	\amp, 0.05,
 
 	\out, ~melody_bus,
 	\send_1, ~ef_reverb,
@@ -117,7 +117,7 @@
 
 	// [ sineLFO, noMod, rampLFO, noise, rampSyncLFO, sampleAndHold, triSyncLFO, triLFO, sawLFO, sawSyncLFO, rectSyncLFO, rectLFO, syncEnv, sineSyncLFO, adsrEnv ]
 
-	\mod1Type, \noMod,
+	/*\mod1Type, \noMod,
 	\mod1Target, "",
 	\mod1Amount, 0.25,
 	\mod1Rate, 0.25,
@@ -195,7 +195,7 @@
 	//\external4Target2, "",
 	\external4Amount2, 1,
 	\external4min, -1,
-	\external4max, 1,
+	\external4max, 1,*/
 
 	\pattern1Target, "",
 	\pattern1Amount, 1,

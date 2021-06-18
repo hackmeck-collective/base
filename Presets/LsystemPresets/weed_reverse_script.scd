@@ -3,7 +3,7 @@
 
 	// OPTIONS
 	var opts = (
-		instr: \simpleSine,
+		instr: \jitter_lead,
 		legatoArr: 1.5,
 		branchInterval: 2,
 		quant: 0,

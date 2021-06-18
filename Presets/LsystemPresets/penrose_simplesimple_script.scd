@@ -3,7 +3,7 @@
 
 	// OPTIONS
 	var opts = (
-		instr: \simpleSine,
+		instr: \digiDist_lead,
 		legatoArr: 0.3,
 		useGlobalPitch: false,
 		noteOffset: 0,

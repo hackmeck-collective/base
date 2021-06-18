@@ -1,10 +1,11 @@
 ~launchControlEvents = Dictionary.new;
 
-
-~fxBank = 1;
-~texturKlangBank = 2;
+~switchesBank = 1;
+~fxBank = 2;
+~texturKlangBank = 3;
 "loading launchControlXl dictionaries".postln;
 
+"launchcontrol-xl_switchesBank.scd".loadRelative;
 "launchcontrol-xl_fxBank.scd".loadRelative;
 "launchcontrol-xl_TexturKlang.scd".loadRelative;
 

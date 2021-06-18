@@ -42,9 +42,9 @@
 						\legatoArr, Pn(Plazy {|ev| ev.legatoArr.asArray.wrapAt(myKey)}),
 						\legato, Pfunc {|ev|
 							if(ev.sendGate ? true){
-								ev.legatoArr
+								ev.legatoArr * (ev.legato ? 1)
 							}{
-								ev.legatoArr.clip2(0.99)
+								(ev.legatoArr * (ev.legato ? 1)).clip2(0.99)
 							}
 						},
 						\vols, Pn(Plazy {|ev| ev.vols.asArray.wrapAt(myKey)}),

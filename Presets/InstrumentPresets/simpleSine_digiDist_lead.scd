@@ -1,5 +1,5 @@
 (
-~instrumentPresetsDictionary['simpleSine'] = [
+~instrumentPresetsDictionary['simpleSine_digiDist_lead'] = [
 // [ rect, pluck, pluckStop, noEnv, pad, lead, sync ]
 
 \adsrType, \lead,
@@ -172,5 +172,5 @@
 \pattern4Amount, 1,
 
 ];
-~callInstrumentPreset.('simpleSine');
+~callInstrumentPreset.('simpleSine_digiDist_lead');
 )

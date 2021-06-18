@@ -1,7 +1,7 @@
 (
 // OPTIONS
 var opts = (
-	instr: \simpleSine,
+	instr: \digiDist_lead,
 	legatoArr: 1,
 	useGlobalPitch: false,
 	noteOffset: 40,
