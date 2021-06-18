@@ -5,6 +5,8 @@ var opts = (
 	instr: \metalPerc,
 	useGlobalPitch: false,
 	baseTempo: 1/8,
+	baseColor: 30,
+	theta: 36,
 	quant: 0
 
 );

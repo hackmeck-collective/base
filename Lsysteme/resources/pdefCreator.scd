@@ -18,6 +18,7 @@
 			var voices = lsys.stream.collect { |voiceEvent|
 				var myKey = voiceEvent.myKey.asInteger,
 				noFirstPoint = true,
+				setRootPointOnce = true,
 				firstPoint,
 				lastPoint,
 				addPitch = if(~useGlobalPitch){top[\lsys][\globalPitch] + top[\lsys][\globalPitchBalance]}{0};
@@ -49,14 +50,6 @@
 						},
 						\vols, Pn(Plazy {|ev| ev.vols.asArray.wrapAt(myKey)}),
 						\vol, Pfunc {|ev| ev.vol * ev.vols},
-						/*\scale, Pfunc { Scale.new(top[\pitchesRootDissonance][\pitches] % 12) },
-						\degree, Pfunc {|ev|
-							(ev.pitches * ev.stepInterval) + (myKey * ev.branchInterval.asArray.wrapAt(myKey)) + addPitch + ev.noteOffset
-						},*/
-						/*\notesArray, Pfunc { |ev| ev.philippOctaves.collect { |i| top[\pitchesRootDissonance][\pitches] + (i * 12) }.flat.sort },
-						\note, Pfunc {|ev|
-						ev.notesArray.wrapAt((ev.pitches * ev.stepInterval) + (myKey * ev.branchInterval.asArray.wrapAt(myKey)) + addPitch + ev.noteOffset)
-						},*/
 						\midinote, Pfunc{ |ev|
 							var pitchIx = (ev.pitches * ev.stepInterval) + (myKey * ev.branchInterval.asArray.wrapAt(myKey));// + ev.noteOffset;
 							top[\pitchesRootDissonance][\pitches].foldAt(pitchIx + ev.noteOffset)
@@ -67,29 +60,37 @@
 						/// GUI PART
 						\calcPoint, Pfunc { |ev|
 							if(noFirstPoint){
-								firstPoint = top[\gui].lastPoints[voiceEvent.parentId] ? Point(0,0);
+								firstPoint = top[\gui].lastPoints[voiceEvent.parentId] ? top[\gui].lastPoints[\rootPoint];
 								noFirstPoint = false
 							};
 							lastPoint = firstPoint;
 							firstPoint = firstPoint.translate(
 								Point(0, -1).rotate((ev.pitches * ev.theta).degrad)
 							);
-							top[\gui].lastPoints[voiceEvent.myId] = firstPoint;
+							if(ev.ignorePoints.not){
+								top[\gui].lastPoints[voiceEvent.myId] = firstPoint;
+							};
 							[lastPoint, firstPoint]
 						},
-/*						\draw, Pfunc { |ev|
-							if((ev.checkPause.class != Rest) || (ev.legato >= 1)){
-								top[\gui].points.add([
-									ev.calcPoint,
-									myKey.linlin(0,5,0,1).asFloat
-								]);
-							};
-							0
+						/*						\draw, Pfunc { |ev|
+						if((ev.checkPause.class != Rest) || (ev.legato >= 1)){
+						top[\gui].points.add([
+						ev.calcPoint,
+						myKey.linlin(0,5,0,1).asFloat
+						]);
+						};
+						0
 						},*/
 						\wrapLo, Pn(Plazy {|ev| ev.wrapLo.asArray.wrapAt(myKey)}),
 						\wrapHi, Pn(Plazy {|ev| ev.wrapHi.asArray.wrapAt(myKey)}),
 						\finish, { |ev|
-							if(myKey == 0){top[\lsys][\globalPitch] = ev.pitches + addPitch};
+							if(myKey == 0){
+								if(setRootPointOnce){
+									top[\gui].lastPoints[\rootPoint] = ev.calcPoint[1];
+									setRootPointOnce = false
+								};
+								top[\lsys][\globalPitch] = ev.pitches + addPitch
+							};
 							//ev.midinote = ev.midinote.wrap(~wrapLo, ~wrapHi);
 							//ev.midinote.postln;
 							if(ev.midinote > ~wrapHi){ ev.midinote = (ev.midinote % 12) + ~wrapHi - 12; "wrapHI!".postln };

@@ -5,7 +5,7 @@
 ~lsys[\presets] = ();
 ~lsys[\defaultPreset] = (
 	baseTempo: 1/4,
-	legatoArr: 0.95,
+	legatoArr: 1,
 	branchInterval: 7,//7,
 	stepInterval: 1,
 	noteOffset: 0,
@@ -18,8 +18,9 @@
 	instr: \simplePluck,
 	useGlobalPitch: false,
 	stutterVal: 1,
+	lerpLines: false,
 	baseColor: 0,
-	lineScale: 10
+	ignorePoints: false
 );
 
 //
@@ -27,6 +28,7 @@
 ~gui.points = List.new;
 ~gui.scale = 20;
 ~gui.lastPoints = ();
+~gui.lastPoints[\rootPoint] = Point();
 
 if(~localSetup){
 	~targetServer = Server.default;
@@ -59,14 +61,17 @@ Pdef(\playVisuals,
 		\draw, Pfunc { |ev|
 			if(ev.dur.isRest.not){
 				if((ev.checkPause.class != Rest) || (ev.legato >= 1)){
-					("branchLEVEL: " ++ ev.branchLevel).postln;
-					~gui.points.add([
-						ev.calcPoint,
-						ev.branchLevel.linlin(0,5,0,1).asFloat,
-						ev.vol.asFloat ? 1.0,
-						ev.baseColor,
-						ev.lineScale
-					]);
+					if(ev.branchLevel.notNil){
+						//("branchLEVEL: " ++ ev.branchLevel).postln;
+						~gui.points.add([
+							ev.calcPoint,
+							ev.branchLevel.linlin(0,5,0,1).asFloat,
+							ev.vol.asFloat ? 1.0,
+							ev.baseColor,
+							(~linkClock.tempo/ ev.dur),
+							ev.lerpLines.asInteger
+						]);
+					}
 				};
 			};
 			0
@@ -77,11 +82,10 @@ Pdef(\playVisuals,
 		Pbind(\sendToGui, Pfunc {
 			if(~gui.points.isEmpty.not){
 				~gui.points.do { |p|
-					var scale = p[4],
-					wp1 = (p[0][0]) * ~gui.scale,  // ~win.bounds.bottom/2 oder so
+					var wp1 = (p[0][0]) * ~gui.scale,  // ~win.bounds.bottom/2 oder so
 					wp2 = (p[0][1]) * ~gui.scale,
-					oscMsg = (wp1.asArray ++ wp2.asArray).asInteger ++ p[1..3];
-					{~gui.toProcessing.sendMsg('/lines', *oscMsg)}.defer(~targetServer.latency - 0.2) // damit es mit server latency zusammen kommt
+					oscMsg = (wp1.asArray ++ wp2.asArray).asInteger ++ p[1..];
+					{~gui.toProcessing.sendMsg('/lines', *oscMsg)}.defer(~targetServer.latency - 0.19) // damit es mit server latency zusammen kommt
 				};
 				~gui.points.clear;
 			};

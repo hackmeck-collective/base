@@ -7,8 +7,8 @@ var opts = (
 	baseTempo: 1/8,
 	quant: 0,
 	baseColor: 30,
-	lineScale: 10
-
+	lineScale: 10,
+	theta: 36
 );
 
 // FILTERS

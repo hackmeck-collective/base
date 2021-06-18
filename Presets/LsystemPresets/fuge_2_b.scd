@@ -10,7 +10,7 @@
 		vols: 0.8,
 		baseTempo: 1/3,
 		quant: 0,
-		theta: 12 // 72
+		theta: 45 // 72
 	);
 
 	// FILTERS

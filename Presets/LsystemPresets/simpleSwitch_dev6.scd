@@ -8,6 +8,7 @@ var opts = (
 	quant: 0,
 	baseColor: 30,
 	vols: [0,0,1,1,1,1,1,1,1],
+	theta: 36,
 	lineScale: 10
 
 );

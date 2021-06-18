@@ -147,6 +147,8 @@
 					wrapHi: [ 96 ],
 					instr: leadInstr1,
 					vols: 2,
+					baseColor: 0,
+					theta: 18,
 				)
 			);
 
@@ -166,6 +168,8 @@
 					wrapHi: [ 96 ],
 					instr: leadInstr1,
 					vols: 2,
+					baseColor: 0,
+					theta: 18
 				)
 			);
 
@@ -183,7 +187,9 @@
 					wrapLo: [ 84 ],
 					wrapHi: [ 96 ],
 					instr: percInstr2,
-					vols: 0.1
+					vols: 0.1,
+					baseColor: 0,
+					theta: 18
 				)
 			);
 		}
@@ -298,6 +304,9 @@
 				rules: ( $a: "aGGf[-b]+Gf", $b: "f--Gb++", $e: "[--b]f-fe", ),
 				gen: item,
 				opts: (
+					ignorePoints: false,
+					baseColor: 0,
+					theta: 15,
 					branchInterval: -5,
 					useGlobalPitch: false,
 					noteOffset: -0,
@@ -317,7 +326,9 @@
 				rules: ( $a: "aGGf[-b]+Gf", $b: "f--Gb++", $e: "[--b]f-fe", ),
 				gen: item,
 				opts: (
+					ignorePoints: true,
 					branchInterval: -7,
+					baseColor: 25,
 					useGlobalPitch: false,
 					noteOffset: -24,
 					quant: 0,
@@ -336,6 +347,8 @@
 				rules: ( $a: "aGGf[-b]+Gf", $b: "f--Gb++", $e: "[--b]f-fe", ),
 				gen: item,
 				opts: (
+					ignorePoints: true,
+					baseColor: 25,
 					useGlobalPitch: false,
 					noteOffset: -12,
 					quant: 0,

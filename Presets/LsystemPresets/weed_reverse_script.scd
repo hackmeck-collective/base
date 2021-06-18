@@ -10,7 +10,8 @@
 		noteOffset: 0,
 		useGlobalPitch: false,
 		vols: 0.45,
-		baseTempo: 1/4
+		baseTempo: 1/4,
+		lerpLines: true
 	);
 
 	// FILTERS

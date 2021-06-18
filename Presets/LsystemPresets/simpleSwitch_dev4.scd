@@ -7,6 +7,7 @@ var opts = (
 	baseTempo: 1/8,
 	quant: 0,
 	baseColor: 30,
+	theta: 36,
 	lineScale: 10
 
 );

@@ -12,6 +12,11 @@ Pdef(\triangleDevelopement_2,
 		sp.wait(16);
 
 		player1.stop; player2.stop; player3.stop;
+		{
+			var rp = ~gui.lastPoints.rootPoint;
+			~gui.lastPoints.clear;
+			~gui.lastPoints.rootPoint = rp;
+		}.value;
 		player2 = sp.par(Pdef(\fraktal_philipp_bd));
 		player3 = sp.par(Pdef(\fraktal_philipp_sd));
 		sp.seq(Pdef(\fraktal_philipp));

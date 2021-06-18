@@ -6,6 +6,7 @@ var opts = (
 	useGlobalPitch: false,
 	baseTempo: 1/8,
 	quant: 0,
+	theta: 36,
 	baseColor: 30,
 	lineScale: 10
 );

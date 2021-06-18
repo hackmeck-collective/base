@@ -1,24 +1,25 @@
 (
 (0..3).do({ |i|
-// OPTIONS
-var opts = (
-	noteOffset: 0,
-	instr: \metalPerc,
-	useGlobalPitch: false,
-	baseTempo: 1/8,
-	quant: 0
+	// OPTIONS
+	var opts = (
+		noteOffset: 0,
+		instr: \metalPerc,
+		useGlobalPitch: false,
+		baseTempo: 1/8,
+		baseColor: 30,
+		theta: 36,
+		quant: 0
+	);
 
-);
+	// FILTERS
 
-// FILTERS
-
-// ARGS
-~newLsys.(
-	name: ("simpleSwitch_gen" ++ i).asSymbol,
-	axiom: "F",
-	rules:  ($F: "F-G-F2+F"),
-	gen: i,
-	opts: opts
-)
+	// ARGS
+	~newLsys.(
+		name: ("simpleSwitch_gen" ++ i).asSymbol,
+		axiom: "F",
+		rules:  ($F: "F-G-F2+F"),
+		gen: i,
+		opts: opts
+	)
 })
 );
