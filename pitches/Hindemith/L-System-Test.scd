@@ -10,22 +10,6 @@
 //chromatic
 
 
-Pn(Pbind(\glide, 0) <> Pdef('fuge_3')).play
-
-
-Pdef(\play,
-	Pspawner({ |sp|
-		~lsys[\presets].fuge_2.baseTempo = 1/6;
-		"fuge_2".postln;
-		sp.seq(Pbind(\glide, 0.2) <> Pdef('fuge_2'));
-		~lsys.[\presets].fuge_2.baseTempo = 1; //1 ist 60 bpm
-		"fuge_2".postln;
-		sp.seq(Pbind(\glide, 3) <> Pdef('fuge_2'));
-		"fuge_2b".postln;
-		sp.seq(Pbind(\glide, 0.2) <> Pdef('fuge_2_b'));
-	})
-);
-
 //Synthes:
 digiDist_lead
 jitter_lead
