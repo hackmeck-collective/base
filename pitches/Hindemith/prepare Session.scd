@@ -5,6 +5,9 @@
 	{~textfieldRoot.value = ~listAndParameters.rootNote}.defer; //set TextField RootNote
 	{~numberboxNumberNotes.value = ~listAndParameters.list.size}.defer;  // set NumberBox NumNotes
 	{~textfieldScale.value = ~listAndParameters.underlyingScale}.defer; // set TextField Scale
+	{~numberboxLowerNote.value = ~listAndParameters.lowNote}.defer; // set NumberBox LowNote
+	{~numberboxHigherNote.value = ~listAndParameters.highNote}.defer; // set NumberBox HighNote
+	~startPiano.showKeys(~listAndParameters.list);
 };
 
 ~listAndParameters = (

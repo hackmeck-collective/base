@@ -77,7 +77,6 @@ MIDIdef.cc(\launchControlKnobs, {
 				~listAndParameters.dissDegree = newDissDegree;
 				"dissDegree: ".post; ~listAndParameters.dissDegree.postln;
 				~actualizeGUI.value;
-				~startPiano.showKeys(~listAndParameters.list);
 				if(~gateOpen[1] == true){~sendWithHail.((list: ~listAndParameters.list, rootNote: ~listAndParameters.rootNote));};
 			}{
 				"no new list".postln
@@ -100,7 +99,6 @@ MIDIdef.cc(\launchControlKnobs, {
 				~listAndParameters.rootNote = newRootValue;
 				"rootNote: ".post; ~listAndParameters.rootNote.postln;
 				~actualizeGUI.value;
-				~startPiano.showKeys(~listAndParameters.list);
 				if(~gateOpen[2] == true){~sendWithHail.((list: ~listAndParameters.list, rootNote: ~listAndParameters.rootNote));};
 			}{
 				"no new list".postln
@@ -142,7 +140,6 @@ MIDIdef.cc(\launchControlKnobs, {
 				//~listAndParameters.numNotes = newNumberOfNotes;
 				// "numNotes: ".post; ~listAndParameters.numNotes.postln;
 				~actualizeGUI.value;
-				~startPiano.showKeys(~listAndParameters.list);
 				if(~gateOpen[3] == true){~sendWithHail.((list: ~listAndParameters.list, rootNote: ~listAndParameters.rootNote));};
 			}{
 				"no new list".postln
@@ -150,20 +147,14 @@ MIDIdef.cc(\launchControlKnobs, {
 		}
 	}
 	{ num == 24 } { //Drehknopf 4 oben
+		//Steuert die Skala auf deren Grundlage die Akkorde erstellt werden.
 		var newUnderlyingScale = [\Chromatic, \Major].at(val.linlin(0,127,0,1).round.asInteger);
 		if (newUnderlyingScale != ~listAndParameters.underlyingScale) {
 			var closestList = ~searchTreeNearestOld.(
-				underlyingScale: \Major,//newUnderlyingScale,
+				underlyingScale: newUnderlyingScale,
 				chord: ~listAndParameters.list,
 				rootNote: ~listAndParameters.rootNote,
 				dissDegree: ~listAndParameters.dissDegree
-			);
-
-			~searchTreeNearestOld.(
-				underlyingScale: \Major,
-				chord: [ 3, 7, 12, 19 ],
-				rootNote: 0,
-				dissDegree: 1
 			);
 
 			if(closestList.notNil){
@@ -171,7 +162,6 @@ MIDIdef.cc(\launchControlKnobs, {
 				~listAndParameters.underlyingScale = newUnderlyingScale;
 				"underlyingScale: ".post; ~listAndParameters.underlyingScale.postln;
 				~actualizeGUI.value;
-				~startPiano.showKeys(~listAndParameters.list);
 				if(~gateOpen[4] == true){~sendWithHail.((list: ~listAndParameters.list, rootNote: ~listAndParameters.rootNote));};
 			}{
 				"no new list".postln
@@ -180,14 +170,27 @@ MIDIdef.cc(\launchControlKnobs, {
 		}
 	}
 	{ num == 25 } { //Drehknopf 5 oben
-		~listAndParameters.lowNote = 24 + (val.linlin(0,127,0,5).round.asInteger * 12);
-		~sendWithHail.((list: ~listAndParameters.list, rootNote: ~listAndParameters.rootNote));
+		//Steuert die untere Grenze für die Akkorde
+		var newLowNote = val.linlin(0,127,2,7).round.asInteger * 12;
+		if ((newLowNote + 12) < ~listAndParameters.highNote){
+			~listAndParameters.lowNote = newLowNote;
+			~actualizeGUI.value;
+			~sendWithHail.((list: ~listAndParameters.list, rootNote: ~listAndParameters.rootNote));
+		}{
+			"lowNote is too high".warn;
+		}
 	}
 	{ num == 26 } { //Drehknopf 6 oben
-		//HIGHNOTE
-		//Check einbauen: Highnote darf nicht kleiner sein als Lownote
-				/*~listAndParameters.lowNote = 24 + (val.linlin(0,127,0,5).round.asInteger * 12);
-		~sendWithHail.((list: ~listAndParameters.list, rootNote: ~listAndParameters.rootNote));*/
+		//Steuert die obere Grenze für die Akkorde
+		var newHighnote = (val.linlin(0,127,3,9).round.asInteger * 12);
+		if ((newHighnote - 12) > ~listAndParameters.lowNote){
+			~listAndParameters.highNote = newHighnote;
+			~actualizeGUI.value;
+			~sendWithHail.((list: ~listAndParameters.list, rootNote: ~listAndParameters.rootNote));
+		}{
+			"highNote is too low".warn;
+		};
+
 	}
 	{ num == 28 } { //Drehknopf 8 oben
 	}
@@ -195,18 +198,7 @@ MIDIdef.cc(\launchControlKnobs, {
 	}
 	{ num == 42 } { //Dreknopf 2 unten
 	}
-	{ num == 43 } { //Dreknopf 3 unten
-	}
-	{ num == 44 } { //Dreknopf 4 unten
-	}
-	{ num == 45 } { //Drehknopf 5 unten
-	}
-	{ num == 46 } { //Drehknopf 6 unten
-	}
-	{ num == 47 } { //Drehknopf 7 unten
-	}
-	{ num == 48 } { //Drehknopf 8 unten
-	}
+	// And so on ...
 	;
 });
 
