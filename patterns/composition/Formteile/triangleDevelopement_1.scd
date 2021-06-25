@@ -18,11 +18,11 @@ Pdef(\triangleDevelopement_1,
 		"fraktal_16".postln;
 		sp.seq(Psync(Pdef(\fraktal_16), 0, 100));
 		"fraktal_17".postln;
-		~lsys[\presets].simpleSwitch_dev4.vols = [1, 1, 1, 1, 1, 1];
+		~lsys[\simpleSwitch_dev4].vols = [1, 1, 1, 1, 1, 1];
 		sp.par(
 			Pbind(\dur, Rest(0.1), \x, Pfunc { |in|
-				~lsys[\presets].simpleSwitch_dev4.vols[0] = in;
-				~lsys[\presets].simpleSwitch_dev4.vols[1] = in;
+				~lsys[\simpleSwitch_dev4].vols[0] = in;
+				~lsys[\simpleSwitch_dev4].vols[1] = in;
 				0 } <> Pseg([1,0],[16],3)
 			)
 		);

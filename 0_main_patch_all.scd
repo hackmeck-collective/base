@@ -1,5 +1,5 @@
 (
-var waitForPeers = true; //false, wenn man alleine arbeitet
+var waitForPeers = false; //false, wenn man alleine arbeitet
 var multicoreSetup = false;
 var loadOnlyBenni = {
 	"loading signal flow".postln;
@@ -108,7 +108,7 @@ s.waitForBoot {
 		block {|break|
 			inf.do{
 				~addrBook.names.postln;
-				if(~addrBook.names.includes(\vincent) && ~addrBook.names.includes(\Admin)){
+				if(~addrBook.names.includes(\Admin)){ //~addrBook.names.includes(\vincent) &&
 					loadAll.value;
 					switch (~addrBook.me.name,
 						\Admin, {loadOnlyBenni.value},
