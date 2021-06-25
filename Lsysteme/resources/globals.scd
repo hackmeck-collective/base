@@ -23,6 +23,8 @@
 	ignorePoints: false
 );
 
+~lsys[\currentlyPlaying] = Set.new;
+
 //
 ~gui = ();
 ~gui.points = List.new;
