@@ -100,6 +100,18 @@ Pdef(\playVisuals,
 
 thisProcess.openUDPPort(9010);
 
+~lsys.addDependant({|objectSpace, what, key, val|
+	if(key == \currentlyPlaying){
+		var namesArr = objectSpace[\currentlyPlaying].asArray;
+		5.do {|i|
+			if(i < namesArr.size){
+				topEnvironment[\toOpenStageControl].sendMsg("/text_" ++ (i + 1), namesArr[i])
+			}{
+				topEnvironment[\toOpenStageControl].sendMsg("/text_" ++ (i + 1), "")
+			}
+		}
+	};
+});
 
 
 ~volumeAddressesLed = 8.collect {|i| "/volume/led_" ++ (i + 1) };
