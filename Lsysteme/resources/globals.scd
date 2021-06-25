@@ -42,15 +42,16 @@ if(~localSetup){
 			("utopia peers: " ++ ~addrBook.names).postln;
 			if(~addrBook.names.includes(\Admin)){ //~addrBook.names.includes(\Philipp) &&
 				//~addrBook.names.includes(\philipp) &&
-				~gui.toProcessing = NetAddr("127.0.0.1", 12000);
-				//~gui.toProcessing = NetAddr(~addrBook.at(\philipp).addr.ip, 12000);
+				//~gui.toProcessing = NetAddr("127.0.0.1", 12000);
+				~gui.toProcessing = NetAddr(~addrBook.at(\vincent).addr.ip, 12000);
 
-				~targetServer = Server.remote(
+				/*~targetServer = Server.remote(
 					\benni,
 					NetAddr(~addrBook.at(\Admin).addr.ip, 57110),
 					ServerOptions.new().maxLogins_(2),
 					1
-				);
+				);*/
+				~targetServer = Server.default;
 				break.value;
 			};
 		};

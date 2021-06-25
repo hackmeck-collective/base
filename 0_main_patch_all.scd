@@ -1,5 +1,5 @@
 (
-var waitForPeers = false; //false, wenn man alleine arbeitet
+var waitForPeers = true; //false, wenn man alleine arbeitet
 var multicoreSetup = false;
 var loadOnlyBenni = {
 	"loading signal flow".postln;
@@ -31,6 +31,13 @@ var loadOnlyBenni = {
 	"patterns/launchControlXlTrigger.scd".loadRelative;
 
 	"cues/cues.scd".loadRelative;
+
+	"loading L-Systems".postln;
+	"Lsysteme/resources/globals.scd".loadRelative;
+	"Lsysteme/resources/lsysCreator_noDaemon.scd".loadRelative;
+	"Lsysteme/resources/pdefCreator.scd".loadRelative; // load pdef which will play back lsystems
+	"Presets/LsystemPresetFunctions.scd".loadRelative;
+	~lsysPreset.loadAll;
 
 };
 var loadOnlyVincent = {

@@ -1,8 +1,8 @@
 Pdef(\fuge_develope,
 	Pspawner({ |sp|
 		var times = [5, 1, 3, 2, 2, 3, 1, 5];
-		//var bdPlayer = sp.par( Pbind( \octave, 4) <> Pdef(\bdBuzz).collect {|ev| ~scM8.play; ev} <> Pbindef(\root) <> Pbindef(\pulse_4) );
-		// bdPlayer.play;
+		var bdPlayer = sp.par( Pbind( \octave, 4) <> Pdef(\bdBuzz).collect {|ev| ~scM8.play; ev} <> Pbindef(\root) <> Pbindef(\pulse_4) );
+		bdPlayer.play;
 		~lsys[\presets].fuge_2_b_gen2.baseTempo = 1/3;
 		~lsys[\presets].fuge_2_b_gen1.baseTempo = 1/3;
 
@@ -22,8 +22,8 @@ Pdef(\fuge_develope,
 				\stretch, Pstep([1, 3/4, 2/3, 1/2, 3/8, 1/3, 0.25, 1/3, 3/8, 1/2, 2/3, 3/4, 1], 2!6 ++ (1!6), 1)
 			)
 		);
-		//bdPlayer.stop;
-		~lsys[\presets].fuge_2_b_gen1.baseTempo = 1/6;
+		bdPlayer.stop;
+/*		~lsys[\presets].fuge_2_b_gen1.baseTempo = 1/6;
 		sp.seq(
 			Pbind(\glide, 0)
 			<> ~fugeInstrState_1.(Pdef(\fuge_3_gen1))
@@ -37,6 +37,6 @@ Pdef(\fuge_develope,
 		sp.seq(
 			Pbind(\glide, 0)
 			<> ~fugeInstrState_1.(Pdef(\fuge_3_gen3))
-		);
+		);*/
 	})
 )

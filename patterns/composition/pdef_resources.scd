@@ -268,7 +268,7 @@
 		) <>
 		Psym(
 			Pfunc{|sym|
-				(~lsys[\presets][sym].maxPatDur * baseTempo).postln; // beats, muss noch mit baseTempo
+				(~lsys[sym].maxPatDur * baseTempo).postln; // beats, muss noch mit baseTempo
 				"tolles event".postln;
 				sym.postln} <> Pseq([testSymbols, testSymbols2].flop.flat)
 		)
@@ -277,7 +277,7 @@
 	Pdef((testName ++ testNameAdd).asSymbol.postln, Psym(Pseq(testSymbols2)) <> (Pbind(\time, Ptime)));
 	Pdef((testName ++ testNameAdd2).asSymbol.postln, Psym(Pseq(testSymbols3)) <> (Pbind(\time, Ptime)));
 
-	testArray.collect{|num| ~lsys[\presets][(testName ++ num).asSymbol].maxPatDur }.sum * baseTempo;
+	testArray.collect{|num| ~lsys[(testName ++ num).asSymbol].maxPatDur }.sum * baseTempo;
 
 }.value;
 
@@ -436,7 +436,7 @@
 		) <>
 		Psym(
 			Pfunc{|sym|
-				(~lsys[\presets][sym].maxPatDur * baseTempo).postln; // beats, muss noch mit baseTempo
+				(~lsys[sym].maxPatDur * baseTempo).postln; // beats, muss noch mit baseTempo
 				"tolles event".postln;
 				sym.postln} <> Pseq(testSymbols)
 		)
@@ -445,7 +445,7 @@
 	Pdef((testName ++ testNameAdd).asSymbol.postln, Psym(Pseq(testSymbols2)) <> (Pbind(\time, Ptime)));
 	Pdef((testName ++ testNameAdd2).asSymbol.postln, Psym(Pseq(testSymbols3)) <> (Pbind(\time, Ptime)));
 
-	testArray.collect{|num| ~lsys[\presets][(testName ++ num).asSymbol].maxPatDur }.sum * baseTempo;
+	testArray.collect{|num| ~lsys[(testName ++ num).asSymbol].maxPatDur }.sum * baseTempo;
 
 }.value;
 

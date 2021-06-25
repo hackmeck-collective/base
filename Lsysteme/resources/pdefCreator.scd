@@ -31,7 +31,7 @@
 						PmonoArtic2() <>
 						Pdef((name.asString ++ "_filter" ++ myKey).asSymbol) <>
 						Pdef((name.asString ++ "_filter").asSymbol) <>
-						Pstutter(Pn(Plazy {~lsys[\presets][name].stutterVal}),
+						Pstutter(Pn(Plazy {~lsys[name].stutterVal}), //[\presets]
 							Pbind(
 								\myId, voiceEvent.myId,
 								\branchLevel, myKey,
@@ -112,7 +112,7 @@
 					//top[\lsys][\presets][name].nextFinish = (thisThread.beats + (~maxPatDur * ~baseTempo)).roundUp(~quant);
 					//top[\lsys][\presets][name].startOffsets = startOffsets; // fuer drum struktur?
 					Psync(Ptpar([startOffsets, voices].flop.flat), ~quant, ~maxPatDur )
-				}) <> ~lsys[\presets][name]
+				}) <> ~lsys[name] //[\presets]
 			),
 			cleanupFunc: {//(name.asString ++ " ende").postln;
 				topEnvironment[\lsys][\currentlyPlaying] = topEnvironment[\lsys][\currentlyPlaying].remove(name)}
