@@ -11,19 +11,9 @@
 		}
 	};
 });
-~lsys.dependants
-/*
-self.playingSet.asArray.do {|name ix|
-~toOpenStageControl.sendMsg("/text_" ++ (ix + 1), name)
-}*/
-~lsysSet = Set.newFrom([\basicL, \snowFlake, \kacka])
 
-~lsysSet.asArray.do {|name ix|
-	~toOpenStageControl.sendMsg("/text_" ++ (ix + 1), name)
-}
-thisProcess.openUDPPort(9010)
+thisProcess.openUDPPort(9010);
 
-Pdef(\basicL).play
 
 (
 ~volumeAddressesLed = 8.collect {|i| "/volume/led_" ++ (i + 1) };
@@ -38,8 +28,8 @@ Pdef(\basicL).play
 		var selectedVolumeArr, selectedLegatoArr;
 		~selectedLsys = ~lsys[\currentlyPlaying].asArray[msg[1] - 1].postln;
 		~toOpenStageControl.sendMsg("/selected_lsys", ~selectedLsys);
-		selectedVolumeArr = ~lsys[\presets][~selectedLsys.asSymbol].vols;
-		selectedLegatoArr = ~lsys[\presets][~selectedLsys.asSymbol].legatoArr;
+		selectedVolumeArr = ~lsys[~selectedLsys.asSymbol].vols;
+		selectedLegatoArr = ~lsys[~selectedLsys.asSymbol].legatoArr;
 		8.do { |ix|
 			if(ix < selectedVolumeArr.size){
 				~toOpenStageControl.sendMsg(~volumeAddressesLed[ix], 1);
@@ -54,35 +44,42 @@ Pdef(\basicL).play
 				~toOpenStageControl.sendMsg(~legatoAddressesLed[ix], 0);
 			};
 		};
-		if(~lsys[\presets][~selectedLsys.asSymbol].stutterVal.isNumber){
-			~toOpenStageControl.sendMsg("/stutterVal", ~lsys[\presets][~selectedLsys.asSymbol].stutterVal);
+		if(~lsys[~selectedLsys.asSymbol].stutterVal.isNumber){
+			~toOpenStageControl.sendMsg("/stutterVal", ~lsys[~selectedLsys.asSymbol].stutterVal);
 		};
-		~toOpenStageControl.sendMsg("/stepInterval", ~lsys[\presets][~selectedLsys.asSymbol].stepInterval);
-		~toOpenStageControl.sendMsg("/branchInterval", ~lsys[\presets][~selectedLsys.asSymbol].branchInterval);
+		~toOpenStageControl.sendMsg("/stepInterval", ~lsys[~selectedLsys.asSymbol].stepInterval);
+		~toOpenStageControl.sendMsg("/branchInterval", ~lsys[~selectedLsys.asSymbol].branchInterval);
 
 	}, addr).permanent_(true)
 };
 
 ~volumeAddressesFader.do {|addr, ix|
 	OSCdef(addr.asSymbol, {|msg|
-		~lsys[\presets][~selectedLsys.asSymbol].vols[ix] = msg[1];
+		~lsys[~selectedLsys.asSymbol].vols[ix] = msg[1];
+		~lsys[~selectedLsys.asSymbol] = ~lsys[~selectedLsys.asSymbol];
 	}, addr).permanent_(true)
 };
 
+~lsys[~selectedLsys.asSymbol].vols =[0,0]// ~lsys[~selectedLsys.asSymbol].vols
+
 ~legatoAddressesFader.do {|addr, ix|
 	OSCdef(addr.asSymbol, {|msg|
-		~lsys[\presets][~selectedLsys.asSymbol].legatoArr[ix] = msg[1];
+		~lsys[~selectedLsys.asSymbol].legatoArr[ix] = msg[1];
+		~lsys[~selectedLsys.asSymbol] = ~lsys[~selectedLsys.asSymbol];
 	}, addr).permanent_(true)
 };
 
 OSCdef(\stutterVal, {|msg|
-	~lsys[\presets][~selectedLsys.asSymbol].stutterVal = msg[1];
+	~lsys[~selectedLsys.asSymbol].stutterVal = msg[1];
+	~lsys[~selectedLsys.asSymbol] = ~lsys[~selectedLsys.asSymbol];
 }, '/stutterVal').permanent_(true);
 
 OSCdef(\stepInterval, {|msg|
-	~lsys[\presets][~selectedLsys.asSymbol].stepInterval = msg[1];
+	~lsys[~selectedLsys.asSymbol].stepInterval = msg[1];
+	~lsys[~selectedLsys.asSymbol] = ~lsys[~selectedLsys.asSymbol];
 }, '/stepInterval').permanent_(true);
 
 OSCdef(\branchInterval, {|msg|
-	~lsys[\presets][~selectedLsys.asSymbol].branchInterval = msg[1];
+	~lsys[~selectedLsys.asSymbol].branchInterval = msg[1];
+	~lsys[~selectedLsys.asSymbol] = ~lsys[~selectedLsys.asSymbol];
 }, '/branchInterval').permanent_(true);
