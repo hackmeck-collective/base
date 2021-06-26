@@ -48,7 +48,8 @@ MIDIdef.cc(\knobsAndFaders, {
 
 	~launchcontrolXlControlBusses[busIndex].set(smoothedValue);
 
-	~osc_data_params["launchControlXlBus_%".format(busIndex).asSymbol] = smoothedValue;
+	// not used?
+	// ~osc_data_params["launchControlXlBus_%".format(busIndex).asSymbol] = smoothedValue;
 
 }).permanent_(true);
 
