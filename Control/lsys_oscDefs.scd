@@ -14,13 +14,13 @@
 
 thisProcess.openUDPPort(9010);
 
+~addrBook.at(\Admin)
 
-(
 ~volumeAddressesLed = 8.collect {|i| "/volume/led_" ++ (i + 1) };
 ~legatoAddressesLed = 8.collect {|i| "/legato/led_" ++ (i + 1) };
 ~volumeAddressesFader = 8.collect {|i| "/volume/fader_" ++ (i + 1) };
 ~legatoAddressesFader = 8.collect {|i| "/legato/fader_" ++ (i + 1) };
-)
+
 
 5.do {|i|
 	var addr = "/select_lsys_" ++ (i + 1);
@@ -59,8 +59,6 @@ thisProcess.openUDPPort(9010);
 		~lsys[~selectedLsys.asSymbol] = ~lsys[~selectedLsys.asSymbol];
 	}, addr).permanent_(true)
 };
-
-~lsys[~selectedLsys.asSymbol].vols =[0,0]// ~lsys[~selectedLsys.asSymbol].vols
 
 ~legatoAddressesFader.do {|addr, ix|
 	OSCdef(addr.asSymbol, {|msg|

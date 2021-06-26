@@ -17,10 +17,10 @@ Pdef(\exposition,
 
 		"weed buildup 1".postln;
 
-		~lsys.[\presets].weed_gen1.noteOffset = weedOffset_1;
-		~lsys.[\presets].weed_gen1.baseTempo = 1;
-		~lsys.[\presets].weed_gen2.noteOffset = weedOffset_1;
-		~lsys.[\presets].weed_gen2.baseTempo = 3/4;
+		~lsys[\weed_gen1].noteOffset = weedOffset_1;
+		~lsys[\weed_gen1].baseTempo = 1;
+		~lsys[\weed_gen2].noteOffset = weedOffset_1;
+		~lsys[\weed_gen2].baseTempo = 3/4;
 
 		sp.seq(~weedInstrController_0to2
 		<> ~weedInstrState_1 <> ~weedInstrModsState_1
@@ -32,10 +32,10 @@ Pdef(\exposition,
 		<> ~weedInstrExternal_1 <> ~weedInstrModTargets_1 <> Pbind(\external1Target, "envelope_mod")
 		);
 
-		~lsys.[\presets].weed_gen1.noteOffset = weedOffset_1;
-		~lsys.[\presets].weed_gen1.baseTempo = 1/2;
-		~lsys.[\presets].weed_gen2.noteOffset = weedOffset_1;
-		~lsys.[\presets].weed_gen2.baseTempo = 3/8;
+		~lsys[\weed_gen1].noteOffset = weedOffset_1;
+		~lsys[\weed_gen1].baseTempo = 1/2;
+		~lsys[\weed_gen2].noteOffset = weedOffset_1;
+		~lsys[\weed_gen2].baseTempo = 3/8;
 
 		sp.seq(~weedInstrController_0to2
 		<> ~weedInstrState_1 <> ~weedInstrModsState_1
@@ -47,20 +47,20 @@ Pdef(\exposition,
 		<> ~weedInstrExternal_1 <> ~weedInstrModTargets_1 <> Pbind(\external1Target, "envelope_mod")
 		);
 
-		~lsys.[\presets].weed_gen1.noteOffset = weedOffset_1;
-		~lsys.[\presets].weed_gen1.baseTempo = 1/4;
-		~lsys.[\presets].weed_gen2.noteOffset = weedOffset_1;
-		~lsys.[\presets].weed_gen2.baseTempo = 1/4;
-		~lsys.[\presets].weed_gen3.noteOffset = weedOffset_1;
-		~lsys.[\presets].weed_gen3.baseTempo = 1/4;
-		~lsys.[\presets].weed_reverse_gen0.noteOffset = weedOffset_1;
-		~lsys.[\presets].weed_reverse_gen0.baseTempo = 1;
-		~lsys.[\presets].weed_reverse_gen1.noteOffset = weedOffset_1;
-		~lsys.[\presets].weed_reverse_gen1.baseTempo = 3/4;
-		~lsys.[\presets].weed_reverse_gen2.noteOffset = weedOffset_1;
-		~lsys.[\presets].weed_reverse_gen2.baseTempo = 4/8;
-		~lsys.[\presets].weed_reverse_gen3.noteOffset = weedOffset_1;
-		~lsys.[\presets].weed_reverse_gen3.baseTempo = 3/8;
+		~lsys[\weed_gen1].noteOffset = weedOffset_1;
+		~lsys[\weed_gen1].baseTempo = 1/4;
+		~lsys[\weed_gen2].noteOffset = weedOffset_1;
+		~lsys[\weed_gen2].baseTempo = 1/4;
+		~lsys[\weed_gen3].noteOffset = weedOffset_1;
+		~lsys[\weed_gen3].baseTempo = 1/4;
+		~lsys[\weed_reverse_gen0].noteOffset = weedOffset_1;
+		~lsys[\weed_reverse_gen0].baseTempo = 1;
+		~lsys[\weed_reverse_gen1].noteOffset = weedOffset_1;
+		~lsys[\weed_reverse_gen1].baseTempo = 3/4;
+		~lsys[\weed_reverse_gen2].noteOffset = weedOffset_1;
+		~lsys[\weed_reverse_gen2].baseTempo = 4/8;
+		~lsys[\weed_reverse_gen3].noteOffset = weedOffset_1;
+		~lsys[\weed_reverse_gen3].baseTempo = 3/8;
 
 		sp.seq(~weedInstrController_0to2
 		<> ~weedInstrState_1 <> ~weedInstrModsState_1
@@ -82,14 +82,14 @@ Pdef(\exposition,
 
 		"penrose buildup 1".postln; // mit percussion und umgedreht
 
-		~lsys.[\presets].penrose_simplesimple_gen1.noteOffset = penroseOffset_1;
-		~lsys.[\presets].penrose_simplesimple_gen1.baseTempo = 3/16;
-		~lsys.[\presets].penrose_simple_gen1.noteOffset = penroseOffset_1;
-		~lsys.[\presets].penrose_simple_gen1.baseTempo = 3/16;
-		~lsys.[\presets].penrose_simple_gen2.noteOffset = penroseOffset_1;
-		~lsys.[\presets].penrose_simple_gen2.baseTempo = 3/16;
-		~lsys.[\presets].penrose_simple_gen0.noteOffset = penroseOffset_1;
-		~lsys.[\presets].penrose_simple_gen0.baseTempo = 3/16;
+		~lsys[\penrose_simplesimple_gen1].noteOffset = penroseOffset_1;
+		~lsys[\penrose_simplesimple_gen1].baseTempo = 3/16;
+		~lsys[\penrose_simple_gen1].noteOffset = penroseOffset_1;
+		~lsys[\penrose_simple_gen1].baseTempo = 3/16;
+		~lsys[\penrose_simple_gen2].noteOffset = penroseOffset_1;
+		~lsys[\penrose_simple_gen2].baseTempo = 3/16;
+		~lsys[\penrose_simple_gen0].noteOffset = penroseOffset_1;
+		~lsys[\penrose_simple_gen0].baseTempo = 3/16;
 
 		sp.seq(~lcXlCtrBus1Bi.(24) <> ~lcXlCtrBus2Bi.(25) <> ~lcXlCtrBus3Bi.(25, -0.5) <> ~penroseInstrState_1 <> Pbind(\envelope_mod, 0.35)
 		<> Pseq([
@@ -106,15 +106,15 @@ Pdef(\exposition,
 		\external2Target2, "oscillator_1_mod_1",
 		));
 
-		~lsys.[\presets].penrose_simple_gen1.noteOffset = penroseOffset_1 -12;
-		~lsys.[\presets].penrose_simple_gen1.baseTempo = 3/16;
-		~lsys.[\presets].penrose_simple_gen2.noteOffset = penroseOffset_1 -12;
-		~lsys.[\presets].penrose_simple_gen2.baseTempo = 3/16;
-		~lsys.[\presets].penrose_simple_gen3.legatoArr = 0.1;
-		~lsys.[\presets].penrose_simple_gen3.noteOffset = penroseOffset_1 -12;
-		~lsys.[\presets].penrose_simple_gen3.baseTempo = 3/16;
-		~lsys.[\presets].penrose_simplesimple_gen1.noteOffset = penroseOffset_1 -12;
-		~lsys.[\presets].penrose_simplesimple_gen1.baseTempo = 3/16;
+		~lsys[\penrose_simple_gen1].noteOffset = penroseOffset_1 -12;
+		~lsys[\penrose_simple_gen1].baseTempo = 3/16;
+		~lsys[\penrose_simple_gen2].noteOffset = penroseOffset_1 -12;
+		~lsys[\penrose_simple_gen2].baseTempo = 3/16;
+		~lsys[\penrose_simple_gen3].legatoArr = 0.1;
+		~lsys[\penrose_simple_gen3].noteOffset = penroseOffset_1 -12;
+		~lsys[\penrose_simple_gen3].baseTempo = 3/16;
+		~lsys[\penrose_simplesimple_gen1].noteOffset = penroseOffset_1 -12;
+		~lsys[\penrose_simplesimple_gen1].baseTempo = 3/16;
 
 		sp.seq(~penroseInstrState_maxCrushTo1 <> ~penroseInstrState_maxCrushTo1_Controller
 		<> Pbind(\envelope_mod, 0, \amp, 0.35, \send_1_level, 0.2,)
@@ -134,18 +134,18 @@ Pdef(\exposition,
 
 		"simpleSwitch buildup 1".postln;
 
-		~lsys.[\presets].penrose_simplesimple_gen1.noteOffset = penroseOffset_1 -12;
-		~lsys.[\presets].penrose_simplesimple_gen1.baseTempo = 3/16;
-		~lsys.[\presets].penrose_simplesimple_gen0.noteOffset = penroseOffset_1 -12;
-		~lsys.[\presets].penrose_simplesimple_gen0.baseTempo = 8/16;
-		~lsys.[\presets].simpleSwitch_gen0.noteOffset = simpleSwitchOffset_1;
-		~lsys.[\presets].simpleSwitch_gen0.baseTempo = 2/16;
-		~lsys.[\presets].simpleSwitch_gen1.noteOffset = simpleSwitchOffset_1;
-		~lsys.[\presets].simpleSwitch_gen1.baseTempo = 2/16;
-		~lsys.[\presets].simpleSwitch_gen2.noteOffset = simpleSwitchOffset_1;
-		~lsys.[\presets].simpleSwitch_gen2.baseTempo = 2/16;
-		~lsys.[\presets].simpleSwitch_gen3.noteOffset = simpleSwitchOffset_1;
-		~lsys.[\presets].simpleSwitch_gen3.baseTempo = 2/16;
+		~lsys[\penrose_simplesimple_gen1].noteOffset = penroseOffset_1 -12;
+		~lsys[\penrose_simplesimple_gen1].baseTempo = 3/16;
+		~lsys[\penrose_simplesimple_gen0].noteOffset = penroseOffset_1 -12;
+		~lsys[\penrose_simplesimple_gen0].baseTempo = 8/16;
+		~lsys[\simpleSwitch_gen0].noteOffset = simpleSwitchOffset_1;
+		~lsys[\simpleSwitch_gen0].baseTempo = 2/16;
+		~lsys[\simpleSwitch_gen1].noteOffset = simpleSwitchOffset_1;
+		~lsys[\simpleSwitch_gen1].baseTempo = 2/16;
+		~lsys[\simpleSwitch_gen2].noteOffset = simpleSwitchOffset_1;
+		~lsys[\simpleSwitch_gen2].baseTempo = 2/16;
+		~lsys[\simpleSwitch_gen3].noteOffset = simpleSwitchOffset_1;
+		~lsys[\simpleSwitch_gen3].baseTempo = 2/16;
 
 		sp.seq(~penroseInstrState_maxCrushTo1 <> ~penroseInstrState_maxCrushTo1_Controller
 		<> Pbind(\envelope_mod, 0)
@@ -175,16 +175,16 @@ Pdef(\exposition,
 
 		"weed and penrose".postln;
 
-		~lsys.[\presets].weed_gen2.noteOffset = weedOffset_1;
-		~lsys.[\presets].weed_gen2.baseTempo = 2/8;
-		~lsys.[\presets].weed_gen1.noteOffset = weedOffset_1;
-		~lsys.[\presets].weed_gen1.baseTempo = 3/8;
-		~lsys.[\presets].weed_gen0.noteOffset = weedOffset_1;
-		~lsys.[\presets].weed_gen0.baseTempo = 2/4;
-		~lsys.[\presets].penrose_gen1.noteOffset = penroseOffset_1;
-		~lsys.[\presets].penrose_gen1.baseTempo = 1/6;
-		~lsys.[\presets].penrose_gen0.noteOffset = penroseOffset_1;
-		~lsys.[\presets].penrose_gen0.baseTempo = 1/3;
+		~lsys[\weed_gen2].noteOffset = weedOffset_1;
+		~lsys[\weed_gen2].baseTempo = 2/8;
+		~lsys[\weed_gen1].noteOffset = weedOffset_1;
+		~lsys[\weed_gen1].baseTempo = 3/8;
+		~lsys[\weed_gen0].noteOffset = weedOffset_1;
+		~lsys[\weed_gen0].baseTempo = 2/4;
+		~lsys[\penrose_gen1].noteOffset = penroseOffset_1;
+		~lsys[\penrose_gen1].baseTempo = 1/6;
+		~lsys[\penrose_gen0].noteOffset = penroseOffset_1;
+		~lsys[\penrose_gen0].baseTempo = 1/3;
 
 		sp.seq(~weedInstrController_0to2
 		<> ~weedInstrState_2 <> ~weedInstrModsState_1
@@ -223,10 +223,10 @@ Pdef(\exposition,
 
 		"weed and simpleswitch".postln;
 
-		~lsys.[\presets].weed_gen1.baseTempo = 3/4;
-		~lsys.[\presets].weed_gen1.noteOffset = weedOffset_1-7;
-		~lsys.[\presets].weed_gen2.baseTempo = 2/4;
-		~lsys.[\presets].weed_gen2.noteOffset = weedOffset_1-7;
+		~lsys[\weed_gen1].baseTempo = 3/4;
+		~lsys[\weed_gen1].noteOffset = weedOffset_1-7;
+		~lsys[\weed_gen2].baseTempo = 2/4;
+		~lsys[\weed_gen2].noteOffset = weedOffset_1-7;
 
 		sp.seq(~weedInstrController_0to2
 			<> ~weedInstrState_1 <> ~weedInstrModsState_1
@@ -237,26 +237,26 @@ Pdef(\exposition,
 			],1)
 			<> ~weedInstrExternal_1 <> ~weedInstrModTargets_1);
 
-		~lsys.[\presets].simpleSwitch_gen0.noteOffset = simpleSwitchOffset_1-24;
-		~lsys.[\presets].simpleSwitch_gen0.baseTempo = 4/16;
-		~lsys.[\presets].simpleSwitch_gen1.noteOffset = simpleSwitchOffset_1-24;
-		~lsys.[\presets].simpleSwitch_gen1.baseTempo = 2/16;
-		~lsys.[\presets].simpleSwitch_gen2.noteOffset = simpleSwitchOffset_1-24;
-		~lsys.[\presets].simpleSwitch_gen2.baseTempo = 2/16;
-		~lsys.[\presets].simpleSwitch_gen3.noteOffset = simpleSwitchOffset_1-24;
-		~lsys.[\presets].simpleSwitch_gen3.baseTempo = 2/16;
-		~lsys.[\presets].weed_gen2.baseTempo = 1/2;
-		~lsys.[\presets].weed_gen2.noteOffset = weedOffset_1-7;
-		~lsys.[\presets].weed_gen1.baseTempo = 3/4;
-		~lsys.[\presets].weed_gen1.noteOffset = weedOffset_1-7;
-		~lsys.[\presets].weed_gen0.baseTempo = 1;
-		~lsys.[\presets].weed_gen0.noteOffset = weedOffset_1-7;
-		~lsys.[\presets].weed_reverse_gen1.baseTempo = 3/8;
-		~lsys.[\presets].weed_reverse_gen1.noteOffset = weedOffset_1-7;
-		~lsys.[\presets].weed_reverse_gen2.baseTempo = 1/2;
-		~lsys.[\presets].weed_reverse_gen2.noteOffset = weedOffset_1-7;
-		~lsys.[\presets].weed_reverse_gen0.baseTempo = 1/4;
-		~lsys.[\presets].weed_reverse_gen0.noteOffset = weedOffset_1-7;
+		~lsys[\simpleSwitch_gen0].noteOffset = simpleSwitchOffset_1-24;
+		~lsys[\simpleSwitch_gen0].baseTempo = 4/16;
+		~lsys[\simpleSwitch_gen1].noteOffset = simpleSwitchOffset_1-24;
+		~lsys[\simpleSwitch_gen1].baseTempo = 2/16;
+		~lsys[\simpleSwitch_gen2].noteOffset = simpleSwitchOffset_1-24;
+		~lsys[\simpleSwitch_gen2].baseTempo = 2/16;
+		~lsys[\simpleSwitch_gen3].noteOffset = simpleSwitchOffset_1-24;
+		~lsys[\simpleSwitch_gen3].baseTempo = 2/16;
+		~lsys[\weed_gen2].baseTempo = 1/2;
+		~lsys[\weed_gen2].noteOffset = weedOffset_1-7;
+		~lsys[\weed_gen1].baseTempo = 3/4;
+		~lsys[\weed_gen1].noteOffset = weedOffset_1-7;
+		~lsys[\weed_gen0].baseTempo = 1;
+		~lsys[\weed_gen0].noteOffset = weedOffset_1-7;
+		~lsys[\weed_reverse_gen1].baseTempo = 3/8;
+		~lsys[\weed_reverse_gen1].noteOffset = weedOffset_1-7;
+		~lsys[\weed_reverse_gen2].baseTempo = 1/2;
+		~lsys[\weed_reverse_gen2].noteOffset = weedOffset_1-7;
+		~lsys[\weed_reverse_gen0].baseTempo = 1/4;
+		~lsys[\weed_reverse_gen0].noteOffset = weedOffset_1-7;
 
 		sp.par(~lcXlCtrBus1Bi.(25, 0.4)
 			<> ~simpleSwitchInstrState_2
@@ -280,7 +280,7 @@ Pdef(\exposition,
 			],1)
 			<> ~weedInstrExternal_1 <> ~weedInstrModTargets_1);
 
-		~lsys.[\presets].weed_reverse_gen0.baseTempo = 4/4;
+		~lsys[\weed_reverse_gen0].baseTempo = 4/4;
 
 		sp.seq(~weedInstrController_0to2
 			<> ~weedInstrState_1 <> ~weedInstrModsState_1

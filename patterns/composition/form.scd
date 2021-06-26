@@ -7,16 +7,17 @@
 
 Pdef(\play,
 	Pspawner({ |sp|
+		var startTime = thisThread.beats;
 		~linkClock.tempo = 1;
-		//sp.seq(Pdef(\exposition)); //verpeilung am ende raus
-		//sp.seq(Pdef(\layers)); //verpeilung am ende raus
-		//sp.seq(Pdef(\penrose_entwicklung1)); // percussion rein
-		// sp.seq(Pdef(\penrose_entwicklung2));
+		sp.seq(Pdef(\exposition)); //verpeilung am ende raus
+		sp.seq(Pdef(\layers)); //verpeilung am ende raus
+		sp.seq(Pdef(\penrose_entwicklung1)); // percussion rein
+		sp.seq(Pdef(\penrose_entwicklung2));
 		//
 		// // Dauer: 5'12"
-		// sp.seq(Pdef(\simpleSwitchDevelopement_1));
-		// sp.seq(Pdef(\simpleSwitchDevelopement_1));
-		// sp.seq(Pdef(\simpleSwitchDevelopement_2));
+		sp.seq(Pdef(\simpleSwitchDevelopement_1));
+		sp.seq(Pdef(\simpleSwitchDevelopement_1));
+		sp.seq(Pdef(\simpleSwitchDevelopement_2));
 		sp.seq(Pdef(\triangleDevelopement_2));
 
 		~linkClock.tempo = 1;
@@ -39,7 +40,7 @@ Pdef(\play,
 				Pdef(\fuge_develope_ende)
 		]));
 		);
-
+		(thisThread.beats - startTime).postln;
 	})
 );
 )
