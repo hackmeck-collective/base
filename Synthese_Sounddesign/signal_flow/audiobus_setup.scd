@@ -4,8 +4,13 @@
 ~chords_bus ?? {~chords_bus = Bus.audio(s,2)};
 ~drums_bus ?? {~drums_bus = Bus.audio(s,2)};
 ~aux_bus ?? {~aux_bus = Bus.audio(s,2)};
+~melody_bus_direct_out ?? {~melody_bus_direct_out = Bus.audio(s,2)};
+~chords_bus_direct_out ?? {~chords_bus_direct_out = Bus.audio(s,2)};
+~drums_bus_direct_out ?? {~drums_bus_direct_out = Bus.audio(s,2)};
+~aux_bus_direct_out ?? {~aux_bus_direct_out = Bus.audio(s,2)};
 ~instruments_bus ?? {~instruments_bus = Bus.audio(s,2)};
 ~effect_bus ?? {~effect_bus = Bus.audio(s,2)};
+~effect_bus_direct_out ?? {~effect_bus_direct_out = Bus.audio(s,2)};
 ~master ?? {~master = Bus.audio(s,2)};
 
 s.sync;
@@ -21,27 +26,46 @@ s.sync;
 
 SynthDef(\melody_bus, {
 	arg beatDurNow = ~linkClock.tempo,
-	sidechain_amount = (-24).dbamp;
+	sidechain_amount = (-24).dbamp,
+
+	eqLoShelf_freq, eqLoShelf_q, eqLoShelf_db,
+	eqBand1_freq, eqBand1_q, eqBand1_db,
+	eqBand2_freq, eqBand2_q, eqBand2_db,
+	eqBand3_freq, eqBand3_q, eqBand3_db,
+	eqHiShelf_freq, eqHiShelf_q, eqHiShelf_db;
 
 	var sidechain_trigger_4 = \sidechain_trigger_4_melody.tr(0),
 	sidechain_trigger_8 = \sidechain_trigger_8_melody.tr(0);
 
-	var in, sidechain;
+	var in, eq, sidechain;
 
 	var duck_4 = EnvGen.ar(Env([1,sidechain_amount,1],[0.01, 0.99], -2),sidechain_trigger_4, timeScale: beatDurNow),
 	duck_8 = EnvGen.ar(Env([1,sidechain_amount,1],[0.01, 0.99], -1),sidechain_trigger_8, timeScale: (beatDurNow/2));
 
 	in = In.ar(~melody_bus, 2) * \on.kr(1, 0.001);
 
+	in = BLowShelf.ar(in, eqLoShelf_freq, eqLoShelf_q, eqLoShelf_db);
+	in = BPeakEQ.ar(in, eqBand1_freq, eqBand1_q, eqBand1_db);
+	in = BPeakEQ.ar(in, eqBand2_freq, eqBand2_q, eqBand2_db);
+	in = BPeakEQ.ar(in, eqBand3_freq, eqBand3_q, eqBand3_db);
+	in = BHiShelf.ar(in, eqHiShelf_freq, eqHiShelf_q, eqHiShelf_db);
+
 	sidechain = in * duck_4 * duck_8;
 
 	Out.ar(~instruments_bus, sidechain);
+	Out.ar(~melody_bus_direct_out, sidechain);
 
 }).add;
 
 SynthDef(\chords_bus, {
 	arg beatDurNow = ~linkClock.tempo,
-	sidechain_amount = (-24).dbamp;
+	sidechain_amount = (-24).dbamp,
+
+	eqLoShelf_freq, eqLoShelf_q, eqLoShelf_db,
+	eqBand1_freq, eqBand1_q, eqBand1_db,
+	eqBand2_freq, eqBand2_q, eqBand2_db,
+	eqBand3_freq, eqBand3_q, eqBand3_db,
+	eqHiShelf_freq, eqHiShelf_q, eqHiShelf_db;
 
 	var sidechain_trigger_4 = \sidechain_trigger_4_chords.tr(0),
 	sidechain_trigger_8 = \sidechain_trigger_8_chords.tr(0);
@@ -53,27 +77,61 @@ SynthDef(\chords_bus, {
 
 	in = In.ar(~chords_bus, 2) * \on.kr(1, 0.001);
 
+	in = BLowShelf.ar(in, eqLoShelf_freq, eqLoShelf_q, eqLoShelf_db);
+	in = BPeakEQ.ar(in, eqBand1_freq, eqBand1_q, eqBand1_db);
+	in = BPeakEQ.ar(in, eqBand2_freq, eqBand2_q, eqBand2_db);
+	in = BPeakEQ.ar(in, eqBand3_freq, eqBand3_q, eqBand3_db);
+	in = BHiShelf.ar(in, eqHiShelf_freq, eqHiShelf_q, eqHiShelf_db);
+
 	sidechain = in * duck_4 * duck_8;
 
 	Out.ar(~instruments_bus, sidechain);
+	Out.ar(~chords_bus_direct_out, sidechain);
 
 }).add;
 
 SynthDef(\drums_bus, {
-	var drums_bus_in;
+	arg eqLoShelf_freq, eqLoShelf_q, eqLoShelf_db,
+	eqBand1_freq, eqBand1_q, eqBand1_db,
+	eqBand2_freq, eqBand2_q, eqBand2_db,
+	eqBand3_freq, eqBand3_q, eqBand3_db,
+	eqHiShelf_freq, eqHiShelf_q, eqHiShelf_db;
 
-	drums_bus_in = In.ar(~drums_bus, 2) * \on.kr(1, 0.001);
+	var in;
 
-	Out.ar(~instruments_bus, drums_bus_in);
+	in = In.ar(~drums_bus, 2) * \on.kr(1, 0.001);
+
+	in = BLowShelf.ar(in, eqLoShelf_freq, eqLoShelf_q, eqLoShelf_db);
+	in = BPeakEQ.ar(in, eqBand1_freq, eqBand1_q, eqBand1_db);
+	in = BPeakEQ.ar(in, eqBand2_freq, eqBand2_q, eqBand2_db);
+	in = BPeakEQ.ar(in, eqBand3_freq, eqBand3_q, eqBand3_db);
+	in = BHiShelf.ar(in, eqHiShelf_freq, eqHiShelf_q, eqHiShelf_db);
+
+	Out.ar(~instruments_bus, in);
+	Out.ar(~drums_bus_direct_out, in);
 
 }).add;
 
 SynthDef(\aux_bus, {
-	var aux_bus_in;
 
-	aux_bus_in = In.ar(~aux_bus, 2) * \on.kr(1, 0.001);
+	arg eqLoShelf_freq, eqLoShelf_q, eqLoShelf_db,
+	eqBand1_freq, eqBand1_q, eqBand1_db,
+	eqBand2_freq, eqBand2_q, eqBand2_db,
+	eqBand3_freq, eqBand3_q, eqBand3_db,
+	eqHiShelf_freq, eqHiShelf_q, eqHiShelf_db;
 
-	Out.ar(~instruments_bus, aux_bus_in);
+	var in;
+
+	in = In.ar(~aux_bus, 2) * \on.kr(1, 0.001);
+
+	in = BLowShelf.ar(in, eqLoShelf_freq, eqLoShelf_q, eqLoShelf_db);
+	in = BPeakEQ.ar(in, eqBand1_freq, eqBand1_q, eqBand1_db);
+	in = BPeakEQ.ar(in, eqBand2_freq, eqBand2_q, eqBand2_db);
+	in = BPeakEQ.ar(in, eqBand3_freq, eqBand3_q, eqBand3_db);
+	in = BHiShelf.ar(in, eqHiShelf_freq, eqHiShelf_q, eqHiShelf_db);
+
+	Out.ar(~instruments_bus, in);
+	Out.ar(~aux_bus_direct_out, in);
 
 }).add;
 
@@ -87,11 +145,24 @@ SynthDef(\instruments_bus, {
 }).add;
 
 SynthDef(\effect_bus, {
-	var effect_bus_in;
+	arg eqLoShelf_freq, eqLoShelf_q, eqLoShelf_db,
+	eqBand1_freq, eqBand1_q, eqBand1_db,
+	eqBand2_freq, eqBand2_q, eqBand2_db,
+	eqBand3_freq, eqBand3_q, eqBand3_db,
+	eqHiShelf_freq, eqHiShelf_q, eqHiShelf_db;
 
-	effect_bus_in = In.ar(~effect_bus, 2);
+	var in;
 
-	Out.ar(~master, effect_bus_in);
+	in = In.ar(~effect_bus, 2);
+
+	in = BLowShelf.ar(in, eqLoShelf_freq, eqLoShelf_q, eqLoShelf_db);
+	in = BPeakEQ.ar(in, eqBand1_freq, eqBand1_q, eqBand1_db);
+	in = BPeakEQ.ar(in, eqBand2_freq, eqBand2_q, eqBand2_db);
+	in = BPeakEQ.ar(in, eqBand3_freq, eqBand3_q, eqBand3_db);
+	in = BHiShelf.ar(in, eqHiShelf_freq, eqHiShelf_q, eqHiShelf_db);
+
+	Out.ar(~master, in);
+	Out.ar(~effect_bus_direct_out, in);
 
 }).add;
 
@@ -131,9 +202,7 @@ SynthDef(\Master, {
 
 	sig = MoogFF.ar(sig, lpf_freq, lpf_resonance) * filter_vol_correct;
 
-	sig = vol * (sig / (1 + sig.abs));
-
-	// sig = tan(sig);
+	sig = vol * sig; //(sig / (1 + sig.abs));
 
 	Out.ar(0, sig);
 
@@ -156,21 +225,58 @@ s.sync;
 		target: ~master_group);
 
 	~audioBusses.effectBus = Synth.new(\effect_bus,
+		args:[
+			\eqLoShelf_freq, 200, \eqLoShelf_q, 0.3, \eqLoShelf_db, -5,
+			\eqBand1_freq, 350, \eqBand1_q, 1, \eqBand1_db, -3,
+			\eqBand2_freq, 2000, \eqBand2_q, 0.5,  \eqBand2_db, -3,
+			\eqBand3_freq, 5000, \eqBand3_q, 1,  \eqBand3_db, -3,
+			\eqHiShelf_freq, 5000, \eqHiShelf_q, 0.8, \eqHiShelf_db, 6,
+		],
 		target: ~summing_group);
 	~audioBusses.instrumentsBus = Synth.new(\instruments_bus,
 		target: ~summing_group);
 
 	~audioBusses.melodyBus = Synth.new(\melody_bus,
 		args:[\sidechain_amount, (-24).dbamp,
-			\beatDurNow, ~linkClock.tempo],
+			\beatDurNow, ~linkClock.tempo,
+
+			\eqLoShelf_freq, 300, \eqLoShelf_q, 0.8, \eqLoShelf_db, -3,
+			\eqBand1_freq, 350, \eqBand1_q, 1, \eqBand1_db, -3,
+			\eqBand2_freq, 1500, \eqBand2_q, 1,  \eqBand2_db, 3,
+			\eqBand3_freq, 2000, \eqBand3_q, 1,  \eqBand3_db, -3,
+			\eqHiShelf_freq, 10000, \eqHiShelf_q, 0.8, \eqHiShelf_db, -6,
+		],
 		target: ~bus_group);
+
 	~audioBusses.chordsBus = Synth.new(\chords_bus,
 		args:[\sidechain_amount, (-24).dbamp,
-			\beatDurNow, ~linkClock.tempo],
+			\beatDurNow, ~linkClock.tempo,
+
+			\eqLoShelf_freq, 300, \eqLoShelf_q, 0.8, \eqLoShelf_db, -3,
+			\eqBand1_freq, 350, \eqBand1_q, 1, \eqBand1_db, -3,
+			\eqBand2_freq, 1500, \eqBand2_q, 1,  \eqBand2_db, 3,
+			\eqBand3_freq, 2000, \eqBand3_q, 1,  \eqBand3_db, -3,
+			\eqHiShelf_freq, 10000, \eqHiShelf_q, 0.8, \eqHiShelf_db, -6,
+		],
+
 		target: ~bus_group);
 	~audioBusses.drumsBus = Synth.new(\drums_bus,
+		args:[
+			\eqLoShelf_freq, 300, \eqLoShelf_q, 0.8, \eqLoShelf_db, -3,
+			\eqBand1_freq, 350, \eqBand1_q, 1, \eqBand1_db, -3,
+			\eqBand2_freq, 1500, \eqBand2_q, 1,  \eqBand2_db, 3,
+			\eqBand3_freq, 2000, \eqBand3_q, 1,  \eqBand3_db, -3,
+			\eqHiShelf_freq, 10000, \eqHiShelf_q, 0.8, \eqHiShelf_db, -6,
+		],
 		target: ~bus_group);
 	~audioBusses.auxBus = Synth.new(\aux_bus,
+		args:[
+			\eqLoShelf_freq, 300, \eqLoShelf_q, 0.8, \eqLoShelf_db, -3,
+			\eqBand1_freq, 350, \eqBand1_q, 1, \eqBand1_db, -3,
+			\eqBand2_freq, 1500, \eqBand2_q, 1,  \eqBand2_db, 3,
+			\eqBand3_freq, 2000, \eqBand3_q, 1,  \eqBand3_db, -3,
+			\eqHiShelf_freq, 10000, \eqHiShelf_q, 0.8, \eqHiShelf_db, -6,
+		],
 		target: ~bus_group);
 };
 

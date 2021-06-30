@@ -109,7 +109,7 @@
 
 // the sends have to be EXISTING audio busses. If they return nil there will be no sound without an ERROR.
 
-\out, ~melody_bus,
+\out, ~drums_bus,
 \send_1, ~ef_reverb,
 \send_1_level, 0.25,
 \send_2, ~grainDelay_1,

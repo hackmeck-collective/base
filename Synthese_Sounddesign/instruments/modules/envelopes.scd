@@ -113,6 +113,23 @@
 			gate: gate,
 			doneAction:2);
 	},
+
+	adsr: {arg gate = 0, envelope_mod = 0, beatDuration, syncMultiplier, vca_curve = 3,
+		vca_attack = 0.01, vca_decay = 0, vca_sustain = 1, vca_release = 0.01;
+
+		EnvGen.kr(
+			Env.adsr(
+				attackTime: vca_attack,
+				decayTime: vca_decay,
+				sustainLevel: vca_sustain,
+				releaseTime: vca_release,
+				curve: vca_curve,
+			),
+			gate: gate,
+			doneAction:2);
+	},
+
+
 );
 );
 

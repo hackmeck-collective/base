@@ -139,6 +139,8 @@
 					send_3_level,
 					send_4,
 					send_4_level,
+					spread,
+					centerPos,
 
 					pitchOp_1_interval,
 					pitchOp_1_amount,
@@ -210,6 +212,11 @@
 					filter_2_hz_offset,
 
 					envelope_mod,
+					vca_attack,
+					vca_decay,
+					vca_sustain,
+					vca_release,
+					envCurve,
 
 					vca_filterLevel = 1,
 					vca_preFilterLevel = 0,
@@ -294,7 +301,6 @@
 					vol_macro_channel,
 					beatDuration,
 					syncMultiplier,
-					envCurve,
 					amp;
 
 					var note = \note.kr(60,0);
@@ -388,7 +394,7 @@
 
 					envelope = SynthDef.wrap(
 						envelope_function,
-						prependArgs: [gate, envelope_mod, beatDuration, syncMultiplier, envCurve],
+						prependArgs: [gate, envelope_mod, beatDuration, syncMultiplier, envCurve, vca_attack, vca_decay, vca_sustain, vca_release],
 					);
 
 					pitchOp_freq = SynthDef.wrap(
@@ -486,6 +492,8 @@
 					);
 
 					vca = ((filter_2 * vca_filterLevel) + (fx_2 * vca_preFilterLevel) + (preFxSig * vca_preFxLevel)) * vol * amp * external_vol * envelope;
+
+					vca = Splay.ar(vca, spread: spread, center: centerPos);
 
 					Out.ar(out, vca);
 					Out.ar(send_1, vca * send_1_level);

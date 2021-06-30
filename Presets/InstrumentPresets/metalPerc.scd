@@ -105,7 +105,7 @@
 	\vol, 1,
 	\amp, 0.05,
 
-	\out, ~melody_bus,
+	\out, ~aux_bus,
 	\send_1, ~ef_reverb,
 	\send_1_level, 0.25,
 	\send_2, ~simpleDelay,

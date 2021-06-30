@@ -41,8 +41,8 @@
 	\vol, 1,
 	\amp, 0.1,
 
-	\mod1Type, \noMod, //\adsrEnv,
-	\mod1Target, "", // "oscillator_1_mod_1",
+	/*\mod1Type, \adsrEnv,
+	\mod1Target, "oscillator_1_mod_1",*/
 	\mod1Amount, 0.7,
 	\mod1Rate, 0.35,
 	\mod1attack, 0,
@@ -53,8 +53,8 @@
 	\mod1syncEnvRatio, 0.25,
 	\mod1ControlbusChannel, 0,
 
-	\mod2Type, \noMod, //\adsrEnv,
-	\mod2Target, "", //"oscillator_1_mod_2",
+	/*\mod2Type, \adsrEnv,
+	\mod2Target, "oscillator_1_mod_2",*/
 	\mod2Amount, 5,
 	\mod2Rate, 0.2,
 	\mod2attack, 0,
@@ -65,8 +65,8 @@
 	\mod2syncEnvRatio, 0,
 	\mod2ControlbusChannel, 1,
 
-	\mod3Type, \sampleAndHold,
-	\mod3Target, "fx_2_mod_1",
+	/*\mod3Type, \sampleAndHold,
+	\mod3Target, "fx_2_mod_1",*/
 	\mod3Amount, 0.05,
 	\mod3Rate, 1/48,
 	\mod3attack, 1,
@@ -77,8 +77,8 @@
 	\mod3syncEnvRatio, 0,
 	\mod3ControlbusChannel, 2,
 
-	\mod4Type, \noMod, //\sineLFO, 36 -> 32%
-	\mod4Target, "", //"filter_1_mod_1",
+	/*\mod4Type, \noMod, //\sineLFO, 36 -> 32%
+	\mod4Target, "", //"filter_1_mod_1",*/
 	\mod4Amount, 0.1,
 	\mod4Rate, 0.1,
 	\mod4attack, 1,

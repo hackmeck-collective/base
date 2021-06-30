@@ -25,7 +25,7 @@ var buttonArray;
 	~audioBusses.melodyBus.set(\sidechain_amount, (-72).dbamp);
 	~audioBusses.chordsBus.set(\sidechain_amount, (-72).dbamp);
 
-	(
+	/*(
 		~sendFX.ef_reverb.set(\inBus, ~ef_reverb,
 			\revtime, 2.5,
 			\predelay, 0.025,
@@ -76,7 +76,7 @@ var buttonArray;
 			\ptrRandomSamples, s.sampleRate*0.03,
 			\minPtrDelay, 100,
 			\feedback, 0.01)
-	);
+	);*/
 
 	("LaunchControlXlBank " ++ bank ++ " ready").postln;
 }

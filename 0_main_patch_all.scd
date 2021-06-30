@@ -157,6 +157,14 @@ s.waitForBoot {
 
 );
 
+(
+~melody_bus_direct_out.scope;
+~chords_bus_direct_out.scope;
+~drums_bus_direct_out.scope;
+~aux_bus_direct_out.scope
+);
+
+
 /*
 
 ~adsrTypes.keys.asArray.flat;

@@ -2,7 +2,9 @@
 
 ~fugeInstrState_1 = { |inputPattern|
 
-	Pbind(\oscillator_2_level, 0.7,
+	Pbind(\out, ~melody_bus,
+
+		\oscillator_2_level, 0.7,
 		\oscillator_1_mod_1, 1, \oscillator_2_mod_1, 1, //fm amount
 		\oscillator_1_mod_2, 1.7, \oscillator_2_mod_2, 1.3,
 		\fx_1_mod_1, 0.3, // bitcrush
