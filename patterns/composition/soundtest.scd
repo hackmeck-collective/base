@@ -14,16 +14,16 @@
 );
 (
 (Ppar([
-			~simpleSwitchInstrState_2.(
-			inputPattern: Pseq([
-				Pn(Pdef(\simpleSwitch_gen2), 2),
-				Pn(Pdef(\simpleSwitch_gen1), 7)
-			], 1)),
-			~clickInstrState_2.(
+			~penroseInstrState_1.(
 				inputPattern: Pseq([
-				Pn(Pdef(\simpleSwitch_click_gen2), 2),
-				Pn(Pdef(\simpleSwitch_click_gen1), 7)
-			], 1)
+					Pn(Pdef(\penrose_gen1), 4),
+					Pn(Pdef(\penrose_gen0), 2)
+				])
+			),
+			~clickInstrState_1.(
+				inputPattern: Pseq([
+				Pn(Pdef(\penrose_click_gen1),2),
+				Pdef(\penrose_click_gen0)])
 			)
 		])
 		).play
@@ -31,14 +31,18 @@
 ~clickInstrState_2.(Pn(Pdef(\simpleSwitch_click_gen2), 2)).play
 ~linkClock.tempo = 1
 (
-((~weedInstrState_2_short.(
+(~simpleSwitchInstrState_1.(
 			inputPattern: Pseq([
-				Pdef(\weed_gen3),
-				Pdef(\weed_gen1),
-				Pn(Pdef(\weed_gen0),3)
-		]))
-		)
-).play
+				Pn(Pdef(\simpleSwitch_gen0),12),
+				Pn(Pdef(\simpleSwitch_gen1),2),
+				Pn(Pdef(\simpleSwitch_gen2),1),
+				Pseq([Pdef(\simpleSwitch_gen3)]),
+				Pn(Pdef(\simpleSwitch_gen2),1),
+				Pn(Pdef(\simpleSwitch_gen1),1),
+				Pn(Pdef(\simpleSwitch_gen0),2),
+			])
+			<> Pbind(\external1Target, "envelope_mod")
+		)).play
 );
 
 (
