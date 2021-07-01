@@ -93,44 +93,6 @@
 		\xfade, Pn(Plazy {|ev| Pwrand([0, 1], [1 - ev.weights, ev.weights])})
 	), delta: (delta) - 0.01);
 });
-//
-// Pdef(\transition_canon_ritardando,
-// 	Pbind(
-// 		\vol, (Pfunc {|ev|
-// 			var oldVol = ev.vol ? 1;
-// 			var fade = if(ev.streamIndex == 1){ev.xfade}{1 - ev.xfade};
-// 			oldVol * fade
-// 		})
-// 	) <> Ppar([
-// 		Pn(Pdef(\penrose_canon_pausen),2) <> Pbind(\streamIndex, 2), //\newBranchTest
-// 		Pn(Pdef(\penrose_canon_mehr_pausen),2) <> Pbind(\streamIndex, 1)
-// 	]) <> PtimeClutch(Pbind(
-// 		\xfade, Pseg([0,1],[20],0,inf)
-// 	), delta: (1/6) - 0.01) // Delta mit dem baseTempo auf dem es laufen soll abstimmen
-// );
-//
-// Pdefn(\weights_transition_penrose_simpleSwitch, Pbjorklund(Pseq([Pstutter(3,Pseq((1..15))),Pn(16)]).trace,16));
-//
-// Pdef(\transition_penrose_simpleSwitch,
-// 	/*Pbind(
-// 	\vol, (Pfunc {|ev|
-// 	var oldVol = ev.vol ? 1;
-// 	var fade = if(ev.streamIndex == 1){ev.xfade}{1 - ev.xfade};
-// 	oldVol * fade
-// 	})
-// 	)*/
-// 	~patternNotesFadePre
-// 	<> Ppar([
-// 		Pn(Pdef(\penrose_canon_mehr_pausen3)) <> Pbind(\streamIndex, 2), //\newBranchTest
-// 		Pn(Pdef(\simpleSwitch)) <> Pbind(\streamIndex, 1)
-// 	])
-// 	<> ~patternNotesFadePost.(1/8, Pbjorklund(Pseq([Pstutter(Pseq([Pn(4,4),Pn(2,2)]),Pseq((1..15))),Pn(16, 1)]).trace,16) )
-// 	/*PtimeClutch(Pbind(
-// 	\weights, Pbjorklund(Pseq([Pstutter(2,Pseq((1..15))),Pn(16, 1)]).trace,16),
-// 	\xfade, Pn(Plazy {|ev| Pwrand([0, 1], [1 - ev.weights, ev.weights])})
-// 	), delta: (1/8) - 0.01)*/ // Delta mit dem baseTempo auf dem es laufen soll abstimmen
-// );
-//
 
 {
 	var testArray = (2..9);

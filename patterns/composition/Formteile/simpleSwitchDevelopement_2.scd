@@ -12,7 +12,7 @@ Pdef(\simpleSwitchDevelopement_2,
 
 		~lsys[\simpleSwitch_dev4].vols = [0, 0, 1, 1, 1, 1];
 
-		sp.seq(~simpleSwitchInstrState_1.(
+		sp.seq(~simpleSwitchInstrState_6.(
 			inputPattern: Pdef(\simpleSwitch_dev4))
 		);
 
@@ -32,7 +32,7 @@ Pdef(\simpleSwitchDevelopement_2,
 		"ss6".postln;
 
 		sp.seq(Pfindur(35,
-			~simpleSwitchInstrState_1.(
+			~simpleSwitchInstrState_5.(
 				inputPattern: Pdef(\simpleSwitch_dev6))
 		));
 	})

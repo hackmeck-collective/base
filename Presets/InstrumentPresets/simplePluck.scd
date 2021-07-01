@@ -36,6 +36,10 @@
 	\filter_1_mod_1, 0.4,
 	\filter_1_mod_2, 0.4,
 
+	\vca_filterLevel, 1,
+	\vca_preFilterLevel, 0,
+	\vca_preFxLevel, 0,
+
 	\envCurve, 2,
 	\envelope_mod, 0.2,
 	\vol, 1,

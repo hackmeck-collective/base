@@ -90,9 +90,9 @@
 	\filterIn_preFxLevel, 0.5,
 	\filterIn_FxLevel, 0.5,
 
-	\filterType, \noFilter,
+	\filterType, \lpf_moog,
 	\filter_1_mod_1, 1,
-	\filter_1_mod_2, 0.25,
+	\filter_1_mod_2, 0,
 
 	\filterType_2, \noFilter,
 	\filter_2_mod_1, 1,

@@ -5,12 +5,23 @@
 (PathName(thisProcess.nowExecutingPath).pathOnly +/+ "InstrumentStates/*").loadPaths;
 
 );
+(
+((Pfindur(35,
+			~simpleSwitchInstrState_6.(
+				inputPattern: Pdef(\simpleSwitch_dev6))
+		))).play
+);
+(
+(~fraktal_1_InstrState_1.(
+	inputPattern: Pn(Pdef(\fraktal_12))
+)).play
+)
+
 
 (
-~clickInstrState_1.(Pseq([
-				Pn(Pdef(\simpleSwitch_click_gen2), 2),
-				Pn(Pdef(\simpleSwitch_click_gen1), 7)
-			], 1)).play
+(~fraktal_1_InstrState_3.(
+			inputPattern: Pdef(\fraktal_philipp))
+		).play
 );
 (
 (Ppar([

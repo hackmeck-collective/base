@@ -6,7 +6,7 @@
 		\envelope_mod, 0,
 		\amp, 0.75,
 		\spread, 1,
-		\centerPos, Pseq([0, -0.35, 0.35, 0.7, -0.7], inf).trace,
+		\centerPos, Pseq([0, -0.35, 0.35, 0.7, -0.7], inf),
 
 		\filter_1_mod_1, 1, //bpf
 		\filter_1_mod_2, 0.25,

@@ -11,16 +11,16 @@ Pdef(\play,
 		~linkClock.tempo = 1;
 		sp.seq(Pdef(\exposition)); //verpeilung am ende raus
 		sp.seq(Pdef(\layers)); //verpeilung am ende raus
-		sp.seq(Pdef(\penrose_entwicklung1)); // percussion rein
+		sp.seq(Pdef(\penrose_entwicklung1));
 		sp.seq(Pdef(\penrose_entwicklung2));
 
 		// // Dauer: 5'12"
 		sp.seq(Pdef(\simpleSwitchDevelopement_1));
-		sp.seq(Pdef(\simpleSwitchDevelopement_1));
-		sp.seq(Pdef(\simpleSwitchDevelopement_2));
-		sp.seq(Pdef(\triangleDevelopement_2));
+		sp.seq(Pdef(\simpleSwitchDevelopement_1_x_triangle));
+		sp.seq(Pdef(\simpleSwitchDevelopement_2)); //fraktal und sisw biscchen ausdünnen, wirkt etwas intransparent
+		sp.seq(Pdef(\triangleDevelopement_2)); //fraktal_16 kann weg, sehr viele wrapHi/Lo
 
-		~linkClock.tempo = 1;
+		~linkClock.tempo = 1; //bisschen weirder übergang immernoch :/
 		sp.seq(~fugeInstrState_1.(
 			Pseq([
 				Pn(Pdef(\fuge_excerpt_gen1), 16),
@@ -60,7 +60,7 @@ Pdef(\play).resume
 
 Pdef(\play, ~fugeInstrState_1.(Pn(Pdef(\fuge_3_shortBranches_gen3))))
 
-Pn(Pdef(\penrose_entwicklung1)).play
+Pn(Pdef(\triangleDevelopement_2)).play
 
 Pn(~simpleSwitchInstrState_2.(Pdef(\simpleSwitch_gen3))).play
 

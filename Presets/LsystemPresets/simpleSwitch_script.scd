@@ -27,13 +27,21 @@
 
 	Pdef(("simpleSwitch_gen" ++ i ++ "_filter").asSymbol,
 		Pbind(
-			\vol, Pfunc {|ev|
-				if(ev.charNow == $F){ev.vol * 1.2}{ev.vol * 1}
-			},
-
-
-		)
+		\vol, Pfunc {|ev|
+			if(ev.charNow == $F){ev.vol * 1.2}{ev.vol * 1}
+		},
+		\envelope_mod, Pfunc {|ev|
+			if(ev.charNow == $F){0.5}{0.25}
+		},
+		\pitchOp_1_interval, Pfunc {|ev|
+			if(ev.charNow == $F){12}{7}
+		},
+		\pitchOp_1_amount, Pfunc {|ev|
+			if(ev.charNow == $F){0.1}{0.05}
+		},
+	)
 	);
+
 
 	Pdef(("simpleSwitch_click_gen" ++ i ++ "_filter").asSymbol,
 		Pbind(
