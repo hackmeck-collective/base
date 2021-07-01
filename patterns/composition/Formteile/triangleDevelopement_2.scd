@@ -16,7 +16,7 @@ Pdef(\triangleDevelopement_2,
 		);
 
 		player3 = sp.par(~fraktal_1_sd_InstrState_1.(
-			inputPatter: Pdef(\fraktal_philipp_sd))
+			inputPattern: Pdef(\fraktal_philipp_sd))
 		);
 
 		sp.wait(16);
@@ -31,7 +31,7 @@ Pdef(\triangleDevelopement_2,
 			inputPattern: Pdef(\fraktal_philipp_bd))
 		);
 		player3 = sp.par(~fraktal_1_sd_InstrState_1.(
-			inputPatter: Pdef(\fraktal_philipp_sd))
+			inputPattern: Pdef(\fraktal_philipp_sd))
 		);
 		sp.seq(~fraktal_1_InstrState_3.(
 			inputPattern: Pdef(\fraktal_philipp))

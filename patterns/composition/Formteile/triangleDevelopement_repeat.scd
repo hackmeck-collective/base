@@ -11,7 +11,7 @@ Pdef(\triangleDevelopement_repeat,
 			inputPattern: Pn(Psync(Pdef(\fraktal_13), 1, 4), 4))
 		);
 
-		"fraktal_14".postln;
+		/*"fraktal_14".postln;
 		sp.seq(~fraktal_1_InstrState_1.(
 			inputPattern: Pn(Psync(Pdef(\fraktal_14), 4, 4), 2))
 		);
@@ -24,7 +24,7 @@ Pdef(\triangleDevelopement_repeat,
 		"fraktal_16".postln;
 		sp.seq(~fraktal_1_InstrState_1.(
 			inputPattern: Psync(Pdef(\fraktal_16), 0, 100))
-		);
+		);*/
 
 		"fraktal_17".postln;
 		sp.seq(~fraktal_1_InstrState_1.(

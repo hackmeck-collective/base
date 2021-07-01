@@ -1,3 +1,7 @@
+~calcIntervalBetweenNoteOffsets = { |lsys1, lsys2|
+	~pitchesRootDissonance[\pitches].wrapAt(~lsys[lsys1].noteOffset) - ~pitchesRootDissonance[\pitches].wrapAt(~lsys[lsys2].noteOffset)
+};
+
 ~lcXlCtrBus1Bi = { |busNum, amount = 1, min = -1, max = 1|
 	Pbind(\controlbus1, ~routing[("launchcontrolXlControlBusses" ++ busNum).asSymbol],
 		\external1Amount, amount,
@@ -312,8 +316,8 @@
 					quant: 0,
 					baseTempo: baseTempo,
 					legatoArr: 0.99,
-					wrapLo: [ 12 ],
-					wrapHi: [ 36 ],
+					//wrapLo: [ 12 ],
+					//wrapHi: [ 36 ],
 					instr: percInstr1,
 					vols: 0.75
 				)
@@ -332,8 +336,8 @@
 					quant: 0,
 					baseTempo: baseTempo,
 					legatoArr: 0.99,
-					wrapLo: [ 72 ],
-					wrapHi: [ 84 ],
+					//wrapLo: [ 72 ],
+					//wrapHi: [ 84 ],
 					instr: percInstr2,
 					vols: 0.8
 				)

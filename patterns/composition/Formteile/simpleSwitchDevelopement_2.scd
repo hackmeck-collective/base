@@ -10,7 +10,15 @@ Pdef(\simpleSwitchDevelopement_2,
 			})
 		);
 
+		~lsys[\simpleSwitch_dev4].branchInterval = 7;
 		~lsys[\simpleSwitch_dev4].vols = [0, 0, 1, 1, 1, 1];
+		~lsys[\simpleSwitch_dev4].ctranspose = 0;
+
+		sp.par(
+			Pbind(\dur, Rest(0.1), \setDetune, Pfunc {|in|
+				~lsys[\simpleSwitch_dev4].ctranspose = in
+			} <> Plazy{Pseg([0,0,~calcIntervalBetweenNoteOffsets.(\simpleSwitch_dev6,\simpleSwitch_dev4)],[10, 5.25],-1).round(2)});
+		);
 
 		sp.seq(~simpleSwitchInstrState_6.(
 			inputPattern: Pdef(\simpleSwitch_dev4))

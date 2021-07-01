@@ -9,14 +9,14 @@ Pdef(\play,
 	Pspawner({ |sp|
 		var startTime = thisThread.beats;
 		~linkClock.tempo = 1;
-		sp.seq(Pdef(\exposition)); //verpeilung am ende raus
+		/*sp.seq(Pdef(\exposition)); //verpeilung am ende raus
 		sp.seq(Pdef(\layers)); //verpeilung am ende raus
 		sp.seq(Pdef(\penrose_entwicklung1));
-		sp.seq(Pdef(\penrose_entwicklung2));
+		sp.seq(Pdef(\penrose_entwicklung2));*/
 
 		// // Dauer: 5'12"
-		sp.seq(Pdef(\simpleSwitchDevelopement_1));
-		sp.seq(Pdef(\simpleSwitchDevelopement_1_x_triangle));
+		//sp.seq(Pdef(\simpleSwitchDevelopement_1));
+		// sp.seq(Pdef(\simpleSwitchDevelopement_1_x_triangle));
 		sp.seq(Pdef(\simpleSwitchDevelopement_2)); //fraktal und sisw biscchen ausdünnen, wirkt etwas intransparent
 		sp.seq(Pdef(\triangleDevelopement_2)); //fraktal_16 kann weg, sehr viele wrapHi/Lo
 

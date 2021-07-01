@@ -19,8 +19,6 @@
 			~lsys[\presets][name].put(key, ~lsys[\presets][name][key] ! lsysPattern.maxKey)
 		}
 	};*/
-	~makePdef.(name, lsysPattern);
-
 	~lsys[name] = ~lsys[name] ?? {~lsys[\defaultPreset].copy};
 	~lsys[name].put(\maxPatDur, lsysPattern.lastTimes.maxItem);
 	~lsys[name].put(\numBranches, lsysPattern.maxKey);
@@ -31,5 +29,6 @@
 			~lsys[name].put(key, ~lsys[name][key] ! lsysPattern.maxKey)
 		}
 	};
+	~makePdef.(name, lsysPattern);
 };
 
