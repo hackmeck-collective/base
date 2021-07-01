@@ -2,6 +2,7 @@
 
 (
 
+
 //if (s.serverRunning.not) {s.boot};
 
 if (~gateOpen.isNil) {~gateOpen = Array.fill(8, {|item| if (item != 0){false} {nil}})}; //Werte für die Buttons 1 - 8. (Button 0 existiert nicht, deswegen nil.)
@@ -48,6 +49,9 @@ if (MIDIClient.initialized.not){
 "prepare Session.scd".loadRelative;
 
 )
+
+
+
 
 
 (
@@ -148,7 +152,7 @@ MIDIdef.cc(\launchControlKnobs, {
 	}
 	{ num == 24 } { //Drehknopf 4 oben
 		//Steuert die Skala auf deren Grundlage die Akkorde erstellt werden.
-		var newUnderlyingScale = [\Chromatic, \Major].at(val.linlin(0,127,0,1).round.asInteger);
+		var newUnderlyingScale = ['Chromatic 12 (ET12)', 'Diminished', 'Major', 'Bartok', 'Whole Tone'].at(val.linlin(0,127,0,4).round.asInteger);
 		if (newUnderlyingScale != ~listAndParameters.underlyingScale) {
 			var closestList = ~searchTreeNearestOld.(
 				underlyingScale: newUnderlyingScale,

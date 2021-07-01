@@ -49,8 +49,8 @@
 {
 	var result = MultiLevelIdentityDictionary.new;
 	"calculate all list comprehesions".postln;
-	[Scale.chromatic, Scale.major].do {|scale|
-		("scale " ++ scale.name[0..8]).postln;
+	[Scale.chromatic, Scale.diminished, Scale.major, Scale.bartok, Scale.whole].do {|scale|
+		("scale: " ++ scale.name).postln;
 		~numNotesAll.do { |nn|
 			("\tnumNotes " ++ nn).postln;
 			~dissDegreesAll.do { |deg|
@@ -60,8 +60,8 @@
 					maxUpper: ~maxUpper,
 					underlyingScale: scale.degrees
 				);
-				result.put(\underlyingScale, scale.name[0..8].asSymbol, \numNotes, nn, \dissDegrees, deg, newCalc);
-				("\t\t scale: " ++ scale.name[0..8] ++ " numNotes: " ++ nn ++ " dissDegree: " ++ deg ++ " size: " ++ newCalc.size ++ " ...").postln;
+				result.put(\underlyingScale, scale.name.asSymbol, \numNotes, nn, \dissDegrees, deg, newCalc);
+				("\t\t scale: " ++ scale.name ++ " numNotes: " ++ nn ++ " dissDegree: " ++ deg ++ " size: " ++ newCalc.size ++ " ...").postln;
 			}
 		}
 	};
@@ -71,9 +71,9 @@
 
 
 // inspection
-~res[\underlyingScale, \Major, \numNotes, 4, \dissDegrees, 6]; //rootNote doesn’t work here
+~res[\underlyingScale, 'Whole Tone', \numNotes, 3, \dissDegrees, 4]; //rootNote doesn’t work here
 
-~res[\underlyingScale, \Major, \numNotes, 4, \dissDegrees, 1];
+
 // copy and offset rootnote and list for every note
 (
 {
@@ -93,8 +93,10 @@
 }.bench
 )
 
+//'Chromatic 12 (ET12)'
+
 //inspection: ~rootOffsets[rootNote][\key, value, \key, value, \key, value]
-~rootOffsets[1][\underlyingScale, \Chromatic, \numNotes, 4, \dissDegrees, 3];
+~rootOffsets[1][\underlyingScale, 'Whole Tone', \numNotes, 4, \dissDegrees, 3];
 
 // make kdtrees for all numNotes and all rootNote and all dissDegree
 //Die Idee ist jetzt die Rootnote in die Adresse mit hineinzubringen. Aus den Listen mit den Events werden Objekte (mit Namen kdtree). Der Vorteil ist, dass man schnell darin suchen kann.
