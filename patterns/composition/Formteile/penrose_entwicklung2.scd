@@ -12,27 +12,27 @@ Pdef(\penrose_entwicklung2,
 		~lsys[\penrose_canon_pausen_1].baseTempo = penrose_baseTempo;
 		~lsys[\penrose_canon_pausen_2].baseTempo = penrose_baseTempo;
 		~lsys[\penrose_canon_mehr_pausen].baseTempo = penrose_baseTempo;
-		~lsys[\penrose_canon_mehr_pausen_ht].baseTempo = penrose_baseTempo/2;
-		~lsys[\penrose_canon_mehr_pausen2].baseTempo = penrose_baseTempo/2;
-		~lsys[\penrose_canon_mehr_pausen3].baseTempo = penrose_baseTempo/2;
+		~lsys[\penrose_canon_mehr_pausen_ht].baseTempo = penrose_baseTempo*2;
+		~lsys[\penrose_canon_mehr_pausen2].baseTempo = penrose_baseTempo;
+		~lsys[\penrose_canon_mehr_pausen3].baseTempo = penrose_baseTempo;
 		~lsys[\simpleSwitch].baseTempo = simpleSwitch_baseTempo;
+
 		~lsys[\penrose_pauses_gen4].noteOffset = penrose_noteOffset;
 		~lsys[\penrose_canon_1].noteOffset = penrose_noteOffset;
 		~lsys[\penrose_canon_2].noteOffset = penrose_noteOffset;
-		~lsys[\penrose_canon_pausen_1].noteOffset = penrose_noteOffset;
-		~lsys[\penrose_canon_pausen_2].noteOffset = penrose_noteOffset;
+		~lsys[\penrose_canon_pausen_1].noteOffset = penrose_noteOffset + 7;
+		~lsys[\penrose_canon_pausen_2].noteOffset = penrose_noteOffset + 7;
 		~lsys[\penrose_canon_mehr_pausen].noteOffset = penrose_noteOffset;
-		~lsys[\penrose_canon_mehr_pausen_ht].noteOffset = penrose_noteOffset;
-		~lsys[\penrose_canon_mehr_pausen2].noteOffset = penrose_noteOffset;
-		~lsys[\penrose_canon_mehr_pausen3].noteOffset = penrose_noteOffset;
+		~lsys[\penrose_canon_mehr_pausen_ht].noteOffset = penrose_noteOffset - 7;
+		~lsys[\penrose_canon_mehr_pausen2].noteOffset = penrose_noteOffset - 7;
+		~lsys[\penrose_canon_mehr_pausen3].noteOffset = penrose_noteOffset - 7;
 		~lsys[\simpleSwitch].noteOffset = simpleSwitch_noteOffset;
 
 
 		"penrose_pauses_gen4".postln;
 
 		sp.seq(Ppar([
-			Pbind(\envelope_mod, 0, \amp, 0.35, \send_1_level, 0.2,)
-			<> ~penroseInstrState_2.(
+			Pbind(\amp, 0.23) <> ~penroseInstrState_7.(
 				inputPattern: Pn(Pdef(\penrose_pauses_gen4),1))
 		])
 		);
@@ -40,8 +40,7 @@ Pdef(\penrose_entwicklung2,
 		"penrose_canon".postln;
 
 		sp.seq(Ppar([
-			Pbind(\envelope_mod, 0, \amp, 0.35, \send_1_level, 0.2,)
-			<> ~penroseInstrState_2.(
+			~penroseInstrState_7.(
 				inputPattern: Pseq([
 					Pdef(\penrose_canon_1),
 					Pdef(\penrose_canon_2)], 2)
@@ -54,39 +53,23 @@ Pdef(\penrose_entwicklung2,
 		sp.seq(
 			~patternVolumeFade.(
 				pat1:
-				Pbind(\envelope_mod, 0, \amp, 0.35, \send_1_level, 0.2,)
-				<> ~penroseInstrState_2.(
-					inputPattern: Pn(Pdef(\penrose_canon_1),2)),
+				~penroseInstrState_8.(
+					inputPattern: Pn(Pdef(\penrose_canon_pausen_1),4)),
 
 				pat2:
-				Pbind(\envelope_mod, 0, \amp, 0.35, \send_1_level, 0.2,)
-				<> ~penroseInstrState_2.(
-					inputPattern: Pn(Pdef(\penrose_canon_pausen_1),2)),
+				~penroseInstrState_7.(
+					inputPattern: Pfindur(20, Pn(Pdef(\penrose_canon_1),2))),
 
 				length: 20,
-				delta: 1/6
+				delta: penrose_baseTempo
 			)
 		);
 
-		/*sp.seq(~patternVolumeFadePre <> Ppar([
-		~penroseInstrState_maxCrushTo1 <> ~penroseInstrState_maxCrushTo1_Controller
-		<> Pbind(\envelope_mod, 0, \amp, 0.35, \send_1_level, 0.2,)
-		<> Pn(Pdef(\penrose_canon_1),2) <> Pbind(\streamIndex, 2)
-		<> ~penroseInstrState_maxCrushTo1_External,
-
-		~penroseInstrState_maxCrushTo1 <> ~penroseInstrState_maxCrushTo1_Controller
-		<> Pbind(\envelope_mod, 0, \amp, 0.35, \send_1_level, 0.2,)
-		<> Pn(Pdef(\penrose_canon_pausen_1),2) <> Pbind(\streamIndex, 1)
-		<> ~penroseInstrState_maxCrushTo1_External
-
-		]) <> ~patternVolumeFadePost.(20, 1/6) // length, Delta mit dem baseTempo auf dem es laufen soll abstimmen
-		);*/
 
 		"penrose_canon_pausen1".postln;
 
 		sp.seq(Ppar([
-			Pbind(\envelope_mod, 0, \amp, 0.35, \send_1_level, 0.2,)
-			<> ~penroseInstrState_2.(
+			~penroseInstrState_8.(
 				inputPattern: Pdef(\penrose_canon_pausen_1)
 			)
 		])
@@ -95,8 +78,7 @@ Pdef(\penrose_entwicklung2,
 		"penrose_canon_pausen2".postln;
 
 		sp.seq(Ppar([
-			Pbind(\envelope_mod, 0, \amp, 0.35, \send_1_level, 0.2,)
-			<> ~penroseInstrState_2.(
+			~penroseInstrState_8.(
 				inputPattern: Pdef(\penrose_canon_pausen_2)
 			)
 		])
@@ -107,57 +89,39 @@ Pdef(\penrose_entwicklung2,
 		sp.seq(
 			~patternVolumeFade.(
 				pat1:
-				Pbind(\envelope_mod, 0, \amp, 0.35, \send_1_level, 0.2,)
-				<> ~penroseInstrState_2.(
-					inputPattern: Pn(Pdef(\penrose_canon_mehr_pausen),2)),
+				~penroseInstrState_8.(
+					inputPattern: Pfindur(30,Pn(Pdef(\penrose_canon_mehr_pausen),12))),
 
 				pat2:
-				Pbind(\envelope_mod, 0, \amp, 0.35, \send_1_level, 0.2,)
-				<> ~penroseInstrState_2.(
-					inputPattern: Pn(Pdef(\penrose_canon_pausen_2),2)),
+				~penroseInstrState_8.(
+					inputPattern: Pn(Pdef(\penrose_canon_pausen_2),8)),
 
-				length: 15,
-				delta: 1/6
+				length: 60,
+				delta: penrose_baseTempo
 			)
 
-			/*~patternVolumeFadePre <> Ppar([
-			~penroseInstrState_maxCrushTo1 <> ~penroseInstrState_maxCrushTo1_Controller
-			<> Pbind(\envelope_mod, 0, \amp, 0.35, \send_1_level, 0.2,)
-			<> Pn(Pdef(\penrose_canon_pausen_2),2) <> Pbind(\streamIndex, 2)
-			<> ~penroseInstrState_maxCrushTo1_External, //\newBranchTest
-
-			~penroseInstrState_maxCrushTo1 <> ~penroseInstrState_maxCrushTo1_Controller
-			<> Pbind(\envelope_mod, 0, \amp, 0.35, \send_1_level, 0.2,)
-			<> Pn(Pdef(\penrose_canon_mehr_pausen),2) <> Pbind(\streamIndex, 1)
-			<> ~penroseInstrState_maxCrushTo1_External
-			]) <> ~patternVolumeFadePost.(15, 1/6)*/
 		);
-
 		"halftime fade in".postln;
 
-		sp.par(Pbind(\envelope_mod, 0, \amp, 0.35, \send_1_level, 0.2,)
-			<> ~penroseInstrState_2.(
+		sp.par(~penroseInstrState_8.(
 				inputPattern: Pn(Pdef(\penrose_canon_mehr_pausen),4)
 			)
 		);
 		sp.seq(
-			Pbind(\envelope_mod, 0, \amp, 0.35, \send_1_level, 0.2,)
-			<> ~penroseInstrState_2.(
-				inputPattern: Pn(Pdef(\penrose_canon_mehr_pausen_ht),3))
-			<> Pbind(\vol, Pseg([0,1,1],[20,11]))
+			~penroseInstrState_8.(
+				inputPattern: Pn(Pdef(\penrose_canon_mehr_pausen_ht),2)) //dauert 20,666666
+			<> Pbind(\vol, Pseg([0,1,1],[20,11])) // warum insgesamt 30?
 		);
 
 		"normaltime fade out".postln;
 
 		sp.par(
-			Pbind(\envelope_mod, 0, \amp, 0.35, \send_1_level, 0.2,)
-			<> ~penroseInstrState_2.(
-				inputPattern: Pn(Pdef(\penrose_canon_mehr_pausen_ht),3)
+			~penroseInstrState_8.(
+				inputPattern: Pn(Pdef(\penrose_canon_mehr_pausen_ht),2)
 			)
 		);
 		sp.seq(
-			Pbind(\envelope_mod, 0, \amp, 0.35, \send_1_level, 0.2,)
-			<> ~penroseInstrState_2.(
+			~penroseInstrState_8.(
 				inputPattern: Pn(Pdef(\penrose_canon_mehr_pausen),4)
 			)
 			<> Pbind(\vol, Pseg([1,0,0],[20,11]))
@@ -166,8 +130,7 @@ Pdef(\penrose_entwicklung2,
 		"penrose_canon_mehr_pausen".postln;
 
 		sp.seq(
-			Pbind(\envelope_mod, 0, \amp, 0.35, \send_1_level, 0.2,)
-			<> ~penroseInstrState_2.(
+			~penroseInstrState_8.(
 				inputPattern: Pn(Pdef(\penrose_canon_mehr_pausen_ht), 1)
 			)
 		);
@@ -175,8 +138,7 @@ Pdef(\penrose_entwicklung2,
 		"penrose_canon_mehr_pausen2".postln;
 
 		sp.seq(Ppar([
-			Pbind(\envelope_mod, 0, \amp, 0.35, \send_1_level, 0.2,)
-			<> ~penroseInstrState_2.(
+			~penroseInstrState_8.(
 				inputPattern: Pn(Pdef(\penrose_canon_mehr_pausen2), 1)
 			)
 		])
@@ -185,8 +147,7 @@ Pdef(\penrose_entwicklung2,
 		"penrose_canon_mehr_pausen3".postln;
 
 		sp.seq(Ppar([
-			Pbind(\envelope_mod, 0, \amp, 0.35, \send_1_level, 0.2,)
-				<> ~penroseInstrState_2.(
+			~penroseInstrState_8.(
 					inputPattern: Pn(Pdef(\penrose_canon_mehr_pausen3), 1)
 			)
 		])
@@ -198,17 +159,16 @@ Pdef(\penrose_entwicklung2,
 		sp.seq(
 			~patternNotesFade.(
 				pat2:
-				Pbind(\envelope_mod, 0, \amp, 0.35, \send_1_level, 0.2,)
-				<> ~penroseInstrState_2.(
+				~penroseInstrState_8.(
 					inputPattern: Pn(Pdef(\penrose_canon_mehr_pausen3))
 				),
 
-				pat1: Pbind(\envelope_mod, 0, \amp, 0.35, \send_1_level, 0.2,)
-				<> ~penroseInstrState_2.(
+				pat1:
+				~simpleSwitchInstrState_4.(
 					inputPattern: Pn(Pdef(\simpleSwitch))
 				),
 
-				delta: 1/8,
+				delta: 1/8, //da hakt was, die beiden sind auch nicht das gleiche tempo, sisw ist 1/8 penrose 1/6
 				weightPattern: Pbjorklund(
 					Pstutter(
 						Pseq([4,4,3,3,2,1]),
@@ -216,24 +176,7 @@ Pdef(\penrose_entwicklung2,
 				),16)
 			)
 
-			/*~patternNotesFadePre
-			<> Ppar([
-			~penroseInstrState_maxCrushTo1 <> ~penroseInstrState_maxCrushTo1_Controller
-			<> Pbind(\envelope_mod, 0, \amp, 0.35, \send_1_level, 0.2,)
-			<> Pn(Pdef(\penrose_canon_mehr_pausen3)) <> Pbind(\streamIndex, 2)
-			<> ~penroseInstrState_maxCrushTo1_External, //\newBranchTest
 
-			~penroseInstrState_maxCrushTo1 <> ~penroseInstrState_maxCrushTo1_Controller
-			<> Pbind(\envelope_mod, 0, \amp, 0.35, \send_1_level, 0.2,)
-			<> Pn(Pdef(\simpleSwitch)) <> Pbind(\streamIndex, 1)
-			<> ~penroseInstrState_maxCrushTo1_External
-			])
-
-			<> ~patternNotesFadePost.(1/8, Pbjorklund(
-			Pstutter(
-			Pseq([4,4,3,3,2,1]),
-			Pseq([1,2,3,5,8,13]),
-			),16) )*/
 
 		);
 	})

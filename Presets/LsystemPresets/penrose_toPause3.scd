@@ -6,7 +6,7 @@ var opts = (
 	useGlobalPitch: false,
 	noteOffset: 12,
 	quant: 0,
-	vols: 0.5,
+	vols: 0.7,
 	baseTempo: 1/6,
 	quant: 0,
 	theta: 12, // 72
@@ -43,11 +43,19 @@ var opts = (
 	);
 // FILTERS
 
+Pdef(\penrose_toPause3_filter,
+	Pbind(
+		\vol, Pfunc {|ev|
+			if(ev.charNow == $F){ev.vol * 1.2}{ev.vol * 1}
+		},
+	)
+);
+
 // ARGS
 ~newLsys.(
 	name: \penrose_toPause3, //besserer name waere arppeggios
 	axiom: "F",//"4-F",
-	rules: ($F: "1+F1--G+G3+F3-GF", $G: "1+F1--G+G3+F3-GF"), // f nach dem g entfernt
+	rules: ($F: "1+F1--G+G3+f3-Gf",$f:  "1+F1--G+G3+f3-Gf", $G: "1+F1--G+G3+f3-Gf"), // f nach dem g entfernt
 	gen: 1, // 1
 	opts: opts
 );

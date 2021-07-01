@@ -45,11 +45,19 @@
 
 	// FILTERS
 
+	Pdef(("penrose_gen" ++ i ++ "_filter").asSymbol,
+	Pbind(
+		\vol, Pfunc {|ev|
+			if(ev.charNow == $F){ev.vol * 1.2}{ev.vol * 1}
+		},
+	)
+);
+
 	// ARGS
 	~newLsys.(
 		name: ("penrose_gen" ++ i).asSymbol, //besserer name waere arppeggios
 		axiom: "F",//"4-F",
-		rules: ($F: "2+F2--F+-F+2-F2+5+F5--F+"), //"[X]F-G-F2+F"
+		rules: ($F: "2+F2--f+-F+2-f2+5+f5--f+", $f: "2+F2--f+-F+2-f2+5+f5--f+"), //"[X]F-G-F2+F"
 		gen: i, // 1
 		opts: opts
 	);

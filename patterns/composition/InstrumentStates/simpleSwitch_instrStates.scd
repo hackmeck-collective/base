@@ -268,7 +268,7 @@ Pbind(\out, ~aux_bus,
 ~simpleSwitchInstrState_4 = { |inputPattern|
 
 	Pbind(\out, ~aux_bus,
-		\amp, 0.1,
+		\amp, 0.4,
 		\spread, 1,
 		\centerPos, -0.5,
 		// \envelope_mod, 0.25,
@@ -357,7 +357,7 @@ Pbind(\out, ~aux_bus,
 ~simpleSwitchInstrState_5 = { |inputPattern|
 
 	Pbind(\out, ~aux_bus,
-		\amp, 0.1,
+		\amp, 0.4,
 		\spread, 1,
 		\centerPos, -0.5,
 		// \envelope_mod, 0.25,
@@ -446,7 +446,7 @@ Pbind(\out, ~aux_bus,
 ~simpleSwitchInstrState_6 = { |inputPattern|
 
 	Pbind(\out, ~aux_bus,
-		\amp, 0.1,
+		\amp, 0.4,
 		\spread, 1,
 		\centerPos, -0.5,
 		// \envelope_mod, 0.25,

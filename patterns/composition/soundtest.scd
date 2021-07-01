@@ -17,26 +17,44 @@
 )).play
 )
 
-
 (
-(~fraktal_1_InstrState_3.(
-			inputPattern: Pdef(\fraktal_philipp))
-		).play
+Pn(~penroseInstrState_7.(
+				inputPattern: Pn(Pdef(\digiDist_lead),2)
+			)).play
 );
 (
-(Ppar([
-			~penroseInstrState_1.(
-				inputPattern: Pseq([
-					Pn(Pdef(\penrose_gen1), 4),
-					Pn(Pdef(\penrose_gen0), 2)
-				])
-			),
-			~clickInstrState_1.(
-				inputPattern: Pseq([
-				Pn(Pdef(\penrose_click_gen1),2),
-				Pdef(\penrose_click_gen0)])
+~simpleSwitchInstrState_4.(
+					inputPattern: Pn(Pdef(\simpleSwitch))
+				).play
+)
+(
+Pn(~penroseInstrState_8.(
+					inputPattern: Pn(Pdef(\penrose_canon_mehr_pausen3))
+				)).play
+);
+(
+(
+			~patternNotesFade.(
+				pat2:
+				~penroseInstrState_8.(
+					inputPattern: Pn(Pdef(\penrose_canon_mehr_pausen3))
+				),
+
+				pat1:
+				~simpleSwitchInstrState_4.(
+					inputPattern: Pn(Pdef(\simpleSwitch))
+				),
+
+				delta: 1/8, //da hakt was, die beiden sind auch nicht das gleiche tempo, sisw ist 1/8 penrose 1/6
+				weightPattern: Pbjorklund(
+					Pstutter(
+						Pseq([4,4,3,3,2,1]),
+						Pseq([1,2,3,5,8,13]),
+				),16)
 			)
-		])
+
+
+
 		).play
 );
 ~clickInstrState_2.(Pn(Pdef(\simpleSwitch_click_gen2), 2)).play

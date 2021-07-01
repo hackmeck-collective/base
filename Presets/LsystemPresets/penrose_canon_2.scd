@@ -17,11 +17,19 @@ var opts = (
 
 // FILTERS
 
+Pdef(\penrose_canon_2_filter,
+	Pbind(
+		\vol, Pfunc {|ev|
+			if(ev.charNow == $F){ev.vol * 1.2}{ev.vol * 1}
+		},
+	)
+);
+
 // ARGS
 ~newLsys.(
 	name: \penrose_canon_2, //besserer name waere arppeggios
 	axiom: "F",
-	rules: ($F: "-F+[-X+3-X3+X]G[F]5-F5+-F+"), // branches gedreht
+	rules: ($F: "-F+[-X+3-X3+X]G[f]5-f5+-f+", $f: "-F+[-X+3-X3+X]G[f]5-f5+-f+", $G: "-F+[-X+3-X3+X]G[f]5-f5+-f+"), // branches gedreht
 	gen: 3, // 1
 	opts: opts
 )

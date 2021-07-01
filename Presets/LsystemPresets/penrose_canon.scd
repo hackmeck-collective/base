@@ -16,11 +16,19 @@ var opts = (
 
 // FILTERS
 
+Pdef(\penrose_canon_filter,
+	Pbind(
+		\vol, Pfunc {|ev|
+			if(ev.charNow == $F){ev.vol * 1.2}{ev.vol * 1}
+		},
+	)
+);
+
 // ARGS
 ~newLsys.(
 	name: \penrose_canon, //besserer name waere arppeggios
 	axiom: "F",
-	rules: ($F: "F[X--X+X]-G-[F]F2+F"), //5-F++F2-F
+	rules: ($F: "F[X--X+X]-G-[f]f2f",$f: "F[X--X+X]-G-[f]f2f",$G: "F[X--X+X]-G-[f]f2f"), //5-F++F2-F
 	gen: 3, // 1
 	opts: opts
 )
