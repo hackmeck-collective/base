@@ -5,14 +5,14 @@ Pdef(\simpleSwitchDevelopement_1_x_triangle,
 
 		~lsys[\simpleSwitch].noteOffset = 10;
 		~lsys[\simpleSwitch].ctranspose = 0;
-		~lsys[\simpleSwitch_dev2].noteOffset = 11;
+		~lsys[\simpleSwitch_dev2].noteOffset = 12;
 		~lsys[\simpleSwitch_dev2].branchInterval = -7;
 		~lsys[\simpleSwitch_dev2].ctranspose = 0;
-		~lsys[\simpleSwitch_dev3].noteOffset = 12;
+		~lsys[\simpleSwitch_dev3].noteOffset = 14;
 		~lsys[\simpleSwitch_dev3].branchInterval = -7;
 		~lsys[\simpleSwitch_dev3].ctranspose = 0;
-		~lsys[\simpleSwitch_gen1].noteOffset = 13;
-		~lsys[\simpleSwitch_gen0].noteOffset = 13;
+		~lsys[\simpleSwitch_gen1].noteOffset = 16;
+		~lsys[\simpleSwitch_gen0].noteOffset = 16;
 		~lsys[\simpleSwitch_gen0].ctranspose = 0;
 		~lsys[\simpleSwitch_gen4].ctranspose = 0;
 		~lsys[\simpleSwitch_dev4].noteOffset = 14;
@@ -32,7 +32,7 @@ Pdef(\simpleSwitchDevelopement_1_x_triangle,
 		sp.par(
 			Pbind(\dur, Rest(0.025), \setDetune, Pfunc {|in|
 				~lsys[\simpleSwitch].ctranspose = in
-			} <> Plazy{Pseg([0,0,~calcIntervalBetweenNoteOffsets.(\simpleSwitch_dev2,\simpleSwitch)],[4,2.5],-3)});
+			} <> Plazy{Pseg([0,0,~calcIntervalBetweenNoteOffsets.(\simpleSwitch_dev2,\simpleSwitch) + 0.5],[4,2.5],1)});
 		);
 		sp.seq(~simpleSwitchInstrState_4.(
 			inputPattern: Pn(Pdef(\simpleSwitch), 4)));
@@ -49,7 +49,7 @@ Pdef(\simpleSwitchDevelopement_1_x_triangle,
 		sp.par(
 			Pbind(\dur, Rest(0.1), \setDetune, Pfunc {|in|
 				~lsys[\simpleSwitch_dev2].ctranspose = in
-			} <> Plazy{Pseg([0,0,~calcIntervalBetweenNoteOffsets.(\simpleSwitch_dev3,\simpleSwitch_dev2)],[8,2],-3)});
+			} <> Plazy{Pseg([0,0,~calcIntervalBetweenNoteOffsets.(\simpleSwitch_dev3,\simpleSwitch_dev2) + 0.5],[8,2],1)});
 		);
 		sp.seq(~simpleSwitchInstrState_4.(
 			inputPattern: Pn(Pdef(\simpleSwitch_dev2), 2)));
@@ -66,7 +66,7 @@ Pdef(\simpleSwitchDevelopement_1_x_triangle,
 		sp.par(
 			Pbind(\dur, Rest(0.1), \setDetune, Pfunc {|in|
 				~lsys[\simpleSwitch_dev3].ctranspose = in
-			} <> Plazy{Pseg([0,0,~calcIntervalBetweenNoteOffsets.(\simpleSwitch_gen1, \simpleSwitch_dev3)],[6,4.25],-3)});
+			} <> Plazy{Pseg([0,0,~calcIntervalBetweenNoteOffsets.(\simpleSwitch_gen1, \simpleSwitch_dev3) + 0.5],[8,2.25],1)});
 		);
 		sp.seq(~simpleSwitchInstrState_4.(
 			inputPattern: Pn(Pdef(\simpleSwitch_dev3), 2)));
@@ -81,7 +81,7 @@ Pdef(\simpleSwitchDevelopement_1_x_triangle,
 		sp.par(
 			Pbind(\dur, Rest(0.1), \setDetune, Pfunc {|in|
 				~lsys[\simpleSwitch_gen0].ctranspose = in
-			} <> Plazy{Pseg([0,~calcIntervalBetweenNoteOffsets.(\simpleSwitch_dev4,\simpleSwitch_gen0)],[4],-3)});
+			} <> Plazy{Pseg([0,~calcIntervalBetweenNoteOffsets.(\simpleSwitch_gen0, \simpleSwitch_dev4) + 0.5],[4],1)});
 		);
 		sp.par(
 			Pspawner({ |sp2|

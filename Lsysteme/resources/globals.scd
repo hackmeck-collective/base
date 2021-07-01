@@ -2,6 +2,34 @@
 //~lsys = ();
 ~lsys[\globalPitch] = 0;
 ~lsys[\globalPitchBalance] = 0;
+~lsys[\overwriteOnOff] = (
+	stutterVal: false,
+	legatoArr: false,
+	stepInterval: false,
+	branchInterval: false,
+	vols: false,
+	shuffleArray: false
+);
+~lsys[\overwriteValues] = (
+	stutterVal: 1,
+	legatoArr: 1 ! 8,
+	stepInterval: 1,
+	branchInterval: 7,
+	vols: 1 ! 8,
+	shuffleArray: [1]
+);
+~toOpenStageControl = NetAddr("127.0.0.1", 8080);
+
+~lsys[\updateCurrentlyPlaying] = {
+	var namesArr = topEnvironment[\lsys][\currentlyPlaying].asArray;
+	5.do {|i|
+		if(i < namesArr.size){
+			topEnvironment[\toOpenStageControl].sendMsg("/text_" ++ (i + 1), namesArr[i])
+		}{
+			topEnvironment[\toOpenStageControl].sendMsg("/text_" ++ (i + 1), "")
+		}
+	}
+};
 ~lsys[\presets] = ();
 ~lsys[\defaultPreset] = (
 	baseTempo: 1/4,
@@ -20,7 +48,8 @@
 	stutterVal: 1,
 	lerpLines: false,
 	baseColor: 0,
-	ignorePoints: false
+	ignorePoints: false,
+	shuffleArray: [1]
 );
 
 ~lsys[\currentlyPlaying] = Set.new;

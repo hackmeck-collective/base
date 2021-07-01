@@ -38,7 +38,7 @@ var loadOnlyBenni = {
 	"Lsysteme/resources/pdefCreator.scd".loadRelative; // load pdef which will play back lsystems
 	"Presets/LsystemPresetFunctions.scd".loadRelative;
 	~lsysPreset.loadAll;
-
+	"Control/lsys_oscDefs.scd".loadRelative;
 };
 var loadOnlyVincent = {
 	"Synthese_Sounddesign/instruments/modules/0_load_modules.scd".loadRelative;

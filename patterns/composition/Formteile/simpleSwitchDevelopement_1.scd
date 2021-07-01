@@ -65,7 +65,7 @@ Pdef(\simpleSwitchDevelopement_1,
 		sp.par(
 			Pbind(\dur, Rest(0.1), \setDetune, Pfunc {|in|
 				~lsys[\simpleSwitch_gen0].ctranspose = in
-			} <> Plazy{Pseg([0,~calcIntervalBetweenNoteOffsets.(\simpleSwitch_gen0,\simpleSwitch_dev4) - 0.5 ],[4],3)});
+			} <> Plazy{Pseg([0,~calcIntervalBetweenNoteOffsets.(\simpleSwitch_dev4,\simpleSwitch_gen0) - 0.5 ],[4],3)});
 		);
 		sp.seq(~simpleSwitchInstrState_4.(
 			inputPattern: Pn(Pdef(\simpleSwitch_gen0), 32))

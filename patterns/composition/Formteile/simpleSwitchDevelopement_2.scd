@@ -26,6 +26,7 @@ Pdef(\simpleSwitchDevelopement_2,
 
 		"ss_6".postln;
 		~lsys[\simpleSwitch_dev6].vols = [0, 0, 1, 1, 1, 1];
+		~lsys[\simpleSwitch_dev6].ctranspose = 0;
 
 		//~lsys[\presets].simpleSwitch_dev6.stutterVal = Pseq([1,1,2],inf);
 
@@ -38,7 +39,6 @@ Pdef(\simpleSwitchDevelopement_2,
 		);
 
 		"ss6".postln;
-
 		sp.seq(Pfindur(35,
 			~simpleSwitchInstrState_5.(
 				inputPattern: Pdef(\simpleSwitch_dev6))

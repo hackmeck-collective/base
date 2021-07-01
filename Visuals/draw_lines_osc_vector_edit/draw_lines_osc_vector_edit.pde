@@ -2,7 +2,7 @@
 import oscP5.*;
 int oscPort = 12000; // port to listen for osc messages
 int linesMax = 500; //number of lines that will be drawn
-float lerpFactor = 0.1; // scaling of drawing
+float lerpFactor = 0.5; // scaling of drawing
 float scaleFactor = 1; // scaling of drawing
 int offSetX = 0; // x and y offset of drawing
 int offSetY = 0;
@@ -36,7 +36,7 @@ void draw() {
   translate((width / (2 * scaleFactor)) - centroid_old.x + offSetX, (height / (2 * scaleFactor)) - centroid_old.y + offSetY);
 
   for (int i = 0; i <= linesList.size() - 1; i++) { 
-    float alphaNow = ((i * 2 / float(linesList.size())) * 256);
+    float alphaNow = ((i / float(linesList.size())) * 256); // i * 2 
     ColouredLine currentLine = linesList.get(i);
     currentLine.display(int(alphaNow));  
   }
