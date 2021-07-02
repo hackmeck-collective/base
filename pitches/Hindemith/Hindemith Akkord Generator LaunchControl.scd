@@ -76,11 +76,12 @@ MIDIdef.cc(\launchControlKnobs, {
 				rootNote: ~listAndParameters.rootNote,
 				dissDegree: newDissDegree
 			);
+
+			"dissDegree: ".post;
+			~listAndParameters.dissDegree = newDissDegree.postln;
+			~actualizeGUI.value;
 			if(closestList.notNil){
 				~listAndParameters.list = closestList;
-				~listAndParameters.dissDegree = newDissDegree;
-				"dissDegree: ".post; ~listAndParameters.dissDegree.postln;
-				~actualizeGUI.value;
 				if(~gateOpen[1] == true){~sendWithHail.((list: ~listAndParameters.list, rootNote: ~listAndParameters.rootNote));};
 			}{
 				"no new list".postln
@@ -98,11 +99,11 @@ MIDIdef.cc(\launchControlKnobs, {
 				rootNote: newRootValue,
 				dissDegree: ~listAndParameters.dissDegree
 			);
+			"rootNote: ".post;
+			~listAndParameters.rootNote = newRootValue.postln;
+			~actualizeGUI.value;
 			if(closestList.notNil){
 				~listAndParameters.list = closestList;
-				~listAndParameters.rootNote = newRootValue;
-				"rootNote: ".post; ~listAndParameters.rootNote.postln;
-				~actualizeGUI.value;
 				if(~gateOpen[2] == true){~sendWithHail.((list: ~listAndParameters.list, rootNote: ~listAndParameters.rootNote));};
 			}{
 				"no new list".postln
@@ -138,12 +139,11 @@ MIDIdef.cc(\launchControlKnobs, {
 				rootNote: ~listAndParameters.rootNote,
 				dissDegree: ~listAndParameters.dissDegree
 			);
-
+			"numNotes: ".post;
+			~listAndParameters.numNotes = newNumberOfNotes.postln;
+			~actualizeGUI.value;
 			if(closestList.notNil){
 				~listAndParameters.list = closestList;
-				//~listAndParameters.numNotes = newNumberOfNotes;
-				// "numNotes: ".post; ~listAndParameters.numNotes.postln;
-				~actualizeGUI.value;
 				if(~gateOpen[3] == true){~sendWithHail.((list: ~listAndParameters.list, rootNote: ~listAndParameters.rootNote));};
 			}{
 				"no new list".postln
@@ -160,12 +160,11 @@ MIDIdef.cc(\launchControlKnobs, {
 				rootNote: ~listAndParameters.rootNote,
 				dissDegree: ~listAndParameters.dissDegree
 			);
-
+			"underlyingScale: ".post;
+			~listAndParameters.underlyingScale = newUnderlyingScale.postln;
+			~actualizeGUI.value;
 			if(closestList.notNil){
 				~listAndParameters.list = closestList;
-				~listAndParameters.underlyingScale = newUnderlyingScale;
-				"underlyingScale: ".post; ~listAndParameters.underlyingScale.postln;
-				~actualizeGUI.value;
 				if(~gateOpen[4] == true){~sendWithHail.((list: ~listAndParameters.list, rootNote: ~listAndParameters.rootNote));};
 			}{
 				"no new list".postln
