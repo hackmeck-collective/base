@@ -76,7 +76,7 @@ Pdef(\layers,
 
 
 
-		"simpleSwitch and weed".postln;
+		"simpleSwitch and weed".postln;  //simpleswitch leiser
 
 		sp.seq(~simpleSwitchInstrState_2.(
 			inputPattern: Pseq([

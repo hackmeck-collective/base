@@ -672,7 +672,7 @@
 		\mod2syncEnvRatio, 0,
 
 		\mod3Amount, -1.2,
-		\mod3Rate, 0.25,
+		\mod3Rate, 0.0625,
 		\mod3attack, 0.45,
 		\mod3decay, 1,
 		\mod3sustain, 1,

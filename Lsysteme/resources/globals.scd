@@ -18,7 +18,7 @@
 	vols: 1 ! 8,
 	shuffleArray: [1]
 );
-~toOpenStageControl = NetAddr("127.0.0.1", 8080);
+//~toOpenStageControl = NetAddr("127.0.0.1", 8080);
 
 ~lsys[\updateCurrentlyPlaying] = {
 	var namesArr = topEnvironment[\lsys][\currentlyPlaying].asArray;

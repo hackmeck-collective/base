@@ -55,24 +55,49 @@ Pdef(\exposition,
 			\eqHiShelf_freq, 7500, \eqHiShelf_q, 0.8, \eqHiShelf_db, -2,
 		);
 
-		s.wait(1);
+		sp.wait(1);
 
 		"weed buildup 1".postln;
 
-		// ~cueEvents[\cue1].value;
+		/*~cueEvents !? {
+		"cue1".postln;
+		~cueEvents[\cue2].value};*/
 
 		~lsys[\weed_gen1].noteOffset = weedOffset_1;
 		~lsys[\weed_gen1].baseTempo = 1;
 		~lsys[\weed_gen2].noteOffset = weedOffset_1;
 		~lsys[\weed_gen2].baseTempo = 3/4;
 
-		sp.seq(Pbind(\envelope_mod, 0.8)
+		sp.seq(Pseq([
+			~fugeInstrState_0.(
+				inputPattern: Pn(Pdef(\fuge_excerpt_gen1), 16)
+			),
+			Pbind(\envelope_mod, 0.8)
 			<> ~weedInstrState_1.(
 				inputPattern: Pseq([
 					Pdef(\weed_gen1),
 					Pdef(\weed_gen2)
-			],2))
+			])),
+			~fugeInstrState_0.(
+				inputPattern: Pn(Pdef(\fuge_excerpt_gen1), 16)
+			),
+			Pbind(\envelope_mod, 0.8)
+			<> ~weedInstrState_1.(
+				inputPattern: Pseq([
+					Pdef(\weed_gen1),
+					Pdef(\weed_gen2)
+			])),
+		])
 		);
+
+
+		/*sp.seq(Pbind(\envelope_mod, 0.8)
+		<> ~weedInstrState_1.(
+		inputPattern: Pseq([
+		Pdef(\weed_gen1),
+		Pdef(\weed_gen2)
+		],2))
+		);*/
 
 		~lsys[\weed_gen1].noteOffset = weedOffset_1;
 		~lsys[\weed_gen1].baseTempo = 1/2;
@@ -119,6 +144,8 @@ Pdef(\exposition,
 		sp.wait(8);
 
 		"penrose buildup 1".postln; // mit percussion und umgedreht
+
+		//simpleswitch knob A auf 0
 
 		~lsys[\penrose_simplesimple_gen1].noteOffset = penroseOffset_1;
 		~lsys[\penrose_simplesimple_gen1].baseTempo = 3/16;
@@ -195,6 +222,9 @@ Pdef(\exposition,
 				])
 			)
 		);
+
+
+		//simpleswitch knob A 0 -> 1
 
 		sp.seq(~simpleSwitchInstrState_1.(
 			inputPattern: Pseq([

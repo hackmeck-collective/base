@@ -138,7 +138,10 @@ s.waitForBoot {
 
 ~addrBook.at(\Admin).sendMsg("/reloadInstruments");
 
-
+(
+~toOpenStageControl =NetAddr(~addrBook[\vincent].addr.ip, 8080);
+~gui.toProcessing =NetAddr(~addrBook[\vincent].addr.ip, 12000);
+)
 
 (
 "loading control interfaces".postln;
@@ -146,41 +149,7 @@ s.waitForBoot {
 "control_interfaces/performance_programs_launchcontrol-xl/launchcontrol-xl_load_modules.scd".loadRelative;
 "control_interfaces/cueWindowSetup.scd".loadRelative;
 "control_interfaces/cues.scd".loadRelative;
+s.meter(0,2);
 )
 
-~instrPreset.keys.do.postln;
-
-(
-~instrPreset.loadAll;
-~routing[\sourceGroup] = ~source_group.nodeID;
-~routing[\melodyBus] = ~melody_bus.index;
-~routing[\chordsBus] = ~chords_bus.index;
-~routing[\drumsBus] = ~drums_bus.index;
-~routing[\auxBus] = ~aux_bus.index;
-
-);
-
-(
-~melody_bus_direct_out.scope;
-~chords_bus_direct_out.scope;
-~drums_bus_direct_out.scope;
-~aux_bus_direct_out.scope
-);
-
-
-/*
-
-~adsrTypes.keys.asArray.flat;
-~oscillatorTypes.keys.asArray.flat;
-~pitchOpTypes.keys.asArray.flat;
-~fxTypes.keys.asArray.flat;
-~filterTypes.keys.asArray.flat;
-~drumTypes.keys.asArray.flat;
-~modSources.keys.asArray.flat;
-
 s.record
-
-s.freeAll
-
-s.stopRecording
-*/

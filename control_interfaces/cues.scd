@@ -6,7 +6,7 @@
 	~launchControlXlKnobLEDsSetRow.((1..8),0);
 	~launchControlXlKnobLEDsSetRow.(1,1);
 	~launchControlXlUpdateKnobLEDs.value;
-});
+}.fork(AppClock));
 
 ~cueEvents.add(\cue2 -> {
 
@@ -14,13 +14,5 @@
 	~launchControlXlKnobLEDsSetRow.((1..8),0);
 	~launchControlXlKnobLEDsSetRow.(2,1);
 	~launchControlXlUpdateKnobLEDs.value;
-});
+}.fork(AppClock));
 
-
-(
-"loading control interfaces".postln;
-"control_interfaces/midi_defs_launchcontrol-xl.scd".loadRelative;
-"control_interfaces/performance_programs_launchcontrol-xl/launchcontrol-xl_load_modules.scd".loadRelative;
-"control_interfaces/cueWindowSetup.scd".loadRelative;
-"control_interfaces/cues.scd".loadRelative;
-)

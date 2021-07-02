@@ -84,8 +84,14 @@
 										};
 										top[\lsys][\globalPitch] = ev.pitches + addPitch
 									};
-									if(ev.midinote > ~wrapHi){ ev.midinote = (ev.midinote % 12) + ~wrapHi - 12; "wrapHI!".postln };
-									if(ev.midinote < ~wrapLo){ ev.midinote = (ev.midinote % 12) + ~wrapLo; "wrapLO!".postln };
+									if(ev.midinote > ~wrapHi){ ev.midinote = (ev.midinote % 12) + ~wrapHi - 12;
+										// "wrapHI!".postln
+
+									};
+									if(ev.midinote < ~wrapLo){ ev.midinote = (ev.midinote % 12) + ~wrapLo;
+										// "wrapLO!".postln
+
+									};
 									ev
 								}
 							) <> Pbind(*(top[\instrumentPresetsDictionary][~instr.asArray.wrapAt(myKey)]))

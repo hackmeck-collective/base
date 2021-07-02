@@ -316,8 +316,8 @@
 					quant: 0,
 					baseTempo: baseTempo,
 					legatoArr: 0.99,
-					//wrapLo: [ 12 ],
-					//wrapHi: [ 36 ],
+					wrapLo: [ 12 ],
+					wrapHi: [ 36 ],
 					instr: percInstr1,
 					vols: 0.75
 				)
@@ -336,8 +336,8 @@
 					quant: 0,
 					baseTempo: baseTempo,
 					legatoArr: 0.99,
-					//wrapLo: [ 72 ],
-					//wrapHi: [ 84 ],
+					wrapLo: [ 72 ],
+					wrapHi: [ 84 ],
 					instr: percInstr2,
 					vols: 0.8
 				)

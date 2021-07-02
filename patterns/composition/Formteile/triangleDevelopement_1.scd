@@ -2,6 +2,15 @@ Pdef(\triangleDevelopement_1,
 	Pspawner({|sp|
 		var player1, player2, player3;
 
+		var fraktalNoteOffset = -7;
+
+		~lsys[\fraktal_12].noteOffset = fraktalNoteOffset;
+		~lsys[\fraktal_13].noteOffset = fraktalNoteOffset;
+		~lsys[\fraktal_14].noteOffset = fraktalNoteOffset;
+		~lsys[\fraktal_15].noteOffset = fraktalNoteOffset;
+		~lsys[\fraktal_16].noteOffset = fraktalNoteOffset;
+		~lsys[\fraktal_17].noteOffset = fraktalNoteOffset;
+
 		"fraktal_12".postln;
 		[ 1, 2.125, 3.25, 4.375, 5.5, 6.625, 7.625, 8.875, 10.0].differentiate.do { |waitTime|
 			sp.par(~fraktal_1_InstrState_1.(
