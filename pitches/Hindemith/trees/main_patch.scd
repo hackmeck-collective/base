@@ -15,7 +15,7 @@ var path = PathName(thisProcess.nowExecutingPath).pathOnly +/+ "calc/hindemithTr
 
 // query the tree
 ~trees[\underlyingScale, \Chromatic, \numNotes, 5, \rootNote, 0, \dissDegrees, 3].nearest([ 0, 4, 10, 14, 26.0 ])[0].location;
-~trees[\underlyingScale, \Chromatic, \numNotes, 3, \rootNote, 8, \dissDegrees, 3].asArray;
+~trees[\underlyingScale, 'Whole Tone', \numNotes, 6, \rootNote, 0, \dissDegrees, 11].asArray;
 
 
 

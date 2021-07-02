@@ -29,4 +29,10 @@
 // [ 4, 6, 12 ]
 
 
+/*
+TODO:
+Leuchten der Knöpfe funktioniert nicht mehr.
+Keys in die Gui rein holen
+Eine LED auf der GUI, die kurz leuchtet, wenn kein Akkord gefunden wurde.
 
+*/
