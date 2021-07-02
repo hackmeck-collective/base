@@ -59,17 +59,19 @@ Pdef(\exposition,
 
 		"weed buildup 1".postln;
 
+		// ~cueEvents[\cue1].value;
+
 		~lsys[\weed_gen1].noteOffset = weedOffset_1;
 		~lsys[\weed_gen1].baseTempo = 1;
 		~lsys[\weed_gen2].noteOffset = weedOffset_1;
 		~lsys[\weed_gen2].baseTempo = 3/4;
 
 		sp.seq(Pbind(\envelope_mod, 0.8)
-		<> ~weedInstrState_1.(
-		inputPattern: Pseq([
-		Pdef(\weed_gen1),
-		Pdef(\weed_gen2)
-		],2))
+			<> ~weedInstrState_1.(
+				inputPattern: Pseq([
+					Pdef(\weed_gen1),
+					Pdef(\weed_gen2)
+			],2))
 		);
 
 		~lsys[\weed_gen1].noteOffset = weedOffset_1;
@@ -78,11 +80,11 @@ Pdef(\exposition,
 		~lsys[\weed_gen2].baseTempo = 3/8;
 
 		sp.seq(Pbind(\envelope_mod, 0.8)
-		<> ~weedInstrState_1.(
-		inputPattern: Pseq([
-		Pdef(\weed_gen1),
-		Pdef(\weed_gen2)
-		],1))
+			<> ~weedInstrState_1.(
+				inputPattern: Pseq([
+					Pdef(\weed_gen1),
+					Pdef(\weed_gen2)
+			],1))
 		);
 
 		~lsys[\weed_gen1].noteOffset = weedOffset_1;
@@ -101,17 +103,17 @@ Pdef(\exposition,
 		~lsys[\weed_reverse_gen3].baseTempo = 3/8;
 
 		sp.seq(Pbind(\envelope_mod, 0.8)
-		<> ~weedInstrState_1.(
-		inputPattern: Pseq([
-		Pseq([
-		Pdef(\weed_gen1),
-		Pdef(\weed_gen2)],2),
-		Pdef(\weed_gen3),
-		Pdef(\weed_reverse_gen3),
-		Pdef(\weed_reverse_gen2),
-		Pdef(\weed_reverse_gen1),
-		Pseq([Pdef(\weed_reverse_gen0)],3),
-		]))
+			<> ~weedInstrState_1.(
+				inputPattern: Pseq([
+					Pseq([
+						Pdef(\weed_gen1),
+						Pdef(\weed_gen2)],2),
+					Pdef(\weed_gen3),
+					Pdef(\weed_reverse_gen3),
+					Pdef(\weed_reverse_gen2),
+					Pdef(\weed_reverse_gen1),
+					Pseq([Pdef(\weed_reverse_gen0)],3),
+			]))
 		);
 
 		sp.wait(8);
@@ -128,13 +130,13 @@ Pdef(\exposition,
 		~lsys[\penrose_simple_gen0].baseTempo = 3/16;
 
 		sp.seq(~penroseInstrState_1.(
-		inputPattern: Pseq([
-		Pn(Pdef(\penrose_simplesimple_gen1),8),
-		Pn(Pdef(\penrose_simple_gen1),5),
-		Pn(Pdef(\penrose_simple_gen2),2),
-		Pn(Pdef(\penrose_simple_gen1),3),
-		Pn(Pdef(\penrose_simplesimple_gen1),2)
-		])
+			inputPattern: Pseq([
+				Pn(Pdef(\penrose_simplesimple_gen1),8),
+				Pn(Pdef(\penrose_simple_gen1),5),
+				Pn(Pdef(\penrose_simple_gen2),2),
+				Pn(Pdef(\penrose_simple_gen1),3),
+				Pn(Pdef(\penrose_simplesimple_gen1),2)
+			])
 		)
 		);
 
@@ -149,16 +151,16 @@ Pdef(\exposition,
 		~lsys[\penrose_simplesimple_gen1].baseTempo = 3/16;
 
 		sp.seq(~penroseInstrState_2.(
-		inputPattern: Pdef(\penrose_simple_gen3))
+			inputPattern: Pdef(\penrose_simple_gen3))
 		);
 
 
 
 		sp.seq(~penroseInstrState_1.(
-		inputPattern: Pseq([
-		Pn(Pdef(\penrose_simple_gen2),2),
-		Pn(Pdef(\penrose_simple_gen1),1),
-		])
+			inputPattern: Pseq([
+				Pn(Pdef(\penrose_simple_gen2),2),
+				Pn(Pdef(\penrose_simple_gen1),1),
+			])
 		)
 		);
 
@@ -182,7 +184,7 @@ Pdef(\exposition,
 		sp.seq(Pbind(\envelope_mod, Pseg([0,0.2],0.35))
 			<> ~penroseInstrState_2.(
 				inputPattern: Pn(Pdef(\penrose_simplesimple_gen1),5)
-		)
+			)
 		);
 
 		sp.par(Pbind(\envelope_mod, Pseg([0.2,0.4],1))
@@ -223,11 +225,11 @@ Pdef(\exposition,
 		~lsys[\penrose_gen0].baseTempo = 1/3;
 
 		sp.seq(~weedInstrState_2.(
-				inputPattern: Pseq([
-					Pn(Pdef(\weed_gen0), 2),
-					Pn(Pdef(\weed_gen1), 2),
-					Pn(Pdef(\weed_gen2), 1)
-			],1))
+			inputPattern: Pseq([
+				Pn(Pdef(\weed_gen0), 2),
+				Pn(Pdef(\weed_gen1), 2),
+				Pn(Pdef(\weed_gen2), 1)
+		],1))
 		);
 
 		sp.wait(2);
@@ -251,8 +253,8 @@ Pdef(\exposition,
 			),
 			~clickInstrState_1.(
 				inputPattern: Pseq([
-				Pn(Pdef(\penrose_click_gen1),2),
-				Pdef(\penrose_click_gen0)])
+					Pn(Pdef(\penrose_click_gen1),2),
+					Pdef(\penrose_click_gen0)])
 			)
 		])
 		);
@@ -268,10 +270,10 @@ Pdef(\exposition,
 		~lsys[\weed_gen2].noteOffset = weedOffset_1-7;
 
 		sp.seq(~weedInstrState_2.(
-				inputPattern: Pseq([
-					Pn(Pdef(\weed_gen1), 2),
-					Pn(Pdef(\weed_gen2), 1)
-			],1))
+			inputPattern: Pseq([
+				Pn(Pdef(\weed_gen1), 2),
+				Pn(Pdef(\weed_gen2), 1)
+		],1))
 		);
 
 		~lsys[\simpleSwitch_gen0].noteOffset = simpleSwitchOffset_1-24;

@@ -139,10 +139,13 @@ s.waitForBoot {
 ~addrBook.at(\Admin).sendMsg("/reloadInstruments");
 
 
+
 (
 "loading control interfaces".postln;
 "control_interfaces/midi_defs_launchcontrol-xl.scd".loadRelative;
 "control_interfaces/performance_programs_launchcontrol-xl/launchcontrol-xl_load_modules.scd".loadRelative;
+"control_interfaces/cueWindowSetup.scd".loadRelative;
+"control_interfaces/cues.scd".loadRelative;
 )
 
 ~instrPreset.keys.do.postln;
