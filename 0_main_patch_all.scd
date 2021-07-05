@@ -144,11 +144,16 @@ s.waitForBoot {
 )
 
 (
+~toOpenStageControl =NetAddr("127.0.0.1", 8080);
+~gui.toProcessing =NetAddr("127.0.0.1", 12000);
+)
+
+(
 "loading control interfaces".postln;
 "control_interfaces/midi_defs_launchcontrol-xl.scd".loadRelative;
-"control_interfaces/performance_programs_launchcontrol-xl/launchcontrol-xl_load_modules.scd".loadRelative;
-"control_interfaces/cueWindowSetup.scd".loadRelative;
-"control_interfaces/cues.scd".loadRelative;
+// "control_interfaces/performance_programs_launchcontrol-xl/launchcontrol-xl_load_modules.scd".loadRelative;
+// "control_interfaces/cueWindowSetup.scd".loadRelative;
+// "control_interfaces/cues.scd".loadRelative;
 s.meter(0,2);
 )
 

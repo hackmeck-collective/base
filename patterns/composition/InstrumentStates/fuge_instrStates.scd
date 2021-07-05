@@ -3,7 +3,7 @@
 ~fugeInstrState_0 = { |inputPattern|
 
 	Pbind(\out, ~melody_bus,
-		\amp, 0.25,
+		\amp, 6.dbamp,
 		\spread, 1,
 		\centerPos, 0,
 		\send_1_level, 0.5,
@@ -12,8 +12,9 @@
 		\oscillator_1_mod_1, 1, \oscillator_2_mod_1, 0.4, //fm amount
 		\oscillator_1_mod_2, 1.7, \oscillator_2_mod_2, 1.3,
 		\fx_1_mod_1, 0.7, // bitcrush
-		\fx_2_mod_1, 1, // srr
+		\fx_2_mod_1, 1.1, // srr
 		\filter_1_mod_1, 1,
+		\filter_1_mod_2, 0.5,
 		\vca_filterLevel, 0,
 		\vca_preFilterLevel, 0.25,
 		\vca_preFxLevel, 0,
@@ -63,14 +64,14 @@
 
 	<> inputPattern
 
-	<> Pbind(\external1Target, "envelope_mod",
+	/*<> Pbind(\external1Target, "envelope_mod",
 		\external2Target, "oscillator_2_mod_1",
 		\external2Target2, "oscillator_1_mod_1",
 		\external3Target, "oscillator_2_level",
 		\external3Target2, "oscillator_2_level",
 		\external4Target, "fx_1_mod_1",
 		\external4Target2, "fx_2_mod_1",
-	)
+	)*/
 	<> Pbind(\mod1Type, \sampleAndHold,
 		\mod1Target, "fx_2_mod_1",
 

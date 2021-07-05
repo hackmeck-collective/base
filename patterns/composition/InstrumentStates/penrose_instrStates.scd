@@ -6,7 +6,7 @@
 		\spread, 1,
 		\centerPos, 0.5,
 		\envelope_mod, 0.01,
-		\amp, 0.25,
+		\amp, 1.5.dbamp,
 		\send_1_level, 0.2,
 
 		\oscillator_2_level, 0.25,
@@ -92,7 +92,7 @@
 		\spread, 1,
 		\centerPos, 0.5,
 		\envelope_mod, 0.01,
-		\amp, 0.15,
+		\amp, -3.dbamp,
 		\send_1_level, 0.2,
 
 		\oscillator_2_level, 0.5,
@@ -184,7 +184,7 @@
 		\spread, 1,
 		\centerPos, 0.5,
 		\envelope_mod, 0.1,
-		\amp, 0.25,
+		\amp, 1.5.dbamp,
 		\send_1_level, 0.2,
 
 		\oscillator_2_level, 0.5,
@@ -284,7 +284,7 @@
 		\spread, 1,
 		\centerPos, 0.5,
 		\envelope_mod, 0.01,
-		\amp, 0.5,
+		\amp,1.5.dbamp,
 		\send_1_level, 0.2,
 
 		\oscillator_2_level, 0.25,
@@ -372,7 +372,7 @@
 		\spread, 1,
 		\centerPos, 0.5,
 		\envelope_mod, 0.01,
-		\amp, 1,
+		\amp, 4.5.dbamp,
 		\send_1_level, 0.2,
 
 		\oscillator_2_level, 0.7,
@@ -459,7 +459,7 @@
 		\spread, 1,
 		\centerPos, 0.5,
 		\envelope_mod, 0.01,
-		\amp, 0.85,
+		\amp, 0.dbamp,
 		\send_1_level, 0.2,
 
 		\oscillator_2_level, 0.7,
@@ -546,7 +546,7 @@
 		\spread, 1,
 		\centerPos, 0.5,
 		\envelope_mod, 0,
-		\amp, 0.85,
+		\amp, 0.dbamp,
 		\send_1_level, 0.1,
 
 		\oscillator_2_level, 0.7,
@@ -633,7 +633,7 @@
 		\spread, 1,
 		\centerPos, 0.5,
 		\envelope_mod, 0,
-		\amp, 1,
+		\amp, 0.dbamp,
 		\send_1_level, 0.1,
 
 		\oscillator_2_level, 0.7,

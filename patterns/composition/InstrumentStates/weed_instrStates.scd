@@ -3,10 +3,10 @@
 ~weedInstrState_1 = { |inputPattern|
 
 	Pbind(\out, ~chords_bus,
-		\amp, 0.5,
+		\amp, 3.dbamp,
 		\spread, 1,
 		\centerPos, 0,
-		\envCurve, 3,
+		\envCurve, -3,
 		\vca_attack, 0.75,
 		\vca_sustain, 1,
 		\vca_release, 2,
@@ -24,9 +24,9 @@
 	)
 
 	<> ~lcXlCtrBus1Bi.(0, 1, -0.5, 0) //"% = % + (% * ext.linlin(0,1, external3min, external3max) * external3Amount)"
-	<> ~lcXlCtrBus2Bi.(8)
-	<> ~lcXlCtrBus3Bi.(8, 0.9)
-	<> ~lcXlCtrBus4Bi.(8, -1)
+	<> ~lcXlCtrBus2Bi.(0)
+	<> ~lcXlCtrBus3Bi.(0, 1, -0.9, 1.6)
+	<> ~lcXlCtrBus4Bi.(0, -1, -0.9, 1)
 
 	<> Pbind(
 		\mod1Amount, 0.075, // combfilter freq
@@ -56,10 +56,10 @@
 
 	<> Pbind(
 		/*\external1Target, "vca_attack",*/
-		\external1Target2, "vca_release",
+		/*\external1Target2, "vca_release",*/
 		\external2Target, "oscillator_1_mod_1",
 		\external3Target, "oscillator_2_level",
-		\external4Target, "oscillator_1_level"
+		\external4Target, "oscillator_1_level",
 	)
 
 	<> Pbind(\mod1Type, \sampleAndHold,
@@ -80,7 +80,7 @@
 ~weedInstrState_2 = { |inputPattern|
 
 	Pbind(\out, ~chords_bus,
-		\amp, 0.35,
+		\amp, 0.dbamp,
 		\spread, 1,
 		\centerPos, 0,
 		\envCurve, 3,
@@ -101,9 +101,9 @@
 	)
 
 	<> ~lcXlCtrBus1Bi.(0, 1, -0.5, 0) //"% = % + (% * ext.linlin(0,1, external3min, external3max) * external3Amount)"
-	<> ~lcXlCtrBus2Bi.(8)
-	<> ~lcXlCtrBus3Bi.(8, 0.9)
-	<> ~lcXlCtrBus4Bi.(8, -1)
+	<> ~lcXlCtrBus2Bi.(0)
+	<> ~lcXlCtrBus3Bi.(0, -0.5)
+	<> ~lcXlCtrBus4Bi.(0, -1)
 
 	<> Pbind(
 		\mod1Amount, 0.075, // combfilter freq
@@ -131,9 +131,9 @@
 
 	<> inputPattern
 
-	<> Pbind(/*\external1Target, "vca_attack",*/
-		/*\external1Target2, "vca_release",*/
+	<> Pbind(
 		\external2Target, "filterIn_FxLevel",
+		\external3Target, "amp",
 		\external4Target, "filterIn_preFxLevel",
 	)
 
@@ -155,7 +155,7 @@
 ~weedInstrState_2_short = { |inputPattern|
 
 	Pbind(\out, ~chords_bus,
-		\amp, 0.25,
+		\amp, -6.dbamp,
 		\spread, 1,
 		\centerPos, 0,
 		\envCurve, 3,
@@ -176,9 +176,9 @@
 	)
 
 	<> ~lcXlCtrBus1Bi.(0, 1, -0.5, 0) //"% = % + (% * ext.linlin(0,1, external3min, external3max) * external3Amount)"
-	<> ~lcXlCtrBus2Bi.(8)
-	<> ~lcXlCtrBus3Bi.(8, 0.9)
-	<> ~lcXlCtrBus4Bi.(8, -1)
+	<> ~lcXlCtrBus2Bi.(0)
+	<> ~lcXlCtrBus3Bi.(0, 0.9)
+	<> ~lcXlCtrBus4Bi.(0, -1)
 
 	<> Pbind(
 		\mod1Amount, 0.075, // combfilter freq
@@ -206,8 +206,7 @@
 
 	<> inputPattern
 
-	<> Pbind(/*\external1Target, "vca_attack",*/
-		/*\external1Target2, "vca_release",*/
+	<> Pbind(
 		\external2Target, "filterIn_FxLevel",
 		\external4Target, "filterIn_preFxLevel",
 	)
@@ -231,7 +230,7 @@
 
 	Pbind(
 		\out, ~chords_bus,
-		\amp, 0.25,
+		\amp, 3.dbamp,
 		\spread, 1,
 		\centerPos, 0,
 		\envCurve, 3,
@@ -252,9 +251,9 @@
 	)
 
 	<> ~lcXlCtrBus1Bi.(0, 1, -0.5, 0) //"% = % + (% * ext.linlin(0,1, external3min, external3max) * external3Amount)"
-	<> ~lcXlCtrBus2Bi.(8)
-	<> ~lcXlCtrBus3Bi.(8, 0.9)
-	<> ~lcXlCtrBus4Bi.(8, -1)
+	<> ~lcXlCtrBus2Bi.(0)
+	<> ~lcXlCtrBus3Bi.(0, 0.9)
+	<> ~lcXlCtrBus4Bi.(0, -1)
 
 
 	<> Pbind(
@@ -283,8 +282,7 @@
 
 	<> inputPattern
 
-	<> Pbind(/*\external2Target, "filterIn_FxLevel",
-		\external4Target, "filterIn_preFxLevel",*/
+	<> Pbind(
 	)
 
 	<> Pbind(\mod1Type, \sampleAndHold,

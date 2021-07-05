@@ -7,7 +7,7 @@
 	\send_1_level, 0.0025,
 	\envelope_mod, 0.1,
 	\envCurve, 10,
-	\amp, 0.75,
+	\amp, 6.dbamp,
 
 	// \pitchOpType, \slide,
 	\pitchOp_1_interval, 24,

@@ -5,7 +5,7 @@ Pdef(\layers,
 		var penroseOffset_1 = 12;
 		var simpleSwitchOffset_1 = 0;
 
-		"weed and penrose 2".postln;
+		/*"weed and penrose 2".postln;
 
 		~lsys[\weed_gen2].baseTempo = 1/4;
 		~lsys[\weed_gen2].noteOffset = weedOffset_1-5;
@@ -76,7 +76,7 @@ Pdef(\layers,
 
 
 
-		"simpleSwitch and weed".postln;  //simpleswitch leiser
+		"simpleSwitch and weed".postln;
 
 		sp.seq(~simpleSwitchInstrState_2.(
 			inputPattern: Pseq([
@@ -148,16 +148,30 @@ Pdef(\layers,
 				Pn(Pdef(\simpleSwitch_gen1), 8)
 			], 2)
 		));
+
 		sp.seq(~simpleSwitchInstrState_3.(
 			inputPattern:
 				Pn(Pdef(\simpleSwitch_gen1), 1)
 		));
 
+
+
 		"simpleSwitch to penrose".postln;
 
+		/*soundCue = "SimpleSwitch: 1 -> 0"
+		~launchControlXlKnobLEDsSetRow.((1..8),0);
+		~launchControlXlKnobLEDsSetRow.(3,1);
+		~launchControlXlUpdateKnobLEDs.value;*/
+*/
+		~lsys[\penrose_simple_gen0].baseTempo = 3/16;
 		~lsys[\penrose_simple_gen1].baseTempo = 3/16;
 		~lsys[\penrose_simple_gen2].baseTempo = 3/16;
 		~lsys[\penrose_simple_gen3].baseTempo = 3/16;
+
+		~lsys[\penrose_simple_gen0].noteOffset = 0;
+		~lsys[\penrose_simple_gen1].noteOffset = 0;
+		~lsys[\penrose_simple_gen2].noteOffset = 0;
+		~lsys[\penrose_simple_gen3].noteOffset = 0;
 
 		sp.par(~simpleSwitchInstrState_3.(
 		inputPattern: Pseq([
@@ -166,25 +180,36 @@ Pdef(\layers,
 		])
 		));
 
-		sp.seq(~penroseInstrState_1.(
+
+
+		sp.seq(Pbind(\amp, 3.dbamp)
+			<> ~penroseInstrState_1.(
 		inputPattern: Pseq([
 		Pn(Pdef(\penrose_simple_gen1),8),
+		],1)
+		));
+		sp.seq(Pbind(\amp, 6.dbamp)
+			<> ~penroseInstrState_1.(
+		inputPattern: Pseq([
 		Pn(Pdef(\penrose_simple_gen2),4),
 		],1)
 		));
-		sp.seq(~penroseInstrState_2.(
+		sp.seq(Pbind(\amp, 6.dbamp)
+			<> ~penroseInstrState_2.(
 		inputPattern: Pseq([
 		Pn(Pdef(\penrose_simple_gen1),2),
 		Pn(Pdef(\penrose_simple_gen0),4)
 		],1)
 		));
-		sp.seq(~penroseInstrState_3.(
+		sp.seq(Pbind(\amp, 6.dbamp)
+			<> ~penroseInstrState_3.(
 		inputPattern: Pseq([
 		Pn(Pdef(\penrose_simple_gen1),8),
 		Pn(Pdef(\penrose_simple_gen2),4),
 		],1)
 		));
-		sp.seq(~penroseInstrState_2.(
+		sp.seq(Pbind(\amp, 6.dbamp)
+			<> ~penroseInstrState_2.(
 		inputPattern: Pseq([
 		Pn(Pdef(\penrose_simple_gen1),2),
 		Pn(Pdef(\penrose_simple_gen0),4)
@@ -194,7 +219,11 @@ Pdef(\layers,
 
 		"weed".postln;
 
-		sp.seq(~weedInstrState_3.(
+		sp.seq(Pbind(\amp, Pseg([12.dbamp, -3.dbamp],12.1875),
+			\vca_attack, 1,
+		\vca_release, Pseg([1, 4],12.1875),
+		)
+			<> ~weedInstrState_3.(
 		inputPattern: Pseq([
 		Pdef(\weed_gen3),
 		Pdef(\weed_gen1),

@@ -59,57 +59,67 @@ Pdef(\exposition,
 
 		"weed buildup 1".postln;
 
-		/*~cueEvents !? {
-		"cue1".postln;
-		~cueEvents[\cue2].value};*/
+		/*soundCue = "Weed: 1 -> 0; masterFilter: 0.5 -> 1"
+		~launchControlXlKnobLEDsSetRow.((1..8),0);
+		~launchControlXlKnobLEDsSetRow.([1,8],1);
+		~launchControlXlUpdateKnobLEDs.value;*/
 
-		~lsys[\weed_gen1].noteOffset = weedOffset_1;
+		/*~lsys[\weed_gen1].noteOffset = weedOffset_1;
 		~lsys[\weed_gen1].baseTempo = 1;
 		~lsys[\weed_gen2].noteOffset = weedOffset_1;
 		~lsys[\weed_gen2].baseTempo = 3/4;
+		~lsys[\fuge_excerpt_gen1].baseTempo = 0.0625;
 
 		sp.seq(Pseq([
-			~fugeInstrState_0.(
-				inputPattern: Pn(Pdef(\fuge_excerpt_gen1), 16)
-			),
-			Pbind(\envelope_mod, 0.8)
-			<> ~weedInstrState_1.(
-				inputPattern: Pseq([
-					Pdef(\weed_gen1),
-					Pdef(\weed_gen2)
-			])),
-			~fugeInstrState_0.(
-				inputPattern: Pn(Pdef(\fuge_excerpt_gen1), 16)
-			),
-			Pbind(\envelope_mod, 0.8)
-			<> ~weedInstrState_1.(
-				inputPattern: Pseq([
-					Pdef(\weed_gen1),
-					Pdef(\weed_gen2)
-			])),
-		])
-		);
-
-
-		/*sp.seq(Pbind(\envelope_mod, 0.8)
+		Pbind(\amp, Pseg([-12.dbamp,6.dbamp], 6),
+		\oscillator_1_mod_1, Pseg([0,2], 6),
+		\oscillator_2_mod_1, Pseg([0,0.4], 6)
+		)
+		<> ~fugeInstrState_0.(
+		inputPattern: Pn(Pdef(\fuge_excerpt_gen1), 16)
+		),
+		Pbind(\vca_attack, 2,
+		\vca_release, 4,)
 		<> ~weedInstrState_1.(
 		inputPattern: Pseq([
 		Pdef(\weed_gen1),
 		Pdef(\weed_gen2)
-		],2))
-		);*/
+		])),
+		])
+		);
+
+		~lsys[\fuge_excerpt_gen1].baseTempo = 0.03125;
+
+		sp.seq(Pseq([
+		Pbind(\amp, Pseg([-12.dbamp,6.dbamp], 3),
+		\oscillator_1_mod_1, Pseg([0,2.5], 3),
+		\oscillator_2_mod_1, Pseg([0,0.6], 3)
+		)
+		<> ~fugeInstrState_0.(
+		inputPattern: Pn(Pdef(\fuge_excerpt_gen1), 16)
+		),
+		Pbind(\vca_attack, 1,
+		\vca_release, 2,)
+		<> ~weedInstrState_1.(
+		inputPattern: Pseq([
+		Pdef(\weed_gen1),
+		Pdef(\weed_gen2)
+		])),
+		])
+		);
 
 		~lsys[\weed_gen1].noteOffset = weedOffset_1;
 		~lsys[\weed_gen1].baseTempo = 1/2;
 		~lsys[\weed_gen2].noteOffset = weedOffset_1;
 		~lsys[\weed_gen2].baseTempo = 3/8;
 
-		sp.seq(Pbind(\envelope_mod, 0.8)
-			<> ~weedInstrState_1.(
-				inputPattern: Pseq([
-					Pdef(\weed_gen1),
-					Pdef(\weed_gen2)
-			],1))
+		sp.seq(Pbind(\vca_attack, 1,
+		\vca_release, 2,)
+		<> ~weedInstrState_1.(
+		inputPattern: Pseq([
+		Pdef(\weed_gen1),
+		Pdef(\weed_gen2)
+		],1))
 		);
 
 		~lsys[\weed_gen1].noteOffset = weedOffset_1;
@@ -127,25 +137,38 @@ Pdef(\exposition,
 		~lsys[\weed_reverse_gen3].noteOffset = weedOffset_1;
 		~lsys[\weed_reverse_gen3].baseTempo = 3/8;
 
-		sp.seq(Pbind(\envelope_mod, 0.8)
-			<> ~weedInstrState_1.(
-				inputPattern: Pseq([
-					Pseq([
-						Pdef(\weed_gen1),
-						Pdef(\weed_gen2)],2),
-					Pdef(\weed_gen3),
-					Pdef(\weed_reverse_gen3),
-					Pdef(\weed_reverse_gen2),
-					Pdef(\weed_reverse_gen1),
-					Pseq([Pdef(\weed_reverse_gen0)],3),
-			]))
+		sp.seq(Pbind(\vca_attack, 0.5,
+		\vca_release, 1,)
+		<> ~weedInstrState_1.(
+		inputPattern: Pseq([
+		Pseq([
+		Pdef(\weed_gen1),
+		Pdef(\weed_gen2)],2),
+		Pdef(\weed_gen3),
+		Pdef(\weed_reverse_gen3),
+
+		]))
 		);
+
+		sp.seq(Pbind(\vca_attack, 0.5,
+			\vca_release, Pseg([1,5],7))
+		<> ~weedInstrState_1.(
+			inputPattern: Pseq([
+				Pdef(\weed_reverse_gen2),
+				Pdef(\weed_reverse_gen1),
+				Pseq([Pdef(\weed_reverse_gen0)],3),
+		]))
+		);
+
 
 		sp.wait(8);
 
 		"penrose buildup 1".postln; // mit percussion und umgedreht
 
-		//simpleswitch knob A auf 0
+		/*soundCue = "SimpleSwitch: X -> 0;"
+		~launchControlXlKnobLEDsSetRow.((1..8),0);
+		~launchControlXlKnobLEDsSetRow.([3,8],3);
+		~launchControlXlUpdateKnobLEDs.value;*/
 
 		~lsys[\penrose_simplesimple_gen1].noteOffset = penroseOffset_1;
 		~lsys[\penrose_simplesimple_gen1].baseTempo = 3/16;
@@ -167,6 +190,8 @@ Pdef(\exposition,
 		)
 		);
 
+		~lsys[\penrose_simple_gen0].noteOffset = penroseOffset_1 -12;
+		~lsys[\penrose_simple_gen0].baseTempo = 3/16;
 		~lsys[\penrose_simple_gen1].noteOffset = penroseOffset_1 -12;
 		~lsys[\penrose_simple_gen1].baseTempo = 3/16;
 		~lsys[\penrose_simple_gen2].noteOffset = penroseOffset_1 -12;
@@ -191,7 +216,27 @@ Pdef(\exposition,
 		)
 		);
 
+		sp.par(~penroseInstrState_1.(
+			inputPattern: Pdef(\penrose_simple_gen0)
+		)
+		);
 
+		~lsys[\fuge_excerpt_gen1].baseTempo =1.5/16;
+
+		sp.seq(
+			Pbind(\amp, 6.dbamp,
+				\oscillator_1_mod_1, 4,
+				\oscillator_2_mod_1, 1,
+				\envelope_mod, 0,
+			)
+			<> ~fugeInstrState_0.(
+				inputPattern: Pn(Pdef(\fuge_excerpt_gen1), 2)
+			)
+		);
+
+
+
+~lsys[\fuge_excerpt_gen1].baseTempo = 0.0625;
 
 		"simpleSwitch buildup 1".postln;
 
@@ -224,9 +269,16 @@ Pdef(\exposition,
 		);
 
 
-		//simpleswitch knob A 0 -> 1
+		/*soundCue = "SimpleSwitch: 0 -> 1;"
+		~launchControlXlKnobLEDsSetRow.((1..8),0);
+		~launchControlXlKnobLEDsSetRow.(3,1);
+		~launchControlXlUpdateKnobLEDs.value;*/
 
-		sp.seq(~simpleSwitchInstrState_1.(
+		sp.seq(Pbind(
+			\amp, Pseg([-24.dbamp,-12.dbamp,-15.dbamp],[1.25,12]),
+			\envelope_mod, Pseg([0.01,0.5,1.1],[12,1.25])
+		)
+		<>	~simpleSwitchInstrState_1.(
 			inputPattern: Pseq([
 				Pn(Pdef(\simpleSwitch_gen0),12),
 				Pn(Pdef(\simpleSwitch_gen1),2),
@@ -236,12 +288,16 @@ Pdef(\exposition,
 				Pn(Pdef(\simpleSwitch_gen1),1),
 				Pn(Pdef(\simpleSwitch_gen0),2),
 			])
-			<> Pbind(\external1Target, "envelope_mod")
 		));
 
 		sp.wait(2);
 
 		"weed and penrose".postln;
+
+		/*soundCue = "Weed: X -> 0; SimpleSwitch: X -> 1;"
+		~launchControlXlKnobLEDsSetRow.((1..8),0);
+		~launchControlXlKnobLEDsSetRow.([1,3],3);
+		~launchControlXlUpdateKnobLEDs.value;*/
 
 		~lsys[\weed_gen2].noteOffset = weedOffset_1-12;
 		~lsys[\weed_gen2].baseTempo = 2/8;
@@ -291,6 +347,11 @@ Pdef(\exposition,
 
 		sp.wait(1);
 
+		*/
+/*soundCue = "Weed: 0 -> 1; SimpleSwitch: 1 -> 0;"
+		~launchControlXlKnobLEDsSetRow.((1..8),0);
+		~launchControlXlKnobLEDsSetRow.([1,3],1);
+		~launchControlXlUpdateKnobLEDs.value;*/
 
 		"weed and simpleswitch".postln;
 
@@ -299,11 +360,15 @@ Pdef(\exposition,
 		~lsys[\weed_gen2].baseTempo = 2/4;
 		~lsys[\weed_gen2].noteOffset = weedOffset_1-7;
 
-		sp.seq(~weedInstrState_2.(
+		sp.seq(Pbind(
+			\amp, Pseg([-12.dbamp,0.dbamp],[6,7]),
+		)
+		<>	~weedInstrState_2.(
 			inputPattern: Pseq([
 				Pn(Pdef(\weed_gen1), 2),
 				Pn(Pdef(\weed_gen2), 1)
-		],1))
+		],1)
+		)
 		);
 
 		~lsys[\simpleSwitch_gen0].noteOffset = simpleSwitchOffset_1-24;
@@ -327,8 +392,13 @@ Pdef(\exposition,
 		~lsys[\weed_reverse_gen0].baseTempo = 1/4;
 		~lsys[\weed_reverse_gen0].noteOffset = weedOffset_1-7;
 
-		sp.par(~simpleSwitchInstrState_2.(
-			inputPattern: Pseq([
+		//EQ!!!
+
+		sp.par(Pbind(
+			\amp, Pseg([-18.dbamp,-6.dbamp,-6.dbamp,-18.dbamp],[5,9.875,6]),
+		)
+		<>	~simpleSwitchInstrState_2.(
+			inputPattern: Pseq([ //19.375/2
 				Pn(Pdef(\simpleSwitch_gen3),2),
 				Pn(Pdef(\simpleSwitch_gen2),3),
 				Pn(Pdef(\simpleSwitch_gen1),5),
@@ -336,8 +406,7 @@ Pdef(\exposition,
 			])
 		));
 
-		sp.seq(Pbind(\envelope_mod, 1.1)
-			<> ~weedInstrState_1.(
+		sp.seq(~weedInstrState_1.(
 				inputPattern: Pseq([
 					Pn(Pdef(\weed_gen0), 3),
 					Pn(Pdef(\weed_gen1), 2),
@@ -350,8 +419,9 @@ Pdef(\exposition,
 
 		~lsys[\weed_reverse_gen0].baseTempo = 4/4;
 
-		sp.seq(Pbind(\envelope_mod, 1.5)
-			<> ~weedInstrState_1.(
+		sp.seq(Pbind(\vca_attack, 1,
+		\vca_release, 3,)
+		<> ~weedInstrState_1.(
 				inputPattern: Pn(Pdef(\weed_reverse_gen0), 2))
 		);
 
@@ -359,4 +429,4 @@ Pdef(\exposition,
 
 	})
 
-)
+	)

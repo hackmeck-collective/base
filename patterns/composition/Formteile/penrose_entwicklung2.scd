@@ -96,7 +96,7 @@ Pdef(\penrose_entwicklung2,
 
 		pat2:
 		~penroseInstrState_8.(
-		inputPattern: Pfindur(61.999999999999,Pn(Pdef(\penrose_canon_pausen_2),9))),
+		inputPattern: Pfindur(61.999999999999/2,Pn(Pdef(\penrose_canon_pausen_2),9))),
 
 		length: 60,
 		delta: penrose_baseTempo

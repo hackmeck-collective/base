@@ -63,6 +63,9 @@ Pdef(\play,
 			~cueEvents[\cue2].value};
 
 
+Pdef(\penrose_entwicklung2).play(~linkClock, quant:1 )
+
+
 s.record
 Pdef(\play).clear
 Pdef(\playVisuals).stop
@@ -85,6 +88,6 @@ Pdef(\play).resume
 
 ~pitchesRootDissonance[\pitches] = [0,1,3,4,6,7, 9,10]
 
-~pitchesRootDissonance[\pitches] = [0,2,3,5,7,9, 11] +.x [36,48]
+~pitchesRootDissonance[\pitches] = [0,2,3,5,7,9, 11] +.x [36,48, 60,72,84]
 
 

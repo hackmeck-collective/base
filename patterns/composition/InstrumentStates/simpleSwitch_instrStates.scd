@@ -3,7 +3,7 @@
 ~simpleSwitchInstrState_1 = { |inputPattern|
 
 	Pbind(\out, ~aux_bus,
-		\amp, 0.15,
+		\amp, -6.dbamp,
 		\spread, 1,
 		\centerPos, -0.5,
 		\envelope_mod, 0.4,
@@ -66,13 +66,11 @@
 	<> inputPattern
 
 	<> Pbind(
-		/*\external1Target, "envelope_mod",
-		\external1Target2, "pitchOp_1_interval",
 		\external2Target, "oscillator_1_mod_1",
 		\external3Target, "oscillator_2_level",
 		\external3Target2, "vca_preFilterLevel",
 		\external4Target, "",
-		\external4Target2, "vca_preFxLevel",*/
+		\external4Target2, "vca_preFxLevel",
 	)
 
 	<> Pbind(\mod1Type, \sampleAndHold,
@@ -93,7 +91,7 @@
 ~simpleSwitchInstrState_2 = { |inputPattern|
 
 	Pbind(\out, ~aux_bus,
-		\amp, 0.15,
+		\amp, -6.dbamp,
 		\spread, 1,
 		\centerPos, -0.5,
 		\envelope_mod, 0.4,
@@ -111,9 +109,9 @@
 	)
 
 	<> ~lcXlCtrBus1Bi.(2, 0.3)
-	<> ~lcXlCtrBus2Bi.(10, 1, 0.25, 1)
-	<> ~lcXlCtrBus3Bi.(10, 1, 0.25, 1)
-	<> ~lcXlCtrBus4Bi.(10, -1, 0.25, 1)
+	<> ~lcXlCtrBus2Bi.(2, 1, 0.25, 1)
+	<> ~lcXlCtrBus3Bi.(2, 1, 0.25, 1)
+	<> ~lcXlCtrBus4Bi.(2, -1, 0.25, 1)
 
 	<> Pbind(
 		\mod1Amount, 0.01,
@@ -156,8 +154,6 @@
 	<> inputPattern
 
 	<> Pbind(
-		/*\external1Target, "envelope_mod",
-		\external1Target2, "pitchOp_1_interval",*/
 		\external2Target, "oscillator_1_mod_1",
 		\external3Target, "oscillator_2_level",
 		\external3Target2, "vca_preFilterLevel",
@@ -182,7 +178,7 @@
 
 ~simpleSwitchInstrState_3 = { |inputPattern|
 Pbind(\out, ~aux_bus,
-		\amp, 0.1,
+		\amp, -6.dbamp,
 		\spread, 1,
 		\centerPos, -0.5,
 		\envelope_mod, 0.4,

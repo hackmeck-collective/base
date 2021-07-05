@@ -28,7 +28,7 @@ Pdef(\penrose_entwicklung1,
 		sp.seq(Ppar([
 			~penroseInstrState_4.(
 				inputPattern: Pn(Pdef(\penrose_simple_gen2), 4)),
-			~clickInstrState_1.(
+			~clickInstrState_3.(
 				inputPattern: Pn(Pdef(\penrose_simple_click_gen2), 4)
 			),
 		])
@@ -38,7 +38,7 @@ Pdef(\penrose_entwicklung1,
 			~penroseInstrState_4.(
 				inputPattern: Pn(Pdef(\penrose_simple_gen1), 4)
 			),
-			~clickInstrState_1.(
+			~clickInstrState_3.(
 				inputPattern: Pn(Pdef(\penrose_simple_click_gen1), 4)
 			),
 		])
@@ -48,7 +48,7 @@ Pdef(\penrose_entwicklung1,
 			~penroseInstrState_4.(
 				inputPattern: Pn(Pdef(\penrose_simplesimple_gen1), 4)
 			),
-			~clickInstrState_1.(
+			~clickInstrState_3.(
 				inputPattern: Pdef(\penrose_simple_click_gen0)
 			),
 		])
@@ -73,7 +73,7 @@ Pdef(\penrose_entwicklung1,
 			~bdBuzzInstrState_1.(
 				inputPattern: Pn(Pdef(\penrose_toPause2_bd), 4)
 			),
-			~clickInstrState_1.(
+			~clickInstrState_4.(
 				inputPattern: Pn(Pdef(\penrose_toPause2_click), 4)
 			),
 		])
@@ -81,7 +81,7 @@ Pdef(\penrose_entwicklung1,
 
 		"penrose to pause3".postln;
 		sp.seq(Ppar([
-			~penroseInstrState_4.(
+			~penroseInstrState_3.(
 				inputPattern: Pn(Pdef(\penrose_toPause3), 4)
 			)
 		])
@@ -105,7 +105,7 @@ Pdef(\penrose_entwicklung1,
 			~bdBuzzInstrState_1.(
 				inputPattern: Pn(Pdef(\penrose_pauses_gen1_bd), 4)
 			),
-			~clickInstrState_1.(
+			~clickInstrState_4.(
 				inputPattern: Pn(Pdef(\penrose_pauses_gen1_click), 4)
 			),
 		])
@@ -119,7 +119,7 @@ Pdef(\penrose_entwicklung1,
 			~bdBuzzInstrState_1.(
 				inputPattern: Pn(Pdef(\penrose_pauses_gen2_bd), 2)
 			),
-			~clickInstrState_1.(
+			~clickInstrState_4.(
 				inputPattern: Pn(Pdef(\penrose_pauses_gen1_click), 8)
 			),
 		])
@@ -132,7 +132,7 @@ Pdef(\penrose_entwicklung1,
 			~bdBuzzInstrState_1.(
 				inputPattern: Pn(Pdef(\penrose_pauses_gen3_bd), 1)
 			),
-			~clickInstrState_1.(
+			~clickInstrState_3.(
 				inputPattern: Pn(Pdef(\penrose_pauses_gen2_click), 2)
 			),
 		])
@@ -146,7 +146,7 @@ Pdef(\penrose_entwicklung1,
 			~bdBuzzInstrState_1.(
 				inputPattern: Pn(Pdef(\penrose_pauses_gen3_bd), 2)
 			),
-			~clickInstrState_1.(
+			~clickInstrState_3.(
 				inputPattern: Pn(Pdef(\penrose_pauses_gen3_click), 2)
 			),
 		])
