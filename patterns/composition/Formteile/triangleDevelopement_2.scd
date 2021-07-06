@@ -13,34 +13,54 @@ Pdef(\triangleDevelopement_2,
 
 		"fraktal_1_inverse7".postln;
 
+		/*soundCue = "Fraktal_1: 0 -> 1; MasterResonance: X -> 0.75"
+		~launchControlXlKnobLEDsSetRow.((1..8),0);
+		~launchControlXlKnobLEDsSetRow.(4,1);
+		~launchControlXlUpdateKnobLEDs.value;*/
+
 		sp.seq(~fraktal_1_InstrState_1.(
 			inputPattern: Psync(Pdef(\fraktal_1_inverse7), 0, 100))
 		);
 		// sp.seq(Pdef(\triangleDevelopement_repeat));
 
 
+
 		"fraktal_13 A".postln;
+
+		/*soundCue = "MasterFilter: 1 -> 0.5; MasterResonance: 0.75"
+		~launchControlXlKnobLEDsSetRow.((1..8),0);
+		~launchControlXlKnobLEDsSetRow.(8,1);
+		~launchControlXlUpdateKnobLEDs.value;*/
+
 		sp.seq(~fraktal_1_InstrState_1.(
 			inputPattern: Pn(Psync(Pdef(\fraktal_13), 2, 4), 4))
 		);
 
+
 		"fraktal_13 B".postln;
+
+		/*soundCue = "MasterFilter: 0.5 -> 1; MasterResonance: 0.75 -> 0"
+		~launchControlXlKnobLEDsSetRow.((1..8),0);
+		~launchControlXlKnobLEDsSetRow.(8,1);
+		~launchControlXlUpdateKnobLEDs.value;*/
+
 		sp.seq(~fraktal_1_InstrState_1.(
 			inputPattern: Pn(Psync(Pdef(\fraktal_13), 1, 4), 4))
 		);
 
-	/*	"fraktal_17".postln;
-		sp.seq(~fraktal_1_InstrState_1.(
-			inputPattern: Pdef(\fraktal_17))
-		);
-*/
 		"fraktal_1_inverse7".postln;
+
+		/*soundCue = "Fraktal_1: 0 -> 1"
+		~launchControlXlKnobLEDsSetRow.((1..8),0);
+		~launchControlXlKnobLEDsSetRow.(4,1);
+		~launchControlXlUpdateKnobLEDs.value;*/
+
 		sp.seq(~fraktal_1_InstrState_1.(
 			inputPattern: Psync(Pdef(\fraktal_1_inverse7), 0, 100))
 		);
 
 
-		player1 = sp.par(~fraktal_1_InstrState_2.(
+		/*player1 = sp.par(~fraktal_1_InstrState_2.(
 			inputPattern: Pn(Psync(Pdef(\fraktal_13), 1, 4),inf))
 		);
 
@@ -54,13 +74,16 @@ Pdef(\triangleDevelopement_2,
 
 		sp.wait(16);
 
-		player1.stop; player2.stop; player3.stop;
+		player1.stop; player2.stop; player3.stop;*/
+
+
+
 		{
 			var rp = ~gui.lastPoints.rootPoint;
 			~gui.lastPoints.clear;
 			~gui.lastPoints.rootPoint = rp;
 		}.value;
-		player2 = sp.par(~bdBuzzInstrState_1.(
+		player2 = sp.par(~bdBuzzInstrState_2.(
 			inputPattern: Pdef(\fraktal_philipp_bd))
 		);
 		player3 = sp.par(~fraktal_1_sd_InstrState_1.(

@@ -3,7 +3,7 @@
 ~fraktal_1_InstrState_1 = { |inputPattern|
 
 	Pbind(\out, ~melody_bus,
-		\amp, 0.1,
+		\amp, -6.dbamp,
 		\spread, 1,
 		\centerPos, 0.5,
 		\envelope_mod, 0.2,
@@ -34,9 +34,9 @@
 	)
 
 	<> ~lcXlCtrBus1Bi.(3, 0.5)
-	<> ~lcXlCtrBus2Bi.(11)
-	<> ~lcXlCtrBus3Bi.(11, 1)
-	<> ~lcXlCtrBus4Bi.(11, -1)
+	<> ~lcXlCtrBus2Bi.(3)
+	<> ~lcXlCtrBus3Bi.(3, 1)
+	<> ~lcXlCtrBus4Bi.(3, -1, -1, 1.2)
 
 	<> Pbind(
 		\mod1Amount, 0.7,
@@ -336,10 +336,11 @@
 ~fraktal_1_InstrState_4 = { |inputPattern|
 
 	Pbind(\out, ~melody_bus,
-		\amp, 0.3,
+		\amp, -7.5.dbamp,
 		\spread, 1,
-		\centerPos, 0.5,
-		\envelope_mod, 0.1,
+		\centerPos, 0,
+		\envelope_mod, 0.075,
+		\envCurve, 20,
 		\send_1_level, 0.02,
 
 		// \slide,
@@ -448,10 +449,11 @@
 ~fraktal_1_sd_InstrState_1 = { |inputPattern|
 
 	Pbind(\out, ~aux_bus,
-		\amp, 0.15,
+		\amp, -7.5.dbamp,
 		\spread, 1,
-		\centerPos, -0.5,
-		\envelope_mod, 0.4,
+		\centerPos, Pseq([0,1,-0.5,0.5,-1],inf),
+		\envCurve, Pseq([0,-1,-0.5,1,],inf),
+		\envelope_mod, Pseq([0.1,0.2,0.15,0.05,],inf),
 
 		\pitchOp_1_interval, 7, //slide
 		\pitchOp_1_amount, 0.05,

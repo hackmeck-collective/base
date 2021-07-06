@@ -11,6 +11,11 @@ Pdef(\triangleDevelopement_1,
 		~lsys[\fraktal_16].noteOffset = fraktalNoteOffset;
 		~lsys[\fraktal_17].noteOffset = fraktalNoteOffset;
 
+		/*soundCue = "Fraktal_1: 0 -> 1;"
+		~launchControlXlKnobLEDsSetRow.((1..8),0);
+		~launchControlXlKnobLEDsSetRow.([4],1);
+		~launchControlXlUpdateKnobLEDs.value;*/
+
 		"fraktal_12".postln;
 		[ 1, 2.125, 3.25, 4.375, 5.5, 6.625, 7.625, 8.875, 10.0].differentiate.do { |waitTime|
 			sp.par(~fraktal_1_InstrState_1.(

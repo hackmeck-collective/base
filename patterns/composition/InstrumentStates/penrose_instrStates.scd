@@ -546,7 +546,7 @@
 		\spread, 1,
 		\centerPos, 0.5,
 		\envelope_mod, 0,
-		\amp, 0.dbamp,
+		\amp, 3.dbamp,
 		\send_1_level, 0.1,
 
 		\oscillator_2_level, 0.7,
@@ -584,12 +584,12 @@
 		\mod2EnvCurve, 2,
 		\mod2syncEnvRatio, 0,
 
-		\mod3Amount, -1.2,
-		\mod3Rate, 0.25,
-		\mod3attack, 0.45,
-		\mod3decay, 1,
+		\mod3Amount, -0.95,
+		// \mod3Rate, 0.0625,
+		\mod3attack, 0.125,
+		\mod3decay, 0,
 		\mod3sustain, 1,
-		\mod3release, 1,
+		\mod3release, 2,
 		\mod3EnvCurve, -3,
 		\mod3syncEnvRatio, 0,
 
@@ -633,7 +633,7 @@
 		\spread, 1,
 		\centerPos, 0.5,
 		\envelope_mod, 0,
-		\amp, 0.dbamp,
+		\amp, 3.dbamp,
 		\send_1_level, 0.1,
 
 		\oscillator_2_level, 0.7,
@@ -641,16 +641,16 @@
 		\oscillator_1_mod_2, 1, \oscillator_2_mod_2, 1.3,
 		\fx_1_mod_1, 0.25, // bitcrush
 		\fx_2_mod_1, 0.6, // srr
-		\filter_1_mod_1, 0.7,
-		\vca_filterLevel, 1,
+		\filter_1_mod_1, 1,
+		\vca_filterLevel, 0.7,
 		\vca_preFilterLevel, 0,
 		\vca_preFxLevel, 0,
 	)
 
 	<> ~lcXlCtrBus1Bi.(1, 0.5)
-	<> ~lcXlCtrBus2Bi.(9, 1)
-	<> ~lcXlCtrBus3Bi.(9, 1, -0.7, 1)
-	<> ~lcXlCtrBus4Bi.(9, 1, 0.75, 0)
+	<> ~lcXlCtrBus2Bi.(1, 1)
+	<> ~lcXlCtrBus3Bi.(1, 1, -0.47, 1)
+	<> ~lcXlCtrBus4Bi.(1, 1, 0.75, 0)
 
 	<> Pbind(
 		\mod1Amount, 0.075,
@@ -671,13 +671,13 @@
 		\mod2EnvCurve, 2,
 		\mod2syncEnvRatio, 0,
 
-		\mod3Amount, -1.2,
-		\mod3Rate, 0.0625,
-		\mod3attack, 0.45,
-		\mod3decay, 1,
+		\mod3Amount, -0.95,
+		// \mod3Rate, 0.0625,
+		\mod3attack, 0.0625,
+		\mod3decay, 0,
 		\mod3sustain, 1,
-		\mod3release, 1,
-		\mod3EnvCurve, -3,
+		\mod3release, 2,
+		\mod3EnvCurve, -1.5,
 		\mod3syncEnvRatio, 0,
 
 		\mod4Amount, 0.4,

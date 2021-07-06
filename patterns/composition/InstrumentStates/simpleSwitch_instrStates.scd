@@ -177,11 +177,13 @@
 };
 
 ~simpleSwitchInstrState_3 = { |inputPattern|
-Pbind(\out, ~aux_bus,
+	Pbind(\out, ~aux_bus,
 		\amp, -6.dbamp,
 		\spread, 1,
 		\centerPos, -0.5,
 		\envelope_mod, 0.4,
+		\envCurve, -2,
+
 
 		\pitchOp_1_interval, 7, //slide
 		\pitchOp_1_amount, 0.05,
@@ -264,9 +266,10 @@ Pbind(\out, ~aux_bus,
 ~simpleSwitchInstrState_4 = { |inputPattern|
 
 	Pbind(\out, ~aux_bus,
-		\amp, 0.4,
+		\amp, -3.dbamp,
 		\spread, 1,
 		\centerPos, -0.5,
+		\envCurve, -0.5,
 		// \envelope_mod, 0.25,
 
 		// \pitchOp_1_interval, 7, //slide
@@ -284,9 +287,9 @@ Pbind(\out, ~aux_bus,
 	)
 
 	<> ~lcXlCtrBus1Bi.(2, 0.3)
-	<> ~lcXlCtrBus2Bi.(10, 1, -0.8, 0)
-	<> ~lcXlCtrBus3Bi.(10, 1, 0.25, 1)
-	<> ~lcXlCtrBus4Bi.(10, -1, 0.25, 1)
+	<> ~lcXlCtrBus2Bi.(2, 1, -0.8, 0)
+	<> ~lcXlCtrBus3Bi.(2, 1, 0.25, 1)
+	<> ~lcXlCtrBus4Bi.(2, -1, -0.35, 0)
 
 	<> Pbind(
 		\mod1Amount, 0.01,
@@ -331,7 +334,97 @@ Pbind(\out, ~aux_bus,
 	<> Pbind(
 		/*\external1Target, "envelope_mod",*/
 		\external2Target2, "filter_1_mod_1",
-		/*\external3Target, "oscillator_2_level",*/
+		\external4Target, "amp",
+		/*\external3Target2, "oscillator_1_mod_1",*/
+	)
+
+	<> Pbind(\mod1Type, \sampleAndHold,
+		\mod1Target, "fx_1_mod_1",
+
+		\mod2Type, \noMod,
+		\mod2Target, "",
+
+		\mod3Type, \noMod,
+		\mod3Target, "",
+
+		\mod4Type, \noMod,
+		\mod4Target, "",
+	)
+
+};
+
+~simpleSwitchInstrState_4b = { |inputPattern|
+
+	Pbind(\out, ~aux_bus,
+		\amp, -3.dbamp,
+		\spread, 1,
+		\centerPos, -0.5,
+		\envCurve, -1,
+		// \envelope_mod, 0.25,
+
+		// \pitchOp_1_interval, 7, //slide
+		// \pitchOp_1_amount, 0.05,
+		\pitchOp_2_interval, 0.1, //vibrato
+		\pitchOp_2_amount, 0.5,
+		\oscillator_1_mod_1, 2, \oscillator_2_mod_1, 1.3,
+		\oscillator_2_level, 0.5,
+		\vca_filterLevel, 1,
+		\vca_preFilterLevel, 0,
+		\vca_preFxLevel, 0,
+		\filter_1_mod_1, 0.65,
+		\filter_1_mod_2, 0.5,
+
+	)
+
+	<> ~lcXlCtrBus1Bi.(2, 0.3)
+	<> ~lcXlCtrBus2Bi.(2, 1, -0.8, 0)
+	<> ~lcXlCtrBus3Bi.(2, 1, 0.25, 1)
+	<> ~lcXlCtrBus4Bi.(2, -1, -0.35, 0)
+
+	<> Pbind(
+		\mod1Amount, 0.01,
+		\mod1Rate, 0.25,
+		\mod1attack, 1,
+		\mod1decay, 1,
+		\mod1sustain, 0.5,
+		\mod1release, 1,
+		\mod1EnvCurve, 2,
+		\mod1syncEnvRatio, 0,
+
+		\mod2Amount, -0.2,
+		\mod2Rate, 0.25,
+		\mod2attack, 0,
+		\mod2decay, 0.15,
+		\mod2sustain, 0,
+		\mod2release, 0.12,
+		\mod2EnvCurve, 2,
+		\mod2syncEnvRatio, 0,
+
+		\mod3Amount, 0.25,
+		\mod3Rate, 0.25,
+		\mod3attack, 1,
+		\mod3decay, 1,
+		\mod3sustain, 0.5,
+		\mod3release, 1,
+		\mod3EnvCurve, 2,
+		\mod3syncEnvRatio, 0,
+
+		\mod4Amount, 0.25,
+		\mod4Rate, 0.25,
+		\mod4attack, 1,
+		\mod4decay, 1,
+		\mod4sustain, 0.5,
+		\mod4release, 1,
+		\mod4EnvCurve, 2,
+		\mod4syncEnvRatio, 0,
+	)
+
+	<> inputPattern
+
+	<> Pbind(
+		/*\external1Target, "envelope_mod",*/
+		\external2Target2, "filter_1_mod_1",
+		\external4Target, "amp",
 		/*\external3Target2, "oscillator_1_mod_1",*/
 	)
 
@@ -353,10 +446,11 @@ Pbind(\out, ~aux_bus,
 ~simpleSwitchInstrState_5 = { |inputPattern|
 
 	Pbind(\out, ~aux_bus,
-		\amp, 0.4,
+		\amp, -7.5.dbamp,
 		\spread, 1,
 		\centerPos, -0.5,
-		// \envelope_mod, 0.25,
+		\envCurve, -0.8,
+		\envelope_mod, 0.2,
 
 		// \pitchOp_1_interval, 7, //slide
 		// \pitchOp_1_amount, 0.05,
@@ -371,11 +465,11 @@ Pbind(\out, ~aux_bus,
 		\filter_1_mod_2, 0,
 
 	)
-
+/*
 	<> ~lcXlCtrBus1Bi.(2, 0.3)
 	<> ~lcXlCtrBus2Bi.(10, 1, -0.8, 0)
 	<> ~lcXlCtrBus3Bi.(10, 1, 0.25, 1)
-	<> ~lcXlCtrBus4Bi.(10, -1, 0.25, 1)
+	<> ~lcXlCtrBus4Bi.(10, -1, 0.25, 1)*/
 
 	<> Pbind(
 		\mod1Amount, 0.01,
@@ -417,12 +511,12 @@ Pbind(\out, ~aux_bus,
 
 	<> inputPattern
 
-	<> Pbind(
+/*	<> Pbind(
 		/*\external1Target, "envelope_mod",*/
 		/*\external2Target2, "filter_1_mod_1",*/
 		/*\external3Target, "oscillator_2_level",*/
 		/*\external3Target2, "oscillator_1_mod_1",*/
-	)
+	)*/
 
 	<> Pbind(\mod1Type, \sampleAndHold,
 		\mod1Target, "fx_1_mod_1",
@@ -442,10 +536,11 @@ Pbind(\out, ~aux_bus,
 ~simpleSwitchInstrState_6 = { |inputPattern|
 
 	Pbind(\out, ~aux_bus,
-		\amp, 0.4,
+		\amp, -7.5.dbamp,
 		\spread, 1,
 		\centerPos, -0.5,
-		// \envelope_mod, 0.25,
+		\envCurve, -0.4,
+		\envelope_mod, 0.17,
 
 		// \pitchOp_1_interval, 7, //slide
 		// \pitchOp_1_amount, 0.05,
@@ -454,8 +549,8 @@ Pbind(\out, ~aux_bus,
 		\oscillator_1_mod_1, 4, \oscillator_2_mod_1, 4,
 		\oscillator_2_level, 0.5,
 
-	\fx_1_mod_1, 1.11,
-	\fx_1_mod_2, 0.3,
+		\fx_1_mod_1, 1.11,
+		\fx_1_mod_2, 0.3,
 
 
 		\vca_filterLevel, 1,
@@ -466,10 +561,10 @@ Pbind(\out, ~aux_bus,
 
 	)
 
-	<> ~lcXlCtrBus1Bi.(2, 0.3)
-	<> ~lcXlCtrBus2Bi.(10, 1, -0.8, 0)
-	<> ~lcXlCtrBus3Bi.(10, 1, 0.25, 1)
-	<> ~lcXlCtrBus4Bi.(10, -1, 0.25, 1)
+	// <> ~lcXlCtrBus1Bi.(2, 0.3)
+	// <> ~lcXlCtrBus2Bi.(2, 1, -0.8, 0)
+	// <> ~lcXlCtrBus3Bi.(2, 1, 0.25, 1)
+	// <> ~lcXlCtrBus4Bi.(2, -1, 0.25, 1)
 
 	<> Pbind(
 		\mod1Amount, 0.01,
@@ -511,12 +606,12 @@ Pbind(\out, ~aux_bus,
 
 	<> inputPattern
 
-	<> Pbind(
+/*	<> Pbind(
 		/*\external1Target, "envelope_mod",*/
 		/*\external2Target2, "filter_1_mod_1",*/
 		/*\external3Target, "oscillator_2_level",*/
 		/*\external3Target2, "oscillator_1_mod_1",*/
-	)
+	)*/
 
 	<> Pbind(\mod1Type, \sampleAndHold,
 		\mod1Target, "fx_1_mod_1",

@@ -90,6 +90,12 @@
 ~fugeInstrState_1 = { |inputPattern|
 
 	Pbind(\out, ~melody_bus,
+		\amp, -9.dbamp,
+		\spread, 1,
+		\centerPos, 0,
+		\envCurve, 5,
+		\envelope_mod, 0.0,
+		\send_1_level, 0.35,
 
 		\oscillator_2_level, 0.7,
 		\oscillator_1_mod_1, 1, \oscillator_2_mod_1, 1, //fm amount
@@ -101,7 +107,7 @@
 		\vca_preFilterLevel, 1,
 		\vca_preFxLevel, 0,
 )
-	<> ~lcXlCtrBus1Bi.(24, 0.5)
+	<> ~lcXlCtrBus1Bi.(24, 1, 1, 0)
 	<> ~lcXlCtrBus2Bi.(24)
 	<> ~lcXlCtrBus3Bi.(24, 1)
 	<> ~lcXlCtrBus4Bi.(24, -0.4)
@@ -147,6 +153,8 @@
 	<> inputPattern
 
 	<> Pbind(
+		// \external1Target, "amp",
+		// \external1Target2, "vca_preFilterLevel",
 		\external2Target, "oscillator_2_mod_1",
 		\external2Target2, "oscillator_1_mod_1",
 		\external3Target, "oscillator_2_level",
@@ -172,6 +180,12 @@
 ~fugeInstrState_2 = { |inputPattern|
 
 	Pbind(\out, ~melody_bus,
+		\amp, -10.5.dbamp,
+		\spread, 1,
+		\centerPos, 0,
+		\envCurve, 5,
+		\envelope_mod, 0.15,
+		\send_1_level, 0.25,
 
 		\oscillator_2_level, 0.8,
 		\oscillator_1_mod_1, 1.5, \oscillator_2_mod_1, 1.2, //fm amount
@@ -254,6 +268,12 @@
 ~fugeInstrState_3 = { |inputPattern|
 
 	Pbind(\out, ~melody_bus,
+		\amp, -6.dbamp,
+		\spread, 1,
+		\centerPos, 0,
+		\envCurve, 5,
+		\envelope_mod, 0.075,
+		\send_1_level, 0.1,
 
 		\oscillator_2_level, 0.7,
 		\oscillator_1_mod_1, 2, \oscillator_2_mod_1, 1.5, //fm amount
@@ -336,6 +356,12 @@
 ~fugeInstrState_4 = { |inputPattern|
 
 	Pbind(\out, ~melody_bus,
+		\amp, -9.dbamp,
+		\spread, 1,
+		\centerPos, 0,
+		\envCurve, 10,
+		\envelope_mod, 0,
+		\send_1_level, 0.01,
 
 		\oscillator_2_level, 1,
 		\oscillator_1_mod_1, 3, \oscillator_2_mod_1, 2, //fm amount

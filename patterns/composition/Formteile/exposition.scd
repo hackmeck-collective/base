@@ -64,7 +64,7 @@ Pdef(\exposition,
 		~launchControlXlKnobLEDsSetRow.([1,8],1);
 		~launchControlXlUpdateKnobLEDs.value;*/
 
-		/*~lsys[\weed_gen1].noteOffset = weedOffset_1;
+		~lsys[\weed_gen1].noteOffset = weedOffset_1;
 		~lsys[\weed_gen1].baseTempo = 1;
 		~lsys[\weed_gen2].noteOffset = weedOffset_1;
 		~lsys[\weed_gen2].baseTempo = 3/4;
@@ -347,7 +347,7 @@ Pdef(\exposition,
 
 		sp.wait(1);
 
-		*/
+
 /*soundCue = "Weed: 0 -> 1; SimpleSwitch: 1 -> 0;"
 		~launchControlXlKnobLEDsSetRow.((1..8),0);
 		~launchControlXlKnobLEDsSetRow.([1,3],1);

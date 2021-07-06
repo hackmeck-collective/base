@@ -6,7 +6,7 @@ Pdef(\simpleSwitchDevelopement_2,
 		sp.par(
 			Pspawner({ |sp2|
 				sp2.wait(15); // 15
-				sp2.seq(Pdef(\triangleDevelopement_1));
+				sp2.seq(Pdef(\triangleDevelopement_1)); //können wir das bitte überarbeiten? das kommt nicht gut in kombination, das klingt sehr ungroovy
 			})
 		);
 

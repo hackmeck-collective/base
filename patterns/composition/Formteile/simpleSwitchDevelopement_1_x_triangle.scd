@@ -20,6 +20,12 @@ Pdef(\simpleSwitchDevelopement_1_x_triangle,
 
 "ss_dev_1".postln;
 		"ss1".postln;
+
+		/*soundCue = "Fraktal_1: 0 -> 0.5; SimpleSwitch: 1 -> 0.5"
+		~launchControlXlKnobLEDsSetRow.((1..8),0);
+		~launchControlXlKnobLEDsSetRow.([3,4],1);
+		~launchControlXlUpdateKnobLEDs.value;*/
+
 		sp.par(
 			Pspawner({ |sp2|
 				sp2.wait(6.25);
@@ -74,6 +80,11 @@ Pdef(\simpleSwitchDevelopement_1_x_triangle,
 		~lsys[\simpleSwitch_gen1].baseTempo = 1/8;
 		~lsys[\simpleSwitch_gen0].baseTempo = 1/8;
 
+		/*soundCue = "Fraktal_1: 0.5 -> 1;"
+		~launchControlXlKnobLEDsSetRow.((1..8),0);
+		~launchControlXlKnobLEDsSetRow.(4,1);
+		~launchControlXlUpdateKnobLEDs.value;*/
+
 		sp.seq(~simpleSwitchInstrState_4.(
 			inputPattern: Pn(Pdef(\simpleSwitch_gen1), 8))
 		);
@@ -91,6 +102,11 @@ Pdef(\simpleSwitchDevelopement_1_x_triangle,
 				);
 			})
 		);
+
+		/*soundCue = "SimpleSwitch: 0.5 -> 0"
+		~launchControlXlKnobLEDsSetRow.((1..8),0);
+		~launchControlXlKnobLEDsSetRow.(3,1);
+		~launchControlXlUpdateKnobLEDs.value;*/
 
 		sp.seq(~simpleSwitchInstrState_4.(
 			inputPattern: Pn(Pdef(\simpleSwitch_gen0), 32))

@@ -27,6 +27,11 @@ Pdef(\simpleSwitchDevelopement_1,
 		"ss_dev_1".postln;
 		"ss1".postln;
 
+		/*soundCue = "SimpleSwitch: 1 -> 0.5"
+		~launchControlXlKnobLEDsSetRow.((1..8),0);
+		~launchControlXlKnobLEDsSetRow.([3],1);
+		~launchControlXlUpdateKnobLEDs.value;*/
+
 		sp.par(
 			Pbind(\dur, Rest(0.025), \setDetune, Pfunc {|in|
 				~lsys[\simpleSwitch].ctranspose = in
@@ -75,7 +80,7 @@ Pdef(\simpleSwitchDevelopement_1,
 
 		~lsys[\simpleSwitch_dev4].vols = [1, 1, 1, 1, 1, 1];
 
-		sp.seq(~simpleSwitchInstrState_4.(
+		sp.seq(~simpleSwitchInstrState_4b.(
 			inputPattern: Pdef(\simpleSwitch_dev4))
 		);
 	})

@@ -9,16 +9,33 @@ Pdef(\play,
 	Pspawner({ |sp|
 		var startTime = thisThread.beats;
 		~linkClock.tempo = 1;
+
+		/*soundCue = "Setup: "
+		~launchControlXlKnobLEDsSetRow.((1..8),0);
+		8.do({|i|
+		~toLaunchControlXl.noteOn(0, (41 + i), 12);
+		});
+		~launchControlXlUpdateKnobLEDs.value;*/
+
 		sp.seq(Pdef(\exposition));
 		sp.seq(Pdef(\layers));
-		sp.seq(Pdef(\penrose_entwicklung1));
+		sp.seq(Pdef(\penrose_entwicklung1)); //können wir hier auch das panning pro branch machen? eher subtil, dann wird es breiter [0, 0.2, -0.2, 0.4, -0.4]
 		sp.seq(Pdef(\penrose_entwicklung2));  //percussion? tonhöhen? ring?
 
 		// // // Dauer: 5'12"
 		sp.seq(Pdef(\simpleSwitchDevelopement_1));
 		sp.seq(Pdef(\simpleSwitchDevelopement_1_x_triangle));
-		sp.seq(Pdef(\simpleSwitchDevelopement_2)); //fraktal und sisw biscchen ausdünnen, wirkt etwas intransparent
-		sp.seq(Pdef(\triangleDevelopement_2));
+		sp.seq(Pdef(\simpleSwitchDevelopement_2)); //können wir das wirklich bitte überarbeiten? das wirkt sehr durcheinander. ich finde auch das pattern nicht, was zu laut ist und clipt
+		sp.seq(Pdef(\triangleDevelopement_2)); // können wir bei philipp Fraktal die einzelnen branches pannen? so [0, 0.25, -0.25, 0.5, -0.5, 0.75, -0.75, 1, -1], das wäre meeeega, wie geht das?
+
+
+		/*soundCue = "Fuge_1: 0 -> 1; MasterResonance: X -> 0.75"
+		~launchControlXlKnobLEDsSetRow.((1..8),0);
+		8.do({|i|
+		~toLaunchControlXl.noteOn(0, (41 + i), 12);
+		});
+		~toLaunchControlXl.noteOn(0, 41, 60);
+		~launchControlXlUpdateKnobLEDs.value;*/
 
 		~linkClock.tempo = 1;
 		sp.seq(~fugeInstrState_1.(
@@ -31,11 +48,29 @@ Pdef(\play,
 		]));
 		);
 
+		/*soundCue = "Fuge_2: 0 -> 1; MasterResonance: X -> 0.75"
+		~launchControlXlKnobLEDsSetRow.((1..8),0);
+		8.do({|i|
+		~toLaunchControlXl.noteOn(0, (41 + i), 12);
+		});
+		~toLaunchControlXl.noteOn(0, 42, 60);
+		~launchControlXlUpdateKnobLEDs.value;*/
+
+
 		sp.seq(~fugeInstrState_2.(
 			Pseq([
 				Pdef(\fuge_develope_ende2)
 		]));
 		);
+
+		/*soundCue = "Fuge_3: 0 -> 1; MasterResonance: X -> 0.75"
+		~launchControlXlKnobLEDsSetRow.((1..8),0);
+		8.do({|i|
+		~toLaunchControlXl.noteOn(0, (41 + i), 12);
+		});
+		~toLaunchControlXl.noteOn(0, 43, 60);
+		~launchControlXlUpdateKnobLEDs.value;*/
+
 
 		~linkClock.tempo = 1;
 		sp.seq(~fugeInstrState_3.( //modem styles legato runter
@@ -45,6 +80,15 @@ Pdef(\play,
 				Pn(Pdef(\fuge_excerpt2_gen3), 2),
 		]));
 		);
+
+		/*soundCue = "Fuge_4: 0 -> 1; MasterResonance: X -> 0.75"
+		~launchControlXlKnobLEDsSetRow.((1..8),0);
+		8.do({|i|
+		~toLaunchControlXl.noteOn(0, (41 + i), 12);
+		});
+		~toLaunchControlXl.noteOn(0, 44, 60);
+		~launchControlXlUpdateKnobLEDs.value;*/
+
 
 		sp.seq(~fugeInstrState_4.(
 			Pseq([
@@ -59,12 +103,11 @@ Pdef(\play,
 )
 
 ~cueEvents !? {
-			"cue1".postln;
-			~cueEvents[\cue2].value};
+	"cue1".postln;
+	~cueEvents[\cue2].value};
 
 
-Pdef(\penrose_entwicklung2).play(~linkClock, quant:1 )
-
+Pdef(\triangleDevelopement_2).play(~linkClock, quant:1 )
 
 s.record
 Pdef(\play).clear
