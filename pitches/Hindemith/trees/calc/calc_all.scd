@@ -15,6 +15,8 @@
 		if (numNotes == 3) { events = [( 'rootNote': 0, 'list': [ 0, 4, 8 ] ), ( 'rootNote': 10, 'list': [ 0, 5, 10 ] ) ] };
 		if (numNotes == 4) { events = [ ( 'rootNote': 0, 'list': [ 0, 4, 8, 12 ] ), ( 'rootNote': 3, 'list': [ 0, 5, 10, 15 ] ) ] };
 		if (numNotes == 5) { events = [ ( 'rootNote': 0, 'list': [ 0, 4, 8, 12, 16 ] ), ( 'rootNote': 8, 'list': [ 0, 5, 10, 15, 20 ] ) ] };
+		if (numNotes == 6) { events = [ ( 'rootNote': 0, 'list': [ 0, 4, 8, 12, 16, 20 ] ), ( 'rootNote': 1, 'list': [ 0, 5, 10, 15, 20, 25 ] ) ] };
+		if (numNotes == 7) { events = [ ( 'rootNote': 0, 'list': [ 0, 4, 8, 12, 16, 20, 24 ] ), ( 'rootNote': 6, 'list': [ 0, 5, 10, 15, 20, 25, 30 ] ) ] };
 		outputs = events;
 	};
 	if(dissDegree == 11) { // B mit Tritonus VI Unbestimmbar Tritonus übergeordnet
@@ -49,7 +51,7 @@
 {
 	var result = MultiLevelIdentityDictionary.new;
 	"calculate all list comprehesions".postln;
-	[Scale.chromatic, Scale.diminished, Scale.major, Scale.bartok, Scale.whole].do {|scale|
+	[Scale.chromatic, Scale.diminished, Scale.major, Scale.minor, Scale.bartok, Scale.whole].do {|scale|
 		("scale: " ++ scale.name).postln;
 		~numNotesAll.do { |nn|
 			("\tnumNotes " ++ nn).postln;
@@ -71,7 +73,7 @@
 
 
 // inspection
-~res[\underlyingScale, 'Whole Tone', \numNotes, 3, \dissDegrees, 4]; //rootNote doesn’t work here
+~res[\underlyingScale, 'Natural Minor', \numNotes, 3, \dissDegrees, 0]; //rootNote doesn’t work here
 
 
 // copy and offset rootnote and list for every note
@@ -93,7 +95,6 @@
 }.bench
 )
 
-//'Chromatic 12 (ET12)'
 
 //inspection: ~rootOffsets[rootNote][\key, value, \key, value, \key, value]
 ~rootOffsets[1][\underlyingScale, 'Whole Tone', \numNotes, 4, \dissDegrees, 3];

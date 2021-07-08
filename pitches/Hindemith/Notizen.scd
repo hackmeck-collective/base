@@ -1,7 +1,36 @@
 
+TEILE
 
+Exposition
+8-0-7-Bartok-36-84
 
+Penrose to Pause
 
+Penrose Entwicklung
+Dann kommt ein BaseDrum-Solo - - -
+
+Penrose Entwicklung 2
+6-0-5-Major-36-84
+8-0-5-Major
+6-0-6-Major
+8-0-6-Major
+
+Penrose Kanon Pausen Crossfade
+6-0-6-Bartok-36-84
+6-0-6-Diminished-36-84
+
+Simple Switch
+9-0-7-Chromatisch-48-96
+9-0-6-Chromatisch-36-96
+
+Fraktal_1(Triangle)
+8-0-7-Bartok-48-84
+8-0-7-Bartok-36-84
+
+Philipp Fraktal
+6-0-5-Bartok-36-84
+6-0-5-Bartok-60-108
+6-0-5-Chromatisch-60-108
 
 //
 // Beim ersten Fraktal eine Variation rein bringen.
@@ -33,6 +62,9 @@
 TODO:
 Leuchten der Knöpfe funktioniert nicht mehr.
 Keys in die Gui rein holen
-Eine LED auf der GUI, die kurz leuchtet, wenn kein Akkord gefunden wurde.
-
+Ein roter Button auf der GUI, die kurz leuchtet, wenn kein Akkord gefunden wurde. (LevelIndicator?)
+Für Penrose bräuchte ich auch Moll.
+Warum funktioniert Ganztonlieiter nicht?
+Knopf: Such nen anderen Akkord mit den gleichen Parametern. (~trees-Dictionary?)
+Spreading-Parameter? Knopf, der "Zusammenfegt"?
 */

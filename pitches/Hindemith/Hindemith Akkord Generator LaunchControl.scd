@@ -115,6 +115,12 @@ MIDIdef.cc(\launchControlKnobs, {
 		//Soll Anzahl Töne steuern. Mit Dissonanzgrad wird eine Liste erstellt.
 		var newNumberOfNotes = val.linlin(0,127,3,7).round.asInteger; //3 bis 7
 		//newNumberOfNotes.postln;
+		if (~listAndParameters.numNotes != newNumberOfNotes)
+		{
+			"numNotes: ".post;
+			~listAndParameters.numNotes = newNumberOfNotes.postln;
+			~actualizeGUI.value;
+		};
 		if (~listAndParameters.list.size != newNumberOfNotes )
 		{
 			var closestList;
@@ -139,11 +145,11 @@ MIDIdef.cc(\launchControlKnobs, {
 				rootNote: ~listAndParameters.rootNote,
 				dissDegree: ~listAndParameters.dissDegree
 			);
-			"numNotes: ".post;
-			~listAndParameters.numNotes = newNumberOfNotes.postln;
-			~actualizeGUI.value;
+
 			if(closestList.notNil){
 				~listAndParameters.list = closestList;
+				~listAndParameters.numNotes = ~listAndParameters.list.size;
+				~actualizeGUI.value;
 				if(~gateOpen[3] == true){~sendWithHail.((list: ~listAndParameters.list, rootNote: ~listAndParameters.rootNote));};
 			}{
 				"no new list".postln
@@ -152,7 +158,7 @@ MIDIdef.cc(\launchControlKnobs, {
 	}
 	{ num == 24 } { //Drehknopf 4 oben
 		//Steuert die Skala auf deren Grundlage die Akkorde erstellt werden.
-		var newUnderlyingScale = ['Chromatic 12 (ET12)', 'Diminished', 'Major', 'Bartok', 'Whole Tone'].at(val.linlin(0,127,0,4).round.asInteger);
+		var newUnderlyingScale = ['Chromatic 12 (ET12)', 'Diminished', 'Major', 'Natural Minor', 'Bartok', 'Whole Tone'].at(val.linlin(0,127,0,5).round.asInteger);
 		if (newUnderlyingScale != ~listAndParameters.underlyingScale) {
 			var closestList = ~searchTreeNearestOld.(
 				underlyingScale: newUnderlyingScale,
