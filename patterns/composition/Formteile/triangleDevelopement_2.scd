@@ -28,6 +28,7 @@ Pdef(\triangleDevelopement_2,
 
 
 		"fraktal_13 A".postln;
+~cueSymbols[\new] = 'fraktal_13 A';
 
 		/*soundCue = "MasterFilter: 1 -> 0.5; MasterResonance: 0.75"
 		~launchControlXlKnobLEDsSetRow.((1..8),0);
@@ -40,6 +41,7 @@ Pdef(\triangleDevelopement_2,
 
 
 		"fraktal_13 B".postln;
+~cueSymbols[\new] = 'fraktal_13 B';
 
 		/*soundCue = "MasterFilter: 0.5 -> 1; MasterResonance: 0.75 -> 0"
 		~launchControlXlKnobLEDsSetRow.((1..8),0);
@@ -51,6 +53,7 @@ Pdef(\triangleDevelopement_2,
 		);
 
 		"fraktal_1_inverse7".postln;
+~cueSymbols[\new] = 'fraktal_1_inverse7_2nd';
 
 		/*soundCue = "Fraktal_1: 0 -> 1"
 		~launchControlXlKnobLEDsSetRow.((1..8),0);

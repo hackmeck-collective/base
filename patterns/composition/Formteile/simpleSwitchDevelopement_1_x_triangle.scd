@@ -82,6 +82,9 @@ Pdef(\simpleSwitchDevelopement_1_x_triangle,
 		~lsys[\simpleSwitch_gen1].baseTempo = 1/8;
 		~lsys[\simpleSwitch_gen0].baseTempo = 1/8;
 
+
+		~cueSymbols[\new] = 'fraktal_1_half';
+
 		/*soundCue = "Fraktal_1: 0.5 -> 1;"
 		~launchControlXlKnobLEDsSetRow.((1..8),0);
 		~launchControlXlKnobLEDsSetRow.(4,1);
@@ -104,6 +107,9 @@ Pdef(\simpleSwitchDevelopement_1_x_triangle,
 				);
 			})
 		);
+
+
+		~cueSymbols[\new] = 'simpleSwitch_fadeOut';
 
 		/*soundCue = "SimpleSwitch: 0.5 -> 0"
 		~launchControlXlKnobLEDsSetRow.((1..8),0);

@@ -151,10 +151,16 @@ s.waitForBoot {
 (
 "loading control interfaces".postln;
 "control_interfaces/midi_defs_launchcontrol-xl.scd".loadRelative;
-// "control_interfaces/performance_programs_launchcontrol-xl/launchcontrol-xl_load_modules.scd".loadRelative;
-// "control_interfaces/cueWindowSetup.scd".loadRelative;
-// "control_interfaces/cues.scd".loadRelative;
-s.meter(0,2);
+"cues/benni_cues.scd".loadRelative;
+
+	~cueFunction = {|cue|
+	~benniCues[(cue).asSymbol].fork(AppClock);
+	 };
 )
+
+
+~benniCues['weed buildup 1'].fork(AppClock);
+
+~benniCues['penrose buildup 1'].fork(AppClock);
 
 s.record

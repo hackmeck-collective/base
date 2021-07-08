@@ -28,6 +28,7 @@ Pdef(\play,
 		sp.seq(Pdef(\simpleSwitchDevelopement_2)); //können wir das wirklich bitte überarbeiten? das wirkt sehr durcheinander. ich finde auch das pattern nicht, was zu laut ist und clipt
 		sp.seq(Pdef(\triangleDevelopement_2)); // können wir bei philipp Fraktal die einzelnen branches pannen? so [0, 0.25, -0.25, 0.5, -0.5, 0.75, -0.75, 1, -1], das wäre meeeega, wie geht das?
 
+~cueSymbols[\new] = 'Fuge_1_1st';
 
 		/*soundCue = "Fuge_1: 0 -> 1; MasterResonance: X -> 0.75"
 		~launchControlXlKnobLEDsSetRow.((1..8),0);
@@ -48,6 +49,9 @@ Pdef(\play,
 		]));
 		);
 
+
+~cueSymbols[\new] = 'Fuge_1_2nd';
+
 		/*soundCue = "Fuge_2: 0 -> 1; MasterResonance: X -> 0.75"
 		~launchControlXlKnobLEDsSetRow.((1..8),0);
 		8.do({|i|
@@ -62,6 +66,9 @@ Pdef(\play,
 				Pdef(\fuge_develope_ende2)
 		]));
 		);
+
+
+~cueSymbols[\new] = 'Fuge_1_3rd';
 
 		/*soundCue = "Fuge_3: 0 -> 1; MasterResonance: X -> 0.75"
 		~launchControlXlKnobLEDsSetRow.((1..8),0);
@@ -80,6 +87,9 @@ Pdef(\play,
 				Pn(Pdef(\fuge_excerpt2_gen3), 2),
 		]));
 		);
+
+
+~cueSymbols[\new] = 'Fuge_1_4th';
 
 		/*soundCue = "Fuge_4: 0 -> 1; MasterResonance: X -> 0.75"
 		~launchControlXlKnobLEDsSetRow.((1..8),0);
