@@ -53,7 +53,7 @@ SynthDef(\melody_bus, {
 	sidechain = in * duck_4 * duck_8;
 
 	Out.ar(~instruments_bus, sidechain);
-	Out.ar(~melody_bus_direct_out, sidechain);
+	Out.ar(2, sidechain);
 
 }).add;
 
@@ -86,29 +86,7 @@ SynthDef(\chords_bus, {
 	sidechain = in * duck_4 * duck_8;
 
 	Out.ar(~instruments_bus, sidechain);
-	Out.ar(~chords_bus_direct_out, sidechain);
-
-}).add;
-
-SynthDef(\drums_bus, {
-	arg eqLoShelf_freq, eqLoShelf_q, eqLoShelf_db,
-	eqBand1_freq, eqBand1_q, eqBand1_db,
-	eqBand2_freq, eqBand2_q, eqBand2_db,
-	eqBand3_freq, eqBand3_q, eqBand3_db,
-	eqHiShelf_freq, eqHiShelf_q, eqHiShelf_db;
-
-	var in;
-
-	in = In.ar(~drums_bus, 2) * \on.kr(1, 0.001);
-
-	in = BLowShelf.ar(in, eqLoShelf_freq, eqLoShelf_q, eqLoShelf_db);
-	in = BPeakEQ.ar(in, eqBand1_freq, eqBand1_q, eqBand1_db);
-	in = BPeakEQ.ar(in, eqBand2_freq, eqBand2_q, eqBand2_db);
-	in = BPeakEQ.ar(in, eqBand3_freq, eqBand3_q, eqBand3_db);
-	in = BHiShelf.ar(in, eqHiShelf_freq, eqHiShelf_q, eqHiShelf_db);
-
-	Out.ar(~instruments_bus, in);
-	Out.ar(~drums_bus_direct_out, in);
+	Out.ar(4, sidechain);
 
 }).add;
 
@@ -131,7 +109,29 @@ SynthDef(\aux_bus, {
 	in = BHiShelf.ar(in, eqHiShelf_freq, eqHiShelf_q, eqHiShelf_db);
 
 	Out.ar(~instruments_bus, in);
-	Out.ar(~aux_bus_direct_out, in);
+	Out.ar(6, in);
+
+}).add;
+
+SynthDef(\drums_bus, {
+	arg eqLoShelf_freq, eqLoShelf_q, eqLoShelf_db,
+	eqBand1_freq, eqBand1_q, eqBand1_db,
+	eqBand2_freq, eqBand2_q, eqBand2_db,
+	eqBand3_freq, eqBand3_q, eqBand3_db,
+	eqHiShelf_freq, eqHiShelf_q, eqHiShelf_db;
+
+	var in;
+
+	in = In.ar(~drums_bus, 2) * \on.kr(1, 0.001);
+
+	in = BLowShelf.ar(in, eqLoShelf_freq, eqLoShelf_q, eqLoShelf_db);
+	in = BPeakEQ.ar(in, eqBand1_freq, eqBand1_q, eqBand1_db);
+	in = BPeakEQ.ar(in, eqBand2_freq, eqBand2_q, eqBand2_db);
+	in = BPeakEQ.ar(in, eqBand3_freq, eqBand3_q, eqBand3_db);
+	in = BHiShelf.ar(in, eqHiShelf_freq, eqHiShelf_q, eqHiShelf_db);
+
+	Out.ar(~instruments_bus, in);
+	Out.ar(8, in);
 
 }).add;
 
@@ -162,7 +162,7 @@ SynthDef(\effect_bus, {
 	in = BHiShelf.ar(in, eqHiShelf_freq, eqHiShelf_q, eqHiShelf_db);
 
 	Out.ar(~master, in);
-	Out.ar(~effect_bus_direct_out, in);
+	Out.ar(10, in);
 
 }).add;
 

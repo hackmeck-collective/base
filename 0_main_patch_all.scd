@@ -131,6 +131,7 @@ s.waitForBoot {
 		/*if(~addrBook.me.name == \Admin){
 		midiDeviceBenni.value
 		};*/
+
 	};
 
 };
@@ -154,13 +155,13 @@ s.waitForBoot {
 "cues/benni_cues.scd".loadRelative;
 
 	~cueFunction = {|cue|
-	~benniCues[(cue).asSymbol].fork(AppClock);
+
+	if(~benniCues[cue.asSymbol].notNil) {
+	~benniCues[cue.asSymbol].fork(AppClock);
+}{ "cue not in Dictionary".postln; };
 	 };
+
+
 )
-
-
-~benniCues['weed buildup 1'].fork(AppClock);
-
-~benniCues['penrose buildup 1'].fork(AppClock);
 
 s.record

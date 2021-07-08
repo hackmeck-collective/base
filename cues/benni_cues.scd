@@ -7,7 +7,7 @@
 ~cueWindowText.font = Font("Monaco", 48);
 ~cueWindowText.string = "cues";
 ~meterWindow ?? {~meterWindow =  Window.new("meter", Rect(100,50,1400,250)).front};
-~cueWindowMeter = ServerMeterView.new(s,~meterWindow, 0@0, 0, 10);
+~cueWindowMeter = ServerMeterView.new(s,~meterWindow, 0@0, 0, s.options.numOutputBusChannels);
 ~cueWindowText.string = "Weed: 1, SimpleSwitch: 0, masterFilter: 0.5, res: 0";
 ~launchControlXlKnobLEDsSetRow.((1..8),0);
 ~launchControlXlKnobLEDsSetRow.([1,2,3,4,5,8],3);
@@ -155,6 +155,14 @@
 	~launchControlXlKnobLEDsSetRow.((1..8),0);
 	~launchControlXlUpdateKnobLEDs.value;
 	"penrose_pauses_gen2".postln;
+}
+);
+
+~benniCues.add('penrose_canon' -> {
+	~cueWindowText.string = "Wait";
+	~launchControlXlKnobLEDsSetRow.((1..8),0);
+	~launchControlXlUpdateKnobLEDs.value;
+	"penrose_canon".postln;
 }
 );
 
