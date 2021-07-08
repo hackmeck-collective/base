@@ -158,7 +158,7 @@ s.waitForBoot {
 
 	if(~benniCues[cue.asSymbol].notNil) {
 	~benniCues[cue.asSymbol].fork(AppClock);
-}{ "cue not in Dictionary".postln; };
+}{ "ERROR: cue not in Dictionary".postln; };
 	 };
 
 
