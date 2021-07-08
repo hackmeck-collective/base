@@ -65,6 +65,7 @@ Keys in die Gui rein holen
 Ein roter Button auf der GUI, die kurz leuchtet, wenn kein Akkord gefunden wurde. (LevelIndicator?)
 Für Penrose bräuchte ich auch Moll.
 Warum funktioniert Ganztonlieiter nicht?
+Eigentlich will ich bei Root doch \frei einstellen können. Als Folge sollte ich daneben einen Parameter haben in dem man Root-Skala eingibt (weil natürlich verschiedene Akkordgrundtöne in einer Skala vorkommen).
 Knopf: Such nen anderen Akkord mit den gleichen Parametern. (~trees-Dictionary?)
 Spreading-Parameter? Knopf, der "Zusammenfegt"?
 */

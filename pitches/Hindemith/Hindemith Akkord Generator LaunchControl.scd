@@ -79,13 +79,14 @@ MIDIdef.cc(\launchControlKnobs, {
 
 			"dissDegree: ".post;
 			~listAndParameters.dissDegree = newDissDegree.postln;
-			~actualizeGUI.value;
+
 			if(closestList.notNil){
 				~listAndParameters.list = closestList;
 				if(~gateOpen[1] == true){~sendWithHail.((list: ~listAndParameters.list, rootNote: ~listAndParameters.rootNote));};
 			}{
 				"no new list".postln
-			}
+			};
+			~actualizeGUI.value;
 		}
 	}
 	{ num == 22 } { //Drehknopf 2 oben
@@ -101,14 +102,14 @@ MIDIdef.cc(\launchControlKnobs, {
 			);
 			"rootNote: ".post;
 			~listAndParameters.rootNote = newRootValue.postln;
-			~actualizeGUI.value;
+
 			if(closestList.notNil){
 				~listAndParameters.list = closestList;
 				if(~gateOpen[2] == true){~sendWithHail.((list: ~listAndParameters.list, rootNote: ~listAndParameters.rootNote));};
 			}{
 				"no new list".postln
-			}
-
+			};
+			~actualizeGUI.value;
 		}
 	}
 	{ num == 23 } { //Drehknopf 3 oben
@@ -149,11 +150,11 @@ MIDIdef.cc(\launchControlKnobs, {
 			if(closestList.notNil){
 				~listAndParameters.list = closestList;
 				~listAndParameters.numNotes = ~listAndParameters.list.size;
-				~actualizeGUI.value;
 				if(~gateOpen[3] == true){~sendWithHail.((list: ~listAndParameters.list, rootNote: ~listAndParameters.rootNote));};
 			}{
 				"no new list".postln
-			}
+			};
+			~actualizeGUI.value;
 		}
 	}
 	{ num == 24 } { //Drehknopf 4 oben
@@ -168,13 +169,14 @@ MIDIdef.cc(\launchControlKnobs, {
 			);
 			"underlyingScale: ".post;
 			~listAndParameters.underlyingScale = newUnderlyingScale.postln;
-			~actualizeGUI.value;
+
 			if(closestList.notNil){
 				~listAndParameters.list = closestList;
 				if(~gateOpen[4] == true){~sendWithHail.((list: ~listAndParameters.list, rootNote: ~listAndParameters.rootNote));};
 			}{
 				"no new list".postln
-			}
+			};
+			~actualizeGUI.value;
 
 		}
 	}
