@@ -110,6 +110,8 @@ Pdef(\exposition,
 		])
 		);
 
+		~cueSymbols[\new] = 'weed buildup 1_2';
+
 		~lsys[\weed_gen1].noteOffset = weedOffset_1;
 		~lsys[\weed_gen1].baseTempo = 1/2;
 		~lsys[\weed_gen2].noteOffset = weedOffset_1;
@@ -151,6 +153,9 @@ Pdef(\exposition,
 
 		]))
 		);
+
+		~cueSymbols[\new] = 'weed buildup 1_3';
+
 
 		sp.seq(Pbind(\vca_attack, 0.5,
 			\vca_release, Pseg([1,5],7))
