@@ -18,7 +18,9 @@ Pdef(\simpleSwitchDevelopement_1_x_triangle,
 		~lsys[\simpleSwitch_dev4].noteOffset = 14;
 		~lsys[\simpleSwitch_dev4].branchInterval = 7;
 
-"ss_dev_1".postln;
+		"ss_dev_1_x_triangle".postln;
+		~cueSymbols[\new] = 'ss_dev_1_x_triangle';
+
 		"ss1".postln;
 
 		/*soundCue = "Fraktal_1: 0 -> 0.5; SimpleSwitch: 1 -> 0.5"

@@ -55,6 +55,7 @@ Pdef(\penrose_entwicklung1,
 		);
 
 		"penrose to pause".postln;
+		~cueSymbols[\new] = 'penrose to pause';
 		sp.seq(Ppar([
 			~penroseInstrState_5.(
 				inputPattern: Pn(Pdef(\penrose_toPause), 4)
@@ -66,6 +67,8 @@ Pdef(\penrose_entwicklung1,
 		);
 
 		"penrose to pause2".postln;
+		~cueSymbols[\new] = 'penrose to pause2';
+
 		sp.seq(Ppar([
 			~penroseInstrState_5.(
 				inputPattern: Pn(Pdef(\penrose_toPause2), 4)
@@ -80,6 +83,8 @@ Pdef(\penrose_entwicklung1,
 		);
 
 		"penrose to pause3".postln;
+		~cueSymbols[\new] = 'penrose to pause3';
+
 		sp.seq(Ppar([
 			~penroseInstrState_3.(
 				inputPattern: Pn(Pdef(\penrose_toPause3), 4)
@@ -87,7 +92,9 @@ Pdef(\penrose_entwicklung1,
 		])
 		);
 
-		"penrose_pauses_gen1[".postln;
+		"penrose_pauses_gen1".postln;
+		~cueSymbols[\new] = 'penrose_pauses_gen1';
+
 		sp.seq(Ppar([
 			~penroseInstrState_6.(
 				inputPattern: Pn(Pdef(\penrose_pauses_gen1),4)
@@ -112,6 +119,8 @@ Pdef(\penrose_entwicklung1,
 		);
 
 		"penrose_pauses_gen2".postln;
+		~cueSymbols[\new] = 'penrose_pauses_gen2';
+
 		sp.seq(Ppar([
 			~penroseInstrState_6.(
 				inputPattern: Pn(Pdef(\penrose_pauses_gen2),2)
@@ -139,6 +148,8 @@ Pdef(\penrose_entwicklung1,
 		);
 
 		"penrose_pauses_gen3".postln;
+		~cueSymbols[\new] = 'penrose_pauses_gen3';
+
 		sp.seq(Ppar([
 			~penroseInstrState_7.(
 				inputPattern: Pn(Pdef(\penrose_pauses_gen3),2)
@@ -153,6 +164,8 @@ Pdef(\penrose_entwicklung1,
 		);
 
 		"penrose to pause3".postln;
+		~cueSymbols[\new] = 'penrose to pause3';
+
 		sp.seq(Ppar([
 			~penroseInstrState_7.(
 				inputPattern: Pn(Pdef(\penrose_toPause3), 4)

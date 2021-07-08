@@ -25,6 +25,8 @@ Pdef(\simpleSwitchDevelopement_1,
 		~lsys[\simpleSwitch_dev4].branchInterval = -7;
 
 		"ss_dev_1".postln;
+		~cueSymbols[\new] = 'ss_dev_1';
+
 		"ss1".postln;
 
 		/*soundCue = "SimpleSwitch: 1 -> 0.5"

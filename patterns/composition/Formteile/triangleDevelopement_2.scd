@@ -12,6 +12,8 @@ Pdef(\triangleDevelopement_2,
 		~lsys[\fraktal_17].ctranspose = 12;
 
 		"fraktal_1_inverse7".postln;
+		~cueSymbols[\new] = 'fraktal_1_inverse7';
+
 
 		/*soundCue = "Fraktal_1: 0 -> 1; MasterResonance: X -> 0.75"
 		~launchControlXlKnobLEDsSetRow.((1..8),0);

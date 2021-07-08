@@ -166,7 +166,7 @@ Pdef(\exposition,
 		sp.wait(8);
 
 		"penrose buildup 1".postln; // mit percussion und umgedreht
-
+		~cueSymbols[\new] = 'penrose buildup 1';
 		/*soundCue = "SimpleSwitch: X -> 0;"
 		~launchControlXlKnobLEDsSetRow.((1..8),0);
 		~launchControlXlKnobLEDsSetRow.([3,8],3);
@@ -241,6 +241,8 @@ Pdef(\exposition,
 ~lsys[\fuge_excerpt_gen1].baseTempo = 0.0625;
 
 		"simpleSwitch buildup 1".postln;
+		~cueSymbols[\new] = 'simpleSwitch buildup 1';
+
 
 		~lsys[\penrose_simplesimple_gen1].noteOffset = penroseOffset_1 -12;
 		~lsys[\penrose_simplesimple_gen1].baseTempo = 3/16;
@@ -295,6 +297,8 @@ Pdef(\exposition,
 		sp.wait(2);
 
 		"weed and penrose".postln;
+		~cueSymbols[\new] = 'weed and penrose';
+
 
 		/*soundCue = "Weed: X -> 0; SimpleSwitch: X -> 1;"
 		~launchControlXlKnobLEDsSetRow.((1..8),0);
@@ -356,6 +360,7 @@ Pdef(\exposition,
 		~launchControlXlUpdateKnobLEDs.value;*/
 
 		"weed and simpleswitch".postln;
+		~cueSymbols[\new] = 'weed and simpleswitch';
 
 		~lsys[\weed_gen1].baseTempo = 3/4;
 		~lsys[\weed_gen1].noteOffset = weedOffset_1-7;

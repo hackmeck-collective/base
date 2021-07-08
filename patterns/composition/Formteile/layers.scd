@@ -5,7 +5,9 @@ Pdef(\layers,
 		var penroseOffset_1 = 12;
 		var simpleSwitchOffset_1 = 0;
 
-		/*"weed and penrose 2".postln;
+		"weed and penrose 2".postln;
+		~cueSymbols[\new] = 'weed and penrose 2';
+
 
 		~lsys[\weed_gen2].baseTempo = 1/4;
 		~lsys[\weed_gen2].noteOffset = weedOffset_1-5;
@@ -75,8 +77,8 @@ Pdef(\layers,
 		~lsys[\simpleSwitch_click_gen0].baseTempo = 3/16;
 
 
-
 		"simpleSwitch and weed".postln;
+		~cueSymbols[\new] = 'simpleSwitch and weed';
 
 		sp.seq(~simpleSwitchInstrState_2.(
 			inputPattern: Pseq([
@@ -157,12 +159,14 @@ Pdef(\layers,
 
 
 		"simpleSwitch to penrose".postln;
+		~cueSymbols[\new] = 'simpleSwitch to penrose';
+
 
 		/*soundCue = "SimpleSwitch: 1 -> 0"
 		~launchControlXlKnobLEDsSetRow.((1..8),0);
 		~launchControlXlKnobLEDsSetRow.(3,1);
 		~launchControlXlUpdateKnobLEDs.value;*/
-*/
+
 		~lsys[\penrose_simple_gen0].baseTempo = 3/16;
 		~lsys[\penrose_simple_gen1].baseTempo = 3/16;
 		~lsys[\penrose_simple_gen2].baseTempo = 3/16;
@@ -218,6 +222,8 @@ Pdef(\layers,
 
 
 		"weed".postln;
+		~cueSymbols[\new] = 'weed';
+
 
 		sp.seq(Pbind(\amp, Pseg([12.dbamp, -3.dbamp],12.1875),
 			\vca_attack, 1,

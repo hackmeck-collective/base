@@ -2,6 +2,8 @@ Pdef(\simpleSwitchDevelopement_2,
 	Pspawner({ |sp|
 
 		"ss_dev_2".postln;
+		~cueSymbols[\new] = 'ss_dev_2';
+
 		"ss_4".postln;
 		sp.par(
 			Pspawner({ |sp2|

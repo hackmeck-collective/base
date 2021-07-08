@@ -15,6 +15,7 @@ Pdef(\triangleDevelopement_1,
 		~launchControlXlKnobLEDsSetRow.((1..8),0);
 		~launchControlXlKnobLEDsSetRow.([4],1);
 		~launchControlXlUpdateKnobLEDs.value;*/
+		~cueSymbols[\new] = 'fraktal_12';
 
 		"fraktal_12".postln;
 		[ 1, 2.125, 3.25, 4.375, 5.5, 6.625, 7.625, 8.875, 10.0].differentiate.do { |waitTime|

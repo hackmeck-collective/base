@@ -30,6 +30,8 @@ Pdef(\penrose_entwicklung2,
 
 
 		"penrose_pauses_gen4".postln;
+		~cueSymbols[\new] = 'penrose_pauses_gen4';
+
 
 		sp.seq(Ppar([
 		Pbind(\amp, 0.23) <> ~penroseInstrState_7.(
@@ -38,6 +40,8 @@ Pdef(\penrose_entwicklung2,
 		);
 
 		"penrose_canon".postln;
+		~cueSymbols[\new] = 'penrose_canon';
+
 
 		sp.seq(Ppar([
 		~penroseInstrState_7.(
@@ -49,6 +53,8 @@ Pdef(\penrose_entwicklung2,
 		);
 
 		"penrose_canon_pausen x fade".postln;
+		~cueSymbols[\new] = 'penrose_canon_pausen x fade';
+
 
 		sp.seq(
 		~patternVolumeFade.(
@@ -69,6 +75,8 @@ Pdef(\penrose_entwicklung2,
 		Pn(Pdef(\penrose_canon_1),3).calcFullDelta*/
 
 		"penrose_canon_pausen1".postln;
+		~cueSymbols[\new] = 'penrose_canon_pausen1';
+
 
 		sp.seq(Ppar([
 		~penroseInstrState_8.(
@@ -78,6 +86,8 @@ Pdef(\penrose_entwicklung2,
 		);
 
 		"penrose_canon_pausen2".postln;
+		~cueSymbols[\new] = 'penrose_canon_pausen2';
+
 
 		sp.seq(Ppar([
 		~penroseInstrState_8.(
@@ -87,6 +97,8 @@ Pdef(\penrose_entwicklung2,
 		);
 
 		"penrose_canon_mehr_pausen x-fade".postln;
+		~cueSymbols[\new] = 'penrose_canon_mehr_pausen x-fade';
+
 
 		sp.seq(
 		~patternVolumeFade.(
@@ -108,6 +120,8 @@ Pdef(\penrose_entwicklung2,
 		Pn(Pdef(\penrose_canon_pausen_2),8).calcFullDelta*/
 
 		"halftime fade in".postln;
+		~cueSymbols[\new] = 'halftime fade in';
+
 
 		sp.par(~penroseInstrState_8.(
 			inputPattern: Pn(Pdef(\penrose_canon_mehr_pausen),4)
@@ -120,6 +134,8 @@ Pdef(\penrose_entwicklung2,
 			inputPattern: Pn(Pdef(\penrose_canon_mehr_pausen_ht),2)) //dauert 20,666666
 		);
 		"normaltime fade out".postln;
+		~cueSymbols[\new] = 'normaltime fade out';
+
 
 		sp.par(
 			~penroseInstrState_8.(
@@ -135,6 +151,8 @@ Pdef(\penrose_entwicklung2,
 		);
 
 		"penrose_canon_mehr_pausen".postln;
+		~cueSymbols[\new] = 'penrose_canon_mehr_pausen';
+
 
 		sp.seq(
 			~penroseInstrState_8.(
@@ -143,6 +161,8 @@ Pdef(\penrose_entwicklung2,
 		);
 
 		"penrose_canon_mehr_pausen2".postln;
+		~cueSymbols[\new] = 'penrose_canon_mehr_pausen2';
+
 
 		sp.seq(Ppar([
 			~penroseInstrState_8.(
@@ -152,6 +172,8 @@ Pdef(\penrose_entwicklung2,
 		);
 
 		"penrose_canon_mehr_pausen3".postln;
+		~cueSymbols[\new] = 'penrose_canon_mehr_pausen3';
+
 
 		sp.seq(Ppar([
 			~penroseInstrState_8.(
@@ -162,6 +184,8 @@ Pdef(\penrose_entwicklung2,
 
 
 		"transition_penrose_simpleSwitch".postln;
+		~cueSymbols[\new] = 'transition_penrose_simpleSwitch';
+
 
 		sp.seq(
 			~patternNotesFade.(
