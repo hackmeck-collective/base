@@ -30,7 +30,7 @@ if (~launchcontrol_xl_port.isNil) {
 MIDIdef.cc(\knobsAndFaders, {
 	|val, num|
 
-	var approachValue = val.linlin(1,127,0,1);
+	var approachValue = val.linlin(1,127,0,1)/*.postln*/;
 	var busIndex;
 	var savedValue;
 	var smoothedValue;

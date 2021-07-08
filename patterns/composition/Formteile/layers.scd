@@ -162,11 +162,6 @@ Pdef(\layers,
 		~cueSymbols[\new] = 'simpleSwitch to penrose';
 
 
-		/*soundCue = "SimpleSwitch: 1 -> 0"
-		~launchControlXlKnobLEDsSetRow.((1..8),0);
-		~launchControlXlKnobLEDsSetRow.(3,1);
-		~launchControlXlUpdateKnobLEDs.value;*/
-
 		~lsys[\penrose_simple_gen0].baseTempo = 3/16;
 		~lsys[\penrose_simple_gen1].baseTempo = 3/16;
 		~lsys[\penrose_simple_gen2].baseTempo = 3/16;
@@ -183,8 +178,6 @@ Pdef(\layers,
 		Pn(Pdef(\simpleSwitch_gen0),12)
 		])
 		));
-
-
 
 		sp.seq(Pbind(\amp, 3.dbamp)
 			<> ~penroseInstrState_1.(

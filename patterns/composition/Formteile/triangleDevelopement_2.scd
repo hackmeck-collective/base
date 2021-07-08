@@ -81,6 +81,7 @@ Pdef(\triangleDevelopement_2,
 
 		player1.stop; player2.stop; player3.stop;*/
 
+~cueSymbols[\new] = 'fraktal_philipp';
 
 
 		{

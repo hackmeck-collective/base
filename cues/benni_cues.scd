@@ -28,7 +28,7 @@ masterFilter: 0.5, res: 0";
 ~benniCues.add('weed buildup 1_2' -> {
 	~cueWindowText.string = "Weed: 0.66 -> 0.33";
 	~launchControlXlKnobLEDsSetRow.((1..8),0);
-	~launchControlXlKnobLEDsSetRow.([1],1);
+	~launchControlXlKnobLEDsSetRow.(1,1);
 	~launchControlXlUpdateKnobLEDs.value;
 	"weed buildup 1".postln;
 }
@@ -37,7 +37,7 @@ masterFilter: 0.5, res: 0";
 ~benniCues.add('weed buildup 1_3' -> {
 	~cueWindowText.string = "Weed: 0.33 -> 0;";
 	~launchControlXlKnobLEDsSetRow.((1..8),0);
-	~launchControlXlKnobLEDsSetRow.([1],1);
+	~launchControlXlKnobLEDsSetRow.(1,1);
 	~launchControlXlUpdateKnobLEDs.value;
 	"weed buildup 1".postln;
 }
@@ -80,17 +80,18 @@ masterFilter: 0.5, res: 0";
 );
 
 ~benniCues.add('weed and penrose 2' -> {
-	~cueWindowText.string = "Wait";
+	~cueWindowText.string = "SimpleSwitch: 0";
 	~launchControlXlKnobLEDsSetRow.((1..8),0);
+	~launchControlXlKnobLEDsSetRow.(3,3);
 	~launchControlXlUpdateKnobLEDs.value;
 	"weed and penrose 2".postln;
 }
 );
 
 ~benniCues.add('simpleSwitch and weed' -> {
-	~cueWindowText.string = "SimpleSwitch: 1";
+	~cueWindowText.string = "SimpleSwitch: 0 -> 1";
 	~launchControlXlKnobLEDsSetRow.((1..8),0);
-	~launchControlXlKnobLEDsSetRow.(3,3);
+	~launchControlXlKnobLEDsSetRow.(3,1);
 	~launchControlXlUpdateKnobLEDs.value;
 	"simpleSwitch and weed".postln;
 }
@@ -170,40 +171,47 @@ masterFilter: 0.5, res: 0";
 );
 
 ~benniCues.add('penrose_pauses_gen4' -> {
-	~cueWindowText.string = "Wait";
+	~cueWindowText.string = "Masterfilter: 1 -> 0.75,
+Res: 0 -> 0.8";
 	~launchControlXlKnobLEDsSetRow.((1..8),0);
+	~launchControlXlKnobLEDsSetRow.(8,1);
 	~launchControlXlUpdateKnobLEDs.value;
-	"penrose_pauses_gen2".postln;
+	"penrose_pauses_gen4".postln;
 }
 );
 
 ~benniCues.add('penrose_canon' -> {
-	~cueWindowText.string = "Wait";
+	~cueWindowText.string = "Masterfilter: 0.5 slow sine,
+Resonance: 0.9";
 	~launchControlXlKnobLEDsSetRow.((1..8),0);
+	~launchControlXlKnobLEDsSetRow.(8,1);
 	~launchControlXlUpdateKnobLEDs.value;
 	"penrose_canon".postln;
 }
 );
 
 ~benniCues.add('penrose_canon_pausen x fade' -> {
-	~cueWindowText.string = "Wait";
+	~cueWindowText.string = "Masterfilter: 0.5 slow sine,
+Resonance: 0.9";
 	~launchControlXlKnobLEDsSetRow.((1..8),0);
-	~launchControlXlUpdateKnobLEDs.value;
+	~launchControlXlKnobLEDsSetRow.(8,1);
 	"penrose_canon_pausen x fade".postln;
 }
 );
 
 ~benniCues.add('penrose_canon_pausen1' -> {
-	~cueWindowText.string = "Wait";
+	~cueWindowText.string = "Masterfilter: 0.5 slow sine,
+Resonance: 0.9";
 	~launchControlXlKnobLEDsSetRow.((1..8),0);
-	~launchControlXlUpdateKnobLEDs.value;
+	~launchControlXlKnobLEDsSetRow.(8,1);
 	"penrose_canon_pausen1".postln;
 }
 );
 
 ~benniCues.add('penrose_canon_mehr_pausen x-fade' -> {
-	~cueWindowText.string = "Wait";
+	~cueWindowText.string = "Masterfilter: 0.5 -> 1";
 	~launchControlXlKnobLEDsSetRow.((1..8),0);
+	~launchControlXlKnobLEDsSetRow.(8,1);
 	~launchControlXlUpdateKnobLEDs.value;
 	"penrose_canon_mehr_pausen x-fade".postln;
 }
@@ -227,13 +235,8 @@ masterFilter: 0.5, res: 0";
 
 ~benniCues.add('penrose_canon_mehr_pausen' -> {
 	~cueWindowText.string = "Wait";
-	~launchControlXlKnobLEDsSetRow.((1..~benniCues.add('transition_penrose_simpleSwitch' -> {
-		~cueWindowText.string = "Wait";
-		~launchControlXlKnobLEDsSetRow.((1..8),0);
-		~launchControlXlUpdateKnobLEDs.value;
-		"transition_penrose_simpleSwitch".postln;
-	}
-	);8),0);
+	~launchControlXlKnobLEDsSetRow.((1..8),0);
+	~launchControlXlUpdateKnobLEDs.value;
 	~launchControlXlUpdateKnobLEDs.value;
 	"penrose_canon_mehr_pausen".postln;
 }
@@ -319,7 +322,8 @@ masterFilter: 0.5, res: 0";
 );
 
 ~benniCues.add('fraktal_1_inverse7' -> {
-	~cueWindowText.string = "Fraktal_1: 0 -> 1; MasterResonance: 0.75";
+	~cueWindowText.string = "Fraktal_1: 1 -> 0 -> 1,
+MasterResonance: 0.75";
 	~launchControlXlKnobLEDsSetRow.((1..8),0);
 	~launchControlXlKnobLEDsSetRow.(4,1);
 	~launchControlXlKnobLEDsSetRow.(8,3);
@@ -329,76 +333,78 @@ masterFilter: 0.5, res: 0";
 );
 
 ~benniCues.add('fraktal_13 A' -> {
-	~cueWindowText.string = "MasterFilter: 1 -> 0.5; MasterResonance: 0.75";
-		~launchControlXlKnobLEDsSetRow.((1..8),0);
-		~launchControlXlKnobLEDsSetRow.(8,1);
-		~launchControlXlUpdateKnobLEDs.value;
+	~cueWindowText.string = "MasterFilter: 1 -> 0.5 in steps,
+MasterResonance: 0.75";
+	~launchControlXlKnobLEDsSetRow.((1..8),0);
+	~launchControlXlKnobLEDsSetRow.(8,1);
+	~launchControlXlUpdateKnobLEDs.value;
 	"fraktal_13 A".postln;
 }
 );
 
 ~benniCues.add('fraktal_13 B' -> {
-	~cueWindowText.string = "MasterFilter: 0.5 -> 1; MasterResonance: 0.75 -> 0";
-		~launchControlXlKnobLEDsSetRow.((1..8),0);
-		~launchControlXlKnobLEDsSetRow.(8,1);
-		~launchControlXlUpdateKnobLEDs.value;
+	~cueWindowText.string = "MasterFilter: 0.5 -> 1,
+MasterResonance: 0.75 -> 0";
+	~launchControlXlKnobLEDsSetRow.((1..8),0);
+	~launchControlXlKnobLEDsSetRow.(8,1);
+	~launchControlXlUpdateKnobLEDs.value;
 	"fraktal_13 B".postln;
 }
 );
 
 ~benniCues.add('fraktal_1_inverse7_2nd' -> {
-	~cueWindowText.string = "Fraktal_1: 0 -> 1";
-		~launchControlXlKnobLEDsSetRow.((1..8),0);
-		~launchControlXlKnobLEDsSetRow.(4,1);
-		~launchControlXlUpdateKnobLEDs.value;
+	~cueWindowText.string = "Fraktal_1: 1 -> 0";
+	~launchControlXlKnobLEDsSetRow.((1..8),0);
+	~launchControlXlKnobLEDsSetRow.(4,1);
+	~launchControlXlUpdateKnobLEDs.value;
 	"fraktal_1_inverse7_2nd".postln;
 }
 );
 
 ~benniCues.add('Fuge_1_1st' -> {
 	~cueWindowText.string = "Fuge_1: 0 -> 1";
-		~launchControlXlKnobLEDsSetRow.((1..8),0);
-		8.do({|i|
+	~launchControlXlKnobLEDsSetRow.((1..8),0);
+	8.do({|i|
 		~toLaunchControlXl.noteOn(0, (41 + i), 12);
-		});
-		~toLaunchControlXl.noteOn(0, 41, 60);
-		~launchControlXlUpdateKnobLEDs.value;
+	});
+	~toLaunchControlXl.noteOn(0, 41, 60);
+	~launchControlXlUpdateKnobLEDs.value;
 	"Fuge_1_1st".postln;
 }
 );
 
 ~benniCues.add('Fuge_1_2nd' -> {
 	~cueWindowText.string = "Fuge_2: 0 -> 1";
-		~launchControlXlKnobLEDsSetRow.((1..8),0);
-		8.do({|i|
+	~launchControlXlKnobLEDsSetRow.((1..8),0);
+	8.do({|i|
 		~toLaunchControlXl.noteOn(0, (41 + i), 12);
-		});
-		~toLaunchControlXl.noteOn(0, 42, 60);
-		~launchControlXlUpdateKnobLEDs.value;
+	});
+	~toLaunchControlXl.noteOn(0, 42, 60);
+	~launchControlXlUpdateKnobLEDs.value;
 	"Fuge_1_2nd".postln;
 }
 );
 
 ~benniCues.add('Fuge_1_3rd' -> {
 	~cueWindowText.string = "Fuge_3: 0 -> 1, MasterResonance: X -> 0.75";
-		~launchControlXlKnobLEDsSetRow.((1..8),0);
-		8.do({|i|
+	~launchControlXlKnobLEDsSetRow.((1..8),0);
+	8.do({|i|
 		~toLaunchControlXl.noteOn(0, (41 + i), 12);
-		});
-		~toLaunchControlXl.noteOn(0, 43, 60);
-		~launchControlXlUpdateKnobLEDs.value;
+	});
+	~toLaunchControlXl.noteOn(0, 43, 60);
+	~launchControlXlUpdateKnobLEDs.value;
 	"Fuge_1_3rd".postln;
 }
 );
 
 ~benniCues.add('Fuge_1_4th' -> {
 	~cueWindowText.string = "Fuge_4: 0 -> 1";
-		~launchControlXlKnobLEDsSetRow.((1..8),0);
-		8.do({|i|
+	~launchControlXlKnobLEDsSetRow.((1..8),0);
+	8.do({|i|
 		~toLaunchControlXl.noteOn(0, (41 + i), 12);
-		});
-		~toLaunchControlXl.noteOn(0, 44, 60);
-		~launchControlXlUpdateKnobLEDs.value;
+	});
+	~toLaunchControlXl.noteOn(0, 44, 60);
+	~launchControlXlUpdateKnobLEDs.value;
 	"Fuge_1_4th".postln;
 }
 );

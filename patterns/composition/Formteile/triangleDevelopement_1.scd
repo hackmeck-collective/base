@@ -17,6 +17,8 @@ Pdef(\triangleDevelopement_1,
 		~launchControlXlUpdateKnobLEDs.value;*/
 		~cueSymbols[\new] = 'fraktal_12';
 
+		~pitchesRootDissonance[\pitches] = (36, 38 .. 96);
+
 		"fraktal_12".postln;
 		[ 1, 2.125, 3.25, 4.375, 5.5, 6.625, 7.625, 8.875, 10.0].differentiate.do { |waitTime|
 			sp.par(~fraktal_1_InstrState_1.(
@@ -51,7 +53,7 @@ Pdef(\triangleDevelopement_1,
 		~lsys[\simpleSwitch_dev4].vols = [1, 1, 1, 1, 1, 1];
 		sp.par(
 			Pbind(\dur, Rest(0.1), \x, Pfunc { |in|
-				~lsys[\simpleSwitch_dev4].vols[0] = in;
+				// ~lsys[\simpleSwitch_dev4].vols[0] = in;
 				~lsys[\simpleSwitch_dev4].vols[1] = in;
 				0 } <> Pseg([1,0],[16],3)
 			)

@@ -4,7 +4,6 @@ Pdef(\simpleSwitchDevelopement_2,
 		"ss_dev_2".postln;
 		~cueSymbols[\new] = 'ss_dev_2';
 
-		"ss_4".postln;
 		sp.par(
 			Pspawner({ |sp2|
 				sp2.wait(15); // 15

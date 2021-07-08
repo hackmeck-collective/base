@@ -21,7 +21,7 @@ Pdef(\simpleSwitchDevelopement_1,
 		~lsys[\simpleSwitch_gen0].noteOffset = 11;
 		~lsys[\simpleSwitch_gen0].ctranspose = 0;
 		~lsys[\simpleSwitch_gen4].ctranspose = 0;
-		~lsys[\simpleSwitch_dev4].noteOffset = 10;
+		~lsys[\simpleSwitch_dev4].noteOffset = 20;
 		~lsys[\simpleSwitch_dev4].branchInterval = -7;
 
 		"ss_dev_1".postln;

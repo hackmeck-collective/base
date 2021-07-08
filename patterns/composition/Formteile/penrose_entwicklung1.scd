@@ -56,6 +56,7 @@ Pdef(\penrose_entwicklung1,
 
 		"penrose to pause".postln;
 		~cueSymbols[\new] = 'penrose to pause';
+
 		sp.seq(Ppar([
 			~penroseInstrState_5.(
 				inputPattern: Pn(Pdef(\penrose_toPause), 4)
@@ -133,6 +134,9 @@ Pdef(\penrose_entwicklung1,
 			),
 		])
 		);
+
+		"penrose_pauses_gen3".postln;
+		~cueSymbols[\new] = 'penrose_pauses_gen2_bd_solo';
 
 		sp.seq(Ppar([
 			~penroseInstrState_6.(
