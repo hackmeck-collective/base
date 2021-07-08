@@ -8,7 +8,7 @@ var opts = (
 	quant: 0,
 	baseColor: 30,
 	lineScale: 10
-
+ // theta 36?!
 );
 
 // FILTERS

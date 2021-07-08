@@ -58,6 +58,8 @@ Pdef(\exposition,
 		sp.wait(1);
 
 		"weed buildup 1".postln;
+		~cueSymbols[\new] = 'weed buildup 1';
+
 
 		/*soundCue = "Weed: 1 -> 0; masterFilter: 0.5 -> 1"
 		~launchControlXlKnobLEDsSetRow.((1..8),0);
