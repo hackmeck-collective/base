@@ -547,14 +547,14 @@
 		// \centerPos, 0.5,
 		\envelope_mod, 0,
 		\amp, 3.dbamp,
-		\send_1_level, 0.1,
+		\send_1_level, 0.05,
 
 		\oscillator_2_level, 0.7,
-		\oscillator_1_mod_1, 1, \oscillator_2_mod_1, 0.3, //fm amount
+		\oscillator_1_mod_1, 1.4, \oscillator_2_mod_1, 0.7, //fm amount
 		\oscillator_1_mod_2, 1, \oscillator_2_mod_2, 1.3,
-		\fx_1_mod_1, 0.25, // bitcrush
-		\fx_2_mod_1, 0.6, // srr
-		\filter_1_mod_1, 0.7,
+		\fx_1_mod_1, 0.35, // bitcrush
+		\fx_2_mod_1, 0.43, // srr
+		\filter_1_mod_1, 0.8,
 		\vca_filterLevel, 1,
 		\vca_preFilterLevel, 0,
 		\vca_preFxLevel, 0,
@@ -566,7 +566,7 @@
 	<> ~lcXlCtrBus4Bi.(9, -1)
 
 	<> Pbind(
-		\mod1Amount, 0.075,
+		\mod1Amount, 0.15,
 		\mod1Rate, 0.25,
 		\mod1attack, 1,
 		\mod1decay, 1,
@@ -575,7 +575,7 @@
 		\mod1EnvCurve, 2,
 		\mod1syncEnvRatio, 0,
 
-		\mod2Amount, -0.2,
+		\mod2Amount, -0.4,
 		\mod2Rate, 0.25,
 		\mod2attack, 0,
 		\mod2decay, 0.15,
@@ -584,22 +584,22 @@
 		\mod2EnvCurve, 2,
 		\mod2syncEnvRatio, 0,
 
-		\mod3Amount, -0.95,
+		\mod3Amount, -0.9,
 		// \mod3Rate, 0.0625,
 		\mod3attack, 0.125,
 		\mod3decay, 0,
 		\mod3sustain, 1,
 		\mod3release, 2,
-		\mod3EnvCurve, -3,
+		\mod3EnvCurve, -7,
 		\mod3syncEnvRatio, 0,
 
-		\mod4Amount, 0.4,
-		\mod4Rate, 0.1,
-		\mod4attack, 0.001,
-		\mod4decay, 0.001,
+		\mod4Amount, -0.95,
+		// \mod4Rate, 0.1,
+		\mod4attack, 0.25,
+		\mod4decay, 0,
 		\mod4sustain, 1,
-		\mod4release, 0.001,
-		\mod4EnvCurve, -3,
+		\mod4release, 2,
+		\mod4EnvCurve, 1,
 		\mod4syncEnvRatio, 0,
 	)
 
@@ -622,7 +622,7 @@
 		\mod3Target, "filter_1_mod_1",
 
 		\mod4Type, \adsrEnv,
-		\mod4Target, "",
+		\mod4Target, "amp",
 	)
 
 };
@@ -671,22 +671,22 @@
 		\mod2EnvCurve, 2,
 		\mod2syncEnvRatio, 0,
 
-		\mod3Amount, -0.95,
+		\mod3Amount, -0.9,
 		// \mod3Rate, 0.0625,
-		\mod3attack, 0.0625,
+		\mod3attack, 0.125,
 		\mod3decay, 0,
 		\mod3sustain, 1,
 		\mod3release, 2,
-		\mod3EnvCurve, -1.5,
+		\mod3EnvCurve, -7,
 		\mod3syncEnvRatio, 0,
 
-		\mod4Amount, 0.4,
-		\mod4Rate, 0.1,
-		\mod4attack, 0.001,
-		\mod4decay, 0.001,
+		\mod4Amount, -0.95,
+		// \mod4Rate, 0.1,
+		\mod4attack, 0.25,
+		\mod4decay, 0,
 		\mod4sustain, 1,
-		\mod4release, 0.001,
-		\mod4EnvCurve, -3,
+		\mod4release, 2,
+		\mod4EnvCurve, 1,
 		\mod4syncEnvRatio, 0,
 	)
 
@@ -708,7 +708,7 @@
 		\mod3Target, "filter_1_mod_1",
 
 		\mod4Type, \adsrEnv,
-		\mod4Target, "",
+		\mod4Target, "amp",
 	)
 
 };
