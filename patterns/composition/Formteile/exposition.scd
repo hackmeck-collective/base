@@ -418,6 +418,15 @@ Pdef(\exposition,
 			])
 		));
 
+		sp.seq(
+		Pbind(\amp, 6.dbamp,
+		\oscillator_1_mod_1, 2,
+		\oscillator_2_mod_1, 0.5,
+		)
+		<> ~fugeInstrState_0.(
+		inputPattern: Pn(Pdef(\fuge_excerpt_gen1), 16)
+		));
+
 		sp.seq(~weedInstrState_1.(
 				inputPattern: Pseq([
 					Pn(Pdef(\weed_gen0), 3),
@@ -430,6 +439,7 @@ Pdef(\exposition,
 		);
 
 		~lsys[\weed_reverse_gen0].baseTempo = 4/4;
+
 
 		sp.seq(Pbind(\vca_attack, 1,
 		\vca_release, 3,)
