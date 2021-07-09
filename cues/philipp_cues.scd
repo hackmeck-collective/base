@@ -40,7 +40,7 @@
 );
 
 ~philippCues.add('weed' -> {
-	~cueWindowText.string = "Wait";
+	~cueWindowText.string = "6-0-5";
 	"weed".postln;
 }
 );
@@ -189,19 +189,19 @@ SOLO";
 );
 
 ~philippCues.add('ss_dev_1_x_triangle' -> {
-	~cueWindowText.string = "gleich: 5-0-7-Minor-36-96";
+	~cueWindowText.string = "gleich: 6-0-7-Minor-36-96";
 	"ss_dev_1_x_triangle".postln;
 }
 );
 
 ~philippCues.add('fraktal_1_half' -> {
-	~cueWindowText.string =  "5-0-7-Minor-36-96";
+	~cueWindowText.string =  "6-0-7-Minor-36-96";
 	"fraktal_1_half".postln;
 }
 );
 
 ~philippCues.add('simpleSwitch_fadeOut' -> {
-	~cueWindowText.string = "5-0-7-Minor-36-96";
+	~cueWindowText.string = "6-0-7-Minor-36-96";
 	"simpleSwitch_fadeOut".postln;
 }
 );
@@ -231,7 +231,7 @@ SOLO";
 );
 
 ~philippCues.add('fraktal_13 B' -> {
-	~cueWindowText.string = "WAIT";
+	~cueWindowText.string = "9-0-6-diminished";
 	"fraktal_13 B".postln;
 }
 );
@@ -268,7 +268,7 @@ AMBITUS";
 );
 
 ~philippCues.add('Fuge_1_3rd' -> {
-	~cueWindowText.string = "8-0-6-Bartok-36-96
+	~cueWindowText.string = "8-0-6-Bartok-60-96
 teste
 AMBITUS";
 	"Fuge_1_3rd".postln;
@@ -276,8 +276,7 @@ AMBITUS";
 );
 
 ~philippCues.add('Fuge_1_4th' -> {
-	~cueWindowText.string = "Wait
-teste
+	~cueWindowText.string = "8-0-6-Bartok-36-96
 AMBITUS";
 	"Fuge_1_4th".postln;
 }
