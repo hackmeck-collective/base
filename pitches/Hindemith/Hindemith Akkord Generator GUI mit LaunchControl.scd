@@ -7,8 +7,7 @@ var amber = Color.new(1,0.6,0,0.8);
 w = Window.new("hindemith", bounds: Rect(100, 0, 1600, 900)).front;
 //w.fullScreen;
 
-"../../cues/philipp_cues.scd".loadRelative;
-"cue function loaded.".postln;
+
 
 //First row
 ~text1 = StaticText(w, Rect(platz, platz, breite, hoehe));
@@ -55,20 +54,28 @@ w = Window.new("hindemith", bounds: Rect(100, 0, 1600, 900)).front;
 ~numberboxHigherNote = NumberBox(w, Rect(6 * platz + (5*breite),  2 * platz + hoehe, 50, 50));
 ~numberboxHigherNote.font = Font("Monaco", fontsize);
 
+~led = LevelIndicator(w, bounds:Rect(900, 150, 30, 30)).front;
+~led.style = \led;
+~led.meterColor = Color.red;
+~led.background = Color.white;
+~led.numSteps = 1;
+
 //Third row
 ~button1 = Button(w, Rect(platz, 3 * hoehe + platz, 100, 100))
-.states_([ ["gate1", Color.black, Color.white], ["gate1", Color.black, amber] ]);
+.states_([ ["gate", Color.black, Color.white], ["gate", Color.black, amber] ]);
 
-~button2 = Button(w, Rect( 2* platz + breite,  3 * hoehe + platz, 100, 100))
-.states_([ ["gate2", Color.black, Color.white], ["gate2", Color.black, amber] ]);
 
-~button3 = Button(w, Rect( 3* platz + (2*breite),  3 * hoehe + platz, 100, 100))
-.states_([ ["gate3", Color.black, Color.white], ["gate3", Color.black, amber] ]);
 
-~button4 = Button(w, Rect(4 * platz + (3 * breite), 3 * hoehe + platz, 100, 100))
-.states_([ ["gate4", Color.black, Color.white], ["gate4", Color.black, amber] ]);
+"loading PianoGUI".postln;
+"trees/piano_gui.scd".loadRelative;
+~startPiano.init([0,4,7]);
+
 
 //Fourth row
 ~textfieldList = TextField(w, Rect(platz, 4 * hoehe + (2* platz), 1300, 40));
 ~textfieldList.align = \center;
 ~textfieldList.font = Font(size: 20);
+
+// underneath:
+"../../cues/philipp_cues.scd".loadRelative;
+"cue function loaded.".postln;
