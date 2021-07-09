@@ -13,8 +13,8 @@ Pdef(\triangleDevelopement_2,
 
 		sp.seq(~fugeInstrState_3.( //modem styles legato runter
 			Pseq([
-				Pn(Pdef(\fuge_excerpt2_gen1), 8),
-				Pn(Pdef(\fuge_excerpt2_gen2), 4),
+				Pn(Pdef(\fuge_excerpt2_gen0), 16),
+				Pn(Pdef(\fuge_excerpt2_gen1), 4),
 		]));
 		);
 

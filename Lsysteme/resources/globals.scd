@@ -60,6 +60,14 @@
 ~gui.scale = 20;
 ~gui.lastPoints = ();
 ~gui.lastPoints[\rootPoint] = Point();
+~gui.lsysColorsAndTheta = (
+	weed: (baseColor: 0, theta: 55),
+	penrose: (baseColor: 45, theta: 45),
+	fuge: (baseColor: 90),
+	simpleSwitch: (baseColor: 10, theta: 50),
+	triangle: (baseColor: 0, theta: 12),
+	click: (baseColor: 80)
+);
 
 if(~localSetup){
 	~targetServer = Server.default;
