@@ -94,11 +94,7 @@ Pdef(\triangleDevelopement_2,
 
 ~cueSymbols[\new] = 'fraktal_philipp';
 
-		sp.seq(~fugeInstrState_0.(
-			Pseq([
-				Pfindur(6,Pdef(\fuge_develope_ende2))
-		]));
-		);
+
 
 ~linkClock.tempo = 1;
 

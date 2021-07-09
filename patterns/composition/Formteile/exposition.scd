@@ -452,14 +452,7 @@ Pdef(\exposition,
 			])
 		));
 
-		sp.seq(
-		Pbind(\amp, 6.dbamp,
-		\oscillator_1_mod_1, 2,
-		\oscillator_2_mod_1, 0.5,
-		)
-		<> ~fugeInstrState_0.(
-		inputPattern: Pn(Pdef(\fuge_excerpt_gen1), 16)
-		));
+
 
 		sp.seq(~weedInstrState_1.(
 				inputPattern: Pseq([
