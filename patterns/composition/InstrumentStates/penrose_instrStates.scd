@@ -282,7 +282,7 @@
 
 	Pbind(\out, ~melody_bus,
 		\spread, 1,
-		\centerPos, 0.5,
+		\centerPos, 0,
 		\envelope_mod, 0.01,
 		\amp,1.5.dbamp,
 		\send_1_level, 0.2,
