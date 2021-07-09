@@ -33,7 +33,7 @@ Pdef(\penrose_canon_mehr_pausen_filter,
 				7, -1,
 				8, 1,
 				0);
-		}.trace,
+		},
 		\spread, 1,
 
 	)

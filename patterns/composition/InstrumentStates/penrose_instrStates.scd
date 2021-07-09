@@ -6,7 +6,7 @@
 		\spread, 1,
 		\centerPos, 0.5,
 		\envelope_mod, 0.01,
-		\amp, 1.5.dbamp,
+		\amp, 0.dbamp,
 		\send_1_level, 0.2,
 
 		\oscillator_2_level, 0.25,
@@ -92,7 +92,7 @@
 		\spread, 1,
 		\centerPos, 0.5,
 		\envelope_mod, 0.01,
-		\amp, -3.dbamp,
+		\amp, -1.5.dbamp,
 		\send_1_level, 0.2,
 
 		\oscillator_2_level, 0.5,
@@ -184,7 +184,7 @@
 		\spread, 1,
 		\centerPos, 0.5,
 		\envelope_mod, 0.1,
-		\amp, 1.5.dbamp,
+		\amp, 0.dbamp,
 		\send_1_level, 0.2,
 
 		\oscillator_2_level, 0.5,
@@ -547,14 +547,15 @@
 		// \centerPos, 0.5,
 		\envelope_mod, 0,
 		\amp, 3.dbamp,
-		\send_1_level, 0.05,
+		\send_1_level, 0.1,
 
 		\oscillator_2_level, 0.7,
-		\oscillator_1_mod_1, 1.4, \oscillator_2_mod_1, 0.7, //fm amount
+		\oscillator_1_mod_1, 1.4, \oscillator_2_mod_1, Pseq([0.7,1,1.2,1.3,1.9],inf), //fm amount
 		\oscillator_1_mod_2, 1, \oscillator_2_mod_2, 1.3,
-		\fx_1_mod_1, 0.35, // bitcrush
-		\fx_2_mod_1, 0.43, // srr
-		\filter_1_mod_1, 0.8,
+		\fx_1_mod_1, Pseq(0.35!5++[0.25],inf), // bitcrush
+		\fx_2_mod_1, Pseq(0.43!7++[0.7],inf), // srr
+		\filter_1_mod_1, Pseq(Pxrand([0.4,0.43,0.46,0.87],inf)!7++[0.9],inf),
+		\filter_1_mod_2, 0,
 		\vca_filterLevel, 1,
 		\vca_preFilterLevel, 0,
 		\vca_preFxLevel, 0,
@@ -584,18 +585,18 @@
 		\mod2EnvCurve, 2,
 		\mod2syncEnvRatio, 0,
 
-		\mod3Amount, -0.9,
+		/*\mod3Amount, -0.98,
 		// \mod3Rate, 0.0625,
-		\mod3attack, 0.125,
+		\mod3attack, Pseq(0.125!3++0.0625!2++[0.25],inf),
 		\mod3decay, 0,
 		\mod3sustain, 1,
 		\mod3release, 2,
 		\mod3EnvCurve, -7,
-		\mod3syncEnvRatio, 0,
+		\mod3syncEnvRatio, 0,*/
 
 		\mod4Amount, -0.95,
 		// \mod4Rate, 0.1,
-		\mod4attack, 0.25,
+		\mod4attack, Pseq([0.25,0.125,0.2,0.1],inf),
 		\mod4decay, 0,
 		\mod4sustain, 1,
 		\mod4release, 2,
@@ -615,12 +616,12 @@
 	<> Pbind(\mod1Type, \sampleAndHold,
 		\mod1Target, "fx_2_mod_1", // combfilter freq
 
-		\mod2Type, \sampleAndHold,
-		\mod2Target, "fx_1_mod_1", // srr freq
+		/*\mod2Type, \sampleAndHold,
+		\mod2Target, "fx_1_mod_1", // srr freq*/
 
-		\mod3Type, \adsrEnv,
+		/*\mod3Type, \adsrEnv,
 		\mod3Target, "filter_1_mod_1",
-
+*/
 		\mod4Type, \adsrEnv,
 		\mod4Target, "amp",
 	)
@@ -637,11 +638,11 @@
 		\send_1_level, 0.1,
 
 		\oscillator_2_level, 0.7,
-		\oscillator_1_mod_1, 1, \oscillator_2_mod_1, 0.3, //fm amount
+		\oscillator_1_mod_1, 1, \oscillator_2_mod_1, Pseq(Pxrand([0.15,0.3,0.45,0.5],inf)!3++[0.6],inf), //fm amount
 		\oscillator_1_mod_2, 1, \oscillator_2_mod_2, 1.3,
-		\fx_1_mod_1, 0.25, // bitcrush
-		\fx_2_mod_1, 0.6, // srr
-		\filter_1_mod_1, 1,
+		\fx_1_mod_1, Pseq([0.25,0.2,0.15,0.1],inf), // bitcrush
+		\fx_2_mod_1, Pseq(0.43!7++[0.6],inf), // srr
+		\filter_1_mod_1, Pseq(Pxrand([0.6,0.63,0.76,0.87],inf)!7++[0.9],inf),
 		\vca_filterLevel, 0.7,
 		\vca_preFilterLevel, 0,
 		\vca_preFxLevel, 0,
@@ -671,18 +672,18 @@
 		\mod2EnvCurve, 2,
 		\mod2syncEnvRatio, 0,
 
-		\mod3Amount, -0.9,
+	/*	\mod3Amount, -0.9,
 		// \mod3Rate, 0.0625,
 		\mod3attack, 0.125,
 		\mod3decay, 0,
 		\mod3sustain, 1,
 		\mod3release, 2,
 		\mod3EnvCurve, -7,
-		\mod3syncEnvRatio, 0,
+		\mod3syncEnvRatio, 0,*/
 
 		\mod4Amount, -0.95,
 		// \mod4Rate, 0.1,
-		\mod4attack, 0.25,
+		\mod4attack, Pseq([0.25,0.125,0.2,0.1],inf),
 		\mod4decay, 0,
 		\mod4sustain, 1,
 		\mod4release, 2,
@@ -701,11 +702,11 @@
 	<> Pbind(\mod1Type, \sampleAndHold,
 		\mod1Target, "fx_2_mod_1", // combfilter freq
 
-		\mod2Type, \sampleAndHold,
+		/*\mod2Type, \sampleAndHold,
 		\mod2Target, "fx_1_mod_1", // srr freq
 
 		\mod3Type, \adsrEnv,
-		\mod3Target, "filter_1_mod_1",
+		\mod3Target, "filter_1_mod_1",*/
 
 		\mod4Type, \adsrEnv,
 		\mod4Target, "amp",

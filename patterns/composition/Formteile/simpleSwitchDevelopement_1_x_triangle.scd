@@ -21,6 +21,9 @@ Pdef(\simpleSwitchDevelopement_1_x_triangle,
 		"ss_dev_1_x_triangle".postln;
 		~cueSymbols[\new] = 'ss_dev_1_x_triangle';
 
+
+		~pitchesRootDissonance[\pitches] = (36, 38 .. 96);
+
 		sp.seq(
 			Pbind(\amp, 6.dbamp,
 				\oscillator_1_mod_1, 2,

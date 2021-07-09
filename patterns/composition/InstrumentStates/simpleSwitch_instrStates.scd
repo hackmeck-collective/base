@@ -91,7 +91,7 @@
 ~simpleSwitchInstrState_2 = { |inputPattern|
 
 	Pbind(\out, ~aux_bus,
-		\amp, -6.dbamp,
+		\amp, -7.5.dbamp,
 		\spread, 1,
 		\centerPos, -0.5,
 		\envelope_mod, 0.4,
@@ -178,7 +178,7 @@
 
 ~simpleSwitchInstrState_3 = { |inputPattern|
 	Pbind(\out, ~aux_bus,
-		\amp, -6.dbamp,
+		\amp, -7.5.dbamp,
 		\spread, 1,
 		\centerPos, -0.5,
 		\envelope_mod, 0.4,

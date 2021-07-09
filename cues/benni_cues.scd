@@ -259,7 +259,7 @@ Resonance: 0.9";
 );
 
 ~benniCues.add('transition_penrose_simpleSwitch' -> {
-	~cueWindowText.string = "SimpleSwitch: 1, Fraktal_1: 0";
+	~cueWindowText.string = "SimpleSwitch: 0-> 1, Fraktal_1: 0";
 	~launchControlXlKnobLEDsSetRow.((1..8),0);
 	~launchControlXlKnobLEDsSetRow.([3,4],3);
 	~launchControlXlUpdateKnobLEDs.value;
@@ -268,7 +268,43 @@ Resonance: 0.9";
 );
 
 ~benniCues.add('ss_dev_1' -> {
-	~cueWindowText.string = "SimpleSwitch: 1 -> 0.5";
+	~cueWindowText.string = "SimpleSwitch: 1 -> 0.8";
+	~launchControlXlKnobLEDsSetRow.((1..8),0);
+	~launchControlXlKnobLEDsSetRow.([3],1);
+	~launchControlXlUpdateKnobLEDs.value;
+	"ss_dev_1".postln;
+}
+);
+
+~benniCues.add('ss_dev_1b' -> {
+	~cueWindowText.string = "SimpleSwitch: 0.8 -> 0.7";
+	~launchControlXlKnobLEDsSetRow.((1..8),0);
+	~launchControlXlKnobLEDsSetRow.([3],1);
+	~launchControlXlUpdateKnobLEDs.value;
+	"ss_dev_1".postln;
+}
+);
+
+~benniCues.add('ss_dev_1c' -> {
+	~cueWindowText.string = "SimpleSwitch: 0.7 -> 0.6";
+	~launchControlXlKnobLEDsSetRow.((1..8),0);
+	~launchControlXlKnobLEDsSetRow.([3],1);
+	~launchControlXlUpdateKnobLEDs.value;
+	"ss_dev_1".postln;
+}
+);
+
+~benniCues.add('ss_dev_1d' -> {
+	~cueWindowText.string = "SimpleSwitch: 0.6 -> 0.5";
+	~launchControlXlKnobLEDsSetRow.((1..8),0);
+	~launchControlXlKnobLEDsSetRow.([3],1);
+	~launchControlXlUpdateKnobLEDs.value;
+	"ss_dev_1".postln;
+}
+);
+
+~benniCues.add('ss_dev_1_roll' -> {
+	~cueWindowText.string = "SimpleSwitch: 0.5 -> 1";
 	~launchControlXlKnobLEDsSetRow.((1..8),0);
 	~launchControlXlKnobLEDsSetRow.([3],1);
 	~launchControlXlUpdateKnobLEDs.value;
