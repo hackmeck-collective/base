@@ -92,7 +92,7 @@ Pdef(\penrose_entwicklung2,
 		~cueSymbols[\new] = 'penrose_canon_pausen1';
 
 
-		sp.seq(Ppar([
+		sp.seq(Ppar([ //weg??
 		~penroseInstrState_8.(
 		inputPattern: Pdef(\penrose_canon_pausen_1)
 		)
