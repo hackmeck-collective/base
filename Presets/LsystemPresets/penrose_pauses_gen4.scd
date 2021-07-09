@@ -49,6 +49,20 @@ Pdef(\penrose_pauses_gen4_filter,
 		\vol, Pfunc {|ev|
 			if(ev.charNow == $F){ev.vol * 1.2}{ev.vol * 1}
 		},
+		\centerPos, Pfunc {|ev|
+			switch (ev.branchLevel,
+				0, 0,
+				1, -0.25,
+				2, 0.25,
+				3, 0.5,
+				4, 0.5,
+				5, -0.75,
+				6, 0.75,
+				7, -1,
+				8, 1,
+				0);
+		},
+		\spread, 0.1,
 	)
 );
 

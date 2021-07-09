@@ -57,7 +57,7 @@ Pdef(\exposition,
 
 		sp.wait(1);
 
-		"weed buildup 1".postln;
+		/*"weed buildup 1".postln;
 		~cueSymbols[\new] = 'weed buildup 1';
 
 
@@ -65,6 +65,13 @@ Pdef(\exposition,
 		~launchControlXlKnobLEDsSetRow.((1..8),0);
 		~launchControlXlKnobLEDsSetRow.([1,8],1);
 		~launchControlXlUpdateKnobLEDs.value;*/
+
+		~lsys[\fuge_excerpt_gen1].baseColor = 85;
+
+		~lsys[\weed_gen1].theta = 55;
+		~lsys[\weed_gen2].theta = 55;
+		~lsys[\weed_gen2].theta = 55;
+
 
 		~lsys[\weed_gen1].noteOffset = weedOffset_1;
 		~lsys[\weed_gen1].baseTempo = 1;
@@ -177,6 +184,17 @@ Pdef(\exposition,
 		~launchControlXlKnobLEDsSetRow.([3,8],3);
 		~launchControlXlUpdateKnobLEDs.value;*/
 
+		~lsys[\penrose_simplesimple_gen1].baseColor = 70;
+		~lsys[\penrose_simplesimple_gen1].theta = 45;
+		~lsys[\penrose_simple_gen1].baseColor = 70;
+		~lsys[\penrose_simple_gen2].baseColor = 70;
+		~lsys[\penrose_simple_gen3].baseColor = 70;
+		~lsys[\penrose_simple_gen0].baseColor = 70;
+		~lsys[\penrose_simple_gen1].theta = 45;
+		~lsys[\penrose_simple_gen2].theta = 45;
+		~lsys[\penrose_simple_gen2].theta = 45;
+		~lsys[\penrose_simple_gen0].theta = 45;
+
 		~lsys[\penrose_simplesimple_gen1].noteOffset = penroseOffset_1;
 		~lsys[\penrose_simplesimple_gen1].baseTempo = 3/16;
 		~lsys[\penrose_simple_gen1].noteOffset = penroseOffset_1;
@@ -242,12 +260,15 @@ Pdef(\exposition,
 		);
 
 
-
 ~lsys[\fuge_excerpt_gen1].baseTempo = 0.0625;
 
 		"simpleSwitch buildup 1".postln;
 		~cueSymbols[\new] = 'simpleSwitch buildup 1';
 
+		~lsys[\simpleSwitch_gen0].theta = 50;
+		~lsys[\simpleSwitch_gen1].theta = 50;
+		~lsys[\simpleSwitch_gen2].theta = 50;
+		~lsys[\simpleSwitch_gen3].theta = 50;
 
 		~lsys[\penrose_simplesimple_gen1].noteOffset = penroseOffset_1 -12;
 		~lsys[\penrose_simplesimple_gen1].baseTempo = 3/16;
@@ -301,6 +322,8 @@ Pdef(\exposition,
 
 		sp.wait(2);
 
+*/
+
 		"weed and penrose".postln;
 		~cueSymbols[\new] = 'weed and penrose';
 
@@ -320,6 +343,12 @@ Pdef(\exposition,
 		~lsys[\penrose_gen1].baseTempo = 1/6;
 		~lsys[\penrose_gen0].noteOffset = penroseOffset_1;
 		~lsys[\penrose_gen0].baseTempo = 1/3;
+		~lsys[\penrose_gen1].baseColor = 70;
+		~lsys[\penrose_gen1].theta = 45;
+
+		~lsys[\penrose_gen0].baseColor = 70;
+		~lsys[\penrose_gen0].theta = 45;
+		~lsys[\penrose_click_gen1].baseColor = 50;
 
 		sp.seq(~weedInstrState_2.(
 			inputPattern: Pseq([
@@ -418,6 +447,15 @@ Pdef(\exposition,
 			])
 		));
 
+		sp.seq(
+		Pbind(\amp, 6.dbamp,
+		\oscillator_1_mod_1, 2,
+		\oscillator_2_mod_1, 0.5,
+		)
+		<> ~fugeInstrState_0.(
+		inputPattern: Pn(Pdef(\fuge_excerpt_gen1), 16)
+		));
+
 		sp.seq(~weedInstrState_1.(
 				inputPattern: Pseq([
 					Pn(Pdef(\weed_gen0), 3),
@@ -430,6 +468,7 @@ Pdef(\exposition,
 		);
 
 		~lsys[\weed_reverse_gen0].baseTempo = 4/4;
+
 
 		sp.seq(Pbind(\vca_attack, 1,
 		\vca_release, 3,)

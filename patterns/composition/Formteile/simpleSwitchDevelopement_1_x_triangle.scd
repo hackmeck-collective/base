@@ -21,6 +21,25 @@ Pdef(\simpleSwitchDevelopement_1_x_triangle,
 		"ss_dev_1_x_triangle".postln;
 		~cueSymbols[\new] = 'ss_dev_1_x_triangle';
 
+		sp.seq(
+			Pbind(\amp, 6.dbamp,
+				\oscillator_1_mod_1, 2,
+				\oscillator_2_mod_1, 0.5,
+			)
+			<> ~fugeInstrState_0.(
+				inputPattern: Pseq([
+					Pn(Pdef(\fuge_excerpt_gen3), 2),
+					Pn(Pdef(\fuge_excerpt_gen2), 4),
+					Pn(Pdef(\fuge_excerpt_gen1), 8),
+				])
+		));
+
+		sp.seq(~fugeInstrState_3.( //modem styles legato runter
+			Pseq([
+				Pn(Pdef(\fuge_excerpt2_gen1), 8),
+		]));
+		);
+
 		"ss1".postln;
 
 		/*soundCue = "Fraktal_1: 0 -> 0.5; SimpleSwitch: 1 -> 0.5"
