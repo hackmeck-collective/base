@@ -142,9 +142,15 @@ class ColouredLine
   void display(int alpha) {
     //Color according to branch level
     strokeWeight(map(branchLevel, 1, 0, 1, 7));
+    //stroke(
+    //  map(branchLevel, 1, 0, 65 - baseColor, 100 - baseColor), 
+    //  map(branchLevel, 1, 0, 35 - baseColor, 85 - baseColor), 
+    //  map(branchLevel, 1, 0, 50 - baseColor, 100 - baseColor), 
+    //  alpha * volume
+    //);
     stroke(
       map(branchLevel, 1, 0, 65 - baseColor, 100 - baseColor), 
-      map(branchLevel, 1, 0, 35 - baseColor, 85 - baseColor), 
+      map(branchLevel, 1, 0, 0, 100), 
       map(branchLevel, 1, 0, 50 - baseColor, 100 - baseColor), 
       alpha * volume
     );

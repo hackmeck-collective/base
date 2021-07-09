@@ -56,9 +56,10 @@ if (MIDIClient.initialized.not){
 
 (
 
-"trees/piano_gui.scd".loadRelative;
-~startPiano.init(~chordNow);
+
 "Hindemith Akkord Generator GUI mit LaunchControl.scd".loadRelative;
+"trees/piano_gui.scd".loadRelative;
+~startPiano.init([0,4,7]);
 ~actualizeGUI.value;
 
 //Message-Parsing
