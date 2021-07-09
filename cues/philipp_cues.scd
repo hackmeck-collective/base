@@ -2,13 +2,12 @@
 //address_book_all.scd enthält ~cueSymbols. Die führt immer wenn etwas neues durch Utopia kommt die Funktion ~cueFunction aus.
 
 
-~cueWindow ?? {~cueWindow =  Window.new("cues", Rect(100,450,1400,400)).front};
-~cueWindowText = StaticText(~cueWindow, Rect(10,10,1390,350));
+//w ?? {w =  Window.new("cues", Rect(100, 0, 1600, 800)).front};
+~cueWindowText = StaticText(w, Rect(20,500,1300,350));
 ~cueWindowText.background=Color.white;
 ~cueWindowText.align = \center;
 ~cueWindowText.font = Font("Monaco", 48);
-~cueWindowText.string = "cues";
-~cueWindowText.string = "Weed: 1, SimpleSwitch: 0, masterFilter: 0.5, res: 0";
+~cueWindowText.string = "gleich: 8-0-7-Bartok-36-84";
 
 
 ~cueFunction = {|cue|

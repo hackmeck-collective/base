@@ -4,9 +4,11 @@ var platz = 20; // Space in pixels
 var fontsize = 15;
 var amber = Color.new(1,0.6,0,0.8);
 
-w = Window.new(bounds: Rect(0, 300, 1100, 600)).front;
+w = Window.new("hindemith", bounds: Rect(100, 0, 1600, 900)).front;
 //w.fullScreen;
 
+"../../cues/philipp_cues.scd".loadRelative;
+"cue function loaded.".postln;
 
 //First row
 ~text1 = StaticText(w, Rect(platz, platz, breite, hoehe));
@@ -67,5 +69,6 @@ w = Window.new(bounds: Rect(0, 300, 1100, 600)).front;
 .states_([ ["gate4", Color.black, Color.white], ["gate4", Color.black, amber] ]);
 
 //Fourth row
-~textfieldList = TextField(w, Rect(platz + breite, 4 * hoehe + ( 4 * platz), 1100 - breite - (2*platz), 40));
+~textfieldList = TextField(w, Rect(platz, 4 * hoehe + (2* platz), 1300, 40));
+~textfieldList.align = \center;
 ~textfieldList.font = Font(size: 20);
