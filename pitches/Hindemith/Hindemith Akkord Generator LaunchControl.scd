@@ -5,7 +5,7 @@
 
 //if (s.serverRunning.not) {s.boot};
 
-if (~gateOpen.isNil) {~gateOpen = Array.fill(8, {|item| if (item != 0){false} {nil}})}; //Werte für die Buttons 1 - 8. (Button 0 existiert nicht, deswegen nil.)
+~gateOpen ? false;
 
 
 if (MIDIClient.initialized.not){
@@ -54,13 +54,19 @@ if (MIDIClient.initialized.not){
 
 
 
+
+
+
 (
 
 
 "Hindemith Akkord Generator GUI mit LaunchControl.scd".loadRelative;
-"trees/piano_gui.scd".loadRelative;
-~startPiano.init([0,4,7]);
+
+
 ~actualizeGUI.value;
+
+
+
 
 //Message-Parsing
 MIDIdef.cc(\launchControlKnobs, {
@@ -83,11 +89,17 @@ MIDIdef.cc(\launchControlKnobs, {
 
 			if(closestList.notNil){
 				~listAndParameters.list = closestList;
-				if(~gateOpen[1] == true){~sendWithHail.((list: ~listAndParameters.list, rootNote: ~listAndParameters.rootNote));};
+				{~led.value = 0}.fork(AppClock);
+				if(~gateOpen == true){~sendWithHail.(
+					(list: ~listAndParameters.list, rootNote: ~listAndParameters.rootNote))
+				}
 			}{
-				"no new list".postln
+				"no new list".postln;
+
+				{~led.value = 1}.fork(AppClock); //{ ~led.value = 1; 0.2.wait; ~led.value = 0;}.fork(AppClock);
 			};
 			~actualizeGUI.value;
+
 		}
 	}
 	{ num == 22 } { //Drehknopf 2 oben
@@ -106,9 +118,14 @@ MIDIdef.cc(\launchControlKnobs, {
 
 			if(closestList.notNil){
 				~listAndParameters.list = closestList;
-				if(~gateOpen[2] == true){~sendWithHail.((list: ~listAndParameters.list, rootNote: ~listAndParameters.rootNote));};
+				{~led.value = 0}.fork(AppClock);
+				if(~gateOpen == true){~sendWithHail.(
+					(list: ~listAndParameters.list, rootNote: ~listAndParameters.rootNote))
+				}
 			}{
-				"no new list".postln
+				"no new list".postln;
+
+				{~led.value = 1}.fork(AppClock);
 			};
 			~actualizeGUI.value;
 		}
@@ -150,10 +167,14 @@ MIDIdef.cc(\launchControlKnobs, {
 
 			if(closestList.notNil){
 				~listAndParameters.list = closestList;
+				{~led.value = 0}.fork(AppClock);
 				~listAndParameters.numNotes = ~listAndParameters.list.size;
-				if(~gateOpen[3] == true){~sendWithHail.((list: ~listAndParameters.list, rootNote: ~listAndParameters.rootNote));};
+				if(~gateOpen == true){~sendWithHail.(
+					(list: ~listAndParameters.list, rootNote: ~listAndParameters.rootNote))
+				}
 			}{
-				"no new list".postln
+				"no new list".postln;
+				{~led.value = 1}.fork(AppClock);
 			};
 			~actualizeGUI.value;
 		}
@@ -173,12 +194,15 @@ MIDIdef.cc(\launchControlKnobs, {
 
 			if(closestList.notNil){
 				~listAndParameters.list = closestList;
-				if(~gateOpen[4] == true){~sendWithHail.((list: ~listAndParameters.list, rootNote: ~listAndParameters.rootNote));};
+				{~led.value = 0}.fork(AppClock);
+				if(~gateOpen == true){~sendWithHail.(
+					(list: ~listAndParameters.list, rootNote: ~listAndParameters.rootNote))
+				}
 			}{
-				"no new list".postln
+				"no new list".postln;
+				{~led.value = 1}.fork(AppClock);
 			};
 			~actualizeGUI.value;
-
 		}
 	}
 	{ num == 25 } { //Drehknopf 5 oben
@@ -202,7 +226,6 @@ MIDIdef.cc(\launchControlKnobs, {
 		}{
 			"highNote is too low".warn;
 		};
-
 	}
 	{ num == 28 } { //Drehknopf 8 oben
 	}
@@ -218,63 +241,29 @@ MIDIdef.noteOn(\launchControlButtonsON, {
 	arg val, num, chan, src;
 	case
 	{ num == 9 } { // Button -1-
-		if (~gateOpen[1] == false)
+		if (~gateOpen == false)
 		{
 			~sendWithHail.((list: ~listAndParameters.list, rootNote: ~listAndParameters.rootNote));
-			~gateOpen[1] = true; ~toLaunchControl.noteOn(0, 9, 63); //Macht Button 1 (note 9) bernsteingelb (veloc 63)
+			~gateOpen = true; ~toLaunchControl.noteOn(0, 9, 63); //Macht Button 1 (note 9) bernsteingelb (veloc 63)
 			{~button1.value = 1;}.defer; //Buttonfarbe in der Gui setzen
 		}
-		{ ~gateOpen[1] = false; ~toLaunchControl.noteOn(0, 9, 12);
+		{ ~gateOpen = false; ~toLaunchControl.noteOn(0, 9, 12);
 			{~button1.value = 0;}.defer; //Buttonfarbe in der Gui setzen
 		}; //Macht Button 1 (note 9) aus. (veloc 12)
-
 	}
 	{ num == 10 } { // Button -2-
-		if (~gateOpen[2] == false)
-		{
-			~sendWithHail.((list: ~listAndParameters.list, rootNote: ~listAndParameters.rootNote));
-			~gateOpen[2] = true; ~toLaunchControl.noteOn(0, 10, 63); //Macht Button 2 (note 10) bernsteingelb (veloc 63)
-			{~button2.value = 1;}.defer; //Buttonfarbe in der Gui setzen
-		}
-		{ ~gateOpen[2] = false; ~toLaunchControl.noteOn(0, 10, 12);
-			{~button2.value = 0;}.defer; //Buttonfarbe in der Gui setzen
-		}; //Macht Button 1 (note 9) aus. (veloc 12)
 	}
 	{ num == 11 } { // Button -3-
-		if (~gateOpen[3] == false)
-		{
-			~sendWithHail.((list: ~listAndParameters.list, rootNote: ~listAndParameters.rootNote));
-			~gateOpen[3] = true; ~toLaunchControl.noteOn(0, 11, 63);
-			{~button3.value = 1}.defer}
-		{
-			~gateOpen[3] = false; ~toLaunchControl.noteOn(0, 11, 12);
-			{~button3.value = 0}.defer
-
-		};
 	}
 	{ num == 12 } { //Button -4-
-		if (~gateOpen[4] == false)
-		{
-			~sendWithHail.((list: ~listAndParameters.list, rootNote: ~listAndParameters.rootNote));
-			~gateOpen[4] = true; ~toLaunchControl.noteOn(0, 12, 63);
-			{~button4.value = 1}.defer}
-		{
-			~gateOpen[4] = false; ~toLaunchControl.noteOn(0, 12, 12);
-			{~button4.value = 0}.defer};
 	}
 	{ num == 25 } { //Button -5-
-		if (~gateOpen[5] == false)
-		{ ~gateOpen[5] = true; ~toLaunchControl.noteOn(0, 25, 63); {~button5.value = 1}.defer}
-		{ ~gateOpen[5] = false; ~toLaunchControl.noteOn(0, 25, 12); {~button5.value = 0}.defer};
 	}
 	{ num == 26 } { //Button -6-
-
 	}
 	{ num == 27 } { // Button -7-
-
 	}
 	{ num == 28 } { // Button -8-
-
 	}
 	;
 });

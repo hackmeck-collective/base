@@ -46,13 +46,13 @@
 );
 
 ~philippCues.add('weed and simpleswitch' -> {
-	~cueWindowText.string = "gleich: 7-0-7-Bartok-36-84";
+	~cueWindowText.string = "gleich: 7-0-4-Bartok-36-84";
 	"weed and simpleswitch".postln;
 }
 );
 
 ~philippCues.add('weed and penrose 2' -> {
-	~cueWindowText.string = "7-0-7-Bartok-36-84";
+	~cueWindowText.string = "7-0-4-Bartok-36-84";
 	"weed and penrose 2".postln;
 }
 );
@@ -83,7 +83,7 @@
 );
 
 ~philippCues.add('penrose_pauses_gen2_bd_solo' -> {
-	~cueWindowText.string = "gleich: 6-0-5-Major-36-84
+	~cueWindowText.string = "gleich: 6-0-5-Major-24-84
 8-0-5-Major
 6-0-6-Major
 8-0-6-Major";
@@ -92,10 +92,11 @@
 );
 
 ~philippCues.add('penrose_pauses_gen3' -> {
-	~cueWindowText.string = "6-0-5-Major-36-84
+	~cueWindowText.string = "6-0-5-Major-24-84
 8-0-5-Major
 6-0-6-Major
-8-0-6-Major";
+8-0-6-Major
+SOLO";
 	"penrose_pauses_gen3".postln;
 }
 );
@@ -105,70 +106,78 @@
 	~cueWindowText.string = "6-0-5-Major-36-84
 8-0-5-Major-48-84
 6-0-6-Major
-8-0-6-Major";
+8-0-6-Major
+SOLO";
 	"penrose_pauses_gen4".postln;
 }
 );
 
 
 ~philippCues.add('penrose_canon' -> {
-	~cueWindowText.string = "Wait";
+	~cueWindowText.string = "6-0-5-Major-36-84
+8-0-5-Major-48-84
+6-0-6-Major
+8-0-6-Major
+SOLO";
 	"penrose_canon".postln;
 }
 );
 
 ~philippCues.add('penrose_canon_pausen x fade' -> {
-	~cueWindowText.string = "6-0-6-Bartok-36-84
-6-0-6-Diminished-36-84";
+	~cueWindowText.string = "6-0-5-Bartok-36-84
+6-0-6-Diminished-36-84
+SOLO";
 	"penrose_canon_pausen x fade".postln;
 }
 );
 
 ~philippCues.add('penrose_canon_pausen1' -> {
-	~cueWindowText.string = "6-0-6-Bartok-36-84
-6-0-6-Diminished-36-84";
+	~cueWindowText.string = "6-0-5-Bartok-36-84
+6-0-6-Diminished-36-84
+SOLO";
 	"penrose_canon_pausen1".postln;
 }
 );
 
 ~philippCues.add('penrose_canon_pausen2' -> {
-	~cueWindowText.string = "6-0-6-Bartok-36-84
-6-0-6-Diminished-36-84";
+	~cueWindowText.string = "6-0-5-Bartok-36-84
+6-0-6-Diminished-36-84
+SOLO";
 	"penrose_canon_pausen2".postln;
 }
 );
 
 ~philippCues.add('penrose_canon_mehr_pausen x-fade' -> {
-	~cueWindowText.string = "6-0-6-Bartok-36-84
-6-0-6-Diminished-36-84";
+	~cueWindowText.string = "6-0-5-Bartok-36-84
+6-0-6-Diminished-36-84
+SOLO";
 	"penrose_canon_mehr_pausen x-fade".postln;
 }
 );
 
 ~philippCues.add('halftime fade in' -> {
-	~cueWindowText.string = "6-0-6-Bartok-36-84
+	~cueWindowText.string = "6-0-5-Bartok-36-84
 6-0-6-Diminished-36-84";
 	"halftime fade in".postln;
 }
 );
 
 ~philippCues.add('normaltime fade out' -> {
-	~cueWindowText.string = "6-0-6-Bartok-36-84
+	~cueWindowText.string = "6-0-5-Bartok-36-84
 6-0-6-Diminished-36-84";
 	"normaltime fade out".postln;
 }
 );
 
 ~philippCues.add('penrose_canon_mehr_pausen' -> {
-	~cueWindowText.string = "6-0-6-Bartok-36-84
+	~cueWindowText.string = "6-0-5-Bartok-36-84
 6-0-6-Diminished-36-84";
 	"penrose_canon_mehr_pausen".postln;
 }
 );
 
-~philippCues.add('transition_penrose_simpleSwitch' -> {
-	~cueWindowText.string = "6-0-6-Bartok-48-84
-6-0-6-Diminished-48-84".postln;
+~philippCues.add('transition_penrose_simpleSwitch' -> { //Hier nichts ändern
+	~cueWindowText.string = "6-0-5-Bartok-36-84".postln;
 }
 );
 
@@ -235,35 +244,41 @@
 }
 );
 ~philippCues.add('fraktal_philipp' -> {
-	~cueWindowText.string = "WAIT";
+	~cueWindowText.string = "5-0-5-Whole Tone-36-96";
 	"fraktal_philipp".postln;
 }
 );
 
 
 ~philippCues.add('Fuge_1_1st' -> {
-	~cueWindowText.string = "5-0-5-Whole Tone-36-96";
+	~cueWindowText.string = "8-0-6-Bartok-36-96
+teste
+AMBITUS";
 	"Fuge_1_1st".postln;
 }
 );
 
 
 ~philippCues.add('Fuge_1_2nd' -> {
-	~cueWindowText.string = "Wait";
+	~cueWindowText.string = "8-0-6-Bartok-36-96
+teste
+AMBITUS";
 	"Fuge_1_2nd".postln;
 }
 );
 
 ~philippCues.add('Fuge_1_3rd' -> {
-	~cueWindowText.string = "Wait";
-
+	~cueWindowText.string = "8-0-6-Bartok-36-96
+teste
+AMBITUS";
 	"Fuge_1_3rd".postln;
 }
 );
 
 ~philippCues.add('Fuge_1_4th' -> {
-	~cueWindowText.string = "Wait";
-
+	~cueWindowText.string = "Wait
+teste
+AMBITUS";
 	"Fuge_1_4th".postln;
 }
 );
