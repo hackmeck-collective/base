@@ -4,6 +4,22 @@ Pdef(\triangleDevelopement_1,
 
 		var fraktalNoteOffset = -7;
 
+		~lsys[\fraktal_12].baseColor = ~gui.lsysColorsAndTheta.triangle.baseColor;
+		~lsys[\fraktal_13].baseColor = ~gui.lsysColorsAndTheta.triangle.baseColor;
+		~lsys[\fraktal_14].baseColor = ~gui.lsysColorsAndTheta.triangle.baseColor;
+		~lsys[\fraktal_15].baseColor = ~gui.lsysColorsAndTheta.triangle.baseColor;
+		~lsys[\fraktal_16].baseColor = ~gui.lsysColorsAndTheta.triangle.baseColor;
+		~lsys[\fraktal_17].baseColor = ~gui.lsysColorsAndTheta.triangle.baseColor;
+		~lsys[\fraktal_1_inverse7].baseColor = ~gui.lsysColorsAndTheta.triangle.baseColor;
+
+		~lsys[\fraktal_12].theta = ~gui.lsysColorsAndTheta.triangle.theta;
+		~lsys[\fraktal_13].theta = ~gui.lsysColorsAndTheta.triangle.theta;
+		~lsys[\fraktal_14].theta = ~gui.lsysColorsAndTheta.triangle.theta;
+		~lsys[\fraktal_15].theta = ~gui.lsysColorsAndTheta.triangle.theta;
+		~lsys[\fraktal_16].theta = ~gui.lsysColorsAndTheta.triangle.theta;
+		~lsys[\fraktal_17].theta = ~gui.lsysColorsAndTheta.triangle.theta;
+		~lsys[\fraktal_1_inverse7].theta = ~gui.lsysColorsAndTheta.triangle.theta;
+
 		~lsys[\fraktal_12].noteOffset = fraktalNoteOffset;
 		~lsys[\fraktal_13].noteOffset = fraktalNoteOffset;
 		~lsys[\fraktal_14].noteOffset = fraktalNoteOffset;

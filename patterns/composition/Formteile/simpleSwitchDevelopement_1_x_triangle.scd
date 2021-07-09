@@ -21,6 +21,9 @@ Pdef(\simpleSwitchDevelopement_1_x_triangle,
 		"ss_dev_1_x_triangle".postln;
 		~cueSymbols[\new] = 'ss_dev_1_x_triangle';
 
+
+		~pitchesRootDissonance[\pitches] = (36, 38 .. 96);
+
 		sp.seq(
 			Pbind(\amp, 6.dbamp,
 				\oscillator_1_mod_1, 2,
@@ -28,15 +31,15 @@ Pdef(\simpleSwitchDevelopement_1_x_triangle,
 			)
 			<> ~fugeInstrState_0.(
 				inputPattern: Pseq([
-					Pn(Pdef(\fuge_excerpt_gen3), 2),
-					Pn(Pdef(\fuge_excerpt_gen2), 4),
-					Pn(Pdef(\fuge_excerpt_gen1), 8),
+					Pn(Pdef(\fuge_excerpt_gen2), 2),
+					Pn(Pdef(\fuge_excerpt_gen1), 4),
+					Pn(Pdef(\fuge_excerpt_gen0), 8),
 				])
 		));
 
 		sp.seq(~fugeInstrState_3.( //modem styles legato runter
 			Pseq([
-				Pn(Pdef(\fuge_excerpt2_gen1), 8),
+				Pn(Pdef(\fuge_excerpt2_gen0), 8),
 		]));
 		);
 

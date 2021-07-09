@@ -8,6 +8,20 @@ Pdef(\simpleSwitchDevelopement_1,
 		~lsys[\simpleSwitch_gen0].noteOffset = 21;
 		~lsys[\simpleSwitch_dev4].noteOffset = 0;*/
 
+		~lsys[\simpleSwitch].baseColor = ~gui.lsysColorsAndTheta.simpleSwitch.baseColor;
+		~lsys[\simpleSwitch_dev2].baseColor = ~gui.lsysColorsAndTheta.simpleSwitch.baseColor;
+		~lsys[\simpleSwitch_dev3].baseColor = ~gui.lsysColorsAndTheta.simpleSwitch.baseColor;
+		~lsys[\simpleSwitch_gen0].baseColor = ~gui.lsysColorsAndTheta.simpleSwitch.baseColor;
+		~lsys[\simpleSwitch_gen1].baseColor = ~gui.lsysColorsAndTheta.simpleSwitch.baseColor;
+		~lsys[\simpleSwitch_dev4].baseColor = ~gui.lsysColorsAndTheta.simpleSwitch.baseColor;
+
+		~lsys[\simpleSwitch].theta = ~gui.lsysColorsAndTheta.simpleSwitch.theta;
+		~lsys[\simpleSwitch_dev2].theta = ~gui.lsysColorsAndTheta.simpleSwitch.theta;
+		~lsys[\simpleSwitch_dev3].theta = ~gui.lsysColorsAndTheta.simpleSwitch.theta;
+		~lsys[\simpleSwitch_gen0].theta = ~gui.lsysColorsAndTheta.simpleSwitch.theta;
+		~lsys[\simpleSwitch_gen1].theta = ~gui.lsysColorsAndTheta.simpleSwitch.theta;
+		~lsys[\simpleSwitch_dev4].theta = ~gui.lsysColorsAndTheta.simpleSwitch.theta;
+
 
 		~lsys[\simpleSwitch].noteOffset = 14;
 		~lsys[\simpleSwitch].ctranspose = 0;
@@ -44,6 +58,8 @@ Pdef(\simpleSwitchDevelopement_1,
 
 		"ss2".postln;
 
+		~cueSymbols[\new] = 'ss_dev_1b';
+
 		sp.par(
 			Pbind(\dur, Rest(0.1), \setDetune, Pfunc {|in|
 				~lsys[\simpleSwitch_dev2].ctranspose = in
@@ -53,6 +69,8 @@ Pdef(\simpleSwitchDevelopement_1,
 			inputPattern: Pn(Pdef(\simpleSwitch_dev2), 2)));
 
 		"ss3".postln;
+
+		~cueSymbols[\new] = 'ss_dev_1c';
 
 		sp.par(
 			Pbind(\dur, Rest(0.1), \setDetune, Pfunc {|in|
@@ -65,6 +83,8 @@ Pdef(\simpleSwitchDevelopement_1,
 		~lsys[\simpleSwitch_gen1].baseTempo = 1/8;
 		~lsys[\simpleSwitch_gen0].baseTempo = 1/8;
 
+		~cueSymbols[\new] = 'ss_dev_1d';
+
 		sp.seq(~simpleSwitchInstrState_4.(
 			inputPattern: Pn(Pdef(\simpleSwitch_gen1), 8))
 		);
@@ -74,6 +94,9 @@ Pdef(\simpleSwitchDevelopement_1,
 				~lsys[\simpleSwitch_gen0].ctranspose = in
 			} <> Plazy{Pseg([0,~calcIntervalBetweenNoteOffsets.(\simpleSwitch_dev4,\simpleSwitch_gen0) - 0.5 ],[4],3)});
 		);
+
+
+		~cueSymbols[\new] = 'ss_dev_1_roll';
 		sp.seq(~simpleSwitchInstrState_4.(
 			inputPattern: Pn(Pdef(\simpleSwitch_gen0), 32))
 		);

@@ -6,6 +6,27 @@ Pdef(\penrose_entwicklung2,
 		var simpleSwitch_baseTempo = 1/8;
 		var simpleSwitch_noteOffset = 0;
 
+		~lsys[\penrose_pauses_gen4].baseColor = ~gui.lsysColorsAndTheta.penrose.baseColor;
+		~lsys[\penrose_canon_1].baseColor = ~gui.lsysColorsAndTheta.penrose.baseColor;
+		~lsys[\penrose_canon_2].baseColor = ~gui.lsysColorsAndTheta.penrose.baseColor;
+		~lsys[\penrose_canon_pausen_1].baseColor = ~gui.lsysColorsAndTheta.penrose.baseColor;
+		~lsys[\penrose_canon_pausen_2].baseColor = ~gui.lsysColorsAndTheta.penrose.baseColor;
+		~lsys[\penrose_canon_mehr_pausen].baseColor = ~gui.lsysColorsAndTheta.penrose.baseColor;
+		~lsys[\penrose_canon_mehr_pausen_ht].baseColor = ~gui.lsysColorsAndTheta.penrose.baseColor;
+		~lsys[\penrose_canon_mehr_pausen2].baseColor = ~gui.lsysColorsAndTheta.penrose.baseColor;
+		~lsys[\penrose_canon_mehr_pausen3].baseColor = ~gui.lsysColorsAndTheta.penrose.baseColor;
+
+		~lsys[\penrose_pauses_gen4].theta = ~gui.lsysColorsAndTheta.penrose.theta;
+		~lsys[\penrose_canon_1].theta = ~gui.lsysColorsAndTheta.penrose.theta;
+		~lsys[\penrose_canon_2].theta = ~gui.lsysColorsAndTheta.penrose.theta;
+		~lsys[\penrose_canon_pausen_1].theta = ~gui.lsysColorsAndTheta.penrose.theta;
+		~lsys[\penrose_canon_pausen_2].theta = ~gui.lsysColorsAndTheta.penrose.theta;
+		~lsys[\penrose_canon_mehr_pausen].theta = ~gui.lsysColorsAndTheta.penrose.theta;
+		~lsys[\penrose_canon_mehr_pausen_ht].theta = ~gui.lsysColorsAndTheta.penrose.theta;
+		~lsys[\penrose_canon_mehr_pausen2].theta = ~gui.lsysColorsAndTheta.penrose.theta;
+		~lsys[\penrose_canon_mehr_pausen3].theta = ~gui.lsysColorsAndTheta.penrose.theta;
+
+
 		~lsys[\penrose_pauses_gen4].baseTempo = penrose_baseTempo;
 		~lsys[\penrose_canon_1].baseTempo = penrose_baseTempo;
 		~lsys[\penrose_canon_2].baseTempo = penrose_baseTempo;
@@ -43,13 +64,14 @@ Pdef(\penrose_entwicklung2,
 					Pn(Pdef(\fuge_excerpt_gen3), 2),
 					Pn(Pdef(\fuge_excerpt_gen2), 4),
 					Pn(Pdef(\fuge_excerpt_gen1), 8),
-					Pfindur(2, Pdef(\fuge_develope_ende2)),
 				])
 		));
 
+		~linkClock.tempo = 1; // wichtig nach fuge_develope_ende2
+
 		sp.seq(Ppar([
 		Pbind(\amp, 0.23) <> ~penroseInstrState_7.(
-		inputPattern: Pn(Pdef(\penrose_pauses_gen4),1))
+				inputPattern: Pfindur(16,Pn(Pdef(\penrose_pauses_gen4),1))) //42.833333333333 original
 		])
 		);
 
@@ -62,8 +84,8 @@ Pdef(\penrose_entwicklung2,
 		inputPattern: Pseq([
 		Pdef(\penrose_canon_1),
 		Pdef(\penrose_canon_2)], 2)
-		)
-		])
+		),
+])
 		);
 
 		"penrose_canon_pausen x fade".postln;
@@ -85,8 +107,6 @@ Pdef(\penrose_entwicklung2,
 		)
 		);
 
-		/*Pn(Pdef(\penrose_canon_pausen_1),5).calcFullDelta
-		Pn(Pdef(\penrose_canon_1),3).calcFullDelta*/
 
 		"penrose_canon_pausen1".postln;
 		~cueSymbols[\new] = 'penrose_canon_pausen1';
@@ -114,7 +134,7 @@ Pdef(\penrose_entwicklung2,
 		~cueSymbols[\new] = 'penrose_canon_mehr_pausen x-fade';
 
 
-		sp.seq(
+		sp.seq(Pfindur(30.999999999999,
 		~patternVolumeFade.(
 		pat1:
 		~penroseInstrState_8.(
@@ -122,11 +142,11 @@ Pdef(\penrose_entwicklung2,
 
 		pat2:
 		~penroseInstrState_8.(
-		inputPattern: Pfindur(61.999999999999/2,Pn(Pdef(\penrose_canon_pausen_2),9))),
+		inputPattern: Pfindur(30.999999999999,Pn(Pdef(\penrose_canon_pausen_2),9))),
 
-		length: 60,
+		length: 30.999999999999,
 		delta: penrose_baseTempo
-		)
+		))
 
 		);
 

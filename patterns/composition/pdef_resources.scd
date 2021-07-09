@@ -357,6 +357,7 @@
 				\timingOffset, Pfunc {|ev|
 					if(ev.charNow == $F){0}{0}
 				},
+
 				)
 				<> (Pbind(\time, Ptime))
 			);

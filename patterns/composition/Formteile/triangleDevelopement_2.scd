@@ -11,12 +11,16 @@ Pdef(\triangleDevelopement_2,
 		~lsys[\fraktal_13].ctranspose = 12;
 		~lsys[\fraktal_17].ctranspose = 12;
 
+
+
 		sp.seq(~fugeInstrState_3.( //modem styles legato runter
 			Pseq([
-				Pn(Pdef(\fuge_excerpt2_gen1), 8),
-				Pn(Pdef(\fuge_excerpt2_gen2), 4),
+				Pn(Pdef(\fuge_excerpt2_gen0), 16),
+				Pn(Pdef(\fuge_excerpt2_gen1), 4),
 		]));
 		);
+
+		~pitchesRootDissonance[\pitches] = (36, 38 .. 96);
 
 		"fraktal_1_inverse7".postln;
 		~cueSymbols[\new] = 'fraktal_1_inverse7';
@@ -96,6 +100,7 @@ Pdef(\triangleDevelopement_2,
 		]));
 		);
 
+~linkClock.tempo = 1;
 
 		{
 			var rp = ~gui.lastPoints.rootPoint;

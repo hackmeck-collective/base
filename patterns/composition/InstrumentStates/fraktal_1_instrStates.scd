@@ -337,8 +337,8 @@
 
 	Pbind(\out, ~melody_bus,
 		\amp, -7.5.dbamp,
+		\centerPos, (Pxrand([0.2,0.4,0.6,0.8],inf) *Pseq([1,-1],inf)).trace,
 		\spread, 1,
-		\centerPos, 0,
 		\envelope_mod, 0.075,
 		\envCurve, 20,
 		\send_1_level, 0.02,

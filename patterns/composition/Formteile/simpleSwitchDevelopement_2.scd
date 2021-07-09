@@ -4,12 +4,12 @@ Pdef(\simpleSwitchDevelopement_2,
 		"ss_dev_2".postln;
 		~cueSymbols[\new] = 'ss_dev_2';
 
-		sp.par(
+		/*sp.par(
 			Pspawner({ |sp2|
 				sp2.wait(15); // 15
 				sp2.seq(Pdef(\triangleDevelopement_1)); //können wir das bitte überarbeiten? das kommt nicht gut in kombination, das klingt sehr ungroovy
 			})
-		);
+		);*/
 
 		~lsys[\simpleSwitch_dev4].branchInterval = 7;
 		~lsys[\simpleSwitch_dev4].vols = [0, 0, 1, 1, 1, 1];
@@ -30,6 +30,13 @@ Pdef(\simpleSwitchDevelopement_2,
 		~lsys[\simpleSwitch_dev6].ctranspose = 0;
 
 		//~lsys[\presets].simpleSwitch_dev6.stutterVal = Pseq([1,1,2],inf);
+
+		/*[ 1, 2.125, 3.25, 4.375, 5.5, 6.625, 7.625, 8.875, 10.0].differentiate.do { |waitTime|
+			sp.par(~fraktal_1_InstrState_1.(
+				inputPattern: Pdef(\fraktal_12))
+			);
+			sp.wait(waitTime)
+		};*/
 
 		sp.par(
 			Pbind(\dur, Rest(0.1), \x, Pfunc { |in|
