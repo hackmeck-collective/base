@@ -1,6 +1,13 @@
 (
 var dependenciesAll = {
 	~pitchesRootDissonance = OSCObjectSpace(~addrBook, oscPath: '/pitches').acceptEvents_(true);
+	~cueSymbols = OSCObjectSpace(~addrBook, oscPath: '/cueSymbols');
+	~cueFunction = {|cue| cue.postln };
+	~cueSymbols.addDependant({|objectSpace, what, key, val|
+		if(key == \new){
+			~cueFunction.(val);
+		};
+	});
 };
 var dependenciesBenniVincent = {
 	~osc_data_params = (); // OSCObjectSpace(~addrBook, oscPath: '/params').acceptEvents_(true);
@@ -11,13 +18,7 @@ var dependenciesBenniVincent = {
 	//~lsys = OSCObjectSpace(~addrBook, oscPath: '/lsys').acceptEvents_(true);
 	~cueData = (); // OSCDataSpace(~addrBook, '/cueData');
 	~cueData[\fillLength] = 1;
-	~cueSymbols = OSCObjectSpace(~addrBook, oscPath: '/cueSymbols');
-	~cueFunction = {|cue| cue.postln };
-	~cueSymbols.addDependant({|objectSpace, what, key, val|
-		if(key == \new){
-			~cueFunction.(val);
-		};
-	});
+
 	// "make SynthDescRelay".postln;
 	// ~synthDescRel = SynthDescRelay(~addrBook);
 };

@@ -22,7 +22,8 @@
 	highNote: 96
 );
 
-
+"../../cues/philipp_cues.scd".loadRelative;
+"cue function loaded.".postln;
 
 "loading archive ...".postln;
 ~trees = Object.readBinaryArchive(PathName(thisProcess.nowExecutingPath).pathOnly +/+ "trees/calc/hindemithTrees.archiv");
