@@ -6,6 +6,27 @@ Pdef(\penrose_entwicklung2,
 		var simpleSwitch_baseTempo = 1/8;
 		var simpleSwitch_noteOffset = 0;
 
+		~lsys[\penrose_pauses_gen4].baseColor = ~gui.lsysColorsAndTheta.penrose.baseColor;
+		~lsys[\penrose_canon_1].baseColor = ~gui.lsysColorsAndTheta.penrose.baseColor;
+		~lsys[\penrose_canon_2].baseColor = ~gui.lsysColorsAndTheta.penrose.baseColor;
+		~lsys[\penrose_canon_pausen_1].baseColor = ~gui.lsysColorsAndTheta.penrose.baseColor;
+		~lsys[\penrose_canon_pausen_2].baseColor = ~gui.lsysColorsAndTheta.penrose.baseColor;
+		~lsys[\penrose_canon_mehr_pausen].baseColor = ~gui.lsysColorsAndTheta.penrose.baseColor;
+		~lsys[\penrose_canon_mehr_pausen_ht].baseColor = ~gui.lsysColorsAndTheta.penrose.baseColor;
+		~lsys[\penrose_canon_mehr_pausen2].baseColor = ~gui.lsysColorsAndTheta.penrose.baseColor;
+		~lsys[\penrose_canon_mehr_pausen3].baseColor = ~gui.lsysColorsAndTheta.penrose.baseColor;
+
+		~lsys[\penrose_pauses_gen4].theta = ~gui.lsysColorsAndTheta.penrose.theta;
+		~lsys[\penrose_canon_1].theta = ~gui.lsysColorsAndTheta.penrose.theta;
+		~lsys[\penrose_canon_2].theta = ~gui.lsysColorsAndTheta.penrose.theta;
+		~lsys[\penrose_canon_pausen_1].theta = ~gui.lsysColorsAndTheta.penrose.theta;
+		~lsys[\penrose_canon_pausen_2].theta = ~gui.lsysColorsAndTheta.penrose.theta;
+		~lsys[\penrose_canon_mehr_pausen].theta = ~gui.lsysColorsAndTheta.penrose.theta;
+		~lsys[\penrose_canon_mehr_pausen_ht].theta = ~gui.lsysColorsAndTheta.penrose.theta;
+		~lsys[\penrose_canon_mehr_pausen2].theta = ~gui.lsysColorsAndTheta.penrose.theta;
+		~lsys[\penrose_canon_mehr_pausen3].theta = ~gui.lsysColorsAndTheta.penrose.theta;
+
+
 		~lsys[\penrose_pauses_gen4].baseTempo = penrose_baseTempo;
 		~lsys[\penrose_canon_1].baseTempo = penrose_baseTempo;
 		~lsys[\penrose_canon_2].baseTempo = penrose_baseTempo;
@@ -46,6 +67,8 @@ Pdef(\penrose_entwicklung2,
 					Pfindur(2, Pdef(\fuge_develope_ende2)),
 				])
 		));
+
+		~linkClock.tempo = 1; // wichtig nach fuge_develope_ende2
 
 		sp.seq(Ppar([
 		Pbind(\amp, 0.23) <> ~penroseInstrState_7.(

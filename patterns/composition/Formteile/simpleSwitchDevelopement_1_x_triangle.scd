@@ -28,15 +28,15 @@ Pdef(\simpleSwitchDevelopement_1_x_triangle,
 			)
 			<> ~fugeInstrState_0.(
 				inputPattern: Pseq([
-					Pn(Pdef(\fuge_excerpt_gen3), 2),
-					Pn(Pdef(\fuge_excerpt_gen2), 4),
-					Pn(Pdef(\fuge_excerpt_gen1), 8),
+					Pn(Pdef(\fuge_excerpt_gen2), 2),
+					Pn(Pdef(\fuge_excerpt_gen1), 4),
+					Pn(Pdef(\fuge_excerpt_gen0), 8),
 				])
 		));
 
 		sp.seq(~fugeInstrState_3.( //modem styles legato runter
 			Pseq([
-				Pn(Pdef(\fuge_excerpt2_gen1), 8),
+				Pn(Pdef(\fuge_excerpt2_gen0), 8),
 		]));
 		);
 
