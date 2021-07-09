@@ -11,6 +11,13 @@ Pdef(\triangleDevelopement_2,
 		~lsys[\fraktal_13].ctranspose = 12;
 		~lsys[\fraktal_17].ctranspose = 12;
 
+		sp.seq(~fugeInstrState_3.( //modem styles legato runter
+			Pseq([
+				Pn(Pdef(\fuge_excerpt2_gen1), 8),
+				Pn(Pdef(\fuge_excerpt2_gen2), 4),
+		]));
+		);
+
 		"fraktal_1_inverse7".postln;
 		~cueSymbols[\new] = 'fraktal_1_inverse7';
 
@@ -82,6 +89,12 @@ Pdef(\triangleDevelopement_2,
 		player1.stop; player2.stop; player3.stop;*/
 
 ~cueSymbols[\new] = 'fraktal_philipp';
+
+		sp.seq(~fugeInstrState_0.(
+			Pseq([
+				Pfindur(6,Pdef(\fuge_develope_ende2))
+		]));
+		);
 
 
 		{

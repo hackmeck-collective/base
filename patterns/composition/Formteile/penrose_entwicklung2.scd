@@ -33,6 +33,20 @@ Pdef(\penrose_entwicklung2,
 		~cueSymbols[\new] = 'penrose_pauses_gen4';
 
 
+		sp.seq(
+			Pbind(\amp, 6.dbamp,
+				\oscillator_1_mod_1, 2,
+				\oscillator_2_mod_1, 0.5,
+			)
+			<> ~fugeInstrState_0.(
+				inputPattern: Pseq([
+					Pn(Pdef(\fuge_excerpt_gen3), 2),
+					Pn(Pdef(\fuge_excerpt_gen2), 4),
+					Pn(Pdef(\fuge_excerpt_gen1), 8),
+					Pfindur(2, Pdef(\fuge_develope_ende2)),
+				])
+		));
+
 		sp.seq(Ppar([
 		Pbind(\amp, 0.23) <> ~penroseInstrState_7.(
 		inputPattern: Pn(Pdef(\penrose_pauses_gen4),1))

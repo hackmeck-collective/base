@@ -24,6 +24,18 @@ Pdef(\penrose_entwicklung1,
 		~lsys[\penrose_pauses_gen2].baseTempo = penrose_baseTempo;
 		~lsys[\penrose_pauses_gen3].baseTempo = penrose_baseTempo;
 
+		sp.seq(
+			Pbind(\amp, 6.dbamp,
+				\oscillator_1_mod_1, 2,
+				\oscillator_2_mod_1, 0.5,
+			)
+			<> ~fugeInstrState_0.(
+				inputPattern: Pseq([
+					Pn(Pdef(\fuge_excerpt_gen1), 8),
+					Pn(Pdef(\fuge_excerpt_gen2), 4),
+					Pn(Pdef(\fuge_excerpt_gen3), 2),
+				])
+		));
 
 		sp.seq(Ppar([
 			~penroseInstrState_4.(
