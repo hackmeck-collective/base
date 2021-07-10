@@ -1,3 +1,5 @@
+~allOutPad = -6.dbamp;
+
 "initializing audio busses".postln;
 
 ~melody_bus ?? {~melody_bus = Bus.audio(s,2)};
@@ -53,7 +55,7 @@ SynthDef(\melody_bus, {
 	sidechain = in * duck_4 * duck_8;
 
 	Out.ar(~instruments_bus, sidechain);
-	Out.ar(2, sidechain);
+	Out.ar(2, sidechain * ~allOutPad);
 
 }).add;
 
@@ -86,7 +88,7 @@ SynthDef(\chords_bus, {
 	sidechain = in * duck_4 * duck_8;
 
 	Out.ar(~instruments_bus, sidechain);
-	Out.ar(4, sidechain);
+	Out.ar(4, sidechain * ~allOutPad);
 
 }).add;
 
@@ -109,7 +111,7 @@ SynthDef(\aux_bus, {
 	in = BHiShelf.ar(in, eqHiShelf_freq, eqHiShelf_q, eqHiShelf_db);
 
 	Out.ar(~instruments_bus, in);
-	Out.ar(6, in);
+	Out.ar(6, in * ~allOutPad);
 
 }).add;
 
@@ -131,7 +133,7 @@ SynthDef(\drums_bus, {
 	in = BHiShelf.ar(in, eqHiShelf_freq, eqHiShelf_q, eqHiShelf_db);
 
 	Out.ar(~instruments_bus, in);
-	Out.ar(8, in);
+	Out.ar(8, in * ~allOutPad);
 
 }).add;
 
@@ -162,7 +164,7 @@ SynthDef(\effect_bus, {
 	in = BHiShelf.ar(in, eqHiShelf_freq, eqHiShelf_q, eqHiShelf_db);
 
 	Out.ar(~master, in);
-	Out.ar(10, in);
+	Out.ar(10, in * ~allOutPad);
 
 }).add;
 
@@ -204,7 +206,7 @@ SynthDef(\Master, {
 
 	sig = vol * sig; //(sig / (1 + sig.abs));
 
-	Out.ar(0, sig);
+	Out.ar(0, sig * ~allOutPad);
 
 }).add;
 

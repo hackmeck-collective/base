@@ -634,7 +634,7 @@
 		\spread, 1,
 		// \centerPos, 0.5,
 		\envelope_mod, 0,
-		\amp, 3.dbamp,
+		\amp, 9.dbamp,
 		\send_1_level, 0.1,
 
 		\oscillator_2_level, 0.7,

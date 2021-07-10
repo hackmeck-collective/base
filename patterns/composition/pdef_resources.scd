@@ -71,7 +71,7 @@
 			var oldVol = ev.vol ? 1;
 			var fade = if(ev.streamIndex == 1){ev.xfade}{1 - ev.xfade};
 			oldVol * fade
-		})
+		}).lincurve(0,1,0,1,-2) * -1.5.dbamp
 	) <> Ppar([
 		pat1 <> Pbind(\streamIndex, 1), //\newBranchTest
 		pat2 <> Pbind(\streamIndex, 2)

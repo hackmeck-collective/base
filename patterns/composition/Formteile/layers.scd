@@ -29,7 +29,9 @@ Pdef(\layers,
 				])
 		));
 
-		sp.seq(~weedInstrState_3.(
+		sp.seq(Pbind(\vca_attack, 0.5,
+		\vca_release, 0.5,)
+		<> ~weedInstrState_3.(
 			inputPattern: Pn(Pdef(\weed_gen3), 1))
 		);
 		sp.par(~penroseInstrState_3.(
@@ -40,7 +42,9 @@ Pdef(\layers,
 		)
 		);
 
-		sp.seq(~weedInstrState_3.(
+		sp.seq(Pbind(\vca_attack, 0.5,
+		\vca_release, 0.5,)
+		<> ~weedInstrState_3.(
 			inputPattern: Pseq([
 				Pn(Pdef(\weed_gen3), 2),
 				Pn(Pdef(\weed_gen2), 2)
@@ -65,7 +69,9 @@ Pdef(\layers,
 				Pdef(\penrose_simple_gen1)
 			])
 		));
-		sp.seq(~weedInstrState_3.(
+		sp.seq(Pbind(\vca_attack, 0.5,
+		\vca_release, 0.5,)
+		<> ~weedInstrState_3.(
 			inputPattern: Pn(Pdef(\weed_gen2), 6))
 		);
 		sp.par(~weedInstrState_3.(

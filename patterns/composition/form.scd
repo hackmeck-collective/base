@@ -22,7 +22,7 @@ Pdef(\play,
 		sp.seq(Pdef(\simpleSwitchDevelopement_2)); //können wir das wirklich bitte überarbeiten? das wirkt sehr durcheinander. ich finde auch das pattern nicht, was zu laut ist und clipt
 		sp.seq(Pdef(\triangleDevelopement_2)); // können wir bei philipp Fraktal die einzelnen branches pannen? so [0, 0.25, -0.25, 0.5, -0.5, 0.75, -0.75, 1, -1], das wäre meeeega, wie geht das?
 
-~cueSymbols[\new] = 'Fuge_1_1st';
+		~cueSymbols[\new] = 'Fuge_1_1st';
 
 		~linkClock.tempo = 1;
 		sp.seq(~fugeInstrState_1.(
@@ -36,7 +36,7 @@ Pdef(\play,
 		);
 
 
-~cueSymbols[\new] = 'Fuge_1_2nd';
+		~cueSymbols[\new] = 'Fuge_1_2nd';
 
 
 		sp.seq(~fugeInstrState_2.(
@@ -46,7 +46,7 @@ Pdef(\play,
 		);
 
 
-~cueSymbols[\new] = 'Fuge_1_3rd';
+		~cueSymbols[\new] = 'Fuge_1_3rd';
 
 		~linkClock.tempo = 1;
 		sp.seq(~fugeInstrState_3.( //modem styles legato runter
@@ -58,7 +58,7 @@ Pdef(\play,
 		);
 
 
-~cueSymbols[\new] = 'Fuge_1_4th';
+		~cueSymbols[\new] = 'Fuge_1_4th';
 
 		sp.seq(~fugeInstrState_4.(
 			Pseq([
@@ -86,12 +86,43 @@ Pdef(\playVisuals).pause
 Pdef(\playVisuals).resume
 
 Pdef(\play).stop
-Pdef(\play).play(~linkClock, quant:1 )
+Pdef(\layers).play(~linkClock, quant:1 )
 
 Pdef(\play).pause
 Pdef(\play).resume
 ~linkClock.tempo = 1
 MIDIFunc.trace
+(
+~penroseInstrState_7.(
+		inputPattern: Pseq([
+		Pdef(\penrose_canon_1),
+		Pdef(\penrose_canon_2)], 2)
+		).play
+)
+(
+(
+~patternVolumeFade.(
+	pat1:
+	~penroseInstrState_8.(
+		inputPattern: Pn(Pdef(\penrose_canon_pausen_1),5)),
+
+	pat2:
+	~penroseInstrState_7.(
+		inputPattern: Pfindur(34.166666666667, Pn(Pdef(\penrose_canon_1),5))),
+
+	length: 34.166666666667,
+	delta: 1/6
+)
+).play
+)
+(
+(Ppar([ //weg??
+		~penroseInstrState_8.(
+		inputPattern: Pdef(\penrose_canon_pausen_1)
+		)
+		])
+		).play
+)
 
 (
 s.record(numChannels: 2);
