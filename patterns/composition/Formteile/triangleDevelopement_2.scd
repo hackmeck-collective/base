@@ -1,3 +1,4 @@
+
 Pdef(\triangleDevelopement_2,
 	Pspawner({|sp|
 		var player1, player2, player3;
@@ -11,6 +12,13 @@ Pdef(\triangleDevelopement_2,
 		~lsys[\fraktal_13].ctranspose = 12;
 		~lsys[\fraktal_17].ctranspose = 12;
 
+		~lsys[\fuge_excerpt2_gen1].baseColor = ~gui.lsysColorsAndTheta.fuge.baseColor;
+		~lsys[\fraktal_17].baseColor = ~gui.lsysColorsAndTheta.triangle.baseColor;
+		~lsys[\fraktal_13].baseColor = ~gui.lsysColorsAndTheta.triangle.baseColor;
+		~lsys[\fraktal_1_inverse7].baseColor = ~gui.lsysColorsAndTheta.triangle.baseColor;
+		~lsys[\fraktal_17].theta = ~gui.lsysColorsAndTheta.triangle.theta;
+		~lsys[\fraktal_13].theta = ~gui.lsysColorsAndTheta.triangle.theta;
+		~lsys[\fraktal_1_inverse7].theta = ~gui.lsysColorsAndTheta.triangle.theta;
 
 
 		sp.seq(~fugeInstrState_3.( //modem styles legato runter
@@ -39,7 +47,7 @@ Pdef(\triangleDevelopement_2,
 
 
 		"fraktal_13 A".postln;
-~cueSymbols[\new] = 'fraktal_13 A';
+		~cueSymbols[\new] = 'fraktal_13 A';
 
 		/*soundCue = "MasterFilter: 1 -> 0.5; MasterResonance: 0.75"
 		~launchControlXlKnobLEDsSetRow.((1..8),0);
@@ -52,7 +60,7 @@ Pdef(\triangleDevelopement_2,
 
 
 		"fraktal_13 B".postln;
-~cueSymbols[\new] = 'fraktal_13 B';
+		~cueSymbols[\new] = 'fraktal_13 B';
 
 		/*soundCue = "MasterFilter: 0.5 -> 1; MasterResonance: 0.75 -> 0"
 		~launchControlXlKnobLEDsSetRow.((1..8),0);
@@ -62,9 +70,15 @@ Pdef(\triangleDevelopement_2,
 		sp.seq(~fraktal_1_InstrState_1.(
 			inputPattern: Pn(Psync(Pdef(\fraktal_13), 1, 4), 4))
 		);
+		/*sp.seq(~fugeInstrState_3.( //modem styles legato runter
+			Pseq([
+				Pn(Pdef(\fuge_excerpt2_gen0), 16),
+				Pn(Pdef(\fuge_excerpt2_gen1), 4),
+		]));
+		);*/
 
 		"fraktal_1_inverse7".postln;
-~cueSymbols[\new] = 'fraktal_1_inverse7_2nd';
+		~cueSymbols[\new] = 'fraktal_1_inverse7_2nd';
 
 		/*soundCue = "Fraktal_1: 0 -> 1"
 		~launchControlXlKnobLEDsSetRow.((1..8),0);
@@ -77,26 +91,26 @@ Pdef(\triangleDevelopement_2,
 
 
 		/*player1 = sp.par(~fraktal_1_InstrState_2.(
-			inputPattern: Pn(Psync(Pdef(\fraktal_13), 1, 4),inf))
+		inputPattern: Pn(Psync(Pdef(\fraktal_13), 1, 4),inf))
 		);
 
 		player2 = sp.par(~bdBuzzInstrState_1.(
-			inputPattern: Pdef(\fraktal_philipp_bd))
+		inputPattern: Pdef(\fraktal_philipp_bd))
 		);
 
 		player3 = sp.par(~fraktal_1_sd_InstrState_1.(
-			inputPattern: Pdef(\fraktal_philipp_sd))
+		inputPattern: Pdef(\fraktal_philipp_sd))
 		);
 
 		sp.wait(16);
 
 		player1.stop; player2.stop; player3.stop;*/
 
-~cueSymbols[\new] = 'fraktal_philipp';
+		~cueSymbols[\new] = 'fraktal_philipp';
 
 
 
-~linkClock.tempo = 1;
+		~linkClock.tempo = 1;
 
 		{
 			var rp = ~gui.lastPoints.rootPoint;
@@ -113,5 +127,5 @@ Pdef(\triangleDevelopement_2,
 			inputPattern: Pdef(\fraktal_philipp))
 		);
 
-		})
-		)
+	})
+)

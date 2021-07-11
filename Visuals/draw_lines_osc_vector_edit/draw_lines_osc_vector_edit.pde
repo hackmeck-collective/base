@@ -149,9 +149,9 @@ class ColouredLine
     //  alpha * volume
     //);
     stroke(
-      map(branchLevel, 1, 0, 65 - baseColor, 100 - baseColor), 
-      map(branchLevel, 1, 0, 0, 100), 
-      map(branchLevel, 1, 0, 50 - baseColor, 100 - baseColor), 
+      map(baseColor + (branchLevel * 25), 100, 0, 0, 100), 
+      map(branchLevel, 1, 0, 25, 100), 
+      map(branchLevel, 1, 0, 25, 100), 
       alpha * volume
     );
     if(interp == 1){

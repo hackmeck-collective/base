@@ -63,10 +63,12 @@
 ~gui.lsysColorsAndTheta = (
 	weed: (baseColor: 0, theta: 55),
 	penrose: (baseColor: 45, theta: 45),
+	penrose_pauses: (baseColor: 45, theta: 15), //15, 20
+	penrose_mehr_pauses: (baseColor: 45, theta: 45), //15, 20
 	fuge: (baseColor: 90),
-	simpleSwitch: (baseColor: 10, theta: 50),
-	triangle: (baseColor: 0, theta: 12),
-	click: (baseColor: 80)
+	simpleSwitch: (baseColor: 40, theta: 50),
+	triangle: (baseColor: 20, theta: 30), //12, 24
+	click: (baseColor: 80, theta: 0) // 60
 );
 
 if(~localSetup){

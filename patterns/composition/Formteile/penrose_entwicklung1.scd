@@ -10,10 +10,37 @@ Pdef(\penrose_entwicklung1,
 		~lsys[\penrose_toPause].baseColor = ~gui.lsysColorsAndTheta.penrose.baseColor;
 		~lsys[\penrose_toPause2].baseColor = ~gui.lsysColorsAndTheta.penrose.baseColor;
 		~lsys[\penrose_toPause3].baseColor = ~gui.lsysColorsAndTheta.penrose.baseColor;
+		~lsys[\penrose_toPause_bd].baseColor = ~gui.lsysColorsAndTheta.click.baseColor;
+		~lsys[\penrose_toPause2_bd].baseColor = ~gui.lsysColorsAndTheta.click.baseColor;
+		~lsys[\penrose_toPause2_click].baseColor = ~gui.lsysColorsAndTheta.click.baseColor;
 		~lsys[\penrose_pauses_gen1].baseColor = ~gui.lsysColorsAndTheta.penrose.baseColor;
+		~lsys[\penrose_pauses_gen2].baseColor = ~gui.lsysColorsAndTheta.penrose.baseColor;
 		~lsys[\penrose_pauses_gen3].baseColor = ~gui.lsysColorsAndTheta.penrose.baseColor;
+		~lsys[\penrose_pauses_gen1_bd].baseColor = ~gui.lsysColorsAndTheta.click.baseColor;
+		~lsys[\penrose_pauses_gen1_click].baseColor = ~gui.lsysColorsAndTheta.click.baseColor;
+		~lsys[\penrose_pauses_gen2_bd].baseColor = ~gui.lsysColorsAndTheta.click.baseColor;
+		~lsys[\penrose_pauses_gen2_click].baseColor = ~gui.lsysColorsAndTheta.click.baseColor;
+		~lsys[\penrose_pauses_gen3_bd].baseColor = ~gui.lsysColorsAndTheta.click.baseColor;
+		~lsys[\penrose_pauses_gen3_click].baseColor = ~gui.lsysColorsAndTheta.click.baseColor;
+		~lsys[\penrose_simple_click_gen0].baseColor = ~gui.lsysColorsAndTheta.click.baseColor;
+		~lsys[\penrose_simple_click_gen1].baseColor = ~gui.lsysColorsAndTheta.click.baseColor;
 		~lsys[\penrose_simple_click_gen2].baseColor = ~gui.lsysColorsAndTheta.click.baseColor;
+		~lsys[\fuge_excerpt_gen1].baseColor = ~gui.lsysColorsAndTheta.fuge.baseColor;
+		~lsys[\fuge_excerpt_gen2].baseColor = ~gui.lsysColorsAndTheta.fuge.baseColor;
+		~lsys[\fuge_excerpt_gen3].baseColor = ~gui.lsysColorsAndTheta.fuge.baseColor;
 
+		~lsys[\penrose_pauses_gen1_bd].theta = ~gui.lsysColorsAndTheta.click.theta;
+		~lsys[\penrose_pauses_gen1_click].theta = ~gui.lsysColorsAndTheta.click.theta;
+		~lsys[\penrose_pauses_gen2_bd].theta = ~gui.lsysColorsAndTheta.click.theta;
+		~lsys[\penrose_pauses_gen2_click].theta = ~gui.lsysColorsAndTheta.click.theta;
+		~lsys[\penrose_pauses_gen3_bd].theta = ~gui.lsysColorsAndTheta.click.theta;
+		~lsys[\penrose_pauses_gen3_click].theta = ~gui.lsysColorsAndTheta.click.theta;
+		~lsys[\penrose_simple_click_gen0].theta = ~gui.lsysColorsAndTheta.click.theta;
+		~lsys[\penrose_simple_click_gen1].theta = ~gui.lsysColorsAndTheta.click.theta;
+		~lsys[\penrose_simple_click_gen2].theta = ~gui.lsysColorsAndTheta.click.theta;
+		~lsys[\penrose_toPause_bd].theta = ~gui.lsysColorsAndTheta.click.theta;
+		~lsys[\penrose_toPause2_bd].theta = ~gui.lsysColorsAndTheta.click.theta;
+		~lsys[\penrose_toPause2_click].theta = ~gui.lsysColorsAndTheta.click.theta;
 
 		~lsys[\penrose_simple_gen2].theta = ~gui.lsysColorsAndTheta.penrose.theta;
 		~lsys[\penrose_simple_gen1].theta = ~gui.lsysColorsAndTheta.penrose.theta;
@@ -21,8 +48,9 @@ Pdef(\penrose_entwicklung1,
 		~lsys[\penrose_toPause].theta = ~gui.lsysColorsAndTheta.penrose.theta;
 		~lsys[\penrose_toPause2].theta = ~gui.lsysColorsAndTheta.penrose.theta;
 		~lsys[\penrose_toPause3].theta = ~gui.lsysColorsAndTheta.penrose.theta;
-		~lsys[\penrose_pauses_gen1].theta = ~gui.lsysColorsAndTheta.penrose.theta;
-		~lsys[\penrose_pauses_gen3].theta = ~gui.lsysColorsAndTheta.penrose.theta;
+		~lsys[\penrose_pauses_gen1].theta = ~gui.lsysColorsAndTheta.penrose_pauses.theta;
+		~lsys[\penrose_pauses_gen2].theta = ~gui.lsysColorsAndTheta.penrose_pauses.theta;
+		~lsys[\penrose_pauses_gen3].theta = ~gui.lsysColorsAndTheta.penrose_pauses.theta;
 
 		~lsys[\penrose_simple_gen2].noteOffset = penrose_noteOffset;
 		~lsys[\penrose_simple_gen1].noteOffset = penrose_noteOffset;

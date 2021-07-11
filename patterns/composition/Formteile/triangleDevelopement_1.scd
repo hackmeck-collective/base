@@ -61,10 +61,12 @@ Pdef(\triangleDevelopement_1,
 		sp.seq(~fraktal_1_InstrState_1.(
 			inputPattern: Psync(Pdef(\fraktal_15), 5, 100))
 		);
+
 		"fraktal_16".postln;
 		sp.seq(~fraktal_1_InstrState_1.(
 			inputPattern: Psync(Pdef(\fraktal_16), 0, 100))
 		);
+		/*
 		"fraktal_17".postln;
 		~lsys[\simpleSwitch_dev4].vols = [1, 1, 1, 1, 1, 1];
 		sp.par(
@@ -80,6 +82,6 @@ Pdef(\triangleDevelopement_1,
 				inputPattern: Pdef(\fraktal_17)),
 			Psync(~simpleSwitchInstrState_1.(
 				inputPattern: Pdef(\simpleSwitch_dev4)),4,16)
-		]));
+		]));*/
 	})
 )

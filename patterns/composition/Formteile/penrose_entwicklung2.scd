@@ -15,17 +15,18 @@ Pdef(\penrose_entwicklung2,
 		~lsys[\penrose_canon_mehr_pausen_ht].baseColor = ~gui.lsysColorsAndTheta.penrose.baseColor;
 		~lsys[\penrose_canon_mehr_pausen2].baseColor = ~gui.lsysColorsAndTheta.penrose.baseColor;
 		~lsys[\penrose_canon_mehr_pausen3].baseColor = ~gui.lsysColorsAndTheta.penrose.baseColor;
+		~lsys[\simpleSwitch].baseColor = ~gui.lsysColorsAndTheta.simpleSwitch.baseColor;
 
-		~lsys[\penrose_pauses_gen4].theta = ~gui.lsysColorsAndTheta.penrose.theta;
-		~lsys[\penrose_canon_1].theta = ~gui.lsysColorsAndTheta.penrose.theta;
-		~lsys[\penrose_canon_2].theta = ~gui.lsysColorsAndTheta.penrose.theta;
-		~lsys[\penrose_canon_pausen_1].theta = ~gui.lsysColorsAndTheta.penrose.theta;
-		~lsys[\penrose_canon_pausen_2].theta = ~gui.lsysColorsAndTheta.penrose.theta;
-		~lsys[\penrose_canon_mehr_pausen].theta = ~gui.lsysColorsAndTheta.penrose.theta;
-		~lsys[\penrose_canon_mehr_pausen_ht].theta = ~gui.lsysColorsAndTheta.penrose.theta;
-		~lsys[\penrose_canon_mehr_pausen2].theta = ~gui.lsysColorsAndTheta.penrose.theta;
-		~lsys[\penrose_canon_mehr_pausen3].theta = ~gui.lsysColorsAndTheta.penrose.theta;
-
+		~lsys[\penrose_pauses_gen4].theta = ~gui.lsysColorsAndTheta.penrose_pauses.theta;
+		~lsys[\penrose_canon_1].theta = ~gui.lsysColorsAndTheta.penrose_pauses.theta;
+		~lsys[\penrose_canon_2].theta = ~gui.lsysColorsAndTheta.penrose_pauses.theta;
+		~lsys[\penrose_canon_pausen_1].theta = ~gui.lsysColorsAndTheta.penrose_pauses.theta;
+		~lsys[\penrose_canon_pausen_2].theta = ~gui.lsysColorsAndTheta.penrose_mehr_pauses.theta;
+		~lsys[\penrose_canon_mehr_pausen].theta = ~gui.lsysColorsAndTheta.penrose_mehr_pauses.theta;
+		~lsys[\penrose_canon_mehr_pausen_ht].theta = ~gui.lsysColorsAndTheta.penrose_mehr_pauses.theta;
+		~lsys[\penrose_canon_mehr_pausen2].theta = ~gui.lsysColorsAndTheta.penrose_mehr_pauses.theta;
+		~lsys[\penrose_canon_mehr_pausen3].theta = ~gui.lsysColorsAndTheta.penrose_mehr_pauses.theta;
+		~lsys[\simpleSwitch].theta = ~gui.lsysColorsAndTheta.simpleSwitch.theta;
 
 		~lsys[\penrose_pauses_gen4].baseTempo = penrose_baseTempo;
 		~lsys[\penrose_canon_1].baseTempo = penrose_baseTempo;
@@ -70,9 +71,9 @@ Pdef(\penrose_entwicklung2,
 		~linkClock.tempo = 1; // wichtig nach fuge_develope_ende2
 
 		sp.seq(Ppar([
-		Pbind(\amp, 0.23) <> ~penroseInstrState_7.(
-				inputPattern: Pfindur(16,Pn(Pdef(\penrose_pauses_gen4),1))) //42.833333333333 original
-		])
+			Pbind(\amp, 0.23) <> ~penroseInstrState_7.(
+			inputPattern: Pfindur(16,Pn(Pdef(\penrose_pauses_gen4),1))) //42.833333333333 original
+			])
 		);
 
 		"penrose_canon".postln;
@@ -80,12 +81,12 @@ Pdef(\penrose_entwicklung2,
 
 
 		sp.seq(Ppar([
-		~penroseInstrState_7.(
-		inputPattern: Pseq([
-		Pdef(\penrose_canon_1),
-		Pdef(\penrose_canon_2)], 2)
-		),
-])
+			~penroseInstrState_7.(
+				inputPattern: Pseq([
+					Pdef(\penrose_canon_1),
+				Pdef(\penrose_canon_2)], 2)
+			),
+			])
 		);
 
 		"penrose_canon_pausen x fade".postln;
@@ -93,18 +94,18 @@ Pdef(\penrose_entwicklung2,
 
 
 		sp.seq(
-		~patternVolumeFade.(
-		pat1:
-		~penroseInstrState_8.(
-		inputPattern: Pn(Pdef(\penrose_canon_pausen_1),5)),
+			~patternVolumeFade.(
+				pat1:
+				~penroseInstrState_8.(
+				inputPattern: Pn(Pdef(\penrose_canon_pausen_1),5)),
 
-		pat2:
-		~penroseInstrState_7.(
-		inputPattern: Pfindur(34.166666666667, Pn(Pdef(\penrose_canon_1),5))),
+				pat2:
+				~penroseInstrState_7.(
+				inputPattern: Pfindur(34.166666666667, Pn(Pdef(\penrose_canon_1),5))),
 
-		length: 34.166666666667,
-		delta: penrose_baseTempo
-		)
+				length: 34.166666666667,
+				delta: penrose_baseTempo
+			)
 		);
 
 
@@ -113,10 +114,10 @@ Pdef(\penrose_entwicklung2,
 
 
 		sp.seq(Ppar([ //weg??
-		~penroseInstrState_8.(
-		inputPattern: Pdef(\penrose_canon_pausen_1)
-		)
-		])
+			~penroseInstrState_8.(
+				inputPattern: Pdef(\penrose_canon_pausen_1)
+			)
+			])
 		);
 
 		"penrose_canon_pausen2".postln;
@@ -124,10 +125,10 @@ Pdef(\penrose_entwicklung2,
 
 
 		sp.seq(Ppar([
-		~penroseInstrState_8.(
-		inputPattern: Pdef(\penrose_canon_pausen_2)
-		)
-		])
+			~penroseInstrState_8.(
+				inputPattern: Pdef(\penrose_canon_pausen_2)
+			)
+			])
 		);
 
 		"penrose_canon_mehr_pausen x-fade".postln;

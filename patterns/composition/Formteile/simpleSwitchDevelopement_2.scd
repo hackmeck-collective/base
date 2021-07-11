@@ -4,16 +4,19 @@ Pdef(\simpleSwitchDevelopement_2,
 		"ss_dev_2".postln;
 		~cueSymbols[\new] = 'ss_dev_2';
 
-		/*sp.par(
+		sp.par(
 			Pspawner({ |sp2|
 				sp2.wait(15); // 15
 				sp2.seq(Pdef(\triangleDevelopement_1)); //können wir das bitte überarbeiten? das kommt nicht gut in kombination, das klingt sehr ungroovy
 			})
-		);*/
+		);
 
 		~lsys[\simpleSwitch_dev4].branchInterval = 7;
 		~lsys[\simpleSwitch_dev4].vols = [0, 0, 1, 1, 1, 1];
 		~lsys[\simpleSwitch_dev4].ctranspose = 0;
+		~lsys[\simpleSwitch_dev6].baseColor = ~gui.lsysColorsAndTheta.simpleSwitch.baseColor;
+		~lsys[\simpleSwitch_dev6].theta = ~gui.lsysColorsAndTheta.simpleSwitch.baseColor;
+
 
 		sp.par(
 			Pbind(\dur, Rest(0.1), \setDetune, Pfunc {|in|
