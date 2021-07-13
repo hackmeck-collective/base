@@ -8,20 +8,12 @@ Pdef(\simpleSwitchDevelopement_1,
 		~lsys[\simpleSwitch_gen0].noteOffset = 21;
 		~lsys[\simpleSwitch_dev4].noteOffset = 0;*/
 
-		~lsys[\simpleSwitch].baseColor = ~gui.lsysColorsAndTheta.simpleSwitch.baseColor;
-		~lsys[\simpleSwitch_dev2].baseColor = ~gui.lsysColorsAndTheta.simpleSwitch.baseColor;
-		~lsys[\simpleSwitch_dev3].baseColor = ~gui.lsysColorsAndTheta.simpleSwitch.baseColor;
-		~lsys[\simpleSwitch_gen0].baseColor = ~gui.lsysColorsAndTheta.simpleSwitch.baseColor;
-		~lsys[\simpleSwitch_gen1].baseColor = ~gui.lsysColorsAndTheta.simpleSwitch.baseColor;
-		~lsys[\simpleSwitch_dev4].baseColor = ~gui.lsysColorsAndTheta.simpleSwitch.baseColor;
-
-		~lsys[\simpleSwitch].theta = ~gui.lsysColorsAndTheta.simpleSwitch.theta;
-		~lsys[\simpleSwitch_dev2].theta = ~gui.lsysColorsAndTheta.simpleSwitch.theta;
-		~lsys[\simpleSwitch_dev3].theta = ~gui.lsysColorsAndTheta.simpleSwitch.theta;
-		~lsys[\simpleSwitch_gen0].theta = ~gui.lsysColorsAndTheta.simpleSwitch.theta;
-		~lsys[\simpleSwitch_gen1].theta = ~gui.lsysColorsAndTheta.simpleSwitch.theta;
-		~lsys[\simpleSwitch_dev4].theta = ~gui.lsysColorsAndTheta.simpleSwitch.theta;
-
+		~lsys[\simpleSwitch].putAll(~gui.lsysColorsAndTheta.simpleSwitch);
+		~lsys[\simpleSwitch_dev2].putAll(~gui.lsysColorsAndTheta.simpleSwitch);
+		~lsys[\simpleSwitch_dev3].putAll(~gui.lsysColorsAndTheta.simpleSwitch);
+		~lsys[\simpleSwitch_dev4].putAll(~gui.lsysColorsAndTheta.simpleSwitch);
+		~lsys[\simpleSwitch_gen0].putAll(~gui.lsysColorsAndTheta.simpleSwitch);
+		~lsys[\simpleSwitch_gen1].putAll(~gui.lsysColorsAndTheta.simpleSwitch);
 
 		~lsys[\simpleSwitch].noteOffset = 14;
 		~lsys[\simpleSwitch].ctranspose = 0;

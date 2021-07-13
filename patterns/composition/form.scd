@@ -23,14 +23,14 @@ Pdef(\play,
 		sp.seq(Pdef(\triangleDevelopement_2)); // können wir bei philipp Fraktal die einzelnen branches pannen? so [0, 0.25, -0.25, 0.5, -0.5, 0.75, -0.75, 1, -1], das wäre meeeega, wie geht das?
 
 		~cueSymbols[\new] = 'Fuge_1_1st';
-		~lsys[\fuge_excerpt_gen1].baseColor = ~gui.lsysColorsAndTheta.fuge.baseColor;
-		~lsys[\fuge_excerpt_gen2].baseColor = ~gui.lsysColorsAndTheta.fuge.baseColor;
-		~lsys[\fuge_excerpt_gen3].baseColor = ~gui.lsysColorsAndTheta.fuge.baseColor;
-		~lsys[\fuge_excerpt_gen4].baseColor = ~gui.lsysColorsAndTheta.fuge.baseColor;
-		~lsys[\fuge_excerpt_gen5].baseColor = ~gui.lsysColorsAndTheta.fuge.baseColor;
-		~lsys[\fuge_excerpt2_gen1].baseColor = ~gui.lsysColorsAndTheta.fuge.baseColor;
-		~lsys[\fuge_excerpt2_gen2].baseColor = ~gui.lsysColorsAndTheta.fuge.baseColor;
-		~lsys[\fuge_excerpt2_gen3].baseColor = ~gui.lsysColorsAndTheta.fuge.baseColor;
+		~lsys[\fuge_excerpt_gen1].putAll(~gui.lsysColorsAndTheta.fuge);
+		~lsys[\fuge_excerpt_gen2].putAll(~gui.lsysColorsAndTheta.fuge);
+		~lsys[\fuge_excerpt_gen3].putAll(~gui.lsysColorsAndTheta.fuge);
+		~lsys[\fuge_excerpt_gen4].putAll(~gui.lsysColorsAndTheta.fuge);
+		~lsys[\fuge_excerpt_gen5].putAll(~gui.lsysColorsAndTheta.fuge);
+		~lsys[\fuge_excerpt2_gen1].putAll(~gui.lsysColorsAndTheta.fuge);
+		~lsys[\fuge_excerpt2_gen2].putAll(~gui.lsysColorsAndTheta.fuge);
+		~lsys[\fuge_excerpt2_gen3].putAll(~gui.lsysColorsAndTheta.fuge);
 
 		~linkClock.tempo = 1;
 		sp.seq(~fugeInstrState_1.(

@@ -66,12 +66,10 @@ Pdef(\exposition,
 		~launchControlXlKnobLEDsSetRow.([1,8],1);
 		~launchControlXlUpdateKnobLEDs.value;*/
 
-		~lsys[\fuge_excerpt_gen1].baseColor = ~gui.lsysColorsAndTheta.fuge.baseColor;
-
-		~lsys[\weed_gen1].theta = ~gui.lsysColorsAndTheta.weed.theta;
-		~lsys[\weed_gen2].theta = ~gui.lsysColorsAndTheta.weed.theta;
-		~lsys[\weed_gen2].theta = ~gui.lsysColorsAndTheta.weed.theta;
-
+		~lsys[\fuge_excerpt_gen1].putAll(~gui.lsysColorsAndTheta.fuge);
+		~lsys[\weed_gen1].putAll(~gui.lsysColorsAndTheta.weed);
+		~lsys[\weed_gen2].putAll(~gui.lsysColorsAndTheta.weed);
+		~lsys[\weed_gen3].putAll(~gui.lsysColorsAndTheta.weed);
 
 		~lsys[\weed_gen1].noteOffset = weedOffset_1;
 		~lsys[\weed_gen1].baseTempo = 1;
@@ -184,18 +182,11 @@ Pdef(\exposition,
 		~launchControlXlKnobLEDsSetRow.([3,8],3);
 		~launchControlXlUpdateKnobLEDs.value;*/
 
-
-
-		~lsys[\penrose_simplesimple_gen1].baseColor = ~gui.lsysColorsAndTheta.penrose.baseColor;
-		~lsys[\penrose_simplesimple_gen1].theta = ~gui.lsysColorsAndTheta.penrose.theta;
-		~lsys[\penrose_simple_gen1].baseColor = ~gui.lsysColorsAndTheta.penrose.baseColor;
-		~lsys[\penrose_simple_gen2].baseColor = ~gui.lsysColorsAndTheta.penrose.baseColor;
-		~lsys[\penrose_simple_gen3].baseColor = ~gui.lsysColorsAndTheta.penrose.baseColor;
-		~lsys[\penrose_simple_gen0].baseColor = ~gui.lsysColorsAndTheta.penrose.baseColor;
-		~lsys[\penrose_simple_gen1].theta = ~gui.lsysColorsAndTheta.penrose.theta;
-		~lsys[\penrose_simple_gen2].theta = ~gui.lsysColorsAndTheta.penrose.theta;
-		~lsys[\penrose_simple_gen2].theta = ~gui.lsysColorsAndTheta.penrose.theta;
-		~lsys[\penrose_simple_gen0].theta = ~gui.lsysColorsAndTheta.penrose.theta;
+		~lsys[\penrose_simplesimple_gen1].putAll(~gui.lsysColorsAndTheta.penrose);
+		~lsys[\penrose_simple_gen1].putAll(~gui.lsysColorsAndTheta.penrose);
+		~lsys[\penrose_simple_gen2].putAll(~gui.lsysColorsAndTheta.penrose);
+		~lsys[\penrose_simple_gen3].putAll(~gui.lsysColorsAndTheta.penrose);
+		~lsys[\penrose_simple_gen0].putAll(~gui.lsysColorsAndTheta.penrose);
 
 		~lsys[\penrose_simplesimple_gen1].noteOffset = penroseOffset_1;
 		~lsys[\penrose_simplesimple_gen1].baseTempo = 3/16;
@@ -265,15 +256,12 @@ Pdef(\exposition,
 		"simpleSwitch buildup 1".postln;
 		~cueSymbols[\new] = 'simpleSwitch buildup 1';
 
-		~lsys[\simpleSwitch_gen0].theta = ~gui.lsysColorsAndTheta.simpleSwitch.theta;
-		~lsys[\simpleSwitch_gen1].theta = ~gui.lsysColorsAndTheta.simpleSwitch.theta;
-		~lsys[\simpleSwitch_gen2].theta = ~gui.lsysColorsAndTheta.simpleSwitch.theta;
-		~lsys[\simpleSwitch_gen3].theta = ~gui.lsysColorsAndTheta.simpleSwitch.theta;
+		~lsys[\simpleSwitch_gen0].putAll(~gui.lsysColorsAndTheta.simpleSwitch);
+		~lsys[\simpleSwitch_gen1].putAll(~gui.lsysColorsAndTheta.simpleSwitch);
+		~lsys[\simpleSwitch_gen2].putAll(~gui.lsysColorsAndTheta.simpleSwitch);
+		~lsys[\simpleSwitch_gen3].putAll(~gui.lsysColorsAndTheta.simpleSwitch);
 
-		~lsys[\simpleSwitch_gen0].baseColor = ~gui.lsysColorsAndTheta.simpleSwitch.baseColor;
-		~lsys[\simpleSwitch_gen1].baseColor = ~gui.lsysColorsAndTheta.simpleSwitch.baseColor;
-		~lsys[\simpleSwitch_gen2].baseColor = ~gui.lsysColorsAndTheta.simpleSwitch.baseColor;
-		~lsys[\simpleSwitch_gen3].baseColor = ~gui.lsysColorsAndTheta.simpleSwitch.baseColor;
+
 
 		~lsys[\penrose_simplesimple_gen1].noteOffset = penroseOffset_1 -12;
 		~lsys[\penrose_simplesimple_gen1].baseTempo = 3/16;
@@ -354,6 +342,11 @@ Pdef(\exposition,
 		~lsys[\penrose_gen0].baseColor = ~gui.lsysColorsAndTheta.penrose.baseColor;
 		~lsys[\penrose_gen0].theta = ~gui.lsysColorsAndTheta.penrose.theta;
 		~lsys[\penrose_click_gen1].baseColor = 50;
+
+		~lsys[\penrose_gen0].putAll(~gui.lsysColorsAndTheta.penrose);
+		~lsys[\penrose_gen1].putAll(~gui.lsysColorsAndTheta.penrose);
+		~lsys[\penrose_click_gen1].putAll(~gui.lsysColorsAndTheta.click);
+
 
 		sp.seq(~weedInstrState_2.(
 			inputPattern: Pseq([

@@ -15,7 +15,12 @@ Pdef(\layers,
 		~lsys[\weed_gen3].noteOffset = weedOffset_1-5;
 		~lsys[\penrose_gen1].baseTempo = 1/6;
 		~lsys[\penrose_gen1].noteOffset = penroseOffset_1+7;
-		~lsys[\fuge_excerpt_gen2].baseColor = ~gui.lsysColorsAndTheta.fuge.baseColor;
+
+		~lsys[\fuge_excerpt_gen2].putAll(~gui.lsysColorsAndTheta.fuge);
+		~lsys[\penrose_gen0].putAll(~gui.lsysColorsAndTheta.penrose);
+		~lsys[\penrose_gen1].putAll(~gui.lsysColorsAndTheta.penrose);
+		~lsys[\penrose_gen2].putAll(~gui.lsysColorsAndTheta.penrose);
+		~lsys[\penrose_simple_gen1].putAll(~gui.lsysColorsAndTheta.penrose);
 
 		sp.seq(
 			Pbind(\amp, 6.dbamp,
@@ -93,9 +98,11 @@ Pdef(\layers,
 		~lsys[\simpleSwitch_click_gen2].baseTempo = 3/16;
 		~lsys[\simpleSwitch_click_gen1].baseTempo = 3/16;
 		~lsys[\simpleSwitch_click_gen0].baseTempo = 3/16;
-		~lsys[\simpleSwitch_click_gen1].baseColor = 30;
-		~lsys[\simpleSwitch_click_gen2].baseColor = 30;
-		~lsys[\simpleSwitch_click_gen3].baseColor = 30;
+		~lsys[\simpleSwitch_click_gen0].putAll(~gui.lsysColorsAndTheta.click);
+		~lsys[\simpleSwitch_click_gen1].putAll(~gui.lsysColorsAndTheta.click);
+		~lsys[\simpleSwitch_click_gen2].putAll(~gui.lsysColorsAndTheta.click);
+		~lsys[\simpleSwitch_click_gen3].putAll(~gui.lsysColorsAndTheta.click);
+
 
 
 		"simpleSwitch and weed".postln;
