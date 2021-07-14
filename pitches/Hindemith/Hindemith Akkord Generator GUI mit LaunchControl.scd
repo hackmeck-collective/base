@@ -41,27 +41,27 @@ w = Window.new("hindemith", bounds: Rect(100, 0, 1600, 900)).front;
 ~text6.font = Font("Monaco", fontsize);
 
 //Second row
-~numberboxDissDegree = NumberBox(w, Rect(platz, 2 * platz + hoehe, 50, 50));
+~numberboxDissDegree = NumberBox(w, Rect(platz,  platz + hoehe, 50, 50));
 ~numberboxDissDegree.font = Font("Monaco", fontsize);
-~textfieldRoot = TextField(w, Rect(2*platz + breite, 2 * platz + hoehe, 50, 50));
+~textfieldRoot = TextField(w, Rect(2*platz + breite,  platz + hoehe, 50, 50));
 ~textfieldRoot.font = Font("Monaco", fontsize);
-~numberboxNumberNotes = NumberBox(w, Rect(3 * platz + (2*breite),  2 * platz + hoehe, 50, 50));
+~numberboxNumberNotes = NumberBox(w, Rect(3 * platz + (2*breite),  platz + hoehe, 50, 50));
 ~numberboxNumberNotes.font = Font("Monaco", fontsize);
-~textfieldScale = TextField(w, Rect(4 * platz + (3*breite),  2 * platz + hoehe, 100, 50));
+~textfieldScale = TextField(w, Rect(4 * platz + (3*breite), platz + hoehe, 100, 50));
 ~textfieldScale.font = Font("Monaco", fontsize);
-~numberboxLowerNote = NumberBox(w, Rect(5 * platz + (4*breite),  2 * platz + hoehe, 50, 50));
+~numberboxLowerNote = NumberBox(w, Rect(5 * platz + (4*breite),   platz + hoehe, 50, 50));
 ~numberboxLowerNote.font = Font("Monaco", fontsize);
-~numberboxHigherNote = NumberBox(w, Rect(6 * platz + (5*breite),  2 * platz + hoehe, 50, 50));
+~numberboxHigherNote = NumberBox(w, Rect(6 * platz + (5*breite),   platz + hoehe, 50, 50));
 ~numberboxHigherNote.font = Font("Monaco", fontsize);
 
-~led = LevelIndicator(w, bounds:Rect(900, 150, 30, 30)).front;
+~led = LevelIndicator(w, bounds:Rect(6*breite+(6*platz), platz + hoehe, 30, 30)).front;
 ~led.style = \led;
 ~led.meterColor = Color.red;
 ~led.background = Color.white;
 ~led.numSteps = 1;
 
 //Third row
-~button1 = Button(w, Rect(platz, 3 * hoehe + platz, 100, 100))
+~button1 = Button(w, Rect(platz, 2 * hoehe + platz, 100, 100))
 .states_([ ["gate", Color.black, Color.white], ["gate", Color.black, amber] ]);
 
 
@@ -72,7 +72,7 @@ w = Window.new("hindemith", bounds: Rect(100, 0, 1600, 900)).front;
 
 
 //Fourth row
-~textfieldList = TextField(w, Rect(platz, 4 * hoehe + (2* platz), 1300, 40));
+~textfieldList = TextField(w, Rect(platz, 3 * hoehe + (2* platz), 1200, 40));
 ~textfieldList.align = \center;
 ~textfieldList.font = Font(size: 20);
 

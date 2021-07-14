@@ -3,7 +3,7 @@
 
 
 //w ?? {w =  Window.new("cues", Rect(100, 0, 1600, 800)).front};
-~cueWindowText = StaticText(w, Rect(20,500,1300,350));
+~cueWindowText = StaticText(w, Rect(20,400,1200,280));
 ~cueWindowText.background=Color.white;
 ~cueWindowText.align = \center;
 ~cueWindowText.font = Font("Monaco", 48);
@@ -40,7 +40,7 @@
 );
 
 ~philippCues.add('weed' -> {
-	~cueWindowText.string = "6-0-5";
+	~cueWindowText.string = "6-0-5-Bartok-36-84";
 	"weed".postln;
 }
 );
@@ -125,7 +125,7 @@ SOLO";
 
 ~philippCues.add('penrose_canon_pausen x fade' -> {
 	~cueWindowText.string = "6-0-5-Bartok-36-84
-6-0-6-Diminished-36-84
+8-0-6-Diminished-36-84
 SOLO";
 	"penrose_canon_pausen x fade".postln;
 }
@@ -133,7 +133,7 @@ SOLO";
 
 ~philippCues.add('penrose_canon_pausen1' -> {
 	~cueWindowText.string = "6-0-5-Bartok-36-84
-6-0-6-Diminished-36-84
+8-0-6-Diminished-36-84
 SOLO";
 	"penrose_canon_pausen1".postln;
 }
@@ -141,7 +141,7 @@ SOLO";
 
 ~philippCues.add('penrose_canon_pausen2' -> {
 	~cueWindowText.string = "6-0-5-Bartok-36-84
-6-0-6-Diminished-36-84
+8-0-6-Diminished-36-84
 SOLO";
 	"penrose_canon_pausen2".postln;
 }
@@ -149,7 +149,7 @@ SOLO";
 
 ~philippCues.add('penrose_canon_mehr_pausen x-fade' -> {
 	~cueWindowText.string = "6-0-5-Bartok-36-84
-6-0-6-Diminished-36-84
+8-0-6-Diminished-36-84
 SOLO";
 	"penrose_canon_mehr_pausen x-fade".postln;
 }
@@ -157,27 +157,28 @@ SOLO";
 
 ~philippCues.add('halftime fade in' -> {
 	~cueWindowText.string = "6-0-5-Bartok-36-84
-6-0-6-Diminished-36-84";
+8-0-6-Diminished-36-84";
 	"halftime fade in".postln;
 }
 );
 
 ~philippCues.add('normaltime fade out' -> {
 	~cueWindowText.string = "6-0-5-Bartok-36-84
-6-0-6-Diminished-36-84";
+8-0-6-Diminished-36-84";
 	"normaltime fade out".postln;
 }
 );
 
 ~philippCues.add('penrose_canon_mehr_pausen' -> {
 	~cueWindowText.string = "6-0-5-Bartok-36-84
-6-0-6-Diminished-36-84";
+8-0-6-Diminished-36-84";
 	"penrose_canon_mehr_pausen".postln;
 }
 );
 
 ~philippCues.add('transition_penrose_simpleSwitch' -> { //Hier nichts ändern
-	~cueWindowText.string = "6-0-5-Bartok-36-84".postln;
+	~cueWindowText.string = "gleich: 9-0-7-Chromatisch-36-96
+9-0-6-Chromatisch-36-96".postln;
 }
 );
 
@@ -219,26 +220,26 @@ SOLO";
 );
 
 ~philippCues.add('fraktal_1_inverse7' -> {
-	~cueWindowText.string = "WAIT"; //"6-0-6-chromatic-36-84";
+	~cueWindowText.string = "gleich: 9-0-6-diminished-36-96"; //"6-0-6-chromatic-36-84";
 	"fraktal_1_inverse7".postln;
 }
 );
 
 ~philippCues.add('fraktal_13 A' -> {
-	~cueWindowText.string = "WAIT";
+	~cueWindowText.string = "gleich: 9-0-6-diminished-36-96";
 	"fraktal_13 A".postln;
 }
 );
 
 ~philippCues.add('fraktal_13 B' -> {
-	~cueWindowText.string = "9-0-6-diminished";
+	~cueWindowText.string = "9-0-6-diminished-36-96";
 	"fraktal_13 B".postln;
 }
 );
 
 
 ~philippCues.add('fraktal_1_inverse7_2nd' -> {
-	~cueWindowText.string = "WAIT";
+	~cueWindowText.string = "9-0-6-diminished-36-96";
 	//"6-0-5-Bartok-36-84 6-0-5-Bartok-60-108 6-0-5-Chromatisch-60-108";
 	"fraktal_1_inverse7_2nd".postln;
 }

@@ -7,7 +7,7 @@
 		self.pianoKeys = self.layouts.collect { |ev|
 			var color = Color.perform(ev.color);
 			var height = ev.h * 60;
-			var rect = Rect(ev.x + (1-ev.w/2) * 24 + 4 + 200, 4 + 300, 24 * ev.w, height).postln;
+			var rect = Rect(ev.x + (1-ev.w/2) * 24 + 4 + 200, 4 + 200, 24 * ev.w, height).postln;
 			var pad = MPadView(/*self.win*/w,rect).mode_(\noteOnOff);
 			pad.baseColor_(color).hiliteColor_(Color(0.9, 0, 0.7, 0.85)); //.label_(ev.note);
 		};

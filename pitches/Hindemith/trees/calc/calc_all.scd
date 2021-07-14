@@ -29,11 +29,14 @@
 		arrayOfLists.do({ arg item;
 			arrayOfEventsWithLists = arrayOfEventsWithLists.add((list: item, rootNote: 0))
 		});
+		//special case "full whole tone scale":
+		if(numNotes == 6 && (underlyingScale == [ 0, 2, 4, 6, 8, 10 ])) {
+			arrayOfEventsWithLists = [(list: [0,2,4,6,8,10], rootNote: 0)]
+		};
 		outputs = arrayOfEventsWithLists;
 	};
 	outputs
 };
-
 
 
 ~dissDegreesAll = (0..11);
@@ -42,8 +45,6 @@
 // beachten: da alle ergebnisse nochmal mit den offsets (1..11) vervielfacht werden
 // ist der tatsaechliche wert fuer maxUpper 11 hoeher
 )
-
-
 
 
 // calculate all dissDegrees for all different number of notes
@@ -73,7 +74,7 @@
 
 
 // inspection
-~res[\underlyingScale, 'Natural Minor', \numNotes, 3, \dissDegrees, 0]; //rootNote doesn’t work here
+~res[\underlyingScale, 'Whole Tone', \numNotes, 6, \dissDegrees, 11]; //rootNote doesn’t work here
 
 
 // copy and offset rootnote and list for every note
@@ -97,7 +98,7 @@
 
 
 //inspection: ~rootOffsets[rootNote][\key, value, \key, value, \key, value]
-~rootOffsets[1][\underlyingScale, 'Whole Tone', \numNotes, 4, \dissDegrees, 3];
+~rootOffsets[1][\underlyingScale, 'Whole Tone', \numNotes, 6, \dissDegrees, 11];
 
 // make kdtrees for all numNotes and all rootNote and all dissDegree
 //Die Idee ist jetzt die Rootnote in die Adresse mit hineinzubringen. Aus den Listen mit den Events werden Objekte (mit Namen kdtree). Der Vorteil ist, dass man schnell darin suchen kann.
