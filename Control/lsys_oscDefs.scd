@@ -97,3 +97,7 @@ OSCdef(\shuffleArray, {|msg|
 		~lsys[\overwriteOnOff][arr[1]] = msg[1].asBoolean;
 	}, arr[0]).permanent_(true);
 };
+
+OSCdef(\latencyCompensation, {|msg|
+	~gui.latencyCompensation = msg[1].postln;
+}, '/latencyCompensation').permanent_(true);

@@ -67,7 +67,7 @@
 									};
 									lastPoint = firstPoint;
 									firstPoint = firstPoint.translate(
-										Point(0, -1).rotate((ev.pitches * ev.theta).degrad)
+										Point(0, ev.lineSize).rotate((ev.pitches * ev.theta).degrad)
 									);
 									if(ev.ignorePoints.not){
 										top[\gui].lastPoints[voiceEvent.myId] = firstPoint;

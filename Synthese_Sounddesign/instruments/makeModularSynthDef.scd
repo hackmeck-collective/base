@@ -495,6 +495,8 @@
 
 					vca = Splay.ar(vca, spread: spread, center: centerPos);
 
+					DetectSilence.ar(vca, time: 2, doneAction: 2);
+
 					Out.ar(out, vca);
 					Out.ar(send_1, vca * send_1_level);
 					Out.ar(send_2, vca * send_2_level);

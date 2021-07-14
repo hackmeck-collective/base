@@ -1,4 +1,4 @@
-~allOutPad = -6.dbamp;
+~allOutPad = -9.dbamp;
 
 "initializing audio busses".postln;
 
@@ -54,8 +54,8 @@ SynthDef(\melody_bus, {
 
 	sidechain = in * duck_4 * duck_8;
 
-	Out.ar(~instruments_bus, sidechain);
-	Out.ar(2, sidechain * ~allOutPad);
+	Out.ar(~instruments_bus, (sidechain * ~allOutPad));
+	Out.ar(2, (sidechain * ~allOutPad));
 
 }).add;
 
@@ -87,8 +87,8 @@ SynthDef(\chords_bus, {
 
 	sidechain = in * duck_4 * duck_8;
 
-	Out.ar(~instruments_bus, sidechain);
-	Out.ar(4, sidechain * ~allOutPad);
+	Out.ar(~instruments_bus, (sidechain * ~allOutPad));
+	Out.ar(4, (sidechain * ~allOutPad));
 
 }).add;
 
@@ -110,8 +110,8 @@ SynthDef(\aux_bus, {
 	in = BPeakEQ.ar(in, eqBand3_freq, eqBand3_q, eqBand3_db);
 	in = BHiShelf.ar(in, eqHiShelf_freq, eqHiShelf_q, eqHiShelf_db);
 
-	Out.ar(~instruments_bus, in);
-	Out.ar(6, in * ~allOutPad);
+	Out.ar(~instruments_bus, (in * ~allOutPad));
+	Out.ar(6, (in * ~allOutPad));
 
 }).add;
 
@@ -132,8 +132,8 @@ SynthDef(\drums_bus, {
 	in = BPeakEQ.ar(in, eqBand3_freq, eqBand3_q, eqBand3_db);
 	in = BHiShelf.ar(in, eqHiShelf_freq, eqHiShelf_q, eqHiShelf_db);
 
-	Out.ar(~instruments_bus, in);
-	Out.ar(8, in * ~allOutPad);
+	Out.ar(~instruments_bus, (in * ~allOutPad));
+	Out.ar(8, (in * ~allOutPad));
 
 }).add;
 
@@ -163,8 +163,8 @@ SynthDef(\effect_bus, {
 	in = BPeakEQ.ar(in, eqBand3_freq, eqBand3_q, eqBand3_db);
 	in = BHiShelf.ar(in, eqHiShelf_freq, eqHiShelf_q, eqHiShelf_db);
 
-	Out.ar(~master, in);
-	Out.ar(10, in * ~allOutPad);
+	Out.ar(~master, (in * ~allOutPad));
+	Out.ar(10, (in * ~allOutPad));
 
 }).add;
 
@@ -206,7 +206,7 @@ SynthDef(\Master, {
 
 	sig = vol * sig; //(sig / (1 + sig.abs));
 
-	Out.ar(0, sig * ~allOutPad);
+	Out.ar(0, (sig * ~allOutPad));
 
 }).add;
 

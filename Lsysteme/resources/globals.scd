@@ -48,6 +48,7 @@
 	stutterVal: 1,
 	lerpLines: false,
 	baseColor: 0,
+	lineSize: -4,
 	ignorePoints: false,
 	shuffleArray: [1]
 );
@@ -57,19 +58,20 @@
 //
 ~gui = ();
 ~gui.points = List.new;
-~gui.scale = 20;
+~gui.scale = 5;
 ~gui.lastPoints = ();
 ~gui.lastPoints[\rootPoint] = Point();
 ~gui.lsysColorsAndTheta = (
-	weed: (baseColor: 0, theta: 55),
-	penrose: (baseColor: 45, theta: 45),
-	penrose_pauses: (baseColor: 45, theta: 15), //15, 20
-	penrose_mehr_pauses: (baseColor: 45, theta: 45), //15, 20
-	fuge: (baseColor: 90),
-	simpleSwitch: (baseColor: 40, theta: 50),
-	triangle: (baseColor: 20, theta: 30), //12, 24
-	click: (baseColor: 80, theta: 0) // 60
+	weed: (baseColor: 0, theta: 60, lineSize: -4),
+	penrose: (baseColor: 75, theta: 45, lineSize: -10),
+	penrose_pauses: (baseColor: 75, theta: 15, lineSize: -10), //15, 20
+	penrose_mehr_pauses: (baseColor: 75, theta: 45, lineSize: -10), //15, 20
+	fuge: (baseColor: 90, lineSize: -12),
+	simpleSwitch: (baseColor: 30, theta: 50, lineSize: -6),
+	triangle: (baseColor: 20, theta: 30, lineSize: -4), //12, 24
+	click: (baseColor: 50, theta: 0, lineSize: -2) // 60
 );
+~gui.latencyCompensation = 0.1;
 
 if(~localSetup){
 	~targetServer = Server.default;
@@ -186,13 +188,13 @@ Pdef(\playVisuals,
 				if((ev.checkPause.class != Rest) || (ev.legato >= 1)){
 					if(ev.branchLevel.notNil){
 						//("branchLEVEL: " ++ ev.branchLevel).postln;
-						~gui.points.add([
-							ev.calcPoint,
-							ev.branchLevel.linlin(0,5,0,1).asFloat,
-							ev.vol.asFloat ? 1.0,
-							ev.baseColor,
-							(~linkClock.tempo/ ev.dur),
-							ev.lerpLines.asInteger
+						~gui.points.add(
+							((ev.calcPoint[0].asArray ++ ev.calcPoint[1].asArray) * ~gui.scale).asInteger ++ [
+								ev.branchLevel.linlin(0,5,0,1).asFloat,
+								ev.vol.asFloat ? 1.0,
+								ev.baseColor,
+								(~linkClock.tempo/ ev.dur),
+								ev.lerpLines.asInteger
 						]);
 					}
 				};
@@ -200,22 +202,23 @@ Pdef(\playVisuals,
 			0
 		}
 	) <>
-	Pdef(\play) <>
-	PtimeClutch(
-		Pbind(\sendToGui, Pfunc {
-			if(~gui.points.isEmpty.not){
-				~gui.points.do { |p|
-					var wp1 = (p[0][0]) * ~gui.scale,  // ~win.bounds.bottom/2 oder so
-					wp2 = (p[0][1]) * ~gui.scale,
-					oscMsg = (wp1.asArray ++ wp2.asArray).asInteger ++ p[1..];
-					{~gui.toProcessing.sendMsg('/lines', *oscMsg)}.defer(~targetServer.latency - 0.19) // damit es mit server latency zusammen kommt
-				};
-				~gui.points.clear;
-			};
-			0
-		})
-	)
+	Pdef(\play)
 );
 
+~sendVisuals = Routine {
+	loop {
+		if(~gui.points.isEmpty.not){
+			~gui.points.do { |p|
+				//var wp1 = (p[0][0]) * ~gui.scale,  // ~win.bounds.bottom/2 oder so
+				//wp2 = (p[0][1]) * ~gui.scale,
+				//oscMsg = p;//(wp1.asArray ++ wp2.asArray).asInteger ++ p[1..];
+				{~gui.toProcessing.sendMsg('/lines', *p)}.defer(~targetServer.latency - ~gui.latencyCompensation) // damit es mit server latency zusammen kommt
+			};
+			~gui.points.clear;
+		};
+		//thisThread.beats.postln;
+		0.04.wait; // frameRate
+	}
+};
 
 thisProcess.openUDPPort(9010);

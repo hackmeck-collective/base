@@ -26,7 +26,7 @@ Pbind(\glide, 0.2)
 
 Pdef(\fuge_develope_ende,
 	Pspawner({ |sp|
-		~lsys[\fuge_3_gen3].baseColor = ~gui.lsysColorsAndTheta.fuge.baseColor;
+		~lsys[\fuge_3_gen3].putAll(~gui.lsysColorsAndTheta.fuge);
 		sp.par(
 			Pbind(\dur, Rest(0.1), \x, Pfunc {|in| ~linkClock.tempo = in } <>
 				// Pseg([4,3,2,1.5,1,1] * 1,[80.8,0, 48.8,0,0.1,1],[-3,-3,-3,-3,-3])) //,[-9,-9,-9,-9,-9]
@@ -47,7 +47,7 @@ Pdef(\fuge_develope_ende2,
 				// Pseg([4,3,2,1.5,1,1] * 1,[80.8,0, 48.8,0,0.1,1],[-3,-3,-3,-3,-3])) //,[-9,-9,-9,-9,-9]
 				Pseg([10,2] * 1,[40],[-5])) //,[-9,-9,-9,-9,-9]
 		);
-		~lsys[\fuge_3_shortBranches_gen3].baseColor = ~gui.lsysColorsAndTheta.fuge.baseColor;
+		~lsys[\fuge_3_shortBranches_gen3].putAll(~gui.lsysColorsAndTheta.fuge);
 		sp.seq(
 			Pbind(\glide, 0.05)
 			<> ~fugeInstrState_1.(Pdef(\fuge_3_shortBranches_gen3))

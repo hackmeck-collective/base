@@ -12,13 +12,11 @@ Pdef(\triangleDevelopement_2,
 		~lsys[\fraktal_13].ctranspose = 12;
 		~lsys[\fraktal_17].ctranspose = 12;
 
-		~lsys[\fuge_excerpt2_gen1].baseColor = ~gui.lsysColorsAndTheta.fuge.baseColor;
-		~lsys[\fraktal_17].baseColor = ~gui.lsysColorsAndTheta.triangle.baseColor;
-		~lsys[\fraktal_13].baseColor = ~gui.lsysColorsAndTheta.triangle.baseColor;
-		~lsys[\fraktal_1_inverse7].baseColor = ~gui.lsysColorsAndTheta.triangle.baseColor;
-		~lsys[\fraktal_17].theta = ~gui.lsysColorsAndTheta.triangle.theta;
-		~lsys[\fraktal_13].theta = ~gui.lsysColorsAndTheta.triangle.theta;
-		~lsys[\fraktal_1_inverse7].theta = ~gui.lsysColorsAndTheta.triangle.theta;
+		~lsys[\fuge_excerpt2_gen1].putAll(~gui.lsysColorsAndTheta.fuge);
+
+		~lsys[\fraktal_17].putAll(~gui.lsysColorsAndTheta.triangle);
+		~lsys[\fraktal_13].putAll(~gui.lsysColorsAndTheta.triangle);
+		~lsys[\fraktal_1_inverse7].putAll(~gui.lsysColorsAndTheta.triangle);
 
 
 		sp.seq(~fugeInstrState_3.( //modem styles legato runter
@@ -126,6 +124,9 @@ Pdef(\triangleDevelopement_2,
 		sp.seq(~fraktal_1_InstrState_4.(
 			inputPattern: Pdef(\fraktal_philipp))
 		);
+
+		// s.sendMsg("/g_freeAll", ~routing[\sourceGroup]);
+
 
 	})
 )

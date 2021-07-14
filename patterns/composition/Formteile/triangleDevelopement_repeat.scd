@@ -35,5 +35,8 @@ Pdef(\triangleDevelopement_repeat,
 		sp.seq(~fraktal_1_InstrState_1.(
 			inputPattern: Psync(Pdef(\fraktal_1_inverse7), 0, 100))
 		);
+
+		s.sendMsg("/g_freeAll", ~routing[\sourceGroup]);
+
 	})
 )

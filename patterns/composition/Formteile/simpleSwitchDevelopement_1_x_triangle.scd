@@ -18,25 +18,16 @@ Pdef(\simpleSwitchDevelopement_1_x_triangle,
 		~lsys[\simpleSwitch_dev4].noteOffset = 14;
 		~lsys[\simpleSwitch_dev4].branchInterval = 7;
 
-		~lsys[\fraktal_12].baseColor = ~gui.lsysColorsAndTheta.triangle.baseColor;
-		~lsys[\fraktal_13].baseColor = ~gui.lsysColorsAndTheta.triangle.baseColor;
-		~lsys[\fraktal_14].baseColor = ~gui.lsysColorsAndTheta.triangle.baseColor;
-		~lsys[\fraktal_15].baseColor = ~gui.lsysColorsAndTheta.triangle.baseColor;
-		~lsys[\fraktal_16].baseColor = ~gui.lsysColorsAndTheta.triangle.baseColor;
-		~lsys[\fraktal_17].baseColor = ~gui.lsysColorsAndTheta.triangle.baseColor;
-		~lsys[\fraktal_1_inverse7].baseColor = ~gui.lsysColorsAndTheta.triangle.baseColor;
-		~lsys[\fuge_excerpt2_gen0].baseColor = ~gui.lsysColorsAndTheta.fuge.baseColor;
-		~lsys[\fuge_excerpt_gen0].baseColor = ~gui.lsysColorsAndTheta.fuge.baseColor;
-		~lsys[\simpleSwitch_dev4].baseColor = ~gui.lsysColorsAndTheta.simpleSwitch.baseColor;
-
-
-		~lsys[\fraktal_12].theta = ~gui.lsysColorsAndTheta.triangle.theta;
-		~lsys[\fraktal_13].theta = ~gui.lsysColorsAndTheta.triangle.theta;
-		~lsys[\fraktal_14].theta = ~gui.lsysColorsAndTheta.triangle.theta;
-		~lsys[\fraktal_15].theta = ~gui.lsysColorsAndTheta.triangle.theta;
-		~lsys[\fraktal_16].theta = ~gui.lsysColorsAndTheta.triangle.theta;
-		~lsys[\fraktal_17].theta = ~gui.lsysColorsAndTheta.triangle.theta;
-		~lsys[\fraktal_1_inverse7].theta = ~gui.lsysColorsAndTheta.triangle.theta;
+		~lsys[\fraktal_12].putAll(~gui.lsysColorsAndTheta.triangle);
+		~lsys[\fraktal_13].putAll(~gui.lsysColorsAndTheta.triangle);
+		~lsys[\fraktal_14].putAll(~gui.lsysColorsAndTheta.triangle);
+		~lsys[\fraktal_15].putAll(~gui.lsysColorsAndTheta.triangle);
+		~lsys[\fraktal_16].putAll(~gui.lsysColorsAndTheta.triangle);
+		~lsys[\fraktal_17].putAll(~gui.lsysColorsAndTheta.triangle);
+		~lsys[\fraktal_1_inverse7].putAll(~gui.lsysColorsAndTheta.triangle);
+		~lsys[\fuge_excerpt_gen0].putAll(~gui.lsysColorsAndTheta.fuge);
+		~lsys[\fuge_excerpt2_gen0].putAll(~gui.lsysColorsAndTheta.fuge);
+		~lsys[\simpleSwitch_dev4].putAll(~gui.lsysColorsAndTheta.simpleSwitch);
 
 		"ss_dev_1_x_triangle".postln;
 		~cueSymbols[\new] = 'ss_dev_1_x_triangle';
@@ -169,5 +160,10 @@ Pdef(\simpleSwitchDevelopement_1_x_triangle,
 		sp.seq(~simpleSwitchInstrState_6.(
 			inputPattern: Pdef(\simpleSwitch_dev4))
 		);
+
+
+
+		// s.sendMsg("/g_freeAll", ~routing[\sourceGroup]);
+
 	})
 )

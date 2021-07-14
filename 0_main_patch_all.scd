@@ -91,6 +91,7 @@ var loadAll = {
 Server.killAll;
 
 "booting server".postln;
+s.latency = 0.2;
 s.waitForBoot {
 	ServerTree.removeAll;
 
@@ -138,6 +139,8 @@ s.waitForBoot {
 )
 
 ~addrBook.at(\Admin).sendMsg("/reloadInstruments");
+
+s.sendMsg("/g_freeAll", ~routing[\sourceGroup]);
 
 (
 ~toOpenStageControl =NetAddr(~addrBook[\vincent].addr.ip, 8080);

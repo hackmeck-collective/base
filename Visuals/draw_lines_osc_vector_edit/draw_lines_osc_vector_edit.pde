@@ -2,8 +2,9 @@
 import oscP5.*;
 int oscPort = 12000; // port to listen for osc messages
 int linesMax = 500; //number of lines that will be drawn
-float lerpFactor = 0.5; // scaling of drawing
+float lerpFactor = 0.025; // scaling of drawing
 float scaleFactor = 1; // scaling of drawing
+int bgColor = 0;
 int offSetX = 0; // x and y offset of drawing
 int offSetY = 0;
 PVector centroid = new PVector(0,0);
@@ -16,7 +17,7 @@ OscP5 oscP5;
 ArrayList<ColouredLine> linesList, linesListCopy;
 
 void setup() {
-  size(1000, 1000);
+  size(1920, 1440);
   linesList = new ArrayList<ColouredLine>();
   oscP5 = new OscP5(this, oscPort); 
   colorMode(HSB, 100);
@@ -24,11 +25,11 @@ void setup() {
 }
 
 void draw() { 
-  background(0); //black
+  background(0,0,bgColor); //black  background(0,0,0)
   scale(scaleFactor); //zoom
   // hack against sudden jumps
   float d = centroid_old.dist(centroid);
-  if(d > 100){
+  if(d > 500){ // 100
     centroid_old = centroid.copy();
   };
   centroid_old.lerp(centroid, lerpFactor);
@@ -54,17 +55,21 @@ void oscEvent(OscMessage message) {
   } else if(message.checkAddrPattern("/reset")==true) {
     initCentroid = true;
     linesList = new ArrayList<ColouredLine>();
+    print("resetting lines");    
   } else if(message.checkAddrPattern("/linesMax")==true){
-    
+    int newMax = message.get(0).intValue();
+    int diff = newMax - linesMax;
     // change the number of lines which will be drawn
-    linesMax = message.get(0).intValue();
+    linesMax = linesMax + int((diff * 0.1));
   } else if(message.checkAddrPattern("/lerpFactor")==true){
     lerpFactor = message.get(0).floatValue();
-    
+  } else if(message.checkAddrPattern("/bw")==true){
+    bgColor = message.get(0).intValue();    
   } else if(message.checkAddrPattern("/scale")==true){
-    
+    float newFactor = message.get(0).floatValue();
+    float diff = newFactor - scaleFactor;
     // change the scaling of the drawing
-    scaleFactor = message.get(0).floatValue();
+    scaleFactor = scaleFactor + (diff * 0.1);
 
   } else if(message.checkAddrPattern("/offsetX")==true){
     
@@ -142,16 +147,10 @@ class ColouredLine
   void display(int alpha) {
     //Color according to branch level
     strokeWeight(map(branchLevel, 1, 0, 1, 7));
-    //stroke(
-    //  map(branchLevel, 1, 0, 65 - baseColor, 100 - baseColor), 
-    //  map(branchLevel, 1, 0, 35 - baseColor, 85 - baseColor), 
-    //  map(branchLevel, 1, 0, 50 - baseColor, 100 - baseColor), 
-    //  alpha * volume
-    //);
     stroke(
       map(baseColor + (branchLevel * 25), 100, 0, 0, 100), 
-      map(branchLevel, 1, 0, 25, 100), 
-      map(branchLevel, 1, 0, 25, 100), 
+      map(branchLevel * 1.25, 1, 0, 15, 100), 
+      map(branchLevel, 1, 0, 30, 100), 
       alpha * volume
     );
     if(interp == 1){
