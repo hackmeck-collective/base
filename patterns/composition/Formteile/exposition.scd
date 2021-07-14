@@ -469,6 +469,11 @@ Pdef(\exposition,
 
 		sp.wait(2);
 
+
+
+		// s.sendMsg("/g_freeAll", ~routing[\sourceGroup]);
+
+
 	})
 
 	)

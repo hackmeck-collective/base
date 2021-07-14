@@ -15,6 +15,21 @@ var opts = (
 	branchInterval: 3,
 );
 
+var opts_clicks = (
+	instr: \click,
+	legatoArr: 0.3,
+	useGlobalPitch: false,
+	noteOffset: 0,
+	quant: 0,
+	vols: 1,
+	baseTempo: 1/6,
+	quant: 0,
+	theta: 12, // 72
+	wrapLo: 36,
+	wrapHi: 120,
+	branchInterval: 3,
+);
+
 // FILTERS
 
 Pdef(\penrose_canon_1_filter,
@@ -46,5 +61,13 @@ Pdef(\penrose_canon_1_filter,
 	rules: ($F: "-F+[f]G[-X+3-X3+X]5-f5+-f+", $f: "-F+[f]G[-X+3-X3+X]5-f5+-f+", $G: "-F+[f]G[-X+3-X3+X]5-f5+-f+"), // "[F]-F+-G+[-X+3-X3+X]5-F5+-F+"
 	gen: 3, // 1
 	opts: opts
+);
+
+~newLsys.(
+	name: \penrose_canon_1_clicks, //besserer name waere arppeggios
+	axiom: "F",
+	rules: ($F: "-F+G5-F5+-F+", $G: "-F+G5-F5+-F+"), // "[F]-F+-G+[-X+3-X3+X]5-F5+-F+"
+	gen: 3, // 1
+	opts: opts_clicks
 )
 )

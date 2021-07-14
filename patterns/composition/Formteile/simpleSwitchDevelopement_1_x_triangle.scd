@@ -160,5 +160,10 @@ Pdef(\simpleSwitchDevelopement_1_x_triangle,
 		sp.seq(~simpleSwitchInstrState_6.(
 			inputPattern: Pdef(\simpleSwitch_dev4))
 		);
+
+
+
+		// s.sendMsg("/g_freeAll", ~routing[\sourceGroup]);
+
 	})
 )

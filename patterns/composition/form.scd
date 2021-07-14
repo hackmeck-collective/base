@@ -84,17 +84,31 @@ Pdef(\play,
 	"cue1".postln;
 	~cueEvents[\cue2].value};
 
-
+/*Pdef(\playVisuals).clear
 Pdef(\play).clear
-Pdef(\playVisuals).stop
+Pdef(\playVisuals).stop*/
+(
+//~visualsPlayer !? {~visualsPlayer.stop};
+~sendVisuals.play; // ~visualsPlayer =
 Pdef(\playVisuals).play(~linkClock, quant:1 )
+)
+
+~linkClock.tempo
 
 Pdef(\playVisuals).pause
 
 Pdef(\playVisuals).resume
 
-Pdef(\play).stop
-Pdef(\layers).play(~linkClock, quant:1 )
+(
+~linkClock.tempo = 0.05;
+Pdef(\play, ~clickInstrState_5.(inputPattern: Pn(Pdef(\penrose_canon_1_clicks),1)))
+)
+
+(
+~linkClock.tempo = 0.05;
+Pdef(\play, Pdef(\simpleSwitchDevelopement_1) )
+)
+)
 
 Pdef(\play).pause
 Pdef(\play).resume

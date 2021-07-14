@@ -91,7 +91,7 @@ var loadAll = {
 Server.killAll;
 
 "booting server".postln;
-s.latency = 0.5;
+s.latency = 0.2;
 s.waitForBoot {
 	ServerTree.removeAll;
 

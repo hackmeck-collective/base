@@ -217,6 +217,9 @@ Pdef(\penrose_entwicklung1,
 			),
 		])
 		);
+
+		//s.sendMsg("/g_freeAll", ~routing[\sourceGroup]);
+
 	})
 )
 

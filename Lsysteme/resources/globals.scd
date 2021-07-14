@@ -71,7 +71,7 @@
 	triangle: (baseColor: 20, theta: 30, lineSize: -4), //12, 24
 	click: (baseColor: 50, theta: 0, lineSize: -2) // 60
 );
-~gui.latencyCompensation = 0.25;
+~gui.latencyCompensation = 0.1;
 
 if(~localSetup){
 	~targetServer = Server.default;
@@ -202,22 +202,23 @@ Pdef(\playVisuals,
 			0
 		}
 	) <>
-	Pdef(\play) <>
-	PtimeClutch(
-		Pbind(\sendToGui, Pfunc {
-			if(~gui.points.isEmpty.not){
-				~gui.points.do { |p|
-					//var wp1 = (p[0][0]) * ~gui.scale,  // ~win.bounds.bottom/2 oder so
-					//wp2 = (p[0][1]) * ~gui.scale,
-					//oscMsg = p;//(wp1.asArray ++ wp2.asArray).asInteger ++ p[1..];
-					{~gui.toProcessing.sendMsg('/lines', *p)}.defer(~targetServer.latency - ~gui.latencyCompensation) // damit es mit server latency zusammen kommt
-				};
-				~gui.points.clear;
-			};
-			0
-		})
-	)
+	Pdef(\play)
 );
 
+~sendVisuals = Routine {
+	loop {
+		if(~gui.points.isEmpty.not){
+			~gui.points.do { |p|
+				//var wp1 = (p[0][0]) * ~gui.scale,  // ~win.bounds.bottom/2 oder so
+				//wp2 = (p[0][1]) * ~gui.scale,
+				//oscMsg = p;//(wp1.asArray ++ wp2.asArray).asInteger ++ p[1..];
+				{~gui.toProcessing.sendMsg('/lines', *p)}.defer(~targetServer.latency - ~gui.latencyCompensation) // damit es mit server latency zusammen kommt
+			};
+			~gui.points.clear;
+		};
+		//thisThread.beats.postln;
+		0.04.wait; // frameRate
+	}
+};
 
 thisProcess.openUDPPort(9010);

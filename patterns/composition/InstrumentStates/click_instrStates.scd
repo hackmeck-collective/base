@@ -235,7 +235,7 @@
 		\envelope_mod, 0,
 		\amp, 3.dbamp,
 		\spread, 1,
-		\centerPos, Pseq([0, -0.5, 0.5, 1, -1], inf),
+		\centerPos, 0, /*Pseq([0, -0.5, 0.5, 1, -1], inf),*/
 
 		\filter_1_mod_1, 0.2, //bpf
 		\filter_1_mod_2, 0.7,

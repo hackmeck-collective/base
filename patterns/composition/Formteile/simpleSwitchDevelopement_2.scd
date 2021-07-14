@@ -54,5 +54,10 @@ Pdef(\simpleSwitchDevelopement_2,
 			~simpleSwitchInstrState_5.(
 				inputPattern: Pdef(\simpleSwitch_dev6))
 		));
+
+
+
+		// s.sendMsg("/g_freeAll", ~routing[\sourceGroup]);
+
 	})
 );

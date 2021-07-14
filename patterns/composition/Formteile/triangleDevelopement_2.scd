@@ -125,5 +125,8 @@ Pdef(\triangleDevelopement_2,
 			inputPattern: Pdef(\fraktal_philipp))
 		);
 
+		// s.sendMsg("/g_freeAll", ~routing[\sourceGroup]);
+
+
 	})
 )

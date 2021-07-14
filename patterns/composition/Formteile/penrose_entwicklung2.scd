@@ -61,8 +61,8 @@ Pdef(\penrose_entwicklung2,
 
 		sp.seq(Ppar([
 			Pbind(\amp, 0.23) <> ~penroseInstrState_7.(
-			inputPattern: Pfindur(16,Pn(Pdef(\penrose_pauses_gen4),1))) //42.833333333333 original
-			])
+				inputPattern: Pfindur(16,Pn(Pdef(\penrose_pauses_gen4),1))) //42.833333333333 original
+		])
 		);
 
 		"penrose_canon".postln;
@@ -73,9 +73,9 @@ Pdef(\penrose_entwicklung2,
 			~penroseInstrState_7.(
 				inputPattern: Pseq([
 					Pdef(\penrose_canon_1),
-				Pdef(\penrose_canon_2)], 2)
+					Pdef(\penrose_canon_2)], 2)
 			),
-			])
+		])
 		);
 
 		"penrose_canon_pausen x fade".postln;
@@ -86,11 +86,11 @@ Pdef(\penrose_entwicklung2,
 			~patternVolumeFade.(
 				pat1:
 				~penroseInstrState_8.(
-				inputPattern: Pn(Pdef(\penrose_canon_pausen_1),5)),
+					inputPattern: Pn(Pdef(\penrose_canon_pausen_1),5)),
 
 				pat2:
 				~penroseInstrState_7.(
-				inputPattern: Pfindur(34.166666666667, Pn(Pdef(\penrose_canon_1),5))),
+					inputPattern: Pfindur(34.166666666667, Pn(Pdef(\penrose_canon_1),5))),
 
 				length: 34.166666666667,
 				delta: penrose_baseTempo
@@ -106,7 +106,7 @@ Pdef(\penrose_entwicklung2,
 			~penroseInstrState_8.(
 				inputPattern: Pdef(\penrose_canon_pausen_1)
 			)
-			])
+		])
 		);
 
 		"penrose_canon_pausen2".postln;
@@ -117,7 +117,7 @@ Pdef(\penrose_entwicklung2,
 			~penroseInstrState_8.(
 				inputPattern: Pdef(\penrose_canon_pausen_2)
 			)
-			])
+		])
 		);
 
 		"penrose_canon_mehr_pausen x-fade".postln;
@@ -125,17 +125,17 @@ Pdef(\penrose_entwicklung2,
 
 
 		sp.seq(Pfindur(30.999999999999,
-		~patternVolumeFade.(
-		pat1:
-		~penroseInstrState_8.(
-		inputPattern: Pn(Pdef(\penrose_canon_mehr_pausen),12)),
+			~patternVolumeFade.(
+				pat1:
+				~penroseInstrState_8.(
+					inputPattern: Pn(Pdef(\penrose_canon_mehr_pausen),12)),
 
-		pat2:
-		~penroseInstrState_8.(
-		inputPattern: Pfindur(30.999999999999,Pn(Pdef(\penrose_canon_pausen_2),9))),
+				pat2:
+				~penroseInstrState_8.(
+					inputPattern: Pfindur(30.999999999999,Pn(Pdef(\penrose_canon_pausen_2),9))),
 
-		length: 30.999999999999,
-		delta: penrose_baseTempo
+				length: 30.999999999999,
+				delta: penrose_baseTempo
 		))
 
 		);
@@ -153,9 +153,9 @@ Pdef(\penrose_entwicklung2,
 		);
 		sp.seq(
 			Pbind(\vol, Pseg([0,1],[20.666666666667]))
-		<>
-		~penroseInstrState_8.(
-			inputPattern: Pn(Pdef(\penrose_canon_mehr_pausen_ht),2)) //dauert 20,666666
+			<>
+			~penroseInstrState_8.(
+				inputPattern: Pn(Pdef(\penrose_canon_mehr_pausen_ht),2)) //dauert 20,666666
 		);
 		"normaltime fade out".postln;
 		~cueSymbols[\new] = 'normaltime fade out';
@@ -234,5 +234,8 @@ Pdef(\penrose_entwicklung2,
 
 
 		);
+
+		// s.sendMsg("/g_freeAll", ~routing[\sourceGroup]);
+
 	})
 )

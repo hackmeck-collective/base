@@ -242,6 +242,11 @@ Pdef(\layers,
 		));
 
 
+
+		// s.sendMsg("/g_freeAll", ~routing[\sourceGroup]);
+
+
+
 		"weed".postln;
 		~cueSymbols[\new] = 'weed';
 
