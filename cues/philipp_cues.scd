@@ -245,7 +245,8 @@ SOLO";
 }
 );
 ~philippCues.add('fraktal_philipp' -> {
-	~cueWindowText.string = "5-0-5-Whole Tone-36-96";
+	~cueWindowText.string = "5-0-5-Whole Tone-36-96
+5-0-5-Whole Tone-48-96";
 	"fraktal_philipp".postln;
 }
 );

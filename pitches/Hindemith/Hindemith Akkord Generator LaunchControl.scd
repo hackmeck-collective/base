@@ -52,7 +52,71 @@ if (MIDIClient.initialized.not){
 
 
 
+/*
+pixels[x*width+y*height] = pixels[x*width-y*heigth/2];
 
+
+
+0 0 > 0 0
+1 0 > 1 0
+2 0 > 2 0
+3 0 > 3 0
+...
+10 0 > 10 0
+0 1 > 0 1
+1 1 > 1 1
+2 1 > 2 1
+3 1 > 3 1
+...
+9 4 > 9 4
+10 4 > 10 4
+0 5 > 0 5        height-
+1 5 > 1 5
+2 5 > 2 5
+3 5 > 3 5
+...
+10 5 > 10 5
+0 6 > 0 4       height-y
+
+void flipHalf(){
+loadPixels();
+for(int x = width/2 x < width; x++){
+    for(int y = 0; y < height; y++){
+        pixels[x+y*width] = pixels[(width-x)+y*width];
+    }
+}
+for (int x = 0; x < width; x++){
+    for (int y = height/2; y < height; y++){
+      pixels[x+y*width] = pixels[(x+(y/2)*width)];
+    }
+  }
+updatePixels();
+}
+
+
+With mirror I would guess that you need to change
+
+int temp = pixelData[x][y];
+pixelData[x][y]=pixelData[width-x][y]
+pixelData[width-x][y]=temp;
+
+to something like this only
+
+pixelData[x][y]=pixelData[width-x][y]
+
+Share
+Follow
+answered Apr 15 '10 at 17:10
+Adriaan Stander
+152k2727 gold badges270270 silver badges278278 bronze badges
+Add a comment
+4
+
+You need to use width-1-x instead of width-x, and height-1-y instead of height-y. Otherwise for x==0 you'll try to index [width], which is outside the array.
+
+
+
+*/
 
 
 
