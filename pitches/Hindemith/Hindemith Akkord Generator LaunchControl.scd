@@ -104,13 +104,6 @@ to something like this only
 
 pixelData[x][y]=pixelData[width-x][y]
 
-Share
-Follow
-answered Apr 15 '10 at 17:10
-Adriaan Stander
-152k2727 gold badges270270 silver badges278278 bronze badges
-Add a comment
-4
 
 You need to use width-1-x instead of width-x, and height-1-y instead of height-y. Otherwise for x==0 you'll try to index [width], which is outside the array.
 
